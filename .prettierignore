@@ -1,0 +1,6 @@
+.next/
+out/
+node_modules/
+*.min.*
+public/**/*.mp4
+public/**/*.webm

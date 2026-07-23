@@ -17,8 +17,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Sonarche — From the stream into the Ark",
-  description:
-    "Sonarche is a free, open-source desktop app for building and owning an offline music library.",
+  description: "Sonarche is a free, open-source desktop app for building and owning an offline music library.",
 };
 
 export default function RootLayout({
@@ -27,13 +26,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col bg-background text-foreground">
-        {children}
-      </body>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+      <body className="bg-background text-foreground flex min-h-full flex-col">{children}</body>
     </html>
   );
 }
