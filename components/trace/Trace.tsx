@@ -4,6 +4,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
 import { createTrace } from "./engine";
+import { TRACE_WIDE } from "./TraceSegment";
 
 gsap.registerPlugin(useGSAP);
 
@@ -21,13 +22,19 @@ gsap.registerPlugin(useGSAP);
  * Reduced motion gets the line drawn and fully read — the end state of a page
  * someone has scrolled through — with no clock at all. The drawing survives;
  * only the movement goes.
+ *
+ * Both conditions are gated on width: below `lg` the segments are display:none
+ * (see TraceSegment) and there is nothing to draw into, so running the clock
+ * would be pure cost on the one class of device that can least afford it.
+ * gsap.matchMedia reverts on a resize past the breakpoint, so a phone rotated
+ * into a wide layout starts the line and a window narrowed drops it.
  */
 
 export function Trace() {
   useGSAP(() => {
     const mm = gsap.matchMedia();
 
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
+    mm.add(`${TRACE_WIDE} and (prefers-reduced-motion: no-preference)`, () => {
       const trace = createTrace();
       // Body resizes cover both a window resize and anything below the fold
       // changing height (a font landing, an image finally decoding).
@@ -41,7 +48,7 @@ export function Trace() {
       };
     });
 
-    mm.add("(prefers-reduced-motion: reduce)", () => {
+    mm.add(`${TRACE_WIDE} and (prefers-reduced-motion: reduce)`, () => {
       const trace = createTrace();
       const redraw = () => {
         trace.invalidate();

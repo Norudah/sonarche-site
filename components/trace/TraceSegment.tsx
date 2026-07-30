@@ -26,6 +26,22 @@ import type { CSSProperties } from "react";
  * `live` the bulge around the playhead, `dot` the playhead itself.
  */
 
+/*
+ * Wide screens only.
+ *
+ * The trace is drawn for a page with margins. On a phone the copy runs the full
+ * width, so a line that follows its own curve has nowhere to go but through the
+ * middle of every paragraph, permanently — what reads as a thread on a desktop
+ * reads as a scratch on the glass. It is switched off rather than tamed: there
+ * is no version of it that is worth a line across the text on a 390px column.
+ *
+ * `lg`, the same 64rem where the page's own layouts go wide (see Under the deck
+ * and Deck). This string and the `lg:block` below are the two halves of one
+ * decision and have to stay equal: the css hides the drawing, the media query
+ * stops the clock in Trace.tsx so nothing is computed for it either.
+ */
+export const TRACE_WIDE = "(min-width: 64rem)";
+
 const INK = {
   base: "oklch(0.955 0.008 277)",
   lit: "oklch(0.912 0.026 277)",
@@ -45,7 +61,7 @@ type TraceSegmentProps = {
 
 export function TraceSegment({ start, end, className = "absolute inset-0 z-[-1]", style }: TraceSegmentProps) {
   return (
-    <div aria-hidden className={`pointer-events-none overflow-hidden ${className}`} style={style}>
+    <div aria-hidden className={`pointer-events-none hidden overflow-hidden lg:block ${className}`} style={style}>
       {/*
        * `overflow-visible` is load-bearing, not tidiness. A root <svg> clips to
        * its own viewport by default, and this one drifts vertically every frame:
