@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:oklch(0.995 0.0012 75);color:oklch(0.21 0.015 277);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:oklch(0.58 0.21 277)}a:hover{color:oklch(0.48 0.19 277)}
+@keyframes onde-bar{0%,100%{transform:scaleY(0.3)}50%{transform:scaleY(1)}}
+@keyframes eq-float{0%,100%{transform:translateY(1.5px)}50%{transform:translateY(-3.5px)}}
+@keyframes ark-sail-soft{0%{transform:translateX(-42px)}100%{transform:translateX(42px)}}
+@keyframes rain-fall{0%{transform:translateY(-90px)}100%{transform:translateY(760px)}}
+@keyframes water-ring{0%,20%{opacity:0;transform:scaleX(0.4)}28%{opacity:0.7;transform:scaleX(1.1)}44%,100%{opacity:0;transform:scaleX(1.8)}}
+@keyframes splash{0%{transform:scaleX(0.2);opacity:0.5}100%{transform:scaleX(1.6);opacity:0}}
+@keyframes water-bar{0%,100%{transform:scaleY(0.78)}50%{transform:scaleY(1.18)}}
+@keyframes sea-drift-a{0%{transform:translateX(-26px)}100%{transform:translateX(26px)}}
+@keyframes sea-drift-b{0%{transform:translateX(20px)}100%{transform:translateX(-20px)}}
+@keyframes px-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes dash-flow{to{stroke-dashoffset:-24}}
+@keyframes fp-bar{0%,100%{transform:scaleY(0.25)}50%{transform:scaleY(1)}}
+@keyframes chip-swap{0%,44%{opacity:1;transform:translateY(0)}50%,94%{opacity:0;transform:translateY(-8px)}100%{opacity:1;transform:translateY(0)}}
+@keyframes chip-swap-b{0%,44%{opacity:0;transform:translateY(8px)}50%,94%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(8px)}}
+@keyframes cursor-nudge{0%,40%{transform:translate(0,0)}55%,90%{transform:translate(-4px,-16px)}100%{transform:translate(0,0)}}
+@keyframes ark-float{0%,100%{transform:translateY(2px)}50%{transform:translateY(-8px)}}
+@keyframes ark-roll{0%,100%{transform:rotate(-2.4deg)}50%{transform:rotate(2.4deg)}}
+@keyframes sail{0%{transform:translateX(-190px)}100%{transform:translateX(190px)}}
+@keyframes crane-trolley{0%,54%{transform:translateX(0)}66%,84%{transform:translateX(-196px)}96%,100%{transform:translateX(0)}}
+@keyframes crane-hoist{0%,8%{transform:translateY(0)}24%,40%{transform:translateY(74px)}52%,64%{transform:translateY(0)}72%,80%{transform:translateY(40px)}88%,100%{transform:translateY(0)}}
+@keyframes crane-cable{0%,8%{transform:scaleY(1)}24%,40%{transform:scaleY(1.73)}52%,64%{transform:scaleY(1)}72%,80%{transform:scaleY(1.39)}88%,100%{transform:scaleY(1)}}
+@keyframes catch-bars{0%,26%{opacity:0}34%,74%{opacity:1}78%,100%{opacity:0}}
+@keyframes hold-glow{0%,74%{opacity:0}82%{opacity:1}94%,100%{opacity:0}}
+@keyframes pl-bar{0%,100%{transform:scaleY(0.25)}50%{transform:scaleY(1)}}
+@keyframes pl-cover-glow{0%,100%{opacity:0.55}50%{opacity:0.9}}
+</style>
+</helmet>
+<div style="width:100%;min-width:1440px;background:oklch(0.995 0.0012 75);overflow:clip;position:relative">
+
+<div id="trace" style="position:absolute;left:0;top:0;right:0;bottom:0;z-index:0;pointer-events:none;overflow:hidden">
+  <svg data-trace-seg="page" width="1440" height="4000" viewBox="0 0 1440 4000" fill="none" style="position:absolute;left:0;top:0;will-change:transform;display:{{ waveDisplay }}">
+    <path data-tp="base" d="" stroke="oklch(0.94 0.01 277)" stroke-width="1.1" fill="none"></path>
+    <path data-tp="lit" d="" stroke="oklch(0.885 0.032 277)" stroke-width="1.4" fill="none" stroke-linecap="round"></path>
+    <path data-tp="live" d="" stroke="oklch(0.74 0.12 277)" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.8"></path>
+    <circle data-tp="dot" r="0" fill="oklch(0.62 0.18 277)" opacity="0.5"></circle>
+  </svg>
+</div>
+
+<div style="position:fixed;right:20px;top:20px;z-index:80;display:flex;flex-direction:column;gap:8px;background:oklch(1 0 0 / 0.86);backdrop-filter:blur(8px);border:1px solid oklch(0.9 0.012 277);border-radius:14px;padding:12px 14px;box-shadow:0 10px 30px oklch(0.35 0.06 277 / 0.12)">
+  <div style="font:600 9px/1 ui-monospace,Menlo,monospace;letter-spacing:0.16em;color:oklch(0.6 0.02 277)">PREVIEW VARIANTS</div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <div style="font:500 10px/1 ui-monospace,Menlo,monospace;color:oklch(0.5 0.02 277);width:34px">HERO</div>
+    <div style="display:flex;gap:4px">
+      <div onClick="{{ pickHeroStorm }}" style="font:600 11px/1 ui-sans-serif,system-ui,sans-serif;padding:7px 11px;border-radius:8px;cursor:pointer;background:{{ hrBg }};color:{{ hrFg }}">Storm</div>
+      <div onClick="{{ pickHeroVoyage }}" style="font:600 11px/1 ui-sans-serif,system-ui,sans-serif;padding:7px 11px;border-radius:8px;cursor:pointer;background:{{ hvBg }};color:{{ hvFg }}">Voyage</div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <div style="font:500 10px/1 ui-monospace,Menlo,monospace;color:oklch(0.5 0.02 277);width:34px">FLOW</div>
+    <div style="display:flex;gap:4px">
+      <div onClick="{{ pickFlowCascade }}" style="font:600 11px/1 ui-sans-serif,system-ui,sans-serif;padding:7px 11px;border-radius:8px;cursor:pointer;background:{{ fcBg }};color:{{ fcFg }}">Cascade</div>
+      <div onClick="{{ pickFlowStage }}" style="font:600 11px/1 ui-sans-serif,system-ui,sans-serif;padding:7px 11px;border-radius:8px;cursor:pointer;background:{{ fsBg }};color:{{ fsFg }}">Deck</div>
+    </div>
+  </div>
+</div>
+
+<section data-screen-label="Hero" style="position:relative;z-index:1;height:860px;overflow:hidden;background:linear-gradient(180deg, oklch(0.986 0.004 277), oklch(0.972 0.01 277) 55%, oklch(0.93 0.036 277) 100%)">
+  <div style="position:absolute;left:0;right:0;top:0;height:700px;overflow:hidden;z-index:1">
+    <sc-for list="{{ rain }}" as="r" hint-placeholder-count="24">
+      <div style="position:absolute;top:0;width:1.8px;border-radius:1px;background:linear-gradient(to bottom, oklch(0.75 0.08 277 / 0), oklch(0.54 0.17 277));left:{{ r.left }};height:{{ r.height }};opacity:{{ r.opacity }};animation:rain-fall {{ r.dur }} linear {{ r.delay }} infinite"></div>
+    </sc-for>
+    <div style="position:absolute;left:0;right:0;top:0;height:180px;background:linear-gradient(180deg, oklch(0.9 0.03 277 / 0.6), transparent)"></div>
+  </div>
+
+  <sc-if value="{{ heroStorm }}" hint-placeholder-val="{{ true }}">
+  <div style="position:absolute;left:0;right:0;top:0;bottom:0;z-index:1">
+    <div style="position:absolute;left:0;right:0;top:0;bottom:0;animation:sea-drift-b 38s ease-in-out infinite alternate">
+      <sc-for list="{{ seaDeep }}" as="b" hint-placeholder-count="20">
+        <div style="position:absolute;bottom:158px;width:7px;margin-left:-3.5px;border-radius:3.5px;transform-origin:bottom;left:{{ b.left }};height:{{ b.height }};background:{{ b.bg }};opacity:{{ b.opacity }};animation:water-bar {{ b.dur }} ease-in-out {{ b.delay }} infinite"></div>
+      </sc-for>
+    </div>
+    <div style="position:absolute;left:0;right:0;top:0;bottom:0;animation:sea-drift-a 29s ease-in-out infinite alternate">
+      <sc-for list="{{ seaBack }}" as="b" hint-placeholder-count="40">
+        <div style="position:absolute;bottom:160px;width:4px;margin-left:-2px;border-radius:2px;transform-origin:bottom;left:{{ b.left }};height:{{ b.height }};background:{{ b.bg }};opacity:{{ b.opacity }};animation:water-bar {{ b.dur }} ease-in-out {{ b.delay }} infinite"></div>
+      </sc-for>
+    </div>
+    <div style="position:absolute;left:0;right:0;top:0;bottom:0;z-index:2;animation:{{ arkDriftAnim }}">
+    <div style="position:absolute;left:50%;margin-left:-160px;top:430px;width:320px;z-index:2;filter:drop-shadow(0 20px 24px oklch(0.4 0.12 277 / 0.2))">
+      <dc-import name="SonarcheArk" dock="hero" hint-size="320px,320px"></dc-import>
+    </div>
+    <div style="position:absolute;left:50%;top:500px;margin-left:-23px;z-index:5;display:flex;align-items:center;gap:3px;height:26px;filter:drop-shadow(0 2px 8px oklch(0.58 0.21 277 / 0.5));animation:eq-float 3.8s ease-in-out infinite">
+      <div style="width:4px;height:10px;border-radius:2px;background:oklch(0.58 0.21 277);animation:onde-bar 0.9s ease-in-out -0.1s infinite"></div>
+      <div style="width:4px;height:18px;border-radius:2px;background:oklch(0.58 0.21 277);animation:onde-bar 0.9s ease-in-out -0.35s infinite"></div>
+      <div style="width:4px;height:26px;border-radius:2px;background:oklch(0.58 0.21 277);animation:onde-bar 0.9s ease-in-out -0.6s infinite"></div>
+      <div style="width:4px;height:16px;border-radius:2px;background:oklch(0.58 0.21 277);animation:onde-bar 0.9s ease-in-out -0.2s infinite"></div>
+      <div style="width:4px;height:22px;border-radius:2px;background:oklch(0.58 0.21 277);animation:onde-bar 0.9s ease-in-out -0.5s infinite"></div>
+      <div style="width:4px;height:12px;border-radius:2px;background:oklch(0.58 0.21 277);animation:onde-bar 0.9s ease-in-out -0.75s infinite"></div>
+    </div>
+    </div>
+    <sc-for list="{{ seaFront }}" as="b" hint-placeholder-count="14">
+      <div style="position:absolute;bottom:160px;width:4px;margin-left:-2px;border-radius:2px;z-index:3;transform-origin:bottom;left:{{ b.left }};height:{{ b.height }};background:{{ b.bg }};opacity:{{ b.opacity }};animation:water-bar {{ b.dur }} ease-in-out {{ b.delay }} infinite"></div>
+    </sc-for>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ heroVoyage }}" hint-placeholder-val="{{ false }}">
+  <div style="position:absolute;left:0;right:0;top:0;bottom:0;z-index:1">
+    <div style="position:absolute;left:0;right:0;top:0;bottom:0;animation:sea-drift-b 38s ease-in-out infinite alternate">
+      <sc-for list="{{ seaDeep }}" as="b" hint-placeholder-count="20">
+        <div style="position:absolute;bottom:158px;width:7px;margin-left:-3.5px;border-radius:3.5px;transform-origin:bottom;left:{{ b.left }};height:{{ b.height }};background:{{ b.bg }};opacity:{{ b.opacity }};animation:water-bar {{ b.dur }} ease-in-out {{ b.delay }} infinite"></div>
+      </sc-for>
+    </div>
+    <div style="position:absolute;left:0;right:0;top:0;bottom:0;animation:sea-drift-a 29s ease-in-out infinite alternate">
+      <sc-for list="{{ seaBack }}" as="b" hint-placeholder-count="40">
+        <div style="position:absolute;bottom:160px;width:4px;margin-left:-2px;border-radius:2px;transform-origin:bottom;left:{{ b.left }};height:{{ b.height }};background:{{ b.bg }};opacity:{{ b.opacity }};animation:water-bar {{ b.dur }} ease-in-out {{ b.delay }} infinite"></div>
+      </sc-for>
+    </div>
+    <div style="position:absolute;left:50%;margin-left:-280px;top:430px;width:560px;height:360px;z-index:2;animation:sail 30s ease-in-out infinite alternate">
+      <div style="position:absolute;left:120px;top:0;width:320px;filter:drop-shadow(0 20px 24px oklch(0.4 0.12 277 / 0.2))">
+        <dc-import name="SonarcheArk" dock="voyage" hint-size="320px,320px"></dc-import>
+      </div>
+      <div style="position:absolute;left:0;top:0;width:560px;height:360px;animation:ark-float 4.7s ease-in-out infinite">
+      <div style="position:absolute;left:0;top:0;width:560px;height:360px;animation:ark-roll 6.3s ease-in-out infinite;transform-origin:280px 237px">
+      <svg width="560" height="360" viewBox="0 0 560 360" fill="none" style="position:absolute;left:0;top:0;overflow:visible">
+        <ellipse cx="501" cy="268" rx="30" ry="5.5" fill="none" stroke="#818cf9" stroke-width="2" style="animation:water-ring 9s ease-in-out infinite;transform-origin:501px 268px;transform-box:view-box"></ellipse>
+        <g style="animation:hold-glow 9s ease-in-out infinite">
+          <rect x="286" y="200" width="34" height="16" rx="4" fill="#4f52c1"></rect>
+          <rect x="291" y="204" width="2.4" height="8" rx="1.2" fill="#c5cbef"></rect>
+          <rect x="296" y="202" width="2.4" height="12" rx="1.2" fill="#e2e7fc"></rect>
+          <rect x="301" y="205" width="2.4" height="6" rx="1.2" fill="#c5cbef"></rect>
+          <rect x="306" y="203" width="2.4" height="10" rx="1.2" fill="#e2e7fc"></rect>
+          <rect x="311" y="206" width="2.4" height="5" rx="1.2" fill="#c5cbef"></rect>
+        </g>
+        <rect x="250" y="106" width="60" height="8" rx="3" fill="#2e3172"></rect>
+        <path d="M258,110 L280,84 L302,110" fill="none" stroke="#3d4097" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"></path>
+        <rect x="275" y="74" width="10" height="38" rx="4" fill="#3d4097"></rect>
+        <rect x="277" y="76" width="3" height="34" rx="1.5" fill="#818cf9"></rect>
+        <path d="M280,78 L502,90" stroke="#818cf9" stroke-width="2" stroke-linecap="round"></path>
+        <rect x="280" y="90" width="226" height="8" rx="4" fill="#3d4097"></rect>
+        <rect x="282" y="92" width="222" height="2.6" rx="1.3" fill="#818cf9"></rect>
+        <path d="M366,98 L300,118" stroke="#3d4097" stroke-width="4" stroke-linecap="round"></path>
+        <circle cx="280" cy="132" r="11" fill="#2e3172"></circle>
+        <circle cx="280" cy="132" r="4" fill="#818cf9"></circle>
+        <g style="animation:crane-trolley 9s ease-in-out infinite;transform-box:view-box">
+          <rect x="488" y="82" width="26" height="12" rx="4" fill="#2e3172"></rect>
+          <circle cx="494" cy="84" r="2.4" fill="#818cf9"></circle>
+          <circle cx="508" cy="84" r="2.4" fill="#818cf9"></circle>
+          <g style="animation:crane-cable 9s ease-in-out infinite;transform-origin:501px 94px;transform-box:view-box">
+            <path d="M501,94 L501,196" stroke="#5b5fbf" stroke-width="1.6"></path>
+          </g>
+          <g style="animation:crane-hoist 9s ease-in-out infinite;transform-box:view-box">
+            <path d="M496,192 L506,192 M501,190 L501,198" stroke="#3d4097" stroke-width="2.4" stroke-linecap="round"></path>
+            <path d="M479,198 h44 a3,3 0 0 1 3,3 l-4,20 a4,4 0 0 1 -4,3 h-34 a4,4 0 0 1 -4,-3 l-4,-20 a3,3 0 0 1 3,-3 Z" fill="#efa831"></path>
+            <rect x="479" y="198" width="44" height="4" rx="2" fill="#fae1b8"></rect>
+            <rect x="483" y="210" width="36" height="3" rx="1.5" fill="#fae1b8" opacity="0.75"></rect>
+            <g style="animation:catch-bars 9s ease-in-out infinite">
+              <rect x="487" y="208" width="3" height="11" rx="1.5" fill="#3d4097"></rect>
+              <rect x="493" y="204" width="3" height="15" rx="1.5" fill="#3d4097"></rect>
+              <rect x="499" y="207" width="3" height="12" rx="1.5" fill="#3d4097"></rect>
+              <rect x="505" y="203" width="3" height="16" rx="1.5" fill="#3d4097"></rect>
+              <rect x="511" y="209" width="3" height="10" rx="1.5" fill="#3d4097"></rect>
+            </g>
+          </g>
+        </g>
+      </svg>
+      </div>
+      </div>
+      <sc-for list="{{ seaWake }}" as="b" hint-placeholder-count="14">
+        <div style="position:absolute;bottom:88px;width:4px;margin-left:-2px;border-radius:2px;z-index:4;transform-origin:bottom;left:{{ b.left }};height:{{ b.height }};background:{{ b.bg }};opacity:{{ b.opacity }};animation:water-bar {{ b.dur }} ease-in-out {{ b.delay }} infinite"></div>
+      </sc-for>
+    </div>
+  </div>
+  </sc-if>
+
+  <div style="position:absolute;left:0;right:0;top:0;bottom:0;z-index:1">
+    <div style="position:absolute;left:0;right:0;top:700px;height:1.4px;background:linear-gradient(90deg, oklch(0.72 0.08 277 / 0.45), oklch(0.64 0.14 277 / 0.7) 50%, oklch(0.72 0.08 277 / 0.45))"></div>
+    <sc-for list="{{ splashes }}" as="s" hint-placeholder-count="10">
+      <div style="position:absolute;top:697px;height:6px;border-radius:50%;border:1.3px solid oklch(0.6 0.18 277 / 0.7);left:{{ s.left }};width:{{ s.w }};animation:splash {{ s.dur }} ease-out {{ s.delay }} infinite"></div>
+    </sc-for>
+    <div style="position:absolute;left:0;right:0;top:701px;bottom:0;background:linear-gradient(180deg, oklch(0.88 0.05 277 / 0.5), oklch(0.93 0.036 277 / 0))"></div>
+  </div>
+
+  <div style="position:absolute;left:0;right:0;top:640px;bottom:0;z-index:3;overflow:hidden">
+    <svg data-trace-seg="hero" width="1440" height="220" viewBox="0 0 1440 220" fill="none" style="position:absolute;left:0;top:0;will-change:transform;display:{{ waveDisplay }}">
+      <path data-tp="base" d="" stroke="oklch(0.88 0.035 277)" stroke-width="1.2" fill="none"></path>
+      <path data-tp="lit" d="" stroke="oklch(0.8 0.075 277)" stroke-width="1.5" fill="none" stroke-linecap="round"></path>
+      <path data-tp="live" d="" stroke="oklch(0.6 0.19 277)" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.9"></path>
+      <circle data-tp="dot" r="0" fill="oklch(0.58 0.2 277)" opacity="0.45"></circle>
+    </svg>
+  </div>
+
+  <div style="position:absolute;left:0;right:0;top:88px;z-index:4;display:flex;flex-direction:column;align-items:center">
+    <div style="font:600 12px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:0.34em;color:oklch(0.5 0.16 277)">FREE · OPEN SOURCE · OFFLINE</div>
+    <div style="font:800 138px/1 'Space Grotesk',sans-serif;letter-spacing:0.015em;color:oklch(0.19 0.02 277);margin-top:20px">SONARCHE</div>
+    <div style="font:italic 400 31px/1.3 'Instrument Serif',serif;color:oklch(0.45 0.1 277);margin-top:12px">From the stream into the Ark.</div>
+    <div style="font:400 17.5px/1.6 ui-sans-serif,system-ui,sans-serif;color:oklch(0.45 0.02 277);margin-top:10px;max-width:540px;text-align:center">A music library that's truly yours — every track identified by its own audio, named in plain files, played on a native engine.</div>
+    <div style="display:flex;align-items:center;gap:14px;margin-top:24px">
+      <a href="https://github.com/Norudah/sonarche" style="display:inline-flex;align-items:center;gap:10px;padding:15px 30px;border-radius:999px;background:oklch(0.58 0.21 277);color:oklch(0.99 0 0);font:600 16px/1 'Space Grotesk',sans-serif;text-decoration:none;box-shadow:0 8px 26px oklch(0.58 0.21 277 / 0.3)" style-hover="background:oklch(0.52 0.2 277);color:oklch(0.99 0 0)">Get Sonarche on GitHub ↗</a>
+      <a href="#flow" style="display:inline-flex;align-items:center;padding:15px 24px;border-radius:999px;border:1px solid oklch(0.85 0.02 277);color:oklch(0.35 0.03 277);font:500 15px/1 ui-sans-serif,system-ui,sans-serif;text-decoration:none;background:oklch(1 0 0 / 0.72)" style-hover="border-color:oklch(0.58 0.21 277);color:oklch(0.45 0.15 277)">See how it works ↓</a>
+    </div>
+  </div>
+
+  <div style="position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:5;font:600 11px/1 'Space Grotesk',sans-serif;letter-spacing:0.24em;color:oklch(0.42 0.06 277)">SCROLL ↓</div>
+</section>
+
+<section data-screen-label="Manifesto" style="position:relative;z-index:1;overflow:hidden;background:linear-gradient(180deg, oklch(0.931 0.036 277), oklch(0.963 0.018 277) 52%, oklch(0.995 0.0012 75))">
+  <svg data-trace-seg="manifesto" width="1440" height="520" viewBox="0 0 1440 520" fill="none" style="position:absolute;left:0;top:0;z-index:1;will-change:transform;display:{{ waveDisplay }}">
+    <path data-tp="base" d="" stroke="oklch(0.865 0.035 277)" stroke-width="1.2" fill="none"></path>
+    <path data-tp="lit" d="" stroke="oklch(0.79 0.075 277)" stroke-width="1.5" fill="none" stroke-linecap="round"></path>
+    <path data-tp="live" d="" stroke="oklch(0.6 0.19 277)" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.85"></path>
+    <circle data-tp="dot" r="0" fill="oklch(0.58 0.2 277)" opacity="0.45"></circle>
+  </svg>
+  <div style="position:relative;z-index:2;max-width:1000px;margin:0 auto;padding:104px 60px 100px;display:flex;flex-direction:column;align-items:center;gap:24px">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="width:44px;height:1px;background:oklch(0.74 0.07 277)"></div>
+      <div style="font:600 11px/1 ui-monospace,Menlo,monospace;letter-spacing:0.22em;color:oklch(0.48 0.15 277)">WHY IT EXISTS</div>
+      <div style="width:44px;height:1px;background:oklch(0.74 0.07 277)"></div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+      <div style="font:700 54px/1.22 'Space Grotesk',sans-serif;letter-spacing:-0.02em;color:oklch(0.23 0.025 277);text-align:center">Your music should outlive every app.</div>
+      <div style="font:700 54px/1.22 'Space Grotesk',sans-serif;letter-spacing:-0.02em;color:oklch(0.23 0.025 277);text-align:center">Give it <span style="font:italic 400 58px/1 'Instrument Serif',serif;color:oklch(0.46 0.18 277)">true names</span>,</div>
+      <div style="font:700 54px/1.22 'Space Grotesk',sans-serif;letter-spacing:-0.02em;color:oklch(0.23 0.025 277);text-align:center">a home in <span style="font:italic 400 58px/1 'Instrument Serif',serif;color:oklch(0.46 0.18 277)">plain files</span>,</div>
+      <div style="font:700 54px/1.22 'Space Grotesk',sans-serif;letter-spacing:-0.02em;color:oklch(0.23 0.025 277);text-align:center">and a player worthy of it —</div>
+      <div style="font:700 54px/1.22 'Space Grotesk',sans-serif;letter-spacing:-0.02em;color:oklch(0.23 0.025 277);text-align:center"><span style="font:italic 400 58px/1 'Instrument Serif',serif;color:oklch(0.46 0.18 277)">forever, offline, yours</span>.</div>
+    </div>
+    <div style="display:flex;gap:9px;margin-top:8px">
+      <sc-for list="{{ manifestoChips }}" as="c" hint-placeholder-count="4">
+        <div style="font:500 12px/1 ui-monospace,Menlo,monospace;color:oklch(0.42 0.05 277);background:oklch(1 0 0 / 0.7);border:1px solid oklch(0.86 0.03 277);border-radius:999px;padding:9px 14px">{{ c }}</div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="flow" data-screen-label="The flow" style="position:relative;z-index:1;padding:112px 0 120px">
+  <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 60px">
+    <div style="font:600 12px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:0.3em;color:oklch(0.5 0.16 277)">THE FLOW</div>
+    <div style="font:700 52px/1.15 'Space Grotesk',sans-serif;letter-spacing:-0.02em;margin-top:16px;max-width:760px;color:oklch(0.21 0.015 277)">A link goes in. <span style="font:italic 400 56px/1 'Instrument Serif',serif;color:oklch(0.5 0.19 277)">A library</span> comes out.</div>
+    <div style="font:400 17.5px/1.6 ui-sans-serif,system-ui,sans-serif;color:oklch(0.45 0.02 277);margin-top:14px;max-width:580px">Four moves, one uninterrupted pipeline — and nothing to click after the first paste.</div>
+  </div>
+
+  <sc-if value="{{ flowCascade }}" hint-placeholder-val="{{ true }}">
+  <div style="width:1280px;margin:72px auto 0;display:flex;flex-direction:column;gap:76px">
+    <div data-cas="0" style="display:flex;align-items:center;gap:48px;opacity:0.3;transform:translateY(30px);transition:opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1)">
+      <div style="width:448px;height:336px;flex:none"><div style="width:560px;height:420px;transform:scale(0.8);transform-origin:top left"><dc-import name="IsoScene" step="0" hint-size="560px,420px"></dc-import></div></div>
+      <div style="flex:1;display:flex;flex-direction:column;gap:14px;max-width:460px">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="font:600 12px/1 ui-monospace,Menlo,monospace;letter-spacing:0.1em;color:oklch(0.5 0.19 277)">STEP 01</div>
+          <div style="height:1px;flex:1;background:oklch(0.87 0.02 277)"></div>
+        </div>
+        <div style="font:600 32px/1.2 'Space Grotesk',sans-serif;letter-spacing:-0.01em;color:oklch(0.21 0.015 277)">Paste a link</div>
+        <div style="font:400 16px/1.65 ui-sans-serif,system-ui,sans-serif;color:oklch(0.45 0.02 277)">A track, an album, a whole playlist. Drop it in the composer and the voyage lines up — one row per track, before anything is brought in.</div>
+        <div style="font:italic 400 16px/1.5 'Instrument Serif',serif;color:oklch(0.48 0.09 277);margin-top:4px">Already in the hold? It's skipped, silently.</div>
+      </div>
+    </div>
+    <div data-cas="1" style="display:flex;align-items:center;gap:48px;flex-direction:row-reverse;padding-left:70px;opacity:0.3;transform:translateY(30px);transition:opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1)">
+      <div style="width:448px;height:336px;flex:none"><div style="width:560px;height:420px;transform:scale(0.8);transform-origin:top left"><dc-import name="IsoScene" step="1" hint-size="560px,420px"></dc-import></div></div>
+      <div style="flex:1;display:flex;flex-direction:column;gap:14px;max-width:460px;align-items:flex-end;text-align:right">
+        <div style="display:flex;align-items:center;gap:12px;width:100%">
+          <div style="height:1px;flex:1;background:oklch(0.87 0.02 277)"></div>
+          <div style="font:600 12px/1 ui-monospace,Menlo,monospace;letter-spacing:0.1em;color:oklch(0.5 0.19 277)">STEP 02</div>
+        </div>
+        <div style="font:600 32px/1.2 'Space Grotesk',sans-serif;letter-spacing:-0.01em;color:oklch(0.21 0.015 277)">Watch it come aboard</div>
+        <div style="font:400 16px/1.65 ui-sans-serif,system-ui,sans-serif;color:oklch(0.45 0.02 277)">Circles turn green one by one as the native audio is hauled in — untouched, never re-encoded — and lands in the hold.</div>
+        <div style="font:italic 400 16px/1.5 'Instrument Serif',serif;color:oklch(0.48 0.09 277);margin-top:4px">Close the window mid-haul — the queue picks up where it stopped.</div>
+      </div>
+    </div>
+    <div data-cas="2" style="display:flex;align-items:center;gap:48px;padding-left:36px;opacity:0.3;transform:translateY(30px);transition:opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1)">
+      <div style="width:448px;height:336px;flex:none"><div style="width:560px;height:420px;transform:scale(0.8);transform-origin:top left"><dc-import name="IsoScene" step="2" hint-size="560px,420px"></dc-import></div></div>
+      <div style="flex:1;display:flex;flex-direction:column;gap:14px;max-width:460px">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="font:600 12px/1 ui-monospace,Menlo,monospace;letter-spacing:0.1em;color:oklch(0.5 0.19 277)">STEP 03</div>
+          <div style="height:1px;flex:1;background:oklch(0.87 0.02 277)"></div>
+        </div>
+        <div style="font:600 32px/1.2 'Space Grotesk',sans-serif;letter-spacing:-0.01em;color:oklch(0.21 0.015 277)">Fingerprint &amp; identify</div>
+        <div style="font:400 16px/1.65 ui-sans-serif,system-ui,sans-serif;color:oklch(0.45 0.02 277)">ffmpeg and Chromaprint distill the audio itself into an acoustic fingerprint. AcoustID answers with exactly which recording this is — no title-guessing involved.</div>
+        <div style="font:italic 400 16px/1.5 'Instrument Serif',serif;color:oklch(0.48 0.09 277);margin-top:4px">No confident match? It says so and asks — instead of inventing an artist.</div>
+      </div>
+    </div>
+    <div data-cas="3" style="display:flex;align-items:center;gap:48px;flex-direction:row-reverse;padding-left:106px;opacity:0.3;transform:translateY(30px);transition:opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1)">
+      <div style="width:448px;height:336px;flex:none"><div style="width:560px;height:420px;transform:scale(0.8);transform-origin:top left"><dc-import name="IsoScene" step="3" hint-size="560px,420px"></dc-import></div></div>
+      <div style="flex:1;display:flex;flex-direction:column;gap:14px;max-width:460px;align-items:flex-end;text-align:right">
+        <div style="display:flex;align-items:center;gap:12px;width:100%">
+          <div style="height:1px;flex:1;background:oklch(0.87 0.02 277)"></div>
+          <div style="font:600 12px/1 ui-monospace,Menlo,monospace;letter-spacing:0.1em;color:oklch(0.5 0.19 277)">STEP 04</div>
+        </div>
+        <div style="font:600 32px/1.2 'Space Grotesk',sans-serif;letter-spacing:-0.01em;color:oklch(0.21 0.015 277)">It gets its name</div>
+        <div style="font:400 16px/1.65 ui-sans-serif,system-ui,sans-serif;color:oklch(0.45 0.02 277)">Title, artist, album, genre, track, year — and the real cover. All of it written into the file's own tags, and into the folder it now lives in.</div>
+        <div style="font:italic 400 16px/1.5 'Instrument Serif',serif;color:oklch(0.48 0.09 277);margin-top:4px">Into the files themselves — not into a database only Sonarche can read.</div>
+      </div>
+    </div>
+  </div>
+
+
+  </sc-if>
+
+  <sc-if value="{{ flowStage }}" hint-placeholder-val="{{ false }}">
+  <div style="width:1280px;margin:40px auto 0;display:flex;gap:60px;align-items:flex-start;padding:0 40px">
+    <div style="flex:1;display:flex;flex-direction:column">
+      <sc-for list="{{ stageSteps }}" as="s" hint-placeholder-count="4">
+        <div data-stg="{{ s.i }}" style="min-height:74vh;display:flex;flex-direction:column;justify-content:center;gap:14px;border-left:2px solid {{ s.line }};padding-left:28px;transition:border-color 0.5s">
+          <div style="font:600 12px/1 ui-monospace,Menlo,monospace;letter-spacing:0.1em;color:{{ s.numColor }};transition:color 0.5s">STEP {{ s.num }}</div>
+          <div style="font:600 36px/1.15 'Space Grotesk',sans-serif;letter-spacing:-0.01em;color:{{ s.titleColor }};transition:color 0.5s">{{ s.title }}</div>
+          <div style="font:400 16.5px/1.7 ui-sans-serif,system-ui,sans-serif;color:oklch(0.45 0.02 277);max-width:400px">{{ s.text }}</div>
+          <div style="font:italic 400 16px/1.5 'Instrument Serif',serif;color:oklch(0.48 0.09 277);margin-top:2px;max-width:400px">{{ s.note }}</div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="width:560px;flex:none;position:sticky;top:0;height:100vh;display:flex;align-items:center">
+      <div style="position:relative;width:560px;height:420px">
+        <div data-stgs="0" style="position:absolute;left:0;top:0;opacity:1;transition:opacity 0.5s"><dc-import name="IsoScene" step="0" hint-size="560px,420px"></dc-import></div>
+        <div data-stgs="1" style="position:absolute;left:0;top:0;opacity:0;transition:opacity 0.5s"><dc-import name="IsoScene" step="1" hint-size="560px,420px"></dc-import></div>
+        <div data-stgs="2" style="position:absolute;left:0;top:0;opacity:0;transition:opacity 0.5s"><dc-import name="IsoScene" step="2" hint-size="560px,420px"></dc-import></div>
+        <div data-stgs="3" style="position:absolute;left:0;top:0;opacity:0;transition:opacity 0.5s"><dc-import name="IsoScene" step="3" hint-size="560px,420px"></dc-import></div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+</section>
+
+<section data-screen-label="The old way" style="position:relative;z-index:1;padding:110px 0">
+  <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 60px">
+    <div style="font:600 12px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:0.3em;color:oklch(0.52 0.14 45)">THE OLD WAY</div>
+    <div style="font:700 52px/1.15 'Space Grotesk',sans-serif;letter-spacing:-0.02em;margin-top:16px;color:oklch(0.21 0.015 277);max-width:820px">You already know <span style="font:italic 400 56px/1 'Instrument Serif',serif;color:oklch(0.52 0.16 45)">the old way</span>.</div>
+    <div style="font:400 17.5px/1.6 ui-sans-serif,system-ui,sans-serif;color:oklch(0.45 0.02 277);margin-top:14px;max-width:640px">Five tools, four tabs, and a download folder that looks like a crime scene. Every step loses something on the way.</div>
+  </div>
+  <div style="width:1280px;margin:48px auto 0;display:flex;align-items:stretch;gap:14px">
+    <sc-for list="{{ oldChain }}" as="o" hint-placeholder-count="5">
+      <div style="flex:1;border-radius:16px;border:1px dashed oklch(0.82 0.04 45);background:oklch(0.985 0.008 45);padding:20px 18px 22px;display:flex;flex-direction:column;gap:9px">
+        <div style="font:600 10px/1 ui-monospace,Menlo,monospace;letter-spacing:0.1em;color:oklch(0.62 0.1 45)">{{ o.step }}</div>
+        <div style="font:600 15px/1.25 'Space Grotesk',sans-serif;color:oklch(0.3 0.03 277);text-decoration:line-through;text-decoration-color:oklch(0.72 0.16 30 / 0.6);text-decoration-thickness:2px">{{ o.tool }}</div>
+        <div style="font:400 13px/1.55 ui-sans-serif,system-ui,sans-serif;color:oklch(0.48 0.02 277)">{{ o.gripe }}</div>
+        <div style="margin-top:auto;padding-top:12px;font:500 11.5px/1.4 ui-sans-serif,system-ui,sans-serif;color:oklch(0.55 0.16 30)">{{ o.cost }}</div>
+      </div>
+    </sc-for>
+  </div>
+  <div style="display:flex;justify-content:center;padding:22px 0 0">
+    <svg width="240" height="56" viewBox="0 0 240 56" fill="none">
+      <path d="M20,2 C20,32 110,26 120,46 M220,2 C220,32 130,26 120,46" stroke="oklch(0.8 0.05 277)" stroke-width="2" stroke-dasharray="5 7"></path>
+      <path d="M120,22 L120,50" stroke="oklch(0.58 0.21 277)" stroke-width="2.5" stroke-dasharray="6 7" style="animation:dash-flow 1.4s linear infinite"></path>
+      <path d="M113,42 L120,51 L127,42" stroke="oklch(0.58 0.21 277)" stroke-width="2.5" fill="none" stroke-linecap="round"></path>
+    </svg>
+  </div>
+  <div style="display:flex;justify-content:center">
+    <div style="width:760px;border-radius:22px;border:2px solid oklch(0.58 0.21 277);background:linear-gradient(160deg, oklch(0.97 0.022 277), white);padding:34px 40px;display:flex;flex-direction:column;align-items:center;gap:14px;box-shadow:0 26px 60px oklch(0.58 0.21 277 / 0.18)">
+      <div style="font:700 32px/1.2 'Space Grotesk',sans-serif;letter-spacing:-0.01em;color:oklch(0.24 0.06 277);text-align:center">Sonarche does all five. In one window.</div>
+      <div style="font:400 16.5px/1.7 ui-sans-serif,system-ui,sans-serif;color:oklch(0.42 0.03 277);text-align:center;max-width:600px">Point it at a link and walk away. The audio lands in the hold, gets listened to, identified, tagged, given its real cover, filed in the right folder — and then it plays, on a native Rust audio engine. No hand-off, no re-import, no second app.</div>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:4px">
+        <sc-for list="{{ allInOne }}" as="t" hint-placeholder-count="7">
+          <div style="font:500 12px/1 ui-monospace,Menlo,monospace;color:oklch(0.4 0.14 277);background:white;border:1px solid oklch(0.86 0.05 277);border-radius:999px;padding:8px 13px">{{ t }}</div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="Real names" style="position:relative;z-index:1;padding:110px 0;background:oklch(0.976 0.008 277 / 0.8)">
+  <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 60px">
+    <div style="font:600 12px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:0.3em;color:oklch(0.5 0.16 277)">TRUE NAMES</div>
+    <div style="font:700 52px/1.15 'Space Grotesk',sans-serif;letter-spacing:-0.02em;margin-top:16px;color:oklch(0.21 0.015 277);max-width:840px">It doesn't read the title. <span style="font:italic 400 56px/1 'Instrument Serif',serif;color:oklch(0.5 0.19 277)">It listens to the song.</span></div>
+    <div style="font:400 17.5px/1.6 ui-sans-serif,system-ui,sans-serif;color:oklch(0.45 0.02 277);margin-top:14px;max-width:660px">Most tools just copy whatever text happened to come with the file. That's how you end up with an artist called « Official Audio ». Sonarche never guesses: ffmpeg and Chromaprint turn the waveform itself into a fingerprint, AcoustID matches that fingerprint to one exact recording, and MusicBrainz — twenty years of community-verified discography — hands back the real facts.</div>
+  </div>
+  <div style="width:1220px;margin:48px auto 0;display:flex;align-items:center;gap:30px">
+    <div style="flex:1;border-radius:18px;border:1px solid oklch(0.88 0.03 45);background:white;padding:26px;display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div style="font:600 12px/1 ui-monospace,Menlo,monospace;letter-spacing:0.08em;color:oklch(0.58 0.15 40)">SCRAPED FROM THE PAGE</div>
+        <div style="font:500 11px/1 ui-sans-serif,system-ui,sans-serif;color:oklch(0.58 0.15 40);background:oklch(0.96 0.03 45);border-radius:999px;padding:5px 10px">best guess</div>
+      </div>
+      <sc-for list="{{ guessRows }}" as="r" hint-placeholder-count="5">
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <div style="font:500 11px/1 ui-sans-serif,system-ui,sans-serif;color:oklch(0.55 0.02 277)">{{ r.k }}</div>
+          <div style="background:oklch(0.975 0.012 45);border-radius:10px;padding:11px 14px;font:400 13.5px/1.35 ui-sans-serif,system-ui,sans-serif;color:oklch(0.42 0.06 40)">{{ r.v }}</div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="width:190px;flex:none;display:flex;flex-direction:column;align-items:center;gap:14px">
+      <div style="display:flex;align-items:flex-end;gap:2px;height:56px">
+        <sc-for list="{{ fpBars }}" as="f" hint-placeholder-count="26">
+          <div style="width:3px;border-radius:1.5px;background:oklch(0.58 0.21 277);transform-origin:bottom;height:{{ f.h }};opacity:{{ f.o }};animation:fp-bar {{ f.dur }} ease-in-out {{ f.delay }} infinite"></div>
+        </sc-for>
+      </div>
+      <div style="font:600 11px/1.5 ui-monospace,Menlo,monospace;letter-spacing:0.06em;color:oklch(0.45 0.15 277);text-align:center">FINGERPRINT<br>→ ACOUSTID<br>→ MUSICBRAINZ</div>
+      <svg width="120" height="24" viewBox="0 0 120 24" fill="none">
+        <path d="M4,12 L108,12" stroke="oklch(0.58 0.21 277)" stroke-width="2.5" stroke-dasharray="7 7" style="animation:dash-flow 1.2s linear infinite"></path>
+        <path d="M102,6 L112,12 L102,18" stroke="oklch(0.58 0.21 277)" stroke-width="2.5" fill="none" stroke-linecap="round"></path>
+      </svg>
+    </div>
+    <div style="flex:1;border-radius:18px;border:2px solid oklch(0.58 0.21 277);background:white;padding:26px;display:flex;flex-direction:column;gap:14px;box-shadow:0 24px 56px oklch(0.58 0.21 277 / 0.16)">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div style="font:600 12px/1 ui-monospace,Menlo,monospace;letter-spacing:0.08em;color:oklch(0.45 0.15 277)">IDENTIFIED BY THE AUDIO</div>
+        <div style="display:flex;align-items:center;gap:6px;font:500 11px/1 ui-sans-serif,system-ui,sans-serif;color:oklch(0.44 0.13 157);background:oklch(0.95 0.04 157);border-radius:999px;padding:5px 10px"><span style="width:6px;height:6px;border-radius:50%;background:oklch(0.5 0.15 157)"></span>verified</div>
+      </div>
+      <sc-for list="{{ truthRows }}" as="r" hint-placeholder-count="5">
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <div style="font:500 11px/1 ui-sans-serif,system-ui,sans-serif;color:oklch(0.55 0.02 277)">{{ r.k }}</div>
+          <div style="background:oklch(0.968 0.008 277);border-radius:10px;padding:11px 14px;font:400 13.5px/1.35 ui-sans-serif,system-ui,sans-serif;color:oklch(0.24 0.02 277)">{{ r.v }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  <div style="text-align:center;font:italic 400 20px/1.5 'Instrument Serif',serif;color:oklch(0.45 0.1 277);margin-top:34px">And the cover comes with it — the real square artwork, not the fourth result on Google Images.</div>
+</section>
+
+<section data-screen-label="No expertise needed" style="position:relative;z-index:1;padding:110px 0">
+  <div style="max-width:1240px;margin:0 auto;padding:0 60px;display:flex;gap:80px;align-items:center">
+    <div style="flex:1;display:flex;flex-direction:column;gap:18px">
+      <div style="font:600 12px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:0.3em;color:oklch(0.5 0.16 277)">NO EXPERTISE NEEDED</div>
+      <div style="font:700 50px/1.15 'Space Grotesk',sans-serif;letter-spacing:-0.02em;color:oklch(0.21 0.015 277)">You don't need to know what <span style="font:italic 400 54px/1 'Instrument Serif',serif;color:oklch(0.5 0.19 277)">a tag</span> is.</div>
+      <div style="font:400 17px/1.7 ui-sans-serif,system-ui,sans-serif;color:oklch(0.45 0.02 277);max-width:470px">Everything that can be automated already is — you get a tidy library without ever opening a metadata editor. What's left, the app explains in plain words instead of empty fields.</div>
+      <div style="font:400 17px/1.7 ui-sans-serif,system-ui,sans-serif;color:oklch(0.45 0.02 277);max-width:470px">And when it disagrees with you, you win. Convinced your favourite record is Thrash, not Heavy Metal? Change it. One click, no friction — and Sonarche tells you exactly what it wrote, into which files, in words you don't need a wiki for.</div>
+      <div style="display:flex;flex-direction:column;gap:11px;margin-top:4px">
+        <sc-for list="{{ guides }}" as="g" hint-placeholder-count="3">
+          <div style="display:flex;gap:12px;align-items:baseline"><div style="width:7px;height:7px;border-radius:2px;background:oklch(0.58 0.21 277);flex:none"></div><div style="font:400 15px/1.55 ui-sans-serif,system-ui,sans-serif;color:oklch(0.32 0.02 277)">{{ g }}</div></div>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex:1;position:relative;display:flex;justify-content:center">
+      <div style="width:430px;background:white;border:1px solid oklch(0.92 0.008 277);border-radius:18px;padding:26px;box-shadow:0 30px 70px oklch(0.35 0.06 277 / 0.14);display:flex;flex-direction:column;gap:18px">
+        <div style="font:600 14px/1 ui-sans-serif,system-ui,sans-serif;color:oklch(0.2 0.01 277)">Genre — Ride the Lightning</div>
+        <div style="position:relative;height:46px">
+          <div style="position:absolute;left:0;top:0;display:inline-flex;align-items:center;gap:9px;border-radius:12px;border:1px solid oklch(0.9 0.01 277);background:oklch(0.968 0.006 277);padding:13px 16px;font:500 14px/1 ui-sans-serif,system-ui,sans-serif;color:oklch(0.3 0.02 277);animation:chip-swap 5.2s ease-in-out infinite">
+            <span style="width:8px;height:8px;border-radius:2px;background:oklch(0.62 0.13 30)"></span>Heavy Metal
+          </div>
+          <div style="position:absolute;left:0;top:0;display:inline-flex;align-items:center;gap:9px;border-radius:12px;border:2px solid oklch(0.58 0.21 277);background:oklch(0.96 0.03 277);padding:12px 15px;font:600 14px/1 ui-sans-serif,system-ui,sans-serif;color:oklch(0.35 0.14 277);animation:chip-swap-b 5.2s ease-in-out infinite">
+            <span style="width:8px;height:8px;border-radius:2px;background:oklch(0.5 0.19 277)"></span>Thrash Metal
+          </div>
+          <div style="position:absolute;left:168px;top:22px;animation:cursor-nudge 5.2s ease-in-out infinite">
+            <svg width="20" height="24" viewBox="0 0 20 24" fill="none"><path d="M3,2 L3,18 L7.5,13.5 L10.5,20 L13,18.6 L10,12.4 L16,12 Z" fill="oklch(0.24 0.02 277)" stroke="white" stroke-width="1.4"></path></svg>
+          </div>
+        </div>
+        <div style="border-radius:12px;background:oklch(0.975 0.012 277);border:1px solid oklch(0.91 0.02 277);padding:15px 16px;display:flex;flex-direction:column;gap:7px">
+          <div style="font:600 12px/1 ui-sans-serif,system-ui,sans-serif;color:oklch(0.42 0.14 277)">What just happened</div>
+          <div style="font:400 13px/1.6 ui-sans-serif,system-ui,sans-serif;color:oklch(0.45 0.02 277)">Thrash Metal sits under the <b style="font-weight:600;color:oklch(0.3 0.02 277)">Metal</b> family, so the album stays where it is in your library. The new genre is written into all 8 files' tags — nothing else changes.</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="font:500 12.5px/1 ui-sans-serif,system-ui,sans-serif;color:oklch(0.5 0.02 277)">Genre family</div>
+          <div style="display:flex;gap:6px">
+            <div style="font:500 11.5px/1 ui-monospace,Menlo,monospace;color:oklch(0.4 0.03 277);background:oklch(0.965 0.006 277);border-radius:999px;padding:6px 10px">Metal</div>
+            <div style="font:500 11.5px/1 ui-monospace,Menlo,monospace;color:oklch(0.62 0.02 277);background:oklch(0.975 0.004 277);border-radius:999px;padding:6px 10px">↳ derived</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="Only files" style="position:relative;z-index:1;padding:110px 0;background:oklch(0.976 0.008 277 / 0.8)">
+  <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 60px">
+    <div style="font:600 12px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:0.3em;color:oklch(0.5 0.16 277)">THE HOLD IS YOURS</div>
+    <div style="font:700 52px/1.15 'Space Grotesk',sans-serif;letter-spacing:-0.02em;margin-top:16px;color:oklch(0.21 0.015 277);max-width:800px">Nothing here is locked. <span style="font:italic 400 56px/1 'Instrument Serif',serif;color:oklch(0.5 0.19 277)">It's only files.</span></div>
+    <div style="font:400 17.5px/1.6 ui-sans-serif,system-ui,sans-serif;color:oklch(0.45 0.02 277);margin-top:14px;max-width:680px">Everything lands in <span style="font:500 16px/1 ui-monospace,Menlo,monospace;color:oklch(0.35 0.06 277)">Music/Sonarche/</span> — right beside the folder your current app already uses. The names live in the files themselves, in the same tag standards every player has read for twenty years. Sonarche organises your music and hands it straight back; it never holds it hostage.</div>
+  </div>
+  <div style="width:1160px;margin:48px auto 0;display:flex;align-items:center;gap:56px">
+    <div style="width:420px;flex:none;border-radius:16px;border:1px solid oklch(0.9 0.01 277);background:white;padding:24px 26px;box-shadow:0 20px 50px oklch(0.35 0.06 277 / 0.1);display:flex;flex-direction:column;gap:9px">
+      <sc-for list="{{ tree }}" as="t" hint-placeholder-count="8">
+        <div style="display:flex;align-items:center;gap:8px;padding-left:{{ t.pad }}">
+          <div style="font:400 13px/1 ui-monospace,Menlo,monospace;color:oklch(0.68 0.02 277)">{{ t.glyph }}</div>
+          <div style="font:{{ t.font }};color:{{ t.color }}">{{ t.name }}</div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:16px">
+      <div style="font:600 22px/1.35 'Space Grotesk',sans-serif;color:oklch(0.24 0.02 277);max-width:440px">Drag the folder anywhere and it still works.</div>
+      <div style="display:flex;flex-direction:column;gap:11px">
+        <sc-for list="{{ dests }}" as="d" hint-placeholder-count="4">
+          <div style="display:flex;align-items:center;gap:13px;border-radius:12px;border:1px solid oklch(0.9 0.01 277);background:white;padding:14px 17px">
+            <div style="font:500 13px/1 ui-monospace,Menlo,monospace;color:oklch(0.58 0.21 277);flex:none">→</div>
+            <div style="font:500 14px/1 ui-sans-serif,system-ui,sans-serif;color:oklch(0.28 0.02 277);width:150px;flex:none">{{ d.where }}</div>
+            <div style="font:400 13px/1.45 ui-sans-serif,system-ui,sans-serif;color:oklch(0.5 0.02 277)">{{ d.note }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="font:italic 400 19px/1.5 'Instrument Serif',serif;color:oklch(0.45 0.1 277);margin-top:2px">If you decide you don't like Sonarche, your library leaves with you — fully tagged.</div>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="Under the deck" style="position:relative;z-index:1;padding:110px 0">
+  <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 60px">
+    <div style="font:600 12px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:0.3em;color:oklch(0.5 0.16 277)">UNDER THE DECK</div>
+    <div style="font:700 52px/1.15 'Space Grotesk',sans-serif;letter-spacing:-0.02em;margin-top:16px;color:oklch(0.21 0.015 277)">No magic. <span style="font:italic 400 56px/1 'Instrument Serif',serif;color:oklch(0.5 0.19 277)">Proven tools</span>, conducted well.</div>
+    <div style="font:400 17.5px/1.6 ui-sans-serif,system-ui,sans-serif;color:oklch(0.45 0.02 277);margin-top:14px;max-width:660px">You don't have to care about any of this — but here it is, in plain words, because you deserve to know what's running on your machine.</div>
+  </div>
+  <div style="width:1160px;margin:44px auto 0;display:flex;gap:18px">
+    <sc-for list="{{ techCards }}" as="c" hint-placeholder-count="3">
+      <div style="flex:1;border-radius:16px;border:1px solid oklch(0.9 0.014 277);background:white;padding:24px;display:flex;flex-direction:column;gap:10px">
+        <div style="font:600 11px/1 ui-monospace,Menlo,monospace;letter-spacing:0.08em;color:oklch(0.5 0.16 277)">{{ c.tag }}</div>
+        <div style="font:600 19px/1.3 'Space Grotesk',sans-serif;color:oklch(0.22 0.015 277)">{{ c.title }}</div>
+        <div style="font:400 14px/1.65 ui-sans-serif,system-ui,sans-serif;color:oklch(0.45 0.02 277)">{{ c.text }}</div>
+      </div>
+    </sc-for>
+  </div>
+  <div style="position:relative;width:1180px;height:520px;margin:44px auto 0">
+    <svg width="1180" height="520" viewBox="0 0 1180 520" fill="none" style="position:absolute;left:0;top:0">
+      <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M1,1 L7,4 L1,7" stroke="oklch(0.58 0.21 277)" stroke-width="1.5" fill="none" stroke-linecap="round"></path></marker>
+      <marker id="arrg" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M1,1 L7,4 L1,7" stroke="oklch(0.7 0.04 277)" stroke-width="1.5" fill="none" stroke-linecap="round"></path></marker></defs>
+      <path d="M195,150 L285,150" stroke="oklch(0.58 0.21 277)" stroke-width="2" marker-end="url(#arr)" stroke-dasharray="6 7" style="animation:dash-flow 1.4s linear infinite"></path>
+      <path d="M500,150 L560,180" stroke="oklch(0.58 0.21 277)" stroke-width="2" marker-end="url(#arr)"></path>
+      <path d="M500,330 L560,280" stroke="oklch(0.58 0.21 277)" stroke-width="2" marker-end="url(#arr)"></path>
+      <path d="M790,200 L880,160" stroke="oklch(0.7 0.04 277)" stroke-width="2" stroke-dasharray="3 6" marker-end="url(#arrg)"></path>
+      <path d="M880,300 L790,260" stroke="oklch(0.7 0.04 277)" stroke-width="2" stroke-dasharray="3 6" marker-end="url(#arrg)"></path>
+      <path d="M675,350 L675,440" stroke="oklch(0.58 0.21 277)" stroke-width="2.5" marker-end="url(#arr)" stroke-dasharray="6 7" style="animation:dash-flow 1.4s linear infinite"></path>
+    </svg>
+    <div style="position:absolute;left:25px;top:95px;width:170px;border-radius:16px;border:1px solid oklch(0.9 0.01 277);background:white;padding:18px;display:flex;flex-direction:column;gap:8px;box-shadow:0 10px 30px oklch(0.35 0.06 277 / 0.07)">
+      <div style="font:600 15px/1 'Space Grotesk',sans-serif;color:oklch(0.21 0.015 277)">The stream</div>
+      <div style="font:400 12.5px/1.5 ui-sans-serif,system-ui,sans-serif;color:oklch(0.5 0.02 277)">A URL out there — a track, an album, a playlist.</div>
+      <div style="display:inline-flex;align-items:center;gap:6px;font:500 11px/1 ui-sans-serif,system-ui,sans-serif;color:oklch(0.45 0.15 277);background:oklch(0.95 0.03 277);border-radius:999px;padding:5px 9px;align-self:flex-start"><span style="width:6px;height:6px;border-radius:50%;background:oklch(0.55 0.19 277)"></span>the open web</div>
+    </div>
+    <div style="position:absolute;left:265px;top:20px;width:560px;height:400px;border-radius:20px;border:2px dashed oklch(0.82 0.04 277);background:oklch(0.985 0.008 277 / 0.5)">
+      <div style="position:absolute;top:-11px;left:24px;font:600 11px/1 ui-monospace,Menlo,monospace;letter-spacing:0.08em;color:oklch(0.45 0.12 277);background:oklch(0.985 0.006 277);padding:3px 10px;border-radius:999px;border:1px solid oklch(0.85 0.04 277)">EMBEDDED PYTHON · SEALED, SHIPPED WITH THE APP</div>
+    </div>
+    <div style="position:absolute;left:295px;top:100px;width:180px;border-radius:14px;border:1px solid oklch(0.9 0.01 277);background:white;padding:16px;display:flex;flex-direction:column;gap:6px">
+      <div style="font:600 14px/1 ui-monospace,Menlo,monospace;color:oklch(0.21 0.015 277)">yt-dlp</div>
+      <div style="font:400 12.5px/1.5 ui-sans-serif,system-ui,sans-serif;color:oklch(0.5 0.02 277)">Hauls the native audio in — no re-encode, ever.</div>
+    </div>
+    <div style="position:absolute;left:295px;top:280px;width:180px;border-radius:14px;border:1px solid oklch(0.9 0.01 277);background:white;padding:16px;display:flex;flex-direction:column;gap:6px">
+      <div style="font:600 14px/1 ui-monospace,Menlo,monospace;color:oklch(0.21 0.015 277)">ffmpeg + Chromaprint</div>
+      <div style="font:400 12.5px/1.5 ui-sans-serif,system-ui,sans-serif;color:oklch(0.5 0.02 277)">Distills each track into an acoustic fingerprint.</div>
+    </div>
+    <div style="position:absolute;left:560px;top:130px;width:230px;border-radius:16px;border:2px solid oklch(0.58 0.21 277);background:linear-gradient(160deg, oklch(0.97 0.02 277), white);padding:20px;display:flex;flex-direction:column;gap:8px;box-shadow:0 16px 40px oklch(0.58 0.21 277 / 0.18)">
+      <div style="font:700 18px/1 ui-monospace,Menlo,monospace;color:oklch(0.42 0.18 277)">beets</div>
+      <div style="font:italic 400 14px/1.3 'Instrument Serif',serif;color:oklch(0.45 0.1 277)">the conductor</div>
+      <div style="font:400 12.5px/1.6 ui-sans-serif,system-ui,sans-serif;color:oklch(0.42 0.03 277)">Directs every call, checks every tag, and files each track into its right place in the library.</div>
+    </div>
+    <div style="position:absolute;left:880px;top:105px;width:210px;border-radius:14px;border:1px solid oklch(0.9 0.01 277);background:oklch(0.988 0.004 277);padding:16px;display:flex;flex-direction:column;gap:6px">
+      <div style="font:600 14px/1 'Space Grotesk',sans-serif;color:oklch(0.21 0.015 277)">MusicBrainz</div>
+      <div style="font:400 12.5px/1.5 ui-sans-serif,system-ui,sans-serif;color:oklch(0.5 0.02 277)">The open encyclopedia of recorded music — titles, albums, years.</div>
+    </div>
+    <div style="position:absolute;left:880px;top:255px;width:210px;border-radius:14px;border:1px solid oklch(0.9 0.01 277);background:oklch(0.988 0.004 277);padding:16px;display:flex;flex-direction:column;gap:6px">
+      <div style="font:600 14px/1 'Space Grotesk',sans-serif;color:oklch(0.21 0.015 277)">AcoustID</div>
+      <div style="font:400 12.5px/1.5 ui-sans-serif,system-ui,sans-serif;color:oklch(0.5 0.02 277)">Matches the fingerprint to the exact recording.</div>
+    </div>
+    <div style="position:absolute;left:560px;top:445px;width:230px;border-radius:16px;border:1px solid oklch(0.88 0.012 277);background:white;padding:20px;display:flex;flex-direction:column;gap:8px;box-shadow:0 16px 40px oklch(0.35 0.06 277 / 0.1)">
+      <div style="font:600 16px/1 ui-monospace,Menlo,monospace;color:oklch(0.21 0.015 277)">📁 /sonarche</div>
+      <div style="font:400 12.5px/1.6 ui-sans-serif,system-ui,sans-serif;color:oklch(0.5 0.02 277)">After all that — it's just a folder of music. Yours. Open it, move it, back it up.</div>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="Your library your rules" style="position:relative;z-index:1;padding:110px 0;background:oklch(0.976 0.008 277 / 0.8)">
+  <div style="max-width:1240px;margin:0 auto;padding:0 60px;display:flex;gap:80px;align-items:center">
+    <div style="flex:1;display:flex;flex-direction:column;gap:18px">
+      <div style="font:600 12px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:0.3em;color:oklch(0.5 0.16 277)">THE DECK</div>
+      <div style="font:700 50px/1.15 'Space Grotesk',sans-serif;letter-spacing:-0.02em;color:oklch(0.21 0.015 277)">Your library, <span style="font:italic 400 54px/1 'Instrument Serif',serif;color:oklch(0.5 0.19 277)">your rules</span>.</div>
+      <div style="font:400 17px/1.65 ui-sans-serif,system-ui,sans-serif;color:oklch(0.45 0.02 277);max-width:440px">Albums, artists, genre families — organized by verified metadata, browsable like a real collection. Every single field stays editable, and one click re-runs the fingerprint if a match was wrong.</div>
+      <div style="display:flex;flex-direction:column;gap:11px;margin-top:4px">
+        <div style="display:flex;gap:12px;align-items:baseline"><div style="width:7px;height:7px;border-radius:2px;background:oklch(0.58 0.21 277);flex:none"></div><div style="font:400 15px/1.5 ui-sans-serif,system-ui,sans-serif;color:oklch(0.32 0.02 277)">Change once — written to every file.</div></div>
+        <div style="display:flex;gap:12px;align-items:baseline"><div style="width:7px;height:7px;border-radius:2px;background:oklch(0.58 0.21 277);flex:none"></div><div style="font:400 15px/1.5 ui-sans-serif,system-ui,sans-serif;color:oklch(0.32 0.02 277)">Completeness at a glance: 7/7 fields, 100% badges.</div></div>
+        <div style="display:flex;gap:12px;align-items:baseline"><div style="width:7px;height:7px;border-radius:2px;background:oklch(0.58 0.21 277);flex:none"></div><div style="font:400 15px/1.5 ui-sans-serif,system-ui,sans-serif;color:oklch(0.32 0.02 277)">Genres form families — Metal, Electronic, Jazz — each with its own tone.</div></div>
+      </div>
+    </div>
+    <div style="flex:1.1;position:relative">
+      <div style="background:white;border:1px solid oklch(0.92 0.008 277);border-radius:18px;padding:26px;box-shadow:0 30px 70px oklch(0.35 0.06 277 / 0.14);color:oklch(0.25 0.01 277)">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+          <div style="font:600 14px/1 ui-sans-serif,system-ui,sans-serif;color:oklch(0.2 0.01 277)">Metadata — Oath</div>
+          <div style="display:flex;gap:5px">
+            <div style="width:7px;height:7px;border-radius:50%;background:oklch(0.52 0.15 157)"></div><div style="width:7px;height:7px;border-radius:50%;background:oklch(0.52 0.15 157)"></div><div style="width:7px;height:7px;border-radius:50%;background:oklch(0.52 0.15 157)"></div><div style="width:7px;height:7px;border-radius:50%;background:oklch(0.52 0.15 157)"></div><div style="width:7px;height:7px;border-radius:50%;background:oklch(0.52 0.15 157)"></div><div style="width:7px;height:7px;border-radius:50%;background:oklch(0.52 0.15 157)"></div><div style="width:7px;height:7px;border-radius:50%;background:oklch(0.52 0.15 157)"></div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div style="grid-column:1/3;display:flex;flex-direction:column;gap:5px"><div style="font:500 11px/1 ui-sans-serif,system-ui,sans-serif;color:oklch(0.5 0.02 277)">Titre</div><div style="background:oklch(0.965 0.005 277);border-radius:10px;padding:11px 14px;font:400 14px/1 ui-sans-serif,system-ui,sans-serif">Oath</div></div>
+          <div style="display:flex;flex-direction:column;gap:5px"><div style="font:500 11px/1 ui-sans-serif,system-ui,sans-serif;color:oklch(0.5 0.02 277)">Artiste</div><div style="background:oklch(0.965 0.005 277);border-radius:10px;padding:11px 14px;font:400 14px/1 ui-sans-serif,system-ui,sans-serif">The Algorithm</div></div>
+          <div style="display:flex;flex-direction:column;gap:5px"><div style="font:500 11px/1 ui-sans-serif,system-ui,sans-serif;color:oklch(0.5 0.02 277)">Année</div><div style="background:oklch(0.965 0.005 277);border-radius:10px;padding:11px 14px;font:400 14px/1 ui-sans-serif,system-ui,sans-serif">2021</div></div>
+          <div style="display:flex;flex-direction:column;gap:5px"><div style="font:500 11px/1 ui-sans-serif,system-ui,sans-serif;color:oklch(0.5 0.02 277)">Genre</div><div style="background:oklch(0.965 0.005 277);border-radius:10px;padding:11px 14px;font:400 14px/1 ui-sans-serif,system-ui,sans-serif;border:2px solid oklch(0.58 0.21 277)">Progressive Metal</div></div>
+          <div style="display:flex;flex-direction:column;gap:5px"><div style="font:500 11px/1 ui-sans-serif,system-ui,sans-serif;color:oklch(0.5 0.02 277)">Genre parent</div><div style="background:oklch(0.965 0.005 277);border-radius:10px;padding:11px 14px;font:400 14px/1 ui-sans-serif,system-ui,sans-serif;color:oklch(0.5 0.02 277)">Metal · dérivé</div></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:18px">
+          <div style="font:500 13px/1 ui-sans-serif,system-ui,sans-serif;color:oklch(0.5 0.02 277)">✦ Re-matcher</div>
+          <div style="background:oklch(0.58 0.21 277);color:white;border-radius:999px;padding:11px 22px;font:600 13px/1 ui-sans-serif,system-ui,sans-serif">Modifier</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="Your player too" style="position:relative;z-index:1;padding:104px 0">
+  <div style="max-width:1100px;margin:0 auto;padding:0 60px;display:flex;flex-direction:column;align-items:center;text-align:center">
+    <div style="font:600 12px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:0.3em;color:oklch(0.5 0.16 277)">THE SHIP'S SOUND</div>
+    <div style="font:700 50px/1.15 'Space Grotesk',sans-serif;letter-spacing:-0.02em;max-width:800px;margin-top:16px;color:oklch(0.21 0.015 277)">Not just the harbor — <span style="font:italic 400 54px/1 'Instrument Serif',serif;color:oklch(0.5 0.19 277)">the ship's own sound</span>.</div>
+    <div style="font:400 17px/1.6 ui-sans-serif,system-ui,sans-serif;color:oklch(0.45 0.02 277);margin-top:14px;max-width:580px">The last step of the old way was moving files into some other player. Sonarche is the player too — a native Rust audio engine, so tracks start on the beat and gapless albums stay gapless.</div>
+    <div style="position:relative;margin-top:40px;width:920px;background:white;border:1px solid oklch(0.92 0.008 277);border-radius:18px;padding:20px 26px;box-shadow:0 30px 70px oklch(0.35 0.06 277 / 0.14);display:flex;align-items:center;gap:20px;color:oklch(0.25 0.01 277)">
+      <div style="width:58px;height:58px;border-radius:10px;flex:none;position:relative;overflow:hidden;background:oklch(0.19 0.06 300);box-shadow:0 2px 8px oklch(0.2 0.06 300 / 0.3)">
+        <div style="position:absolute;inset:0;background:radial-gradient(circle at 30% 24%, oklch(0.55 0.2 340 / 0.9), transparent 58%), radial-gradient(circle at 74% 70%, oklch(0.45 0.19 285 / 0.85), transparent 60%), radial-gradient(circle at 58% 12%, oklch(0.72 0.14 30 / 0.5), transparent 45%);animation:pl-cover-glow 5.5s ease-in-out infinite"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(to top, oklch(0.12 0.03 300 / 0.72), transparent 62%)"></div>
+        <div style="position:absolute;left:8px;bottom:8px;display:flex;align-items:flex-end;gap:2.5px;height:17px">
+          <div style="width:3px;height:9px;border-radius:1px;background:white;transform-origin:bottom;animation:pl-bar 0.72s ease-in-out -0.05s infinite"></div>
+          <div style="width:3px;height:16px;border-radius:1px;background:white;transform-origin:bottom;animation:pl-bar 0.86s ease-in-out -0.32s infinite"></div>
+          <div style="width:3px;height:12px;border-radius:1px;background:white;transform-origin:bottom;animation:pl-bar 0.64s ease-in-out -0.19s infinite"></div>
+          <div style="width:3px;height:17px;border-radius:1px;background:white;transform-origin:bottom;animation:pl-bar 0.94s ease-in-out -0.44s infinite"></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;width:168px;flex:none;align-items:flex-start">
+        <div style="font:600 15px/1.1 ui-sans-serif,system-ui,sans-serif;color:oklch(0.2 0.015 277)">Oath</div>
+        <div style="font:400 13px/1.1 ui-sans-serif,system-ui,sans-serif;color:oklch(0.52 0.02 277)">The Algorithm</div>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;gap:12px;align-items:center">
+        <div style="display:flex;align-items:center;gap:22px">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="oklch(0.3 0.02 277)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"></path><path d="M4 20 21 3"></path><path d="M21 16v5h-5"></path><path d="m15 15 6 6"></path><path d="m4 4 5 5"></path></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="oklch(0.24 0.02 277)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M19 20 9 12l10-8v16z"></path><path d="M5 19V5"></path></svg>
+          <div style="width:44px;height:44px;border-radius:50%;background:oklch(0.52 0.22 277);display:flex;align-items:center;justify-content:center;gap:4px;box-shadow:0 4px 14px oklch(0.52 0.22 277 / 0.4)">
+            <div style="width:3.5px;height:15px;border-radius:1.5px;background:white"></div>
+            <div style="width:3.5px;height:15px;border-radius:1.5px;background:white"></div>
+          </div>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="oklch(0.24 0.02 277)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m5 4 10 8-10 8V4z"></path><path d="M19 5v14"></path></svg>
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="oklch(0.3 0.02 277)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"></path><path d="M3 11v-1a4 4 0 0 1 4-4h14"></path><path d="m7 22-4-4 4-4"></path><path d="M21 13v1a4 4 0 0 1-4 4H3"></path></svg>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;width:100%">
+          <div style="font:400 12px/1 ui-monospace,Menlo,monospace;color:oklch(0.45 0.02 277)">1:12</div>
+          <div style="flex:1;height:5px;border-radius:3px;background:oklch(0.925 0.008 277);position:relative"><div style="position:absolute;left:0;top:0;bottom:0;width:42%;border-radius:3px;background:oklch(0.52 0.22 277)"></div></div>
+          <div style="font:400 12px/1 ui-monospace,Menlo,monospace;color:oklch(0.45 0.02 277)">2:54</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;flex:none">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="oklch(0.3 0.02 277)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15V6"></path><path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"></path><path d="M12 12H3"></path><path d="M16 6H3"></path><path d="M12 18H3"></path></svg>
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="oklch(0.3 0.02 277)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"></path><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+        <div style="width:78px;height:4px;border-radius:2px;background:oklch(0.3 0.02 277);position:relative"><div style="position:absolute;right:-5px;top:50%;transform:translateY(-50%);width:13px;height:13px;border-radius:50%;background:white;border:1px solid oklch(0.85 0.014 277);box-shadow:0 1px 4px oklch(0 0 0 / 0.18)"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="Proof" style="position:relative;z-index:1;padding:104px 0">
+  <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 60px">
+    <div style="font:600 12px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:0.3em;color:oklch(0.5 0.16 277)">THE REAL THING</div>
+    <div style="font:700 52px/1.15 'Space Grotesk',sans-serif;letter-spacing:-0.02em;margin-top:16px;color:oklch(0.21 0.015 277)">This is what the deck looks like.</div>
+    <div style="position:relative;width:1180px;margin-top:36px">
+      <div style="overflow:hidden;border-radius:16px">
+        <div style="display:flex;width:500%;transform:{{ shotTrack }};transition:transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)">
+          <div style="width:20%;flex:none"><img src="assets/shot-album.png" style="width:100%;display:block" alt="Sonarche — album view"></div>
+          <div style="width:20%;flex:none"><img src="assets/shot-genres.png" style="width:100%;display:block" alt="Sonarche — genre shelf"></div>
+          <div style="width:20%;flex:none"><img src="assets/shot-metadata.png" style="width:100%;display:block" alt="Sonarche — album metadata editor"></div>
+          <div style="width:20%;flex:none"><img src="assets/shot-inspector.png" style="width:100%;display:block" alt="Sonarche — track inspector"></div>
+          <div style="width:20%;flex:none"><img src="assets/shot-upkeep.png" style="width:100%;display:block" alt="Sonarche — library upkeep list"></div>
+        </div>
+      </div>
+      <div onClick="{{ prevShot }}" style="position:absolute;left:-18px;top:50%;margin-top:-24px;z-index:2;width:48px;height:48px;border-radius:50%;background:white;border:1px solid oklch(0.9 0.014 277);box-shadow:0 12px 28px oklch(0.35 0.06 277 / 0.16);display:flex;align-items:center;justify-content:center;cursor:pointer;font:400 24px/1 'Space Grotesk',sans-serif;color:oklch(0.4 0.06 277);padding-bottom:3px;user-select:none;transition:background 0.2s, color 0.2s" style-hover="background:oklch(0.58 0.21 277);color:white;border-color:oklch(0.58 0.21 277)">‹</div>
+      <div onClick="{{ nextShot }}" style="position:absolute;right:-18px;top:50%;margin-top:-24px;z-index:2;width:48px;height:48px;border-radius:50%;background:white;border:1px solid oklch(0.9 0.014 277);box-shadow:0 12px 28px oklch(0.35 0.06 277 / 0.16);display:flex;align-items:center;justify-content:center;cursor:pointer;font:400 24px/1 'Space Grotesk',sans-serif;color:oklch(0.4 0.06 277);padding-bottom:3px;user-select:none;transition:background 0.2s, color 0.2s" style-hover="background:oklch(0.58 0.21 277);color:white;border-color:oklch(0.58 0.21 277)">›</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:13px;margin-top:26px">
+      <div style="font:500 12px/1 ui-monospace,Menlo,monospace;letter-spacing:0.12em;color:oklch(0.55 0.02 277)">{{ shotCount }}</div>
+      <div style="width:1px;height:15px;background:oklch(0.87 0.014 277)"></div>
+      <div style="font:600 17px/1 'Space Grotesk',sans-serif;color:oklch(0.24 0.03 277)">{{ shotTitle }}</div>
+    </div>
+    <div style="font:400 15.5px/1.6 ui-sans-serif,system-ui,sans-serif;color:oklch(0.46 0.02 277);margin-top:10px;max-width:620px;min-height:50px">{{ shotCaption }}</div>
+    <div style="display:flex;gap:8px;margin-top:4px">
+      <sc-for list="{{ screens }}" as="t" hint-placeholder-count="5">
+        <div onClick="{{ t.onClick }}" style="font:500 12.5px/1 ui-sans-serif,system-ui,sans-serif;padding:9px 15px;border-radius:999px;cursor:pointer;background:{{ t.bg }};color:{{ t.color }};border:1px solid {{ t.border }};transition:background 0.2s, color 0.2s">{{ t.label }}</div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="First launch" style="position:relative;z-index:1;padding:104px 0">
+  <div style="max-width:920px;margin:0 auto;padding:0 60px;display:flex;flex-direction:column;align-items:center;text-align:center">
+    <div style="font:600 12px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:0.3em;color:oklch(0.5 0.16 277)">FIRST LAUNCH</div>
+    <div style="font:700 38px/1.2 'Space Grotesk',sans-serif;letter-spacing:-0.015em;margin-top:14px;color:oklch(0.21 0.015 277);max-width:700px">Your system will hesitate. <span style="font:italic 400 41px/1 'Instrument Serif',serif;color:oklch(0.5 0.19 277)">Once.</span></div>
+    <div style="font:400 16px/1.65 ui-sans-serif,system-ui,sans-serif;color:oklch(0.45 0.02 277);margin-top:13px;max-width:660px">Sonarche isn't signed by Apple or Microsoft — those are yearly certificate fees, not security audits, and this project chose the code-is-public route instead. So the very first launch costs you one extra click, on either platform.</div>
+    <div style="display:flex;gap:18px;margin-top:30px;width:100%;align-items:stretch">
+      <div style="flex:1;border:1px solid oklch(0.89 0.014 277);background:white;border-radius:16px;padding:20px 22px;display:flex;flex-direction:column;gap:11px;text-align:left;box-shadow:0 12px 30px oklch(0.35 0.06 277 / 0.07)">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="font:600 11px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:0.16em;color:oklch(0.5 0.16 277)">MACOS</div>
+          <div style="flex:1;height:1px;background:oklch(0.93 0.01 277)"></div>
+        </div>
+        <div style="font:400 13.5px/1.55 ui-sans-serif,system-ui,sans-serif;color:oklch(0.5 0.02 277)">Gatekeeper says « Apple could not verify that this app is free of malware ».</div>
+        <div style="font:500 13px/1.45 ui-monospace,Menlo,monospace;color:oklch(0.28 0.02 277);background:oklch(0.968 0.008 277);border-radius:10px;padding:11px 13px">right-click the app → Open → Open</div>
+        <div style="font:400 12.5px/1.5 ui-sans-serif,system-ui,sans-serif;color:oklch(0.58 0.02 277);margin-top:auto">Or once it's blocked: System Settings → Privacy &amp; Security → Open Anyway.</div>
+      </div>
+      <div style="flex:1;border:1px solid oklch(0.89 0.014 277);background:white;border-radius:16px;padding:20px 22px;display:flex;flex-direction:column;gap:11px;text-align:left;box-shadow:0 12px 30px oklch(0.35 0.06 277 / 0.07)">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="font:600 11px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:0.16em;color:oklch(0.5 0.16 277)">WINDOWS</div>
+          <div style="flex:1;height:1px;background:oklch(0.93 0.01 277)"></div>
+        </div>
+        <div style="font:400 13.5px/1.55 ui-sans-serif,system-ui,sans-serif;color:oklch(0.5 0.02 277)">SmartScreen says « Windows protected your PC » and hides the button.</div>
+        <div style="font:500 13px/1.45 ui-monospace,Menlo,monospace;color:oklch(0.28 0.02 277);background:oklch(0.968 0.008 277);border-radius:10px;padding:11px 13px">More info → Run anyway</div>
+        <div style="font:400 12.5px/1.5 ui-sans-serif,system-ui,sans-serif;color:oklch(0.58 0.02 277);margin-top:auto">Or before opening: right-click the file → Properties → Unblock.</div>
+      </div>
+    </div>
+    <div style="font:italic 400 19px/1.5 'Instrument Serif',serif;color:oklch(0.45 0.1 277);margin-top:26px">After that, it's just your app.</div>
+  </div>
+</section>
+
+<section data-screen-label="Free open source yours" style="position:relative;z-index:1;padding:104px 0 0;background:linear-gradient(180deg, oklch(0.995 0.0012 75 / 0), oklch(0.972 0.012 277 / 0.82) 60%)">
+  <div style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 60px">
+    <div style="font:700 58px/1.15 'Space Grotesk',sans-serif;letter-spacing:-0.02em;color:oklch(0.21 0.015 277)">Free. Open source. <span style="font:italic 400 62px/1 'Instrument Serif',serif;color:oklch(0.5 0.19 277)">Yours.</span></div>
+    <div style="font:400 17.5px/1.6 ui-sans-serif,system-ui,sans-serif;color:oklch(0.45 0.02 277);margin-top:16px;max-width:520px">No subscription, no cloud, no lock-in. The code is on GitHub — read it, fork it, board it.</div>
+    <a href="https://github.com/Norudah/sonarche" style="display:inline-flex;align-items:center;gap:10px;margin-top:32px;padding:17px 34px;border-radius:999px;background:oklch(0.58 0.21 277);color:oklch(0.99 0 0);font:600 16px/1 'Space Grotesk',sans-serif;text-decoration:none;box-shadow:0 8px 30px oklch(0.58 0.21 277 / 0.35)" style-hover="background:oklch(0.52 0.2 277);color:oklch(0.99 0 0)">Get Sonarche on GitHub ↗</a>
+    <div style="display:flex;align-items:center;gap:10px;margin-top:34px">
+      <sc-for list="{{ builtWith }}" as="t" hint-placeholder-count="6">
+        <div style="font:500 12px/1 ui-monospace,Menlo,monospace;color:oklch(0.42 0.03 277);border:1px solid oklch(0.88 0.012 277);background:white;border-radius:999px;padding:7px 13px">{{ t }}</div>
+      </sc-for>
+    </div>
+    <div style="font:400 13px/1 ui-sans-serif,system-ui,sans-serif;color:oklch(0.55 0.02 277);margin-top:16px">License: MIT</div>
+    <div style="font:400 12.5px/1.6 ui-sans-serif,system-ui,sans-serif;color:oklch(0.58 0.02 277);margin-top:12px;max-width:520px;text-align:center">For personal use. Respect the terms of the services you use, and your local law.</div>
+  </div>
+  <div style="margin-top:64px;padding:20px 60px;display:flex;justify-content:space-between;align-items:center">
+    <div style="font:600 14px/1 'Space Grotesk',sans-serif;letter-spacing:0.04em;color:oklch(0.21 0.015 277)">SONARCHE</div>
+    <div style="font:italic 400 15px/1 'Instrument Serif',serif;color:oklch(0.5 0.05 277)">From the stream into the Ark.</div>
+    <a href="https://github.com/Norudah/sonarche" style="font:500 13px/1 ui-sans-serif,system-ui,sans-serif;color:oklch(0.5 0.15 277);text-decoration:none" style-hover="color:oklch(0.4 0.15 277)">GitHub ↗</a>
+  </div>
+  <div style="position:relative;height:300px;overflow:hidden">
+    <div style="position:absolute;left:50%;margin-left:-115px;bottom:58px;width:230px;z-index:1;filter:drop-shadow(0 18px 20px oklch(0.35 0.12 277 / 0.22))">
+      <dc-import name="SonarcheArk" dock="ark" hint-size="230px,230px"></dc-import>
+    </div>
+    <div style="position:absolute;left:50%;top:44px;margin-left:-23px;z-index:4;display:flex;align-items:center;gap:3px;height:26px;filter:drop-shadow(0 2px 8px oklch(0.58 0.21 277 / 0.5));animation:eq-float 3.8s ease-in-out infinite">
+      <div style="width:4px;height:10px;border-radius:2px;background:oklch(0.58 0.21 277);animation:onde-bar 0.9s ease-in-out -0.1s infinite"></div>
+      <div style="width:4px;height:18px;border-radius:2px;background:oklch(0.58 0.21 277);animation:onde-bar 0.9s ease-in-out -0.35s infinite"></div>
+      <div style="width:4px;height:26px;border-radius:2px;background:oklch(0.58 0.21 277);animation:onde-bar 0.9s ease-in-out -0.6s infinite"></div>
+      <div style="width:4px;height:16px;border-radius:2px;background:oklch(0.58 0.21 277);animation:onde-bar 0.9s ease-in-out -0.2s infinite"></div>
+      <div style="width:4px;height:22px;border-radius:2px;background:oklch(0.58 0.21 277);animation:onde-bar 0.9s ease-in-out -0.5s infinite"></div>
+      <div style="width:4px;height:12px;border-radius:2px;background:oklch(0.58 0.21 277);animation:onde-bar 0.9s ease-in-out -0.75s infinite"></div>
+    </div>
+    <sc-for list="{{ sea }}" as="p" hint-placeholder-count="40">
+      <div style="position:absolute;width:11px;height:11px;border-radius:2.5px;z-index:2;left:{{ p.left }};bottom:{{ p.bottom }};background:{{ p.bg }};opacity:{{ p.opacity }};animation:px-bob 3.2s ease-in-out {{ p.delay }} infinite"></div>
+    </sc-for>
+    <svg data-trace-seg="footer" width="1440" height="300" viewBox="0 0 1440 300" fill="none" style="position:absolute;left:0;top:0;z-index:3;will-change:transform;display:{{ waveDisplay }}">
+      <path data-tp="base" d="" stroke="oklch(0.84 0.05 277)" stroke-width="1.3" fill="none"></path>
+      <path data-tp="lit" d="" stroke="oklch(0.72 0.12 277)" stroke-width="1.7" fill="none" stroke-linecap="round"></path>
+      <path data-tp="live" d="" stroke="oklch(0.58 0.2 277)" stroke-width="2.1" fill="none" stroke-linecap="round"></path>
+      <circle data-tp="dot" r="0" fill="oklch(0.56 0.2 277)" opacity="0.5"></circle>
+    </svg>
+  </div>
+</section>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;heroVariant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;storm&quot;,&quot;voyage&quot;],&quot;default&quot;:&quot;storm&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Variants&quot;},&quot;flowVariant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;cascade&quot;,&quot;stage&quot;],&quot;default&quot;:&quot;cascade&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Variants&quot;},&quot;arkDrift&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;rainAmount&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0,&quot;max&quot;:1.6,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;showWave&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;The wave&quot;},&quot;seaDensity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.92,&quot;min&quot;:0.4,&quot;max&quot;:1,&quot;step&quot;:0.02,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Footer sea&quot;}}">
+class Component extends DCLogic {
+  state = { hero: null, flow: null, step: 0, screen: 0 };
+
+  componentDidMount() {
+    this._onResize = () => { this._traceKey = ''; };
+    window.addEventListener('resize', this._onResize);
+    this._ensureLoop();
+  }
+  componentDidUpdate() { this._traceKey = ''; this._ensureLoop(); }
+  componentWillUnmount() { window.removeEventListener('resize', this._onResize); }
+
+  _ensureLoop() {
+    if (window.__sonBeat && Date.now() - window.__sonBeat < 250 && window.__sonOwner === this) return;
+    window.__sonOwner = this;
+    const gen = (window.__sonGen = (window.__sonGen || 0) + 1);
+    if (window.__sonRaf) cancelAnimationFrame(window.__sonRaf);
+    const tick = () => {
+      if (gen !== window.__sonGen) return;
+      window.__sonBeat = Date.now();
+      window.__sonRaf = requestAnimationFrame(tick);
+      this._update();
+    };
+    tick();
+  }
+
+  // the wave's resting shape: where it sits horizontally at a given document y
+  _off(y, W) {
+    const s = Math.min(1.15, W / 1440);
+    let o = (330 * Math.sin(y / 1550) + 155 * Math.sin(y / 620 + 1.1) + 46 * Math.sin(y / 235 + 2.3)) * s + 11 * Math.sin(y / 23);
+    // it slips out from under the hero ark and returns to centre just above the one in the footer
+    const ease = k => { const c = Math.min(1, Math.max(0, k)); return c * c * (3 - 2 * c); };
+    o *= ease((y - (this._t0 || 0)) / 430) * ease(((this._t1 || 1e6) - y) / 430);
+    return o;
+  }
+
+  _buildTrace() {
+    const layer = document.getElementById('trace');
+    if (!layer) return;
+    // measure the wrapper, not the layer's own scrollHeight — the tall svg inside would
+    // inflate it on every rebuild
+    const H = Math.round(layer.getBoundingClientRect().height) || document.documentElement.scrollHeight;
+    const W = layer.clientWidth || window.innerWidth;
+    const hosts = [...document.querySelectorAll('[data-trace-seg]')].map(s => Math.round(s.parentElement.getBoundingClientRect().height));
+    const key = W + 'x' + H + ':' + hosts.join(',');
+    if (this._traceKey === key) return;
+    this._traceKey = key;
+    this._traceW = W; this._traceH = H;
+    const layerTop = layer.getBoundingClientRect().top + window.scrollY;
+    this._t0 = 730;        // in the water, directly under the hero ark's hull
+    this._t1 = H - 216;    // stops right on the roof of the ark floating in the footer sea
+    const cx = W / 2;
+    const segs = [];
+    document.querySelectorAll('[data-trace-seg]').forEach(svg => {
+      // measure the HOST element, never the svg itself: the svg's own height attribute
+      // would make the measurement circular, and its per-frame drift transform would
+      // bake an offset into the path.
+      const isPage = svg.dataset.traceSeg === 'page';
+      const host = svg.parentElement;
+      const hr = host.getBoundingClientRect();
+      const top = isPage ? 0 : Math.round(hr.top + window.scrollY - layerTop);
+      const h = isPage ? H : Math.round(hr.height);
+      if (!h) return;
+      let d = '';
+      for (let y = -24; y <= h + 24; y += 8) {
+        const gy = top + y;
+        if (gy < this._t0 || gy > this._t1) continue;
+        d += (d ? ' L' : 'M') + (cx + this._off(gy, W)).toFixed(1) + ',' + y;
+      }
+      svg.setAttribute('width', W); svg.setAttribute('height', h);
+      svg.setAttribute('viewBox', '0 0 ' + W + ' ' + h);
+      const base = svg.querySelector('[data-tp="base"]');
+      const lit = svg.querySelector('[data-tp="lit"]');
+      base.setAttribute('d', d); lit.setAttribute('d', d);
+      let len = 0;
+      try { len = lit.getTotalLength(); } catch (e) {}
+      lit.style.strokeDasharray = len + ' ' + len;
+      segs.push({ svg, lit, len, top, h,
+        live: svg.querySelector('[data-tp="live"]'),
+        dot: svg.querySelector('[data-tp="dot"]') });
+    });
+    this._segs = segs;
+  }
+
+  _update() {
+    this._buildTrace();
+    const vh = window.innerHeight;
+    const W = this._traceW || window.innerWidth;
+    const H = this._traceH || 1;
+    const t = performance.now() / 1000;
+
+    // the wave drifts like a firefly — never quite still, never locked to the viewport
+    const driftX = 11 * Math.sin(t * 0.21) + 6 * Math.sin(t * 0.53 + 1.3);
+    const driftY = 9 * Math.sin(t * 0.29 + 0.7) + 4 * Math.sin(t * 0.67);
+    const target = window.scrollY + vh * 0.5;
+    if (this._head == null) this._head = target;
+    this._head += (target - this._head) * 0.045;
+    const t0 = this._t0 || 0, t1 = this._t1 || H;
+    // the playhead never leaves the traced wave — at the top it hovers under the hero ark,
+    // at the bottom it waits just above the one in the footer
+    const headY = Math.min(t1 - 12, Math.max(t0 + 12, this._head + 30 * Math.sin(t * 0.33) + 12 * Math.sin(t * 0.79 + 2.1)));
+    const cx = W / 2;
+
+    (this._segs || []).forEach(s => {
+      s.svg.style.transform = 'translate(' + driftX.toFixed(2) + 'px,' + driftY.toFixed(2) + 'px)';
+      const p = Math.max(0, Math.min(1, (headY - s.top) / s.h));
+      s.lit.style.strokeDashoffset = (s.len * (1 - p)).toFixed(1);
+      const ly = headY - s.top;
+      if (ly < -320 || ly > s.h + 320) {
+        s.live.setAttribute('d', '');
+        s.dot.setAttribute('r', '0');
+        return;
+      }
+      let d = '';
+      for (let dy = -270; dy <= 270; dy += 5) {
+        const y = ly + dy;
+        if (y < -24 || y > s.h + 24) continue;
+        if (s.top + y < t0 || s.top + y > t1) continue;
+        const env = Math.exp(-((dy / 155) * (dy / 155)));
+        const amp = 44 * env * (0.5 + 0.5 * Math.sin(t * 2.7 + dy * 0.018));
+        d += (d ? ' L' : 'M') + (cx + this._off(s.top + y, W) + amp * Math.sin(y / 15 + t * 8)).toFixed(1) + ',' + y.toFixed(1);
+      }
+      s.live.setAttribute('d', d);
+      s.dot.setAttribute('cx', (cx + this._off(headY, W)).toFixed(1));
+      s.dot.setAttribute('cy', ly.toFixed(1));
+      s.dot.setAttribute('r', (4.5 + 1.6 * Math.sin(t * 3.4)).toFixed(2));
+    });
+
+    document.querySelectorAll('[data-cas]').forEach(el => {
+      const r = el.getBoundingClientRect();
+      const k = Math.max(0, Math.min(1, (vh * 0.94 - r.top) / (vh * 0.5)));
+      el.style.opacity = (0.28 + 0.72 * k).toFixed(3);
+      el.style.transform = 'translateY(' + ((1 - k) * 30).toFixed(1) + 'px)';
+    });
+
+    const copies = document.querySelectorAll('[data-stg]');
+    if (copies.length) {
+      let best = 0, bd = Infinity;
+      copies.forEach(el => {
+        const r = el.getBoundingClientRect();
+        const dist = Math.abs(r.top + r.height / 2 - vh * 0.5);
+        if (dist < bd) { bd = dist; best = +el.dataset.stg; }
+      });
+      document.querySelectorAll('[data-stgs]').forEach(el => { el.style.opacity = +el.dataset.stgs === best ? '1' : '0'; });
+      if (best !== this.state.step) this.setState({ step: best });
+    }
+  }
+
+  renderVals() {
+    let seed = 42;
+    const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+    const hero = this.state.hero ?? this.props.heroVariant ?? 'storm';
+    const flow = this.state.flow ?? this.props.flowVariant ?? 'cascade';
+    const on = 'oklch(0.58 0.21 277)', onFg = 'oklch(0.99 0 0)';
+    const off = 'oklch(0.965 0.006 277)', offFg = 'oklch(0.42 0.03 277)';
+
+    const rainAmt = this.props.rainAmount ?? 1;
+    const rain = [];
+    for (let i = 0; i < Math.round(170 * rainAmt); i++) {
+      rain.push({
+        left: (rnd() * 100).toFixed(2) + '%',
+        height: Math.round(26 + rnd() * 52) + 'px',
+        opacity: (0.22 + rnd() * 0.44).toFixed(2),
+        dur: (0.5 + rnd() * 0.55).toFixed(2) + 's',
+        delay: '-' + (rnd() * 2).toFixed(2) + 's'
+      });
+    }
+
+    // one continuous sea: a travelling swell, not random noise, so it reads as fluid
+    const N = 280, seaBack = [], seaFront = [], seaDeep = [];
+    for (let i = 0; i < N; i++) {
+      const pct = (i / (N - 1)) * 100;
+      const dc = Math.abs(pct - 50);
+      const left = pct.toFixed(2) + '%';
+      const rise = Math.min(1, Math.max(0, (dc - 13) / 26));
+      const swell = (0.5 + 0.5 * Math.sin(i * 0.21)) * (0.55 + 0.45 * Math.sin(i * 0.061 + 1.7));
+      let h = 11 + 32 * swell * (0.6 + rise * 0.6) + rnd() * 7;
+      if (dc < 13) h *= 0.44 + 0.3 * (dc / 13);
+      (dc < 13 ? seaFront : seaBack).push({
+        left, height: Math.round(h) + 'px',
+        bg: rise > 0.66 ? 'oklch(0.77 0.05 277)' : 'linear-gradient(to top, oklch(0.62 0.19 277), oklch(0.79 0.1 277))',
+        opacity: (0.9 - rise * 0.45).toFixed(2),
+        dur: (2.1 + (i % 5) * 0.14).toFixed(2) + 's',
+        delay: '-' + (i * 0.043).toFixed(2) + 's'
+      });
+      if (i % 4 === 0) seaDeep.push({
+        left, height: Math.round(16 + 36 * swell + rnd() * 8) + 'px',
+        bg: 'oklch(0.81 0.055 277)',
+        opacity: (0.36 - rise * 0.14).toFixed(2),
+        dur: (3.3 + (i % 3) * 0.25).toFixed(2) + 's',
+        delay: '-' + (i * 0.08).toFixed(2) + 's'
+      });
+    }
+    const seaEcho = [];
+    for (let i = 0; i < 96; i++) seaEcho.push({
+      h: Math.round(4 + 12 * (0.5 + 0.5 * Math.sin(i * 0.33))) + 'px',
+      o: (0.2 + 0.3 * (0.5 + 0.5 * Math.sin(i * 0.19 + 1))).toFixed(2),
+      dur: (2.3 + (i % 4) * 0.16).toFixed(2) + 's',
+      delay: '-' + (i * 0.06).toFixed(2) + 's'
+    });
+    // the voyage wake rides inside the sailing rig so trough and hull stay together
+    const seaWake = [];
+    for (let i = 0; i < 46; i++) {
+      const x = 108 + (i / 45) * 344;
+      const dcx = Math.abs(x - 280) / 172;
+      seaWake.push({
+        left: x.toFixed(0) + 'px',
+        height: Math.round(8 + dcx * 20 + rnd() * 10) + 'px',
+        bg: 'linear-gradient(to top, oklch(0.62 0.19 277), oklch(0.79 0.1 277))',
+        opacity: (0.62 + dcx * 0.28).toFixed(2),
+        dur: (1.5 + rnd() * 1.6).toFixed(2) + 's',
+        delay: '-' + (rnd() * 2.6).toFixed(2) + 's'
+      });
+    }
+    const splashes = [];
+    for (let i = 0; i < 12; i++) splashes.push({ left: (rnd() * 100).toFixed(2) + '%', w: Math.round(14 + rnd() * 20) + 'px', dur: (1.5 + rnd() * 1.2).toFixed(2) + 's', delay: '-' + (rnd() * 2.4).toFixed(2) + 's' });
+
+    const manifestoChips = ['plain files', 'no cloud', 'no account', 'no re-encode'];
+
+    const stepData = [
+      { num: '01', title: 'Paste a link', text: 'A track, an album, a whole playlist. Drop it in the composer and the voyage lines up — one row per track.', chips: ['single track', 'album', 'playlist'], note: "Already in the hold? It's skipped, silently." },
+      { num: '02', title: 'Watch it come aboard', text: 'Circles turn green one by one as the native audio is hauled in — untouched, never re-encoded — and lands in the hold.', chips: ['yt-dlp', 'native audio', 'no re-encode'], note: 'Close the window mid-haul — the queue picks up where it stopped.' },
+      { num: '03', title: 'Fingerprint & identify', text: 'ffmpeg and Chromaprint distill the audio itself into an acoustic fingerprint. AcoustID answers with exactly which recording this is.', chips: ['ffmpeg', 'Chromaprint', 'AcoustID'], note: 'No confident match? It says so and asks — instead of inventing an artist.' },
+      { num: '04', title: 'It gets its name', text: "Title, artist, album, genre, track, year — and the real cover. All of it written into the file's own tags.", chips: ['MusicBrainz', 'cover art', 'genre family'], note: 'Into the files themselves — not into a database only Sonarche can read.' }
+    ];
+    const stageSteps = stepData.map((s, i) => Object.assign({ i: String(i) }, s, {
+      line: this.state.step === i ? 'oklch(0.58 0.21 277)' : 'oklch(0.9 0.014 277)',
+      numColor: this.state.step === i ? 'oklch(0.5 0.19 277)' : 'oklch(0.68 0.03 277)',
+      titleColor: this.state.step === i ? 'oklch(0.21 0.015 277)' : 'oklch(0.62 0.02 277)'
+    }));
+
+    const oldChain = [
+      { step: 'TAB 1', tool: 'A converter site', gripe: 'One link at a time, converted on somebody else\u2019s server. You wait in a queue, then the browser drops the file wherever it feels like.', cost: 'Slow, one track, re-encoded.' },
+      { step: 'APP 1', tool: 'A bulk downloader', gripe: 'Handles the playlist, at least. But it fills the tags from the file name — so your artist is \u00ab Unknown \u00bb and your album is blank.', cost: 'Tags are a guess.' },
+      { step: 'APP 2', tool: 'A tag editor', gripe: 'Open every file. Retype the title, the artist, the year, the track number. Multiply by 80.', cost: 'Hours of typing.' },
+      { step: 'TAB 2', tool: 'An image search', gripe: 'Hunt for a square cover that isn\u2019t a watermarked thumbnail, crop it, hope it matches the right pressing.', cost: 'Wrong artwork forever.' },
+      { step: 'APP 3', tool: 'Your music player', gripe: 'Move the files in, re-scan the folder, then discover three duplicates and one album split in two.', cost: 'A messy library anyway.' }
+    ];
+    const allInOne = ['one link in', 'no re-encode', 'fingerprint', 'real metadata', 'proper artwork', 'filed folders', 'native playback'];
+
+    const guessRows = [
+      { k: 'Title', v: 'Ghost - Mary On A Cross (Official Audio) [HQ]' },
+      { k: 'Artist', v: 'unknown \u2014 read off the file name' },
+      { k: 'Album', v: '\u2014' },
+      { k: 'Year', v: '2022 (file date)' },
+      { k: 'Artwork', v: 'embedded thumbnail, 16:9, letterboxed' }
+    ];
+    const truthRows = [
+      { k: 'Title', v: 'Mary on a Cross' },
+      { k: 'Artist', v: 'Ghost' },
+      { k: 'Album', v: 'Seven Inches of Satanic Panic' },
+      { k: 'Year', v: '2019' },
+      { k: 'Artwork', v: 'official front cover, 1400\u00d71400' }
+    ];
+    const fpBars = [];
+    for (let i = 0; i < 30; i++) fpBars.push({ h: Math.round(12 + rnd() * 44) + 'px', o: (0.35 + rnd() * 0.65).toFixed(2), dur: (0.7 + rnd() * 0.8).toFixed(2) + 's', delay: '-' + (rnd() * 1.4).toFixed(2) + 's' });
+
+    const guides = [
+      'Sensible defaults on import — most albums need nothing from you at all.',
+      'Anything uncertain is flagged in plain language, with the choice spelled out.',
+      'Every edit tells you which files it touched, before and after.'
+    ];
+
+    const tree = [
+      { glyph: '\u25be', name: 'Music', pad: '0px', font: '500 14px/1.4 ui-monospace,Menlo,monospace', color: 'oklch(0.42 0.02 277)' },
+      { glyph: '\u25be', name: 'Sonarche', pad: '18px', font: '600 14px/1.4 ui-monospace,Menlo,monospace', color: 'oklch(0.4 0.16 277)' },
+      { glyph: '\u25be', name: 'Ghost', pad: '36px', font: '500 14px/1.4 ui-monospace,Menlo,monospace', color: 'oklch(0.3 0.02 277)' },
+      { glyph: '\u25be', name: 'Seven Inches of Satanic Panic (2019)', pad: '54px', font: '500 13.5px/1.4 ui-monospace,Menlo,monospace', color: 'oklch(0.3 0.02 277)' },
+      { glyph: '\u266b', name: '01 Kiss the Go-Goat.opus', pad: '72px', font: '400 13px/1.4 ui-monospace,Menlo,monospace', color: 'oklch(0.5 0.02 277)' },
+      { glyph: '\u266b', name: '02 Mary on a Cross.opus', pad: '72px', font: '400 13px/1.4 ui-monospace,Menlo,monospace', color: 'oklch(0.5 0.02 277)' },
+      { glyph: '\u25a3', name: 'cover.jpg', pad: '72px', font: '400 13px/1.4 ui-monospace,Menlo,monospace', color: 'oklch(0.55 0.02 277)' },
+      { glyph: '\u25b8', name: 'YourOtherMusicApp', pad: '18px', font: '400 14px/1.4 ui-monospace,Menlo,monospace', color: 'oklch(0.62 0.02 277)' }
+    ];
+    const dests = [
+      { where: 'A phone', note: 'plug it in, drop the folder, done' },
+      { where: 'A hard drive', note: 'your backup is a copy-paste' },
+      { where: 'Another player', note: 'the tags are standard — it reads them' },
+      { where: 'Another machine', note: 'no account, no re-import, no sync service' }
+    ];
+
+    const techCards = [
+      { tag: 'THE SHELL', title: 'Tauri, not a browser tab', text: 'The interface is built with modern web tooling, so it can be genuinely nice to look at and to use — but it ships as a real desktop app, a few megabytes, not a bundled browser eating your RAM.' },
+      { tag: 'THE ENGINE', title: 'Rust underneath', text: 'Everything heavy — fetching, file writes, audio playback — runs in Rust. That\u2019s the difference between a player that stutters and one that just starts.' },
+      { tag: 'THE TOOLBOX', title: 'A sealed sidecar', text: 'beets and its Python tools live inside the app, in their own bundled runtime. Nothing to install, nothing to update, and nothing that can clash with whatever is already on your machine.' }
+    ];
+
+    const shots = [
+      { label: 'Album', title: 'An album, whole', caption: 'Twelve tracks, twelve complete tag sets, the right cover — and it plays from the very same window.' },
+      { label: 'Genres', title: 'Genres as a tree', caption: 'Electronic holds Electro House, Dark Wave, Video Game Music — and knows it accounts for 39% of the shelf.' },
+      { label: 'Metadata', title: 'Nothing written behind your back', caption: 'Rename one artist and Sonarche asks which of the other eleven tracks should follow. You decide before anything touches a file.' },
+      { label: 'Inspector', title: 'Seven fields out of seven', caption: 'The inspector slides in over the list, so you can fix one track without ever losing your place.' },
+      { label: 'Upkeep', title: 'It keeps its own to-do list', caption: 'Missing years, genres off the tree, tracklists with holes — twenty things to correct, gathered in one screen.' }
+    ];
+    const shot = shots[this.state.screen] || shots[0];
+    const screens = shots.map((s, i) => ({
+      label: s.label,
+      onClick: () => this.setState({ screen: i }),
+      bg: this.state.screen === i ? 'oklch(0.58 0.21 277)' : 'white',
+      color: this.state.screen === i ? 'oklch(0.99 0 0)' : 'oklch(0.48 0.02 277)',
+      border: this.state.screen === i ? 'oklch(0.58 0.21 277)' : 'oklch(0.89 0.014 277)'
+    }));
+
+    const sea = [];
+    const density = this.props.seaDensity ?? 0.88;
+    for (let row = 0; row < 4; row++) {
+      for (let c = 0; c < 96; c++) {
+        if (rnd() > density) continue;
+        sea.push({
+          left: (c * 20 + (row % 2) * 10) + 'px',
+          bottom: (108 - row * 26 + Math.round(rnd() * 8)) + 'px',
+          bg: 'oklch(' + (0.62 + row * 0.07).toFixed(2) + ' ' + (0.16 - row * 0.03).toFixed(2) + ' 277)',
+          opacity: (0.9 - row * 0.14).toFixed(2),
+          delay: '-' + (c * 0.11 + row * 0.4).toFixed(2) + 's'
+        });
+      }
+    }
+
+    return {
+      rain, seaBack, seaFront, seaDeep, seaEcho, seaWake, splashes,
+      heroStorm: hero === 'storm', heroVoyage: hero === 'voyage',
+      flowCascade: flow === 'cascade', flowStage: flow === 'stage',
+      manifestoChips, stageSteps,
+      oldChain, allInOne, guessRows, truthRows, fpBars, guides, tree, dests, techCards, screens, sea,
+      pickHeroStorm: () => this.setState({ hero: 'storm' }),
+      pickHeroVoyage: () => this.setState({ hero: 'voyage' }),
+      pickFlowCascade: () => this.setState({ flow: 'cascade' }),
+      pickFlowStage: () => this.setState({ flow: 'stage' }),
+      hrBg: hero === 'storm' ? on : off, hrFg: hero === 'storm' ? onFg : offFg,
+      hvBg: hero === 'voyage' ? on : off, hvFg: hero === 'voyage' ? onFg : offFg,
+      fcBg: flow === 'cascade' ? on : off, fcFg: flow === 'cascade' ? onFg : offFg,
+      fsBg: flow === 'stage' ? on : off, fsFg: flow === 'stage' ? onFg : offFg,
+      shotTrack: 'translateX(-' + (this.state.screen * 20) + '%)',
+      shotTitle: shot.title,
+      shotCaption: shot.caption,
+      shotCount: String(this.state.screen + 1).padStart(2, '0') + ' / 0' + shots.length,
+      prevShot: () => this.setState(s => ({ screen: (s.screen + shots.length - 1) % shots.length })),
+      nextShot: () => this.setState(s => ({ screen: (s.screen + 1) % shots.length })),
+      waveDisplay: (this.props.showWave ?? true) ? 'block' : 'none',
+      arkDriftAnim: (this.props.arkDrift ?? true) ? 'ark-sail-soft 24s ease-in-out infinite alternate' : 'none',
+      builtWith: ['Tauri', 'Rust', 'React', 'beets', 'yt-dlp', 'AcoustID']
+    };
+  }
+}
+
+</script>
+</body>
+</html>

@@ -74,7 +74,7 @@ every stream-ripping lawsuit targeted monetized web converters marketed as
   on the topic; the only trace is the footer line: "For personal use. Respect
   the terms of the services you use, and your local law."
 - **Screenshots/videos**: never show a platform URL, a platform logo, or a
-  famous copyrighted track mid-download. Famous covers in *library* views are
+  famous copyrighted track mid-download. Famous covers in _library_ views are
   fine (every player does it); the download-in-progress shots use obscure or
   royalty-free content. The app strips platform branding since app commit
   2ace015 — take fresh screenshots, don't reuse old ones.
@@ -103,7 +103,15 @@ every stream-ripping lawsuit targeted monetized web converters marketed as
 - **Tailwind with design tokens copied from the Sonarche app** (its HeroUI v3 theme
   layer: colors, radius, typography). The landing must feel like the app's world
   extended. Do NOT import the full HeroUI library unless several components are
-  genuinely used.
+  genuinely used. Only the _useful subset_ of the app's `src/app/theme.css` is
+  copied — the landing has no genre families, no drawer, no dark block. Values
+  come from the app, not from the mockup: the app's palette was reworked for
+  contrast after v7 was drawn (accent `oklch(0.505 0.185 277)`, structural greys
+  on hue 279), so the built page reads very slightly quieter than the mockup.
+- **Typography: Space Grotesk (sans) + Instrument Serif (the italic accent)**, the
+  mockup's two faces, self-hosted via `@fontsource` — never the Google CDN. The
+  italic serif carries the tagline, the step notes and the emphasis spans; it is
+  the brand's second voice, not decoration.
 - **GSAP** as the single animation engine (100% free since the Webflow acquisition,
   all plugins included): ScrollTrigger for scroll narrative, SplitText for text
   reveals, DrawSVG/MorphSVG for the hand-made SVG animations. No Motion/framer-motion,
@@ -114,11 +122,22 @@ every stream-ripping lawsuit targeted monetized web converters marketed as
 ## Design workflow
 
 Mockups are made in Claude Design (onboarded on the app's screenshots so it inherits
-the real design system), then built here with iteration in the browser. The design
-direction: dark-first, moody, restrained palette, strong typography, award-site
-energy. App screenshots are the proof — treat them as heroes, large, in real window
-chrome. Explicitly banned: purple/blue gradient mesh, 3D blobs, emoji feature grids,
-generic AI-landing look.
+the real design system), then built here with iteration in the browser. The reference
+is `docs/designs/Sonarche Landing v7.dc.html` and nothing else — see that folder's
+README for why the other exports are traps.
+
+The design direction: **light only**, paper rather than white, indigo accent,
+restrained palette, strong typography, award-site energy. App screenshots are the
+proof — treat them as heroes, large, in real window chrome. Explicitly banned:
+purple/blue gradient mesh, 3D blobs, emoji feature grids, generic AI-landing look.
+
+No dark theme on the landing (decided 2026-07-30). The _app_ is the thing that
+needs both themes; a landing page does not, and the validated mockup is light.
+`color-scheme: light` accordingly — the page must not be half-inverted by a
+browser that assumes dark.
+
+Chosen variants from the mockup's picker: hero **storm**, flow **cascade** (the
+four steps alternating left/right).
 
 ## Quality bar
 
