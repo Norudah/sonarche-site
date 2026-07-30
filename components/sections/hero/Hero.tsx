@@ -1,9 +1,10 @@
 import { GITHUB_URL, type Locale } from "@/lib/site";
 
+import { Ark } from "@/components/brand/Ark";
+import { Onde } from "@/components/brand/Onde";
+
 import { heroCopy } from "./copy";
 import styles from "./hero.module.css";
-import { HeroArk } from "./HeroArk";
-import { Onde } from "./Onde";
 import { Storm } from "./Storm";
 
 /*
@@ -12,7 +13,7 @@ import { Storm } from "./Storm";
  * No entrance animation on the text, deliberately: revealing an h1 from
  * opacity 0 hands the LCP to whenever the bundle lands, and leaves the page
  * blank if it never does. The motion here is ambient and CSS-only (Storm,
- * HeroArk, Onde); GSAP starts at the section below, where nothing is at stake.
+ * Ark, Onde); GSAP starts at the section below, where nothing is at stake.
  *
  * The h1 carries both the wordmark and the tagline, so the page has one heading
  * that reads as a sentence — "Sonarche. From the stream into the Ark." — rather
@@ -40,7 +41,7 @@ export function Hero({ locale }: { locale: Locale }) {
         <div className="absolute inset-0 z-[2]">
           {/* Narrower and lower on a phone: the text block above it is twice as
               tall there, and a 320px ark in a 375px viewport is a bath toy. */}
-          <HeroArk
+          <Ark
             className="absolute top-[500px] left-1/2 -ml-24 h-48 w-48 sm:top-[430px] sm:-ml-40 sm:h-80 sm:w-80"
             style={{ filter: "drop-shadow(0 20px 24px oklch(0.4 0.12 277 / 0.2))" }}
           />

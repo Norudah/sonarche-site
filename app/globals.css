@@ -98,6 +98,8 @@
   /* Hairlines: separator rules cards and tables, border outlines controls. */
   --separator: oklch(0.905 0.01 279);
   --border: oklch(0.875 0.013 279);
+  /* The neutral fill — empty artwork slots, slider tracks. */
+  --default: oklch(0.935 0.009 279);
 
   /* Indigo, pressed into the paper rather than laid on it. */
   --accent: oklch(0.505 0.185 277);
@@ -147,6 +149,7 @@
   --color-muted: var(--muted);
   --color-separator: var(--separator);
   --color-border: var(--border);
+  --color-default: var(--default);
   --color-accent: var(--accent);
   --color-accent-strong: var(--accent-strong);
   --color-accent-soft: var(--accent-soft);

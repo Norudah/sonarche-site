@@ -1,4 +1,4 @@
-import styles from "./hero.module.css";
+import styles from "./ark.module.css";
 
 /*
  * The equalizer docked above the ark.

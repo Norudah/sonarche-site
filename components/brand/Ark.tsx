@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 
-import styles from "./hero.module.css";
+import styles from "./ark.module.css";
 
 /*
  * The ark, alive.
@@ -24,12 +24,12 @@ const PORTHOLES = [
 
 const HEAD = "M7.5 12V9.75C7.5 8.85 8.4 8.2 9.7 8 10.5 7.88 13.5 7.88 14.3 8 15.6 8.2 16.5 8.85 16.5 9.75V12Z";
 
-type HeroArkProps = {
+type ArkProps = {
   className?: string;
   style?: CSSProperties;
 };
 
-export function HeroArk({ className, style }: HeroArkProps) {
+export function Ark({ className, style }: ArkProps) {
   return (
     <div aria-hidden className={className} style={style}>
       <div className={`${styles.arkSail} h-full w-full`}>

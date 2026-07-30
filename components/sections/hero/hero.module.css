@@ -87,98 +87,6 @@
   }
 }
 
-@keyframes arkFloat {
-  0%,
-  100% {
-    transform: translateY(2px);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
-@keyframes arkRoll {
-  0%,
-  100% {
-    transform: rotate(-2.4deg);
-  }
-  50% {
-    transform: rotate(2.4deg);
-  }
-}
-
-@keyframes arkSail {
-  from {
-    transform: translateX(-42px);
-  }
-  to {
-    transform: translateX(42px);
-  }
-}
-
-@keyframes arkBlink {
-  0%,
-  92%,
-  100% {
-    transform: scaleY(1);
-  }
-  95% {
-    transform: scaleY(0.08);
-  }
-}
-
-@keyframes arkCargo {
-  0%,
-  100% {
-    transform: translateY(0.14px);
-  }
-  50% {
-    transform: translateY(-0.14px);
-  }
-}
-
-@keyframes arkWake {
-  0%,
-  100% {
-    transform: scaleX(0.88);
-    opacity: 0.5;
-  }
-  50% {
-    transform: scaleX(1.14);
-    opacity: 0.12;
-  }
-}
-
-@keyframes arkPorthole {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.45;
-  }
-}
-
-@keyframes ondeBar {
-  0%,
-  100% {
-    transform: scaleY(0.3);
-  }
-  50% {
-    transform: scaleY(1);
-  }
-}
-
-@keyframes eqFloat {
-  0%,
-  100% {
-    transform: translateY(1.5px);
-  }
-  50% {
-    transform: translateY(-3.5px);
-  }
-}
-
 /* --- The classes ---------------------------------------------------------- */
 
 .rainDrop {
@@ -235,57 +143,6 @@
   animation: scrollNudge 2.6s ease-in-out infinite;
 }
 
-.arkSail {
-  animation: arkSail 24s ease-in-out infinite alternate;
-}
-
-.arkFloat {
-  animation: arkFloat 4.7s ease-in-out infinite;
-}
-
-.arkRoll {
-  transform-origin: 50% 74%;
-  animation: arkRoll 6.3s ease-in-out infinite;
-}
-
-.arkBlink {
-  transform-origin: 12px 10.05px;
-  transform-box: view-box;
-  animation: arkBlink 6.8s ease-in-out infinite;
-}
-
-.arkCargo {
-  transform-box: view-box;
-  animation: arkCargo 3.9s ease-in-out infinite;
-}
-
-.arkCargoLate {
-  transform-box: view-box;
-  animation: arkCargo 3.9s ease-in-out -1.3s infinite;
-}
-
-.arkWake {
-  transform-origin: 12px 20px;
-  transform-box: view-box;
-  animation: arkWake 3.4s ease-in-out infinite;
-}
-
-.arkPorthole {
-  animation: arkPorthole 2.8s ease-in-out infinite;
-}
-
-.onde {
-  animation: eqFloat 3.8s ease-in-out infinite;
-}
-
-.ondeBar {
-  width: 4px;
-  border-radius: 2px;
-  background: var(--accent);
-  transform-origin: bottom;
-  animation: ondeBar 0.9s ease-in-out infinite;
-}
-
 /*
  * Reduced motion: the sea settles, the ark stops, the rain stops falling — but
  * every element keeps its resting shape, so the composition still reads.
@@ -296,16 +153,6 @@
   .seaDrift,
   .seaDriftSlow,
   .ripple,
-  .arkSail,
-  .arkFloat,
-  .arkRoll,
-  .arkBlink,
-  .arkCargo,
-  .arkCargoLate,
-  .arkWake,
-  .arkPorthole,
-  .onde,
-  .ondeBar,
   .scrollHint {
     animation: none;
   }

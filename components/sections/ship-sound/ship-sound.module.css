@@ -1,45 +1,26 @@
-/* The level meter and the cover's glow — the player is idle-animated so it reads
-   as playing, which is the section's entire claim. */
+/*
+ * The now-playing equalizer, copied from the app's own token
+ * (`--animate-equalizer` in src/app/theme.css): four bars, 0.9s, scaleY 0.3 → 1.
+ * Keeping the timing identical is the point — this is meant to be recognised.
+ */
 
-@keyframes levelBar {
+@keyframes equalizer {
   0%,
   100% {
-    transform: scaleY(0.25);
+    transform: scaleY(0.3);
   }
   50% {
     transform: scaleY(1);
   }
 }
 
-@keyframes coverGlow {
-  0%,
-  100% {
-    opacity: 0.55;
-  }
-  50% {
-    opacity: 0.9;
-  }
-}
-
-.level {
-  width: 3px;
-  border-radius: 1.5px;
-  background: var(--accent);
-  transform-origin: bottom;
-  animation: levelBar 1.2s ease-in-out infinite;
-}
-
-.cover {
-  animation: coverGlow 3.4s ease-in-out infinite;
+.eqBar {
+  animation: equalizer 0.9s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .level,
-  .cover {
+  .eqBar {
     animation: none;
-  }
-
-  .level {
-    transform: scaleY(0.7);
+    transform: scaleY(0.65);
   }
 }

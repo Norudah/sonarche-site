@@ -1,27 +1,33 @@
-import { Flow } from "@/components/sections/flow/Flow";
-import { OldWay } from "@/components/sections/old-way/OldWay";
-import { TrueNames } from "@/components/sections/true-names/TrueNames";
-import { Hold } from "@/components/sections/hold/Hold";
-import { NoExpertise } from "@/components/sections/no-expertise/NoExpertise";
-import { UnderDeck } from "@/components/sections/under-deck/UnderDeck";
 import { Deck } from "@/components/sections/deck/Deck";
-import { ShipSound } from "@/components/sections/ship-sound/ShipSound";
+import { FirstLaunch } from "@/components/sections/first-launch/FirstLaunch";
+import { Flow } from "@/components/sections/flow/Flow";
+import { Footer } from "@/components/sections/footer/Footer";
 import { Hero } from "@/components/sections/hero/Hero";
+import { Hold } from "@/components/sections/hold/Hold";
 import { Manifesto } from "@/components/sections/manifesto/Manifesto";
+import { NoExpertise } from "@/components/sections/no-expertise/NoExpertise";
+import { OldWay } from "@/components/sections/old-way/OldWay";
+import { ShipSound } from "@/components/sections/ship-sound/ShipSound";
+import { TrueNames } from "@/components/sections/true-names/TrueNames";
+import { UnderDeck } from "@/components/sections/under-deck/UnderDeck";
 
 export default function EnHome() {
   return (
-    <main className="flex flex-1 flex-col">
-      <Hero locale="en" />
-      <Manifesto locale="en" />
-      <Flow locale="en" />
-      <OldWay locale="en" />
-      <TrueNames locale="en" />
-      <NoExpertise locale="en" />
-      <Hold locale="en" />
-      <UnderDeck locale="en" />
-      <Deck locale="en" />
-      <ShipSound locale="en" />
-    </main>
+    <>
+      <main className="flex flex-1 flex-col">
+        <Hero locale="en" />
+        <Manifesto locale="en" />
+        <Flow locale="en" />
+        <OldWay locale="en" />
+        <TrueNames locale="en" />
+        <NoExpertise locale="en" />
+        <Hold locale="en" />
+        <UnderDeck locale="en" />
+        <Deck locale="en" />
+        <ShipSound locale="en" />
+        <FirstLaunch locale="en" />
+      </main>
+      <Footer locale="en" />
+    </>
   );
 }
