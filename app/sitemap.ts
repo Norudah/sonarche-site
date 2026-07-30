@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-import { LOCALE_PATH, SITE_URL } from "@/lib/site";
+import { CONTENT_UPDATED, LOCALE_PATH, SITE_URL } from "@/lib/site";
 
 /** Required by `output: 'export'` — a route handler has to opt into being a file. */
 export const dynamic = "force-static";
@@ -20,7 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   };
 
   return [
-    { url: languages.fr, priority: 1, alternates: { languages } },
-    { url: languages.en, priority: 0.9, alternates: { languages } },
+    { url: languages.fr, lastModified: CONTENT_UPDATED, priority: 1, alternates: { languages } },
+    { url: languages.en, lastModified: CONTENT_UPDATED, priority: 0.9, alternates: { languages } },
   ];
 }
