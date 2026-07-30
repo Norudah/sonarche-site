@@ -8,6 +8,12 @@ Traduction validée par Romain le 2026-07-30. Miroir section par section de
 - **La tagline « From the stream into the Ark. » reste en ANGLAIS partout**
   (hero + footer). C'est la marque : on ne la traduit pas.
 
+Micro-copy (cartes, lignes de tableau, chips, légendes) complétée le 2026-07-30
+depuis `Sonarche Landing FR (web).dc.html`. Attention : cette maquette-là
+**vouvoie** — c'est la passe antérieure. Tous les blocs repris ont été
+transposés au tutoiement ; ils attendent une relecture. Les chips d'étape, que
+la maquette avait laissées en anglais, sont traduites ici.
+
 ## Hero
 
 - Badge : `GRATUIT · OPEN SOURCE · HORS LIGNE`
@@ -24,9 +30,11 @@ Traduction validée par Romain le 2026-07-30. Miroir section par section de
 
 - Kicker : `POURQUOI ELLE EXISTE`
 - Titre : Ta musique doit survivre à toutes les apps.
-- Corps : Donne-lui *ses vrais noms*, *un port d'attache en simples fichiers*,
-  et *un lecteur à sa hauteur* — *pour toujours, hors ligne, à toi*.
+- Corps : Donne-lui _ses vrais noms_, _un port d'attache en simples fichiers_,
+  et _un lecteur à sa hauteur_ — _pour toujours, hors ligne, à toi_.
   (italiques = spans d'emphase, mêmes positions que l'EN)
+- Chips : `fichiers simples` · `pas de cloud` · `aucun compte` ·
+  `aucun ré-encodage`
 
 ## La traversée
 
@@ -36,27 +44,35 @@ Traduction validée par Romain le 2026-07-30. Miroir section par section de
   après le premier.
 
 ### Étape 01 — Colle un lien
+
 Un titre, un album, une playlist entière. Dépose-le dans le composeur et le
 voyage s'organise — une ligne par morceau, avant que rien ne soit embarqué.
+Chips : `un morceau` · `un album` · `une playlist`
 Note : Déjà dans la cale ? Il passe son tour, sans un mot.
 
 ### Étape 02 — Regarde la cargaison monter à bord
+
 Les pastilles passent au vert une à une pendant que l'audio natif est hissé à
 bord — intact, jamais ré-encodé — et rejoint la cale.
+Chips : `yt-dlp` · `audio natif` · `aucun ré-encodage`
 Note : Ferme la fenêtre en pleine manœuvre : la file reprendra exactement où
 elle s'est arrêtée.
 
 ### Étape 03 — Empreinte et identification
+
 ffmpeg et Chromaprint distillent l'audio lui-même en une empreinte acoustique.
 AcoustID répond : c'est cet enregistrement-là, exactement — sans jamais
 deviner d'après le titre.
+Chips : `ffmpeg` · `Chromaprint` · `AcoustID`
 Note : Pas de correspondance sûre ? L'app le dit et te demande — plutôt que
 d'inventer un artiste.
 
 ### Étape 04 — Il reçoit son nom
+
 Titre, artiste, album, genre, piste, année — et la vraie pochette. Tout est
 écrit dans les tags du fichier lui-même, et jusque dans le dossier qui
 l'abrite désormais.
+Chips : `MusicBrainz` · `pochette` · `famille de genre`
 Note : Dans les fichiers eux-mêmes — pas dans une base que seul Sonarche
 saurait lire.
 
@@ -66,11 +82,37 @@ saurait lire.
 - Titre : L'ancienne méthode, tu la connais par cœur.
 - Sous-titre : Cinq outils, quatre onglets, et un dossier Téléchargements qui
   ressemble à une scène de crime. Chaque étape perd quelque chose en route.
+
+### Les cinq maillons de la chaîne
+
+Chaque carte : libellé d'étape — outil — grief — coût.
+
+1. `ONGLET 1` — **Un site de conversion** — Un lien à la fois, converti sur le
+   serveur de quelqu'un d'autre. Tu attends dans une file, puis le navigateur
+   dépose le fichier où bon lui semble. — _Lent, un morceau, ré-encodé._
+2. `APP 1` — **Un téléchargeur en masse** — Il gère la playlist, au moins.
+   Mais il remplit les tags avec le nom du fichier — ton artiste s'appelle
+   « Unknown » et ton album est vide. — _Des tags devinés._
+3. `APP 2` — **Un éditeur de tags** — Ouvrir chaque fichier. Retaper le titre,
+   l'artiste, l'année, le numéro de piste. Multiplie par 80. — _Des heures de
+   saisie._
+4. `ONGLET 2` — **Une recherche d'images** — Chercher une pochette carrée qui
+   ne soit pas une vignette filigranée, la recadrer, espérer qu'elle
+   corresponde au bon pressage. — _La mauvaise pochette pour toujours._
+5. `APP 3` — **Ton lecteur de musique** — Déplacer les fichiers, relancer
+   l'analyse du dossier, puis découvrir trois doublons et un album coupé en
+   deux. — _Une bibliothèque bancale quand même._
+
+### La chute
+
 - Titre punch : Sonarche fait les cinq. Dans une seule fenêtre.
 - Corps punch : Donne-lui un lien et va vivre ta vie. L'audio rejoint la cale,
   se fait écouter, identifier, taguer, recevoir sa vraie pochette, ranger dans
   le bon dossier — puis la lecture démarre, sur un moteur audio natif en Rust.
   Pas de relais, pas de ré-import, pas de deuxième app.
+- Chips : `un lien en entrée` · `aucun ré-encodage` · `empreinte` ·
+  `vraies métadonnées` · `vraie pochette` · `dossiers rangés` ·
+  `lecture native`
 
 ## Les vrais noms
 
@@ -83,8 +125,19 @@ saurait lire.
   empreinte à un enregistrement précis, et MusicBrainz — vingt ans de
   discographie vérifiée par la communauté — rend son verdict : les faits, les
   vrais.
-- Labels du comparatif : `GRATTÉ SUR LA PAGE` / *au jugé* —
-  `EMPREINTE → ACOUSTID → MUSICBRAINZ` — `IDENTIFIÉ PAR L'AUDIO` / *vérifié*
+- Labels du comparatif : `GRATTÉ SUR LA PAGE` / _au jugé_ —
+  `EMPREINTE → ACOUSTID → MUSICBRAINZ` — `IDENTIFIÉ PAR L'AUDIO` / _vérifié_
+
+### Le comparatif, ligne par ligne
+
+| Champ    | Gratté (au jugé)                                | Identifié (vérifié)            |
+| -------- | ----------------------------------------------- | ------------------------------ |
+| Titre    | `Ghost - Mary On A Cross (Official Audio) [HQ]` | Mary on a Cross                |
+| Artiste  | inconnu — lu dans le nom du fichier             | Ghost                          |
+| Album    | —                                               | Seven Inches of Satanic Panic  |
+| Année    | 2022 (date du fichier)                          | 2019                           |
+| Pochette | vignette intégrée, 16:9, bandes noires          | pochette officielle, 1400×1400 |
+
 - Ligne pochette : Et la pochette arrive avec — la vraie, carrée, pas le
   quatrième résultat de Google Images.
 
@@ -99,6 +152,12 @@ saurait lire.
   Convaincu que ton disque préféré est du thrash, pas du heavy metal ?
   Change-le. Un clic, zéro friction — et Sonarche te dit exactement ce qu'il
   a écrit, dans quels fichiers, avec des mots qui se passent de wiki.
+- Repères (3 puces) :
+  - Des réglages sensés à l'import — la plupart des albums n'attendent rien
+    de toi.
+  - Tout ce qui est incertain est signalé en langage clair, avec le choix
+    énoncé.
+  - Chaque modification te dit quels fichiers elle a touchés, avant et après.
 - Widget : `Genre — Ride the Lightning` · Heavy Metal → Thrash Metal ·
   « Ce qui vient de se passer » — Thrash Metal appartient à la famille Metal :
   l'album ne bouge pas de ta bibliothèque. Le nouveau genre est écrit dans les
@@ -113,7 +172,30 @@ saurait lire.
   dans les standards de tags que tous les lecteurs lisent depuis vingt ans.
   Sonarche range ta musique et te la rend aussitôt — il ne la prend jamais en
   otage.
+
+### L'arborescence
+
+```
+▾ Music
+  ▾ Sonarche
+    ▾ Ghost
+      ▾ Seven Inches of Satanic Panic (2019)
+        ♫ 01 Kiss the Go-Goat.opus
+        ♫ 02 Mary on a Cross.opus
+        ▣ cover.jpg
+  ▸ TonAutreAppMusique
+```
+
 - Note : Déplace le dossier où tu veux : tout marche encore.
+
+### Où elle peut aller
+
+- **Un téléphone** — branche-le, dépose le dossier, terminé
+- **Un disque dur** — ta sauvegarde est un copier-coller
+- **Un autre lecteur** — les tags sont standard : il les lit
+- **Une autre machine** — aucun compte, aucun ré-import, aucun service de
+  synchro
+
 - Chute : Et si Sonarche ne te plaît plus, ta bibliothèque part avec toi —
   taguée jusqu'au dernier morceau.
 
@@ -123,19 +205,35 @@ saurait lire.
 - Titre : Pas de magie. Des outils éprouvés, bien orchestrés.
 - Corps : Tu n'es pas obligé de t'y intéresser — mais tout est là, en mots
   simples, parce que tu mérites de savoir ce qui tourne sur ta machine.
-- Nœuds du schéma :
-  - Le flux — Une URL quelque part — un titre, un album, une playlist.
-    (*le web ouvert*)
-  - `PYTHON EMBARQUÉ · SCELLÉ, LIVRÉ AVEC L'APP`
-  - yt-dlp — Hisse l'audio natif à bord — jamais de ré-encodage.
-  - ffmpeg + Chromaprint — Distille chaque morceau en empreinte acoustique.
-  - beets (*le chef d'orchestre*) — Dirige chaque appel, vérifie chaque tag,
-    et range chaque morceau à sa place dans la bibliothèque.
-  - MusicBrainz — L'encyclopédie ouverte de la musique enregistrée — titres,
-    albums, années.
-  - AcoustID — Relie l'empreinte à l'enregistrement exact.
-  - 📁 /sonarche — Après tout ça, ce n'est qu'un dossier de musique. Le tien.
-    Ouvre-le, déplace-le, sauvegarde-le.
+
+### Trois cartes
+
+- `LA COQUE` — **Tauri, pas un onglet de navigateur** — L'interface est
+  construite avec des outils web modernes, pour être vraiment agréable à
+  regarder et à utiliser — mais elle est livrée comme une vraie app de bureau,
+  quelques mégaoctets, pas un navigateur embarqué qui dévore ta RAM.
+- `LE MOTEUR` — **Du Rust en dessous** — Tout ce qui est lourd — la
+  récupération, l'écriture des fichiers, la lecture audio — tourne en Rust.
+  C'est la différence entre un lecteur qui hoquette et un lecteur qui démarre.
+- `LA CAISSE À OUTILS` — **Un sidecar scellé** — beets et ses outils Python
+  vivent à l'intérieur de l'app, dans leur propre runtime embarqué. Rien à
+  installer, rien à mettre à jour, et rien qui puisse entrer en conflit avec
+  ce qui est déjà sur ta machine.
+
+### Nœuds du schéma
+
+- Le flux — Une URL quelque part — un titre, un album, une playlist.
+  (_le web ouvert_)
+- `PYTHON EMBARQUÉ · SCELLÉ, LIVRÉ AVEC L'APP`
+- yt-dlp — Hisse l'audio natif à bord — jamais de ré-encodage.
+- ffmpeg + Chromaprint — Distille chaque morceau en empreinte acoustique.
+- beets (_le chef d'orchestre_) — Dirige chaque appel, vérifie chaque tag,
+  et range chaque morceau à sa place dans la bibliothèque.
+- MusicBrainz — L'encyclopédie ouverte de la musique enregistrée — titres,
+  albums, années.
+- AcoustID — Relie l'empreinte à l'enregistrement exact.
+- 📁 /sonarche — Après tout ça, ce n'est qu'un dossier de musique. Le tien.
+  Ouvre-le, déplace-le, sauvegarde-le.
 
 ## Le pont
 
@@ -150,6 +248,9 @@ saurait lire.
   - La complétude d'un coup d'œil : 7 champs sur 7, badges 100 %.
   - Les genres forment des familles — Metal, Électro, Jazz — chacune avec sa
     teinte.
+- Widget (`Métadonnées — Oath`) : Titre `Oath` · Artiste `The Algorithm` ·
+  Année `2021` · Genre `Progressive Metal` · Genre parent `Metal · dérivé` ·
+  boutons `✦ Re-matcher` et `Modifier`.
 
 ## Le son du navire
 
@@ -159,11 +260,28 @@ saurait lire.
   fichiers vers un autre lecteur. Sonarche est aussi le lecteur — un moteur
   audio natif en Rust : les morceaux partent dans le tempo, et les albums
   gapless le restent.
+- Lecteur : `Oath` · `The Algorithm` · `1:12` / `2:54`
 
 ## En vrai (screenshots)
 
 - Kicker : `EN VRAI`
 - Titre : Voici à quoi ressemble le pont.
+- Compteur : `01 / 05`
+
+### Les cinq captures
+
+1. `Album` — **Un album, entier** — Douze morceaux, douze jeux de tags
+   complets, la bonne pochette — et ça joue depuis la même fenêtre.
+2. `Genres` — **Les genres en arbre** — Electronic contient Electro House,
+   Dark Wave, Video Game Music — et sait qu'il représente 39 % de l'étagère.
+3. `Métadonnées` — **Rien n'est écrit dans ton dos** — Renomme un artiste et
+   Sonarche demande lequel des onze autres morceaux doit suivre. Tu tranches
+   avant que quoi que ce soit ne touche un fichier.
+4. `Inspecteur` — **Sept champs sur sept** — L'inspecteur se glisse par-dessus
+   la liste, pour corriger un morceau sans jamais perdre ta place.
+5. `Entretien` — **Il tient sa propre liste de corrections** — Années
+   manquantes, genres hors arbre, tracklists à trous — vingt choses à
+   corriger, réunies sur un écran.
 
 ## Premier lancement
 
@@ -175,7 +293,7 @@ saurait lire.
   plus, sur l'une comme sur l'autre plateforme.
 - macOS : Gatekeeper affiche « Apple n'a pas pu vérifier que cette app ne
   contient pas de logiciel malveillant ». → `clic droit sur l'app → Ouvrir →
-  Ouvrir` — Ou si elle est déjà bloquée : Réglages Système → Confidentialité
+Ouvrir` — Ou si elle est déjà bloquée : Réglages Système → Confidentialité
   et sécurité → Ouvrir quand même.
 - Windows : SmartScreen affiche « Windows a protégé votre ordinateur » et
   cache le bouton. → `Informations complémentaires → Exécuter quand même` —
@@ -188,6 +306,7 @@ saurait lire.
 - Corps : Pas d'abonnement, pas de cloud, pas de verrou. Le code est sur
   GitHub — lis-le, forke-le, monte à bord.
 - CTA : `Sonarche est sur GitHub ↗`
+- Construit avec : `Tauri` · `Rust` · `React` · `beets` · `yt-dlp` · `AcoustID`
 - Footer : `Licence : MIT` · Usage personnel — respecte les conditions des
   services que tu utilises et le droit de ton pays. · `SONARCHE` ·
-  *From the stream into the Ark.* (EN) · `GitHub ↗`
+  _From the stream into the Ark._ (EN) · `GitHub ↗`

@@ -4,6 +4,11 @@ Final copy, validated 2026-07-30 from "Sonarche Landing v7" (Claude Design).
 This deck is the reference: the FR deck (`fr.md`) mirrors it section by section.
 Any copy change lands here first, then in `fr.md`, then in the components.
 
+Micro-copy (cards, table rows, chips, captions) completed 2026-07-30 by
+extraction from `docs/designs/Sonarche Landing v7.dc.html`. The reference mockup
+is that file only — `v7 - export` and the 8 MB `Sonarche Landing.html` are stale
+v6 builds that still name platforms; never read copy from them.
+
 ## Hero
 
 - Badge: `FREE · OPEN SOURCE · OFFLINE`
@@ -19,8 +24,9 @@ Any copy change lands here first, then in `fr.md`, then in the components.
 
 - Kicker: `WHY IT EXISTS`
 - Heading: Your music should outlive every app.
-- Body: Give it *true names*, *a home in plain files*, and a player worthy of
-  it — *forever, offline, yours*. (italics = emphasis spans)
+- Body: Give it _true names_, _a home in plain files_, and a player worthy of
+  it — _forever, offline, yours_. (italics = emphasis spans)
+- Chips: `plain files` · `no cloud` · `no account` · `no re-encode`
 
 ## The flow
 
@@ -30,24 +36,32 @@ Any copy change lands here first, then in `fr.md`, then in the components.
   first paste.
 
 ### Step 01 — Paste a link
+
 A track, an album, a whole playlist. Drop it in the composer and the voyage
 lines up — one row per track, before anything is brought in.
+Chips: `single track` · `album` · `playlist`
 Note: Already in the hold? It's skipped, silently.
 
 ### Step 02 — Watch it come aboard
+
 Circles turn green one by one as the native audio is hauled in — untouched,
 never re-encoded — and lands in the hold.
+Chips: `yt-dlp` · `native audio` · `no re-encode`
 Note: Close the window mid-haul — the queue picks up where it stopped.
 
 ### Step 03 — Fingerprint & identify
+
 ffmpeg and Chromaprint distill the audio itself into an acoustic fingerprint.
 AcoustID answers with exactly which recording this is — no title-guessing
 involved.
+Chips: `ffmpeg` · `Chromaprint` · `AcoustID`
 Note: No confident match? It says so and asks — instead of inventing an artist.
 
 ### Step 04 — It gets its name
+
 Title, artist, album, genre, track, year — and the real cover. All of it
 written into the file's own tags, and into the folder it now lives in.
+Chips: `MusicBrainz` · `cover art` · `genre family`
 Note: Into the files themselves — not into a database only Sonarche can read.
 
 ## The old way
@@ -56,11 +70,35 @@ Note: Into the files themselves — not into a database only Sonarche can read.
 - Heading: You already know the old way.
 - Sub: Five tools, four tabs, and a download folder that looks like a crime
   scene. Every step loses something on the way.
+
+### The five links of the chain
+
+Each card: step label — tool — gripe — cost.
+
+1. `TAB 1` — **A converter site** — One link at a time, converted on somebody
+   else's server. You wait in a queue, then the browser drops the file wherever
+   it feels like. — _Slow, one track, re-encoded._
+2. `APP 1` — **A bulk downloader** — Handles the playlist, at least. But it
+   fills the tags from the file name — so your artist is « Unknown » and your
+   album is blank. — _Tags are a guess._
+3. `APP 2` — **A tag editor** — Open every file. Retype the title, the artist,
+   the year, the track number. Multiply by 80. — _Hours of typing._
+4. `TAB 2` — **An image search** — Hunt for a square cover that isn't a
+   watermarked thumbnail, crop it, hope it matches the right pressing. —
+   _Wrong artwork forever._
+5. `APP 3` — **Your music player** — Move the files in, re-scan the folder,
+   then discover three duplicates and one album split in two. — _A messy
+   library anyway._
+
+### The punch
+
 - Punch heading: Sonarche does all five. In one window.
 - Punch body: Point it at a link and walk away. The audio lands in the hold,
   gets listened to, identified, tagged, given its real cover, filed in the
   right folder — and then it plays, on a native Rust audio engine. No hand-off,
   no re-import, no second app.
+- Chips: `one link in` · `no re-encode` · `fingerprint` · `real metadata` ·
+  `proper artwork` · `filed folders` · `native playback`
 
 ## True names
 
@@ -72,8 +110,19 @@ Note: Into the files themselves — not into a database only Sonarche can read.
   fingerprint, AcoustID matches that fingerprint to one exact recording, and
   MusicBrainz — twenty years of community-verified discography — hands back
   the real facts.
-- Compare labels: `SCRAPED FROM THE PAGE` / *best guess* —
-  `FINGERPRINT → ACOUSTID → MUSICBRAINZ` — `IDENTIFIED BY THE AUDIO` / *verified*
+- Compare labels: `SCRAPED FROM THE PAGE` / _best guess_ —
+  `FINGERPRINT → ACOUSTID → MUSICBRAINZ` — `IDENTIFIED BY THE AUDIO` / _verified_
+
+### The comparison, row by row
+
+| Field   | Scraped (best guess)                            | Identified (verified)           |
+| ------- | ----------------------------------------------- | ------------------------------- |
+| Title   | `Ghost - Mary On A Cross (Official Audio) [HQ]` | Mary on a Cross                 |
+| Artist  | unknown — read off the file name                | Ghost                           |
+| Album   | —                                               | Seven Inches of Satanic Panic   |
+| Year    | 2022 (file date)                                | 2019                            |
+| Artwork | embedded thumbnail, 16:9, letterboxed           | official front cover, 1400×1400 |
+
 - Cover line: And the cover comes with it — the real square artwork, not the
   fourth result on Google Images.
 
@@ -88,6 +137,10 @@ Note: Into the files themselves — not into a database only Sonarche can read.
   record is Thrash, not Heavy Metal? Change it. One click, no friction — and
   Sonarche tells you exactly what it wrote, into which files, in words you
   don't need a wiki for.
+- Guides (3 bullets):
+  - Sensible defaults on import — most albums need nothing from you at all.
+  - Anything uncertain is flagged in plain language, with the choice spelled out.
+  - Every edit tells you which files it touched, before and after.
 - Widget: `Genre — Ride the Lightning` · Heavy Metal → Thrash Metal ·
   "What just happened" — Thrash Metal sits under the Metal family, so the
   album stays where it is in your library. The new genre is written into all
@@ -101,7 +154,29 @@ Note: Into the files themselves — not into a database only Sonarche can read.
   current app already uses. The names live in the files themselves, in the
   same tag standards every player has read for twenty years. Sonarche
   organises your music and hands it straight back; it never holds it hostage.
+
+### The file tree
+
+```
+▾ Music
+  ▾ Sonarche
+    ▾ Ghost
+      ▾ Seven Inches of Satanic Panic (2019)
+        ♫ 01 Kiss the Go-Goat.opus
+        ♫ 02 Mary on a Cross.opus
+        ▣ cover.jpg
+  ▸ YourOtherMusicApp
+```
+
 - Note: Drag the folder anywhere and it still works.
+
+### Where it goes
+
+- **A phone** — plug it in, drop the folder, done
+- **A hard drive** — your backup is a copy-paste
+- **Another player** — the tags are standard — it reads them
+- **Another machine** — no account, no re-import, no sync service
+
 - Closer: If you decide you don't like Sonarche, your library leaves with you
   — fully tagged.
 
@@ -111,17 +186,32 @@ Note: Into the files themselves — not into a database only Sonarche can read.
 - Heading: No magic. Proven tools, conducted well.
 - Body: You don't have to care about any of this — but here it is, in plain
   words, because you deserve to know what's running on your machine.
-- Diagram nodes:
-  - The stream — A URL out there — a track, an album, a playlist. (*the open web*)
-  - `EMBEDDED PYTHON · SEALED, SHIPPED WITH THE APP`
-  - yt-dlp — Hauls the native audio in — no re-encode, ever.
-  - ffmpeg + Chromaprint — Distills each track into an acoustic fingerprint.
-  - beets (*the conductor*) — Directs every call, checks every tag, and files
-    each track into its right place in the library.
-  - MusicBrainz — The open encyclopedia of recorded music — titles, albums, years.
-  - AcoustID — Matches the fingerprint to the exact recording.
-  - 📁 /sonarche — After all that — it's just a folder of music. Yours. Open
-    it, move it, back it up.
+
+### Three cards
+
+- `THE SHELL` — **Tauri, not a browser tab** — The interface is built with
+  modern web tooling, so it can be genuinely nice to look at and to use — but
+  it ships as a real desktop app, a few megabytes, not a bundled browser
+  eating your RAM.
+- `THE ENGINE` — **Rust underneath** — Everything heavy — fetching, file
+  writes, audio playback — runs in Rust. That's the difference between a
+  player that stutters and one that just starts.
+- `THE TOOLBOX` — **A sealed sidecar** — beets and its Python tools live
+  inside the app, in their own bundled runtime. Nothing to install, nothing to
+  update, and nothing that can clash with whatever is already on your machine.
+
+### Diagram nodes
+
+- The stream — A URL out there — a track, an album, a playlist. (_the open web_)
+- `EMBEDDED PYTHON · SEALED, SHIPPED WITH THE APP`
+- yt-dlp — Hauls the native audio in — no re-encode, ever.
+- ffmpeg + Chromaprint — Distills each track into an acoustic fingerprint.
+- beets (_the conductor_) — Directs every call, checks every tag, and files
+  each track into its right place in the library.
+- MusicBrainz — The open encyclopedia of recorded music — titles, albums, years.
+- AcoustID — Matches the fingerprint to the exact recording.
+- 📁 /sonarche — After all that — it's just a folder of music. Yours. Open
+  it, move it, back it up.
 
 ## The deck
 
@@ -134,6 +224,11 @@ Note: Into the files themselves — not into a database only Sonarche can read.
   - Change once — written to every file.
   - Completeness at a glance: 7/7 fields, 100% badges.
   - Genres form families — Metal, Electronic, Jazz — each with its own tone.
+- Widget (`Metadata — Oath`): Title `Oath` · Artist `The Algorithm` ·
+  Year `2021` · Genre `Progressive Metal` · Genre family `Metal · derived` ·
+  buttons `✦ Re-match` and `Edit`.
+  (The v7 mockup left this widget's labels in French — these are the EN
+  equivalents, to be read over.)
 
 ## The ship's sound
 
@@ -142,11 +237,28 @@ Note: Into the files themselves — not into a database only Sonarche can read.
 - Body: The last step of the old way was moving files into some other player.
   Sonarche is the player too — a native Rust audio engine, so tracks start on
   the beat and gapless albums stay gapless.
+- Player: `Oath` · `The Algorithm` · `1:12` / `2:54`
 
 ## The real thing (screenshots)
 
 - Kicker: `THE REAL THING`
 - Heading: This is what the deck looks like.
+- Counter: `01 / 05`
+
+### The five shots
+
+1. `Album` — **An album, whole** — Twelve tracks, twelve complete tag sets,
+   the right cover — and it plays from the very same window.
+2. `Genres` — **Genres as a tree** — Electronic holds Electro House, Dark
+   Wave, Video Game Music — and knows it accounts for 39% of the shelf.
+3. `Metadata` — **Nothing written behind your back** — Rename one artist and
+   Sonarche asks which of the other eleven tracks should follow. You decide
+   before anything touches a file.
+4. `Inspector` — **Seven fields out of seven** — The inspector slides in over
+   the list, so you can fix one track without ever losing your place.
+5. `Upkeep` — **It keeps its own to-do list** — Missing years, genres off the
+   tree, tracklists with holes — twenty things to correct, gathered in one
+   screen.
 
 ## First launch
 
@@ -170,6 +282,7 @@ Note: Into the files themselves — not into a database only Sonarche can read.
 - Body: No subscription, no cloud, no lock-in. The code is on GitHub — read
   it, fork it, board it.
 - CTA: `Get Sonarche on GitHub ↗`
+- Built with: `Tauri` · `Rust` · `React` · `beets` · `yt-dlp` · `AcoustID`
 - Footer: `License: MIT` · For personal use. Respect the terms of the services
-  you use, and your local law. · `SONARCHE` · *From the stream into the Ark.*
+  you use, and your local law. · `SONARCHE` · _From the stream into the Ark._
   · `GitHub ↗`
