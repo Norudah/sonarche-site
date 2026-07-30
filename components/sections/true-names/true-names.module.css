@@ -1,0 +1,42 @@
+/* The fingerprint reading between the two panels — thirty bars breathing out of
+   phase, and the dashes travelling from the guess toward the verdict. */
+
+@keyframes fpBar {
+  0%,
+  100% {
+    transform: scaleY(0.25);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes dashAcross {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+.fpBar {
+  width: 3px;
+  border-radius: 1.5px;
+  background: var(--accent);
+  transform-origin: bottom;
+  animation: fpBar ease-in-out infinite;
+}
+
+.pipe {
+  animation: dashAcross 1.2s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fpBar,
+  .pipe {
+    animation: none;
+  }
+
+  .fpBar {
+    /* Frozen mid-reading rather than flat — it is a waveform, not a progress bar. */
+    transform: scaleY(0.7);
+  }
+}

@@ -113,6 +113,25 @@
   --success: oklch(0.52 0.115 158);
   --warning: oklch(0.545 0.13 70);
 
+  /*
+   * Rust — the page's second voice, and the only hue here that is not indigo.
+   *
+   * It is not decoration and not a warning: the design uses it as one half of a
+   * pair. Rust is the old way, the scraped guess, the tool being replaced;
+   * indigo is Sonarche; green is verified. "The old way" and "True names" both
+   * lean on that opposition, which is what earns these a name rather than a
+   * literal in one file.
+   *
+   * The app itself has no such hue — its `warning` (70) is yellower and its
+   * `danger` (25) redder, and neither means "the way you used to do it". These
+   * come from the mockup, at hue 40–45.
+   */
+  --rust: oklch(0.52 0.15 42);
+  --rust-ink: oklch(0.42 0.06 40);
+  --rust-edge: oklch(0.85 0.035 45);
+  --rust-soft: oklch(0.975 0.012 45);
+  --rust-paper: oklch(0.985 0.008 45);
+
   /* Light-only site (see docs/CONTEXT.md): native UI must not invert. */
   color-scheme: light;
 }
@@ -135,6 +154,11 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-success: var(--success);
   --color-warning: var(--warning);
+  --color-rust: var(--rust);
+  --color-rust-ink: var(--rust-ink);
+  --color-rust-edge: var(--rust-edge);
+  --color-rust-soft: var(--rust-soft);
+  --color-rust-paper: var(--rust-paper);
 
   --font-display: "Space Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Instrument Serif", ui-serif, Georgia, serif;

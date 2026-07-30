@@ -1,0 +1,18 @@
+/* The dashes travelling down the connector, from the five old tools to the one
+   that replaces them. Same march as the mockup's, on stroke-dashoffset only. */
+
+@keyframes dashDown {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+
+.connector {
+  animation: dashDown 1.4s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .connector {
+    animation: none;
+  }
+}
