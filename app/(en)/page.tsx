@@ -7,6 +7,7 @@ import { Hold } from "@/components/sections/hold/Hold";
 import { Manifesto } from "@/components/sections/manifesto/Manifesto";
 import { NoExpertise } from "@/components/sections/no-expertise/NoExpertise";
 import { OldWay } from "@/components/sections/old-way/OldWay";
+import { RealThing } from "@/components/sections/real-thing/RealThing";
 import { ShipSound } from "@/components/sections/ship-sound/ShipSound";
 import { TrueNames } from "@/components/sections/true-names/TrueNames";
 import { UnderDeck } from "@/components/sections/under-deck/UnderDeck";
@@ -25,6 +26,7 @@ export default function EnHome() {
         <UnderDeck locale="en" />
         <Deck locale="en" />
         <ShipSound locale="en" />
+        <RealThing locale="en" />
         <FirstLaunch locale="en" />
       </main>
       <Footer locale="en" />
