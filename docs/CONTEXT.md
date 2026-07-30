@@ -25,17 +25,74 @@ Keep it abstract and elegant: sea/stream/vessel/harbor imagery, geometric ark,
 converging particles or waveforms. Never literal (no boat with animals, no biblical
 kitsch).
 
-## Page structure (agreed)
+## Page structure (final — v7, 2026-07-30)
 
-1. **Hero** — full viewport, wordmark + tagline, hand-crafted SVG/GSAP "Ark moment"
-   animation on load (stream of particles gathered into the vessel). CTA → GitHub.
-2. **Manifesto** — 3–4 punchy lines on ownership; large typography, text reveal.
-3. **The flow** — the pipeline: paste a link → download → auto-import with verified
-   metadata → lands in the library. Screenshots / short video loops per step.
-4. **Your library, your rules** — album/artists/genres views + metadata edit drawer.
-5. **Your player too** — Sonarche replaces the music player, not just a downloader.
-6. **Open source & free** — GitHub CTA repeated, built-with (Tauri, Rust, beets),
-   minimal footer.
+The v7 Claude Design mockup ("Sonarche Landing v7", in the app repo under
+`docs/designs/landing/`) superseded the earlier 6-section plan. Final order:
+
+1. **Hero** — badge, wordmark, tagline, subline, GitHub CTA. The "Ark moment"
+   SVG/GSAP animation on load (stream of particles gathered into the vessel).
+2. **Why it exists** — manifesto: "Your music should outlive every app."
+3. **The flow** — 4 numbered steps (paste / come aboard / fingerprint / named).
+4. **The old way** — 5-tools pain table, then "Sonarche does all five."
+5. **True names** — scraped-vs-identified compare, the fingerprint story.
+6. **No expertise needed** — automation + the genre-edit widget.
+7. **The hold is yours** — plain files, no lock-in.
+8. **Under the deck** — architecture diagram (yt-dlp, ffmpeg+Chromaprint,
+   beets, MusicBrainz, AcoustID, embedded Python).
+9. **The deck** — library views, editable fields.
+10. **The ship's sound** — the native Rust player.
+11. **The real thing** — real screenshots carousel.
+12. **First launch** — Gatekeeper (macOS) + SmartScreen (Windows) walkthrough.
+13. **Final CTA + footer** — "Free. Open source. Yours.", MIT, personal-use line.
+
+## Copy & languages
+
+- The full validated copy lives in **`docs/copy/en.md`** (source of truth) and
+  **`docs/copy/fr.md`** (validated French mirror). Components must render that
+  text verbatim — copy fixes go to those files first.
+- Two static routes: `/` (EN) and `/fr/` (FR), cross-linked with `hreflang`
+  alternates (+ `x-default` → EN). No auto-redirect on Accept-Language: a
+  static export can't, and a visible language switch is better anyway.
+- The FR page uses **tu**, never « vous » — it matches the app's own voice.
+- The tagline **"From the stream into the Ark."** is the brand: it is never
+  translated and never reworded, in any language, hero and footer included.
+
+## Legal positioning (hard rules — never relax without Romain's say-so)
+
+Backed by the precedent research of 2026-07-30 (see the app project's memory:
+every stream-ripping lawsuit targeted monetized web converters marketed as
+"free music"; free client-side OSS tools have never been touched).
+
+- The page sells a **music library manager**; downloading is one feature among
+  others, never the headline.
+- **No streaming-platform names, logos, or brand colors anywhere** in copy or
+  visuals ("the open web", "a link"). Naming yt-dlp/ffmpeg/beets in the
+  technical "Under the deck" section is fine and deliberate.
+- No "free music" framing, no anti-streaming-subscription framing, and never
+  any claim about legality ("it's legal", "risk-free") — the page stays silent
+  on the topic; the only trace is the footer line: "For personal use. Respect
+  the terms of the services you use, and your local law."
+- **Screenshots/videos**: never show a platform URL, a platform logo, or a
+  famous copyrighted track mid-download. Famous covers in *library* views are
+  fine (every player does it); the download-in-progress shots use obscure or
+  royalty-free content. The app strips platform branding since app commit
+  2ace015 — take fresh screenshots, don't reuse old ones.
+- Free forever, no ads, no paid tier: if that ever changes, the legal analysis
+  must be redone first.
+
+## SEO checklist (per language)
+
+- One `h1` (the hero), semantic sections with `h2`s, real text in the DOM
+  (GSAP reveals must animate real nodes, not inject text at runtime).
+- `<title>` + meta description, canonical, `hreflang` alternates, OG + Twitter
+  card with a designed OG image (1200×630, the ark + tagline).
+- JSON-LD `SoftwareApplication` (name, OS, free, license MIT, repo URL).
+- `sitemap.xml` + `robots.txt` in the static export.
+- Self-host the fonts (@fontsource or local woff2, `font-display: swap`) —
+  no Google Fonts CDN (perf + EU privacy).
+- Budget: Lighthouse ≥ 95 on every axis, mobile included; LCP is the hero —
+  keep its animation payload lean and never lazy-load its text.
 
 ## Stack decisions (already challenged and settled — don't relitigate)
 

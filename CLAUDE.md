@@ -26,6 +26,18 @@
   before commit: images via next/image-compatible formats, motion as mp4/webm —
   never GIF.
 
+## Copy & Legal (hard rules)
+
+- All user-visible copy comes verbatim from `docs/copy/en.md` (source of truth)
+  and `docs/copy/fr.md` (validated mirror). Never improvise or "improve" copy in
+  a component; change the deck first.
+- FR uses **tu**, never « vous ». The tagline "From the stream into the Ark." is
+  never translated or reworded — hero and footer, both languages.
+- Never name a streaming platform (or show its logo/colors) in copy, visuals, or
+  screenshots. yt-dlp/ffmpeg/beets in the technical section are fine.
+- No "free music" framing, no legality claims. The footer's personal-use line is
+  the only trace of the topic. Full rationale: docs/CONTEXT.md § Legal positioning.
+
 ## Code Structure
 
 - Split by concern. Don't let a file accumulate unrelated responsibilities or grow
