@@ -94,7 +94,7 @@ export const underDeckCopy: Record<Locale, UnderDeckCopy> = {
     headingBefore: "Pas de magie.",
     headingEmphasis: "Des outils éprouvés",
     headingAfter: ", bien orchestrés.",
-    body: "Tu n'es pas obligé de t'y intéresser — mais tout est là, en mots simples, parce que tu mérites de savoir ce qui tourne sur ta machine.",
+    body: "Rien ne t'oblige à t'y intéresser — mais tout est là, en mots simples, parce que tu mérites de savoir ce qui tourne sur ta machine.",
     cards: [
       {
         tag: "LA COQUE",
@@ -104,7 +104,7 @@ export const underDeckCopy: Record<Locale, UnderDeckCopy> = {
       {
         tag: "LE MOTEUR",
         title: "Du Rust en dessous",
-        text: "Tout ce qui est lourd — la récupération, l'écriture des fichiers, la lecture audio — tourne en Rust. C'est la différence entre un lecteur qui hoquette et un lecteur qui démarre.",
+        text: "Tout ce qui est lourd — la récupération, l'écriture des fichiers, la lecture audio — tourne en Rust. C'est la différence entre un lecteur qui hoquette et un lecteur qui ne bronche pas.",
       },
       {
         tag: "LA CAISSE À OUTILS",

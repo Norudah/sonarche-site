@@ -99,7 +99,7 @@ export const oldWayCopy: Record<Locale, OldWayCopy> = {
       {
         step: "APP 2",
         tool: "Un éditeur de tags",
-        gripe: "Ouvrir chaque fichier. Retaper le titre, l'artiste, l'année, le numéro de piste. Multiplie par 80.",
+        gripe: "Ouvrir chaque fichier. Retaper le titre, l'artiste, l'année, le numéro de piste. Multiplié par 80.",
         cost: "Des heures de saisie.",
       },
       {
@@ -119,7 +119,7 @@ export const oldWayCopy: Record<Locale, OldWayCopy> = {
     ],
     punchHeading: "Sonarche fait les cinq. Dans une seule fenêtre.",
     punchBody:
-      "Donne-lui un lien et va vivre ta vie. L'audio rejoint la cale, se fait écouter, identifier, taguer, recevoir sa vraie pochette, ranger dans le bon dossier — puis la lecture démarre, sur un moteur audio natif en Rust. Pas de relais, pas de ré-import, pas de deuxième app.",
+      "Donne-lui un lien et va vivre ta vie. L'audio rejoint la cale, se fait écouter, identifier, taguer, coiffer de sa vraie pochette, ranger dans le bon dossier — puis la lecture démarre, sur un moteur audio natif en Rust. Pas de relais, pas de ré-import, pas de deuxième app.",
     chips: [
       "un lien en entrée",
       "aucun ré-encodage",

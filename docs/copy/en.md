@@ -289,3 +289,16 @@ Each card: step label — tool — gripe — cost.
 - Footer: `License: MIT` · For personal use. Respect the terms of the services
   you use, and your local law. · `SONARCHE` · _From the stream into the Ark._
   · `GitHub ↗`
+
+## Metadata (never rendered on the page)
+
+Read only by a search engine or by the preview card of a shared link. It shows
+up nowhere on the page, but it is what people see before they click, so it is
+copy.
+
+- Search title (`<title>`): `Sonarche — open-source, offline music library`
+  — no tagline: nobody types it into a search box. Brand first, then what the
+  thing is.
+- Brand title (`og:title`, share card): `Sonarche — From the stream into the Ark.`
+- Description (`meta description`, `og:description`): the hero subline plus
+  "Free and open source." — 148 characters, inside the ~155 a snippet shows.

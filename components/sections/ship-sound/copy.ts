@@ -29,7 +29,7 @@ export const shipSoundCopy: Record<Locale, ShipSoundCopy> = {
     kicker: "LE SON DU NAVIRE",
     headingBefore: "Pas seulement le port —",
     headingEmphasis: "le son du navire lui-même.",
-    body: "La dernière étape de l'ancienne méthode, c'était de déplacer les fichiers vers un autre lecteur. Sonarche est aussi le lecteur — un moteur audio natif en Rust : les morceaux partent dans le tempo, et les albums gapless le restent.",
+    body: "La dernière étape de l'ancienne méthode, c'était de déplacer les fichiers vers un autre lecteur. Sonarche est aussi le lecteur — un moteur audio natif en Rust : les morceaux démarrent au quart de tour, et ceux d'un même album s'enchaînent sans le moindre blanc.",
     track: "Oath",
     artist: "The Algorithm",
     elapsed: "1:12",

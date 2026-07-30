@@ -67,7 +67,7 @@ export const flowCopy: Record<Locale, FlowCopy> = {
   },
   fr: {
     kicker: "LA TRAVERSÉE",
-    headingBefore: "Un lien entre.",
+    headingBefore: "Un lien y entre.",
     headingEmphasis: "Une bibliothèque",
     headingAfter: "en sort.",
     sub: "Quatre gestes, une chaîne d'un seul tenant — et plus un clic après le premier.",
@@ -76,7 +76,7 @@ export const flowCopy: Record<Locale, FlowCopy> = {
       {
         number: "01",
         title: "Colle un lien",
-        text: "Un titre, un album, une playlist entière. Dépose-le dans le composeur et le voyage s'organise — une ligne par morceau, avant que rien ne soit embarqué.",
+        text: "Un titre, un album, une playlist entière. Dépose-le dans l'app et le voyage s'organise — une ligne par morceau, avant que rien ne soit embarqué.",
         note: "Déjà dans la cale ? Il passe son tour, sans un mot.",
       },
       {
@@ -89,7 +89,7 @@ export const flowCopy: Record<Locale, FlowCopy> = {
         number: "03",
         title: "Empreinte et identification",
         text: "ffmpeg et Chromaprint distillent l'audio lui-même en une empreinte acoustique. AcoustID répond : c'est cet enregistrement-là, exactement — sans jamais deviner d'après le titre.",
-        note: "Pas de correspondance sûre ? L'app le dit et te demande — plutôt que d'inventer un artiste.",
+        note: "Pas de correspondance sûre ? L'app le dit et te laisse trancher — plutôt que d'inventer un artiste.",
       },
       {
         number: "04",

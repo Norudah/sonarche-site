@@ -43,14 +43,14 @@ la maquette avait laissées en anglais, sont traduites ici.
 ## La traversée
 
 - Kicker : `LA TRAVERSÉE`
-- Titre : Un lien entre. Une bibliothèque en sort.
+- Titre : Un lien y entre. Une bibliothèque en sort.
 - Sous-titre : Quatre gestes, une chaîne d'un seul tenant — et plus un clic
   après le premier.
 
 ### Étape 01 — Colle un lien
 
-Un titre, un album, une playlist entière. Dépose-le dans le composeur et le
-voyage s'organise — une ligne par morceau, avant que rien ne soit embarqué.
+Un titre, un album, une playlist entière. Dépose-le dans l'app et le voyage
+s'organise — une ligne par morceau, avant que rien ne soit embarqué.
 Chips : `un morceau` · `un album` · `une playlist`
 Note : Déjà dans la cale ? Il passe son tour, sans un mot.
 
@@ -68,8 +68,8 @@ ffmpeg et Chromaprint distillent l'audio lui-même en une empreinte acoustique.
 AcoustID répond : c'est cet enregistrement-là, exactement — sans jamais
 deviner d'après le titre.
 Chips : `ffmpeg` · `Chromaprint` · `AcoustID`
-Note : Pas de correspondance sûre ? L'app le dit et te demande — plutôt que
-d'inventer un artiste.
+Note : Pas de correspondance sûre ? L'app le dit et te laisse trancher — plutôt
+que d'inventer un artiste.
 
 ### Étape 04 — Il reçoit son nom
 
@@ -98,7 +98,7 @@ Chaque carte : libellé d'étape — outil — grief — coût.
    Mais il remplit les tags avec le nom du fichier — ton artiste s'appelle
    « Unknown » et ton album est vide. — _Des tags devinés._
 3. `APP 2` — **Un éditeur de tags** — Ouvrir chaque fichier. Retaper le titre,
-   l'artiste, l'année, le numéro de piste. Multiplie par 80. — _Des heures de
+   l'artiste, l'année, le numéro de piste. Multiplié par 80. — _Des heures de
    saisie._
 4. `ONGLET 2` — **Une recherche d'images** — Chercher une pochette carrée qui
    ne soit pas une vignette filigranée, la recadrer, espérer qu'elle
@@ -111,7 +111,7 @@ Chaque carte : libellé d'étape — outil — grief — coût.
 
 - Titre punch : Sonarche fait les cinq. Dans une seule fenêtre.
 - Corps punch : Donne-lui un lien et va vivre ta vie. L'audio rejoint la cale,
-  se fait écouter, identifier, taguer, recevoir sa vraie pochette, ranger dans
+  se fait écouter, identifier, taguer, coiffer de sa vraie pochette, ranger dans
   le bon dossier — puis la lecture démarre, sur un moteur audio natif en Rust.
   Pas de relais, pas de ré-import, pas de deuxième app.
 - Chips : `un lien en entrée` · `aucun ré-encodage` · `empreinte` ·
@@ -152,15 +152,15 @@ Chaque carte : libellé d'étape — outil — grief — coût.
 - Corps 1 : Tout ce qui peut être automatisé l'est déjà : une bibliothèque
   impeccable sans jamais ouvrir un éditeur de métadonnées. Et ce qui reste,
   l'app l'explique en mots simples plutôt qu'en champs vides.
-- Corps 2 : Et quand elle n'est pas d'accord avec toi, c'est toi qui gagnes.
-  Convaincu que ton disque préféré est du thrash, pas du heavy metal ?
-  Change-le. Un clic, zéro friction — et Sonarche te dit exactement ce qu'il
-  a écrit, dans quels fichiers, avec des mots qui se passent de wiki.
+- Corps 2 : Quand elle n'est pas d'accord avec toi, c'est toi qui gagnes. Ton
+  disque préféré, c'est du thrash et pas du heavy metal ? Change-le. Un clic,
+  zéro friction — et Sonarche te dit exactement ce qu'il a écrit, dans quels
+  fichiers, avec des mots qui se passent de wiki.
 - Repères (3 puces) :
   - Des réglages sensés à l'import — la plupart des albums n'attendent rien
     de toi.
-  - Tout ce qui est incertain est signalé en langage clair, avec le choix
-    énoncé.
+  - Tout ce qui est incertain est signalé en langage clair, et le choix t'est
+    posé noir sur blanc.
   - Chaque modification te dit quels fichiers elle a touchés, avant et après.
 - Widget : `Genre — Ride the Lightning` · Heavy Metal → Thrash Metal ·
   « Ce qui vient de se passer » — Thrash Metal appartient à la famille Metal :
@@ -207,7 +207,7 @@ Chaque carte : libellé d'étape — outil — grief — coût.
 
 - Kicker : `SOUS LE PONT`
 - Titre : Pas de magie. Des outils éprouvés, bien orchestrés.
-- Corps : Tu n'es pas obligé de t'y intéresser — mais tout est là, en mots
+- Corps : Rien ne t'oblige à t'y intéresser — mais tout est là, en mots
   simples, parce que tu mérites de savoir ce qui tourne sur ta machine.
 
 ### Trois cartes
@@ -218,7 +218,8 @@ Chaque carte : libellé d'étape — outil — grief — coût.
   quelques mégaoctets, pas un navigateur embarqué qui dévore ta RAM.
 - `LE MOTEUR` — **Du Rust en dessous** — Tout ce qui est lourd — la
   récupération, l'écriture des fichiers, la lecture audio — tourne en Rust.
-  C'est la différence entre un lecteur qui hoquette et un lecteur qui démarre.
+  C'est la différence entre un lecteur qui hoquette et un lecteur qui ne
+  bronche pas.
 - `LA CAISSE À OUTILS` — **Un sidecar scellé** — beets et ses outils Python
   vivent à l'intérieur de l'app, dans leur propre runtime embarqué. Rien à
   installer, rien à mettre à jour, et rien qui puisse entrer en conflit avec
@@ -249,7 +250,7 @@ Chaque carte : libellé d'étape — outil — grief — coût.
   fausse.
 - Puces :
   - Modifie une fois — écrit dans tous les fichiers.
-  - La complétude d'un coup d'œil : 7 champs sur 7, badges 100 %.
+  - Tu vois d'un coup d'œil ce qui est complet : 7 champs sur 7, badges 100 %.
   - Les genres forment des familles — Metal, Électro, Jazz — chacune avec sa
     teinte.
 - Widget (`Métadonnées — Oath`) : Titre `Oath` · Artiste `The Algorithm` ·
@@ -262,8 +263,8 @@ Chaque carte : libellé d'étape — outil — grief — coût.
 - Titre : Pas seulement le port — le son du navire lui-même.
 - Corps : La dernière étape de l'ancienne méthode, c'était de déplacer les
   fichiers vers un autre lecteur. Sonarche est aussi le lecteur — un moteur
-  audio natif en Rust : les morceaux partent dans le tempo, et les albums
-  gapless le restent.
+  audio natif en Rust : les morceaux démarrent au quart de tour, et ceux d'un
+  même album s'enchaînent sans le moindre blanc.
 - Lecteur : `Oath` · `The Algorithm` · `1:12` / `2:54`
 
 ## En vrai (screenshots)
@@ -313,3 +314,19 @@ Ouvrir` — Ou si elle est déjà bloquée : Réglages Système → Confidential
 - Footer : `Licence : MIT` · Usage personnel — respecte les conditions des
   services que tu utilises et le droit de ton pays. · `SONARCHE` ·
   _From the stream into the Ark._ (EN) · `GitHub ↗`
+
+## Métadonnées (non visibles sur la page)
+
+Ces trois chaînes ne sont lues que par un moteur de recherche ou par l'aperçu
+d'un lien partagé. Elles ne s'affichent nulle part sur la page, mais ce sont
+elles qu'on voit avant de cliquer, donc elles font partie de la copy.
+
+- Titre de recherche (`<title>`) : `Sonarche — bibliothèque musicale open source et hors ligne`
+  — la tagline n'y est pas : personne ne la tape dans une barre de recherche.
+  Marque d'abord, puis ce que c'est, en français.
+- Titre de marque (`og:title`, carte partagée) :
+  `Sonarche — From the stream into the Ark.` — un lien partagé est lu par
+  quelqu'un, pas comparé à une requête.
+- Description (`meta description`, `og:description`) : la subline du hero,
+  telle quelle, sans rien ajouter — 147 caractères, sous la coupure des
+  ~155 d'un extrait Google.

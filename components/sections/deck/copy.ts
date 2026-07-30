@@ -50,7 +50,7 @@ export const deckCopy: Record<Locale, DeckCopy> = {
     body: "Albums, artistes, familles de genres — organisés par des métadonnées vérifiées, et qui se parcourent comme une vraie collection. Chaque champ reste modifiable, et un clic relance l'empreinte si une correspondance est fausse.",
     bullets: [
       "Modifie une fois — écrit dans tous les fichiers.",
-      "La complétude d'un coup d'œil : 7 champs sur 7, badges 100 %.",
+      "Tu vois d'un coup d'œil ce qui est complet : 7 champs sur 7, badges 100 %.",
       "Les genres forment des familles — Metal, Électro, Jazz — chacune avec sa teinte.",
     ],
     widget: {
