@@ -24,7 +24,10 @@ export function Manifesto({ locale }: { locale: Locale }) {
           "linear-gradient(180deg, oklch(0.931 0.036 279), oklch(0.963 0.018 279) 52%, oklch(0.982 0.006 279))",
       }}
     >
-      <div className="mx-auto flex max-w-[62.5rem] flex-col items-center gap-6 px-8 pt-20 pb-20 sm:px-15 sm:pt-26 sm:pb-25">
+      {/* Wider than the mockup's 1000px: at 54px the claim is ~970px long, and
+          the mockup's column broke it across two lines with "app." alone on the
+          second. It is a single sentence and it reads as one line. */}
+      <div className="mx-auto flex max-w-[72rem] flex-col items-center gap-6 px-6 pt-20 pb-20 sm:px-15 sm:pt-26 sm:pb-25">
         <div className="flex items-center gap-3.5">
           <span aria-hidden className="h-px w-11 bg-[oklch(0.74_0.07_279)]" />
           <span className="text-accent font-mono text-[0.6875rem] font-semibold tracking-[0.22em]">{copy.kicker}</span>
@@ -32,13 +35,13 @@ export function Manifesto({ locale }: { locale: Locale }) {
         </div>
 
         <div className="flex flex-col items-center gap-1 text-center">
-          <h2 className="text-foreground font-display text-[clamp(1.875rem,3.75vw,3.375rem)] leading-[1.22] font-bold tracking-[-0.02em]">
+          <h2 className="text-foreground font-display text-[clamp(1.5rem,3.75vw,3.375rem)] leading-[1.22] font-bold tracking-[-0.02em]">
             {copy.heading}
           </h2>
 
           {/* One <p>, one line per element: the line breaks are the composition,
               not a consequence of the column's width. */}
-          <p className="text-foreground font-display flex flex-col items-center text-[clamp(1.875rem,3.75vw,3.375rem)] leading-[1.22] font-bold tracking-[-0.02em]">
+          <p className="text-foreground font-display flex flex-col items-center text-[clamp(1.5rem,3.75vw,3.375rem)] leading-[1.22] font-bold tracking-[-0.02em]">
             {copy.statement.map((line, i) => (
               <StatementRow key={i} line={line} />
             ))}
