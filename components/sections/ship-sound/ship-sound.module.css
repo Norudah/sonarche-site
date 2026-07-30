@@ -1,0 +1,45 @@
+/* The level meter and the cover's glow — the player is idle-animated so it reads
+   as playing, which is the section's entire claim. */
+
+@keyframes levelBar {
+  0%,
+  100% {
+    transform: scaleY(0.25);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes coverGlow {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+.level {
+  width: 3px;
+  border-radius: 1.5px;
+  background: var(--accent);
+  transform-origin: bottom;
+  animation: levelBar 1.2s ease-in-out infinite;
+}
+
+.cover {
+  animation: coverGlow 3.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .level,
+  .cover {
+    animation: none;
+  }
+
+  .level {
+    transform: scaleY(0.7);
+  }
+}

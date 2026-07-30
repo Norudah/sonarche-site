@@ -1,0 +1,102 @@
+/*
+ * The diagram's two layouts.
+ *
+ * Below `lg` the nodes are a plain stacked list and everything here is inert.
+ * From `lg` up the stage takes its mockup geometry — 1180×520 — and is scaled
+ * down as one piece by a container query, so between 1024px and 1180px the
+ * proportions hold instead of the cards reflowing into a different diagram.
+ */
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.node {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-radius: 14px;
+  border: 1px solid oklch(0.9 0.01 279);
+  background: white;
+  padding: 16px;
+}
+
+.conductor {
+  border: 2px solid var(--accent);
+  background: linear-gradient(160deg, oklch(0.97 0.02 277), white);
+}
+
+.service {
+  background: oklch(0.988 0.004 279);
+}
+
+.sealedBox,
+.sealedLabel {
+  display: none;
+}
+
+.flow {
+  animation: deckFlow 1.4s linear infinite;
+}
+
+@keyframes deckFlow {
+  to {
+    stroke-dashoffset: -26;
+  }
+}
+
+@media (min-width: 64rem) {
+  .stage {
+    position: relative;
+    display: block;
+    width: var(--stage-w);
+    height: var(--stage-h);
+    /* 100cqw is the width of the aspect-ratio box this sits in. */
+    transform: scale(calc(100cqw / 1180));
+    transform-origin: top left;
+  }
+
+  .node {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: var(--w);
+    padding: 16px;
+  }
+
+  .sealedBox {
+    display: block;
+    position: absolute;
+    left: 265px;
+    top: 20px;
+    width: 560px;
+    height: 400px;
+    border-radius: 20px;
+    border: 2px dashed oklch(0.82 0.04 279);
+    background: oklch(0.985 0.008 279 / 0.5);
+  }
+
+  .sealedLabel {
+    display: block;
+    position: absolute;
+    top: -11px;
+    left: 24px;
+    padding: 0 8px;
+    background: oklch(0.985 0.006 279);
+    font:
+      600 11px/1 ui-monospace,
+      Menlo,
+      monospace;
+    letter-spacing: 0.08em;
+    color: oklch(0.45 0.12 277);
+    white-space: nowrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow {
+    animation: none;
+  }
+}

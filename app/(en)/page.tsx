@@ -3,6 +3,9 @@ import { OldWay } from "@/components/sections/old-way/OldWay";
 import { TrueNames } from "@/components/sections/true-names/TrueNames";
 import { Hold } from "@/components/sections/hold/Hold";
 import { NoExpertise } from "@/components/sections/no-expertise/NoExpertise";
+import { UnderDeck } from "@/components/sections/under-deck/UnderDeck";
+import { Deck } from "@/components/sections/deck/Deck";
+import { ShipSound } from "@/components/sections/ship-sound/ShipSound";
 import { Hero } from "@/components/sections/hero/Hero";
 import { Manifesto } from "@/components/sections/manifesto/Manifesto";
 
@@ -16,6 +19,9 @@ export default function EnHome() {
       <TrueNames locale="en" />
       <NoExpertise locale="en" />
       <Hold locale="en" />
+      <UnderDeck locale="en" />
+      <Deck locale="en" />
+      <ShipSound locale="en" />
     </main>
   );
 }
