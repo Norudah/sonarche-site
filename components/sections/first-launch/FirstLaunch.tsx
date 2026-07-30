@@ -1,3 +1,4 @@
+import { TraceSegment } from "@/components/trace/TraceSegment";
 import type { Locale } from "@/lib/site";
 
 import { firstLaunchCopy } from "./copy";
@@ -15,7 +16,8 @@ export function FirstLaunch({ locale }: { locale: Locale }) {
   const copy = firstLaunchCopy[locale];
 
   return (
-    <section className="relative py-24 sm:py-26">
+    <section className="relative isolate py-24 sm:py-26">
+      <TraceSegment />
       <div className="mx-auto flex max-w-[57.5rem] flex-col items-center px-8 text-center sm:px-15">
         <p className="text-accent font-sans text-xs font-semibold tracking-[0.3em]">{copy.kicker}</p>
 

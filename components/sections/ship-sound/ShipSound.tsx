@@ -1,3 +1,4 @@
+import { TraceSegment } from "@/components/trace/TraceSegment";
 import type { Locale } from "@/lib/site";
 
 import { shipSoundCopy } from "./copy";
@@ -16,7 +17,8 @@ export function ShipSound({ locale }: { locale: Locale }) {
   const copy = shipSoundCopy[locale];
 
   return (
-    <section className="relative py-24 sm:py-27">
+    <section className="relative isolate py-24 sm:py-27">
+      <TraceSegment />
       <header className="flex flex-col items-center px-8 text-center sm:px-15">
         <p className="text-accent font-sans text-xs font-semibold tracking-[0.3em]">{copy.kicker}</p>
 

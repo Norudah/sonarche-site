@@ -1,3 +1,4 @@
+import { TraceSegment } from "@/components/trace/TraceSegment";
 import type { Locale } from "@/lib/site";
 
 import { noExpertiseCopy, type NoExpertiseCopy } from "./copy";
@@ -15,7 +16,8 @@ export function NoExpertise({ locale }: { locale: Locale }) {
   const copy = noExpertiseCopy[locale];
 
   return (
-    <section className="relative py-24 sm:py-27">
+    <section className="relative isolate py-24 sm:py-27">
+      <TraceSegment />
       <div className="mx-auto flex max-w-[77.5rem] flex-col items-center gap-12 px-8 sm:px-15 lg:flex-row lg:gap-20">
         <div className="flex flex-1 flex-col gap-4.5">
           <p className="text-accent font-sans text-xs font-semibold tracking-[0.3em]">{copy.kicker}</p>
