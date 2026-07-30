@@ -1,6 +1,7 @@
 import { GITHUB_URL, type Locale } from "@/lib/site";
 
 import { heroCopy } from "./copy";
+import styles from "./hero.module.css";
 import { HeroArk } from "./HeroArk";
 import { Onde } from "./Onde";
 import { Storm } from "./Storm";
@@ -84,9 +85,16 @@ export function Hero({ locale }: { locale: Locale }) {
         </div>
       </div>
 
-      <p className="text-accent-muted font-display absolute bottom-5.5 left-1/2 z-[5] -translate-x-1/2 text-[0.6875rem] font-semibold tracking-[0.24em]">
-        {copy.scrollHint}
-      </p>
+      {/* Pinned to the very bottom edge, not floating in the band: the next
+          section adds its own 104px of air below, and anything higher than this
+          read as centred in that void rather than as the end of the hero. */}
+      <div className="absolute bottom-3 left-1/2 z-[5] -translate-x-1/2">
+        <p
+          className={`${styles.scrollHint} text-accent-muted font-display text-[0.6875rem] font-semibold tracking-[0.24em]`}
+        >
+          {copy.scrollHint}
+        </p>
+      </div>
     </section>
   );
 }

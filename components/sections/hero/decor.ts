@@ -65,13 +65,13 @@ export type HeroDecor = {
 };
 
 /*
- * One drop in two lands loudly enough to leave a ring. All of them reach the
- * water, but a ring per drop turns the surface into static. Each ring is only
- * open for a seventh of its drop's cycle, so at any instant a dozen of them show
- * — which is what makes the surface read as *being rained on* rather than as a
- * row of decorations.
+ * One drop in five lands loudly enough to leave a ring. All of them reach the
+ * water, but rings are the loudest thing on a quiet horizon: at one in two the
+ * surface read as static, and the eye went to the noise instead of the ark. One
+ * in five leaves three or four open at any instant — enough to say the sea is
+ * being rained on, not enough to be looked at.
  */
-const RIPPLE_EVERY = 2;
+const RIPPLE_EVERY = 5;
 
 /* The water's two tints, on the accent hue. A crest catches the light flat;
    everything below it is a gradient climbing out of the indigo. */

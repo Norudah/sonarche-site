@@ -65,12 +65,25 @@
     transform: scale(0.25);
   }
   88% {
-    opacity: 0.9;
+    opacity: 0.4;
     transform: scale(1);
   }
   100% {
     opacity: 0;
     transform: scale(2.2);
+  }
+}
+
+/* The scroll hint, pulled downward and let go — an invitation, not a marquee. */
+@keyframes scrollNudge {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.55;
+  }
+  45% {
+    transform: translateY(6px);
+    opacity: 1;
   }
 }
 
@@ -211,11 +224,15 @@
   position: absolute;
   bottom: 157px;
   height: 5px;
-  border: 1px solid oklch(0.55 0.18 277);
+  border: 1px solid oklch(0.68 0.1 277);
   border-radius: 50%;
   transform-origin: center;
   opacity: 0;
   animation: waterRing linear infinite;
+}
+
+.scrollHint {
+  animation: scrollNudge 2.6s ease-in-out infinite;
 }
 
 .arkSail {
@@ -288,7 +305,8 @@
   .arkWake,
   .arkPorthole,
   .onde,
-  .ondeBar {
+  .ondeBar,
+  .scrollHint {
     animation: none;
   }
 
@@ -300,6 +318,10 @@
 
   .ripple {
     /* The surface keeps its dimples; they just stop opening. */
-    opacity: 0.3;
+    opacity: 0.18;
+  }
+
+  .scrollHint {
+    opacity: 1;
   }
 }
