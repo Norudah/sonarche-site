@@ -7,7 +7,6 @@ export type FooterCopy = {
   headingEmphasis: string;
   body: string;
   cta: string;
-  builtWith: string[];
   license: string;
   personalUse: string;
   wordmark: string;
@@ -24,7 +23,6 @@ export const footerCopy: Record<Locale, FooterCopy> = {
     headingEmphasis: "Yours.",
     body: "No subscription, no cloud, no lock-in. The code is on GitHub — read it, fork it, board it.",
     cta: "Get Sonarche on GitHub ↗",
-    builtWith: ["Tauri", "Rust", "React", "beets", "yt-dlp", "AcoustID"],
     license: "License: MIT",
     personalUse: "For personal use. Respect the terms of the services you use, and your local law.",
     wordmark: "SONARCHE",
@@ -37,7 +35,6 @@ export const footerCopy: Record<Locale, FooterCopy> = {
     headingEmphasis: "À toi.",
     body: "Pas d'abonnement, pas de cloud, pas de verrou. Le code est sur GitHub — lis-le, forke-le, monte à bord.",
     cta: "Sonarche est sur GitHub ↗",
-    builtWith: ["Tauri", "Rust", "React", "beets", "yt-dlp", "AcoustID"],
     license: "Licence : MIT",
     personalUse: "Usage personnel — respecte les conditions des services que tu utilises et le droit de ton pays.",
     wordmark: "SONARCHE",

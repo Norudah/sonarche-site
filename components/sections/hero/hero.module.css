@@ -1,14 +1,17 @@
 /*
- * Hero idle loops.
+ * Hero idle loops — the rain, its rings, and the scroll hint.
+ *
+ * The water's own loops are not here: the sea is shared with the footer and
+ * lives in components/brand/sea/sea.module.css.
  *
  * These are CSS keyframes, not GSAP, on purpose: they are endless ambient loops
- * with no scroll or event input, so paying for a JS ticker on ~500 elements buys
- * nothing. GSAP owns what CSS cannot do well — the entrance choreography and the
- * scroll narrative (see Hero.tsx).
+ * with no scroll or event input, so paying for a JS ticker on ~200 elements buys
+ * nothing. GSAP owns what CSS cannot do well — the scroll narrative and the
+ * trace's playhead (see components/trace).
  *
  * Everything below animates transform or opacity only. The reduced-motion block
- * at the end stops all of it at a settled state — a calm sea and a still ark,
- * not a broken page.
+ * at the end stops all of it at a settled state — suspended rain and a dimpled
+ * surface, not a broken page.
  */
 
 @keyframes rainFall {
@@ -16,35 +19,7 @@
     transform: translateY(-90px);
   }
   to {
-    transform: translateY(760px);
-  }
-}
-
-@keyframes waterBar {
-  0%,
-  100% {
-    transform: scaleY(0.78);
-  }
-  50% {
-    transform: scaleY(1.18);
-  }
-}
-
-@keyframes seaDriftA {
-  from {
-    transform: translateX(-26px);
-  }
-  to {
-    transform: translateX(26px);
-  }
-}
-
-@keyframes seaDriftB {
-  from {
-    transform: translateX(20px);
-  }
-  to {
-    transform: translateX(-20px);
+    transform: translateY(810px);
   }
 }
 
@@ -53,10 +28,11 @@
  *
  * A ripple shares its drop's period and phase, so the only thing left to place
  * is *when* in that period the drop reaches the water. A drop travels from -90px
- * to 760px, and the surface is at 700px: it lands at (790 - its height) / 850 of
- * the cycle, which for heights of 26–78px is 84%–90%. The ring opens at 87%, the
+ * to 810px, and the surface is at 750px: it lands at (840 - its height) / 900 of
+ * the cycle, which for heights of 26–78px is 85%–90%. The ring opens at 87%, the
  * middle of that band — the few pixels of error across the range are well under
- * one frame.
+ * one frame. (The fall was lengthened with the sea when the horizon came down:
+ * the ratio, not the distance, is what these percentages encode.)
  */
 @keyframes waterRing {
   0%,
@@ -98,39 +74,10 @@
   animation: rainFall linear infinite;
 }
 
-/*
- * The waterline is 160px above the section's bottom edge, not on it: the hero's
- * gradient darkens below it, and that band is where the scroll hint lives.
- */
-.seaBar {
-  position: absolute;
-  bottom: 160px;
-  width: 4px;
-  margin-left: -2px;
-  border-radius: 2px;
-  transform-origin: bottom;
-  animation: waterBar ease-in-out infinite;
-}
-
-/* The far row: fewer bars, wider and paler, two pixels lower. */
-.seaBarDeep {
-  bottom: 158px;
-  width: 7px;
-  margin-left: -3.5px;
-  border-radius: 3.5px;
-}
-
-.seaDrift {
-  animation: seaDriftA 29s ease-in-out infinite alternate;
-}
-
-.seaDriftSlow {
-  animation: seaDriftB 38s ease-in-out infinite alternate;
-}
-
+/* On the surface, three pixels under it — a ring is seen from above the water. */
 .ripple {
   position: absolute;
-  bottom: 157px;
+  bottom: calc(var(--sea-line) - 3px);
   height: 5px;
   border: 1px solid oklch(0.68 0.1 277);
   border-radius: 50%;
@@ -143,15 +90,8 @@
   animation: scrollNudge 2.6s ease-in-out infinite;
 }
 
-/*
- * Reduced motion: the sea settles, the ark stops, the rain stops falling — but
- * every element keeps its resting shape, so the composition still reads.
- */
 @media (prefers-reduced-motion: reduce) {
   .rainDrop,
-  .seaBar,
-  .seaDrift,
-  .seaDriftSlow,
   .ripple,
   .scrollHint {
     animation: none;

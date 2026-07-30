@@ -310,7 +310,6 @@ Ouvrir` — Ou si elle est déjà bloquée : Réglages Système → Confidential
 - Corps : Pas d'abonnement, pas de cloud, pas de verrou. Le code est sur
   GitHub — lis-le, forke-le, monte à bord.
 - CTA : `Sonarche est sur GitHub ↗`
-- Construit avec : `Tauri` · `Rust` · `React` · `beets` · `yt-dlp` · `AcoustID`
 - Footer : `Licence : MIT` · Usage personnel — respecte les conditions des
   services que tu utilises et le droit de ton pays. · `SONARCHE` ·
   _From the stream into the Ark._ (EN) · `GitHub ↗`

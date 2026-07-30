@@ -13,29 +13,39 @@
 @keyframes arkFloat {
   0%,
   100% {
-    transform: translateY(2px);
+    transform: translateY(1.5px);
   }
   50% {
-    transform: translateY(-8px);
+    transform: translateY(-4px);
   }
 }
 
 @keyframes arkRoll {
   0%,
   100% {
-    transform: rotate(-2.4deg);
+    transform: rotate(-1.3deg);
   }
   50% {
-    transform: rotate(2.4deg);
+    transform: rotate(1.3deg);
   }
 }
 
+/*
+ * The long cross-berth drift, and the one loop here that is not the ark's own.
+ *
+ * It reads `--sea-drift` and `--sea-drift-time` from the water the vessel is
+ * placed in, so hull and surface travel as one body. On its own timing the ark
+ * slid sideways against a sea moving at a different rate, and every few seconds
+ * the waterline crossed the hull at a different height — the single thing that
+ * made the whole picture read as two drawings laid over each other rather than
+ * as something afloat. The fallbacks are for an ark drawn outside any sea.
+ */
 @keyframes arkSail {
   from {
-    transform: translateX(-42px);
+    transform: translateX(calc(var(--sea-drift, 42px) * -1));
   }
   to {
-    transform: translateX(42px);
+    transform: translateX(var(--sea-drift, 42px));
   }
 }
 
@@ -92,27 +102,40 @@
   }
 }
 
+/*
+ * The equalizer's own drift, on top of the hull's sail and float it already
+ * inherits. Two axes and four stops rather than a straight bob: against a
+ * 4.7s float and a 24s sail, a 5.9s wander never lands on the same compound
+ * position twice, so the sound reads as hanging over the vessel rather than
+ * bolted to its roof.
+ */
 @keyframes eqFloat {
   0%,
   100% {
-    transform: translateY(1.5px);
+    transform: translate(0, 1.5px);
+  }
+  25% {
+    transform: translate(2.5px, -1.5px);
   }
   50% {
-    transform: translateY(-3.5px);
+    transform: translate(0.5px, -3.5px);
+  }
+  75% {
+    transform: translate(-2.5px, -0.5px);
   }
 }
 
 .arkSail {
-  animation: arkSail 24s ease-in-out infinite alternate;
+  animation: arkSail var(--sea-drift-time, 24s) ease-in-out infinite alternate;
 }
 
 .arkFloat {
-  animation: arkFloat 4.7s ease-in-out infinite;
+  animation: arkFloat 6.1s ease-in-out infinite;
 }
 
 .arkRoll {
   transform-origin: 50% 74%;
-  animation: arkRoll 6.3s ease-in-out infinite;
+  animation: arkRoll 7.4s ease-in-out infinite;
 }
 
 .arkBlink {
@@ -142,7 +165,7 @@
 }
 
 .onde {
-  animation: eqFloat 3.8s ease-in-out infinite;
+  animation: eqFloat 5.9s ease-in-out infinite;
 }
 
 .ondeBar {

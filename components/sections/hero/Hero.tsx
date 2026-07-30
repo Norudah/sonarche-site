@@ -19,11 +19,13 @@ import { Storm } from "./Storm";
  * that reads as a sentence — "Sonarche. From the stream into the Ark." — rather
  * than a lone brand word.
  *
- * Geometry is the mockup's: a fixed 860px stage with the waterline 160px above
- * its bottom edge, the ark berthed on it, and the gradient darkening into the
- * water. Fixed rather than viewport-height because the composition is a drawing
- * — the ark, the swell and the horizon have to keep their proportions to each
- * other, not to the window. (Mobile gets its own pass.)
+ * Geometry is the mockup's, with the sea taken down 50px from it: a fixed 860px
+ * stage with the waterline 110px above its bottom edge, the ark berthed on it,
+ * and the gradient darkening into the water. The mockup's higher horizon left
+ * the vessel crowding the buttons — it needs sky over it to read as sailing
+ * rather than as parked. Fixed rather than viewport-height because the
+ * composition is a drawing: the ark, the swell and the horizon have to keep
+ * their proportions to each other, not to the window.
  */
 
 export function Hero({ locale }: { locale: Locale }) {
@@ -40,15 +42,14 @@ export function Hero({ locale }: { locale: Locale }) {
       <Storm>
         <div className="absolute inset-0 z-[2]">
           {/* Narrower and lower on a phone: the text block above it is twice as
-              tall there, and a 320px ark in a 375px viewport is a bath toy. */}
+              tall there, and a 320px ark in a 375px viewport is a bath toy.
+              Both offsets put the hull bottom 4px under the waterline. */}
           <Ark
-            className="absolute top-[500px] left-1/2 -ml-24 h-48 w-48 sm:top-[430px] sm:-ml-40 sm:h-80 sm:w-80"
-            style={{ filter: "drop-shadow(0 20px 24px oklch(0.4 0.12 277 / 0.2))" }}
-          />
-          {/* The equalizer keeps its 26px whatever the ark's size, so its offset
-              is not simply scaled — on mobile it has to clear a head that sits
-              proportionally higher in a smaller box. */}
-          <Onde className="absolute top-[524px] left-1/2 z-[5] -ml-[23px] sm:top-[500px]" />
+            className="absolute top-[551px] left-1/2 -ml-24 h-48 w-48 sm:top-[480px] sm:-ml-40 sm:h-80 sm:w-80"
+            shadow="0 7px 13px oklch(0.4 0.1 277 / 0.16)"
+          >
+            <Onde />
+          </Ark>
         </div>
       </Storm>
 
@@ -73,13 +74,13 @@ export function Hero({ locale }: { locale: Locale }) {
         <div className="mt-6 flex w-full max-w-xs flex-col items-stretch gap-3.5 sm:w-auto sm:max-w-none sm:flex-row sm:items-center sm:justify-center">
           <a
             href={GITHUB_URL}
-            className="bg-accent text-accent-foreground font-display hover:bg-accent-strong rounded-full px-7.5 py-4 text-base font-semibold shadow-[0_8px_24px_oklch(0.505_0.185_277/0.28)] transition-colors"
+            className="bg-accent text-accent-foreground font-display hover:bg-accent-strong focus-visible:ring-accent/40 focus-visible:ring-offset-background rounded-full px-7.5 py-4 text-base font-semibold shadow-[0_8px_24px_oklch(0.505_0.185_277/0.28)] transition-[translate,scale,box-shadow,background-color] duration-[260ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] outline-none hover:-translate-y-1 hover:scale-[1.05] hover:shadow-[0_18px_38px_oklch(0.505_0.185_277/0.45)] focus-visible:ring-2 focus-visible:ring-offset-2 active:translate-y-0 active:scale-[0.96] active:shadow-[0_4px_12px_oklch(0.505_0.185_277/0.3)] active:duration-75 motion-reduce:translate-none motion-reduce:scale-100 motion-reduce:transition-colors"
           >
             {copy.ctaPrimary}
           </a>
           <a
             href="#flow"
-            className="border-border text-foreground hover:bg-surface bg-surface/70 rounded-full border px-6 py-4 text-[0.9375rem] font-medium transition-colors"
+            className="border-border text-foreground hover:border-accent/50 hover:text-accent bg-surface/70 hover:bg-surface focus-visible:ring-accent/40 focus-visible:ring-offset-background rounded-full border px-6 py-4 text-[0.9375rem] font-medium transition-[translate,scale,border-color,color,background-color,box-shadow] duration-[260ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] outline-none hover:-translate-y-1 hover:scale-[1.03] hover:shadow-[0_12px_26px_oklch(0.32_0.11_277/0.14)] focus-visible:ring-2 focus-visible:ring-offset-2 active:translate-y-0 active:scale-[0.97] active:duration-75 motion-reduce:translate-none motion-reduce:scale-100 motion-reduce:transition-colors"
           >
             {copy.ctaSecondary}
           </a>

@@ -1,0 +1,96 @@
+/*
+ * The sea's idle loops.
+ *
+ * CSS keyframes, not GSAP: these are endless ambient loops with no scroll or
+ * event input, so paying for a JS ticker on ~500 elements buys nothing. The one
+ * thing on this page that does need a ticker is the trace, and it has one.
+ *
+ * Storm and calm share every rule here — the weather arrives as custom
+ * properties set by buildSea(), so how rough the water is stays a decision made
+ * in one place (sea.ts) rather than split between a profile and a stylesheet.
+ * Only transform and opacity are animated.
+ */
+
+@keyframes waterBar {
+  0%,
+  100% {
+    transform: scaleY(calc(1 - var(--sea-breath)));
+  }
+  50% {
+    transform: scaleY(calc(1 + var(--sea-breath)));
+  }
+}
+
+@keyframes seaDriftA {
+  from {
+    transform: translateX(calc(var(--sea-drift) * -1));
+  }
+  to {
+    transform: translateX(var(--sea-drift));
+  }
+}
+
+@keyframes seaDriftB {
+  from {
+    transform: translateX(calc(var(--sea-drift) * 0.77));
+  }
+  to {
+    transform: translateX(calc(var(--sea-drift) * -0.77));
+  }
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  animation: seaDriftA var(--sea-drift-time) ease-in-out infinite alternate;
+}
+
+/*
+ * The mass of water travels with the rows standing in it — and, since the ark
+ * reads the same two properties, with the ark too. Overhung either side by more
+ * than the drift so the ends never slide into view.
+ */
+.body {
+  position: absolute;
+  bottom: 0;
+  left: calc(var(--sea-drift) * -1.6);
+  right: calc(var(--sea-drift) * -1.6);
+  animation: seaDriftA var(--sea-drift-time) ease-in-out infinite alternate;
+}
+
+/* The far row drifts the other way and slower — that opposition is the depth. */
+.layerDeep {
+  animation-name: seaDriftB;
+  animation-duration: var(--sea-deep-drift-time);
+}
+
+/* `--sea-line` is where the surface sits above the container's bottom edge, and
+   `--sea-rise` is how far the heaving water has carried this particular bar up
+   or down from it. Everything below is the body of water (see SeaBody). */
+.bar {
+  position: absolute;
+  bottom: calc(var(--sea-line) + var(--sea-rise, 0px));
+  width: 4px;
+  margin-left: -2px;
+  border-radius: 2px;
+  transform-origin: bottom;
+  animation: waterBar ease-in-out infinite;
+}
+
+/* The far row: wider, paler, two pixels lower. */
+.barDeep {
+  bottom: calc(var(--sea-line) + var(--sea-rise, 0px) - 2px);
+  width: 7px;
+  margin-left: -3.5px;
+  border-radius: 3.5px;
+}
+
+/* Reduced motion: the sea settles. Every bar keeps its resting height, so the
+   surface still reads as a surface — it just stops moving. */
+@media (prefers-reduced-motion: reduce) {
+  .layer,
+  .body,
+  .bar {
+    animation: none;
+  }
+}

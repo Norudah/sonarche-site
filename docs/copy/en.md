@@ -286,7 +286,6 @@ Each card: step label — tool — gripe — cost.
 - Body: No subscription, no cloud, no lock-in. The code is on GitHub — read
   it, fork it, board it.
 - CTA: `Get Sonarche on GitHub ↗`
-- Built with: `Tauri` · `Rust` · `React` · `beets` · `yt-dlp` · `AcoustID`
 - Footer: `License: MIT` · For personal use. Respect the terms of the services
   you use, and your local law. · `SONARCHE` · _From the stream into the Ark._
   · `GitHub ↗`

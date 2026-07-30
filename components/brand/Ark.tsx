@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 import styles from "./ark.module.css";
 
@@ -13,6 +13,13 @@ import styles from "./ark.module.css";
  * Five nested loops, all CSS (see hero.module.css for why): a long sail across
  * the berth, a float, a roll about the waterline, the wake breathing under the
  * hull, the cargo settling, the portholes pulsing out of phase. No JavaScript.
+ *
+ * `children` is the equalizer, and where it goes is the point: inside the sail
+ * and the float, outside the roll. Sound docked above a hull has to travel with
+ * that hull — an equalizer holding still while the vessel moves under it reads
+ * as two drawings, not one — but it must not heel with it either, or it tips
+ * over. The drop shadow rides on the roll for the same reason: it belongs to the
+ * vessel, and the equalizer casts its own.
  */
 
 const PORTHOLES = [
@@ -27,14 +34,22 @@ const HEAD = "M7.5 12V9.75C7.5 8.85 8.4 8.2 9.7 8 10.5 7.88 13.5 7.88 14.3 8 15.
 type ArkProps = {
   className?: string;
   style?: CSSProperties;
+  /** The vessel's own drop shadow, as the body of a `drop-shadow()`. */
+  shadow?: string;
+  /** The equalizer. Rides the hull's sail and float, not its roll. */
+  children?: ReactNode;
 };
 
-export function Ark({ className, style }: ArkProps) {
+export function Ark({ className, style, shadow, children }: ArkProps) {
   return (
     <div aria-hidden className={className} style={style}>
       <div className={`${styles.arkSail} h-full w-full`}>
-        <div className={`${styles.arkFloat} h-full w-full`}>
-          <div className={`${styles.arkRoll} h-full w-full`}>
+        <div className={`${styles.arkFloat} relative h-full w-full`}>
+          {children}
+          <div
+            className={`${styles.arkRoll} h-full w-full`}
+            style={shadow ? { filter: `drop-shadow(${shadow})` } : undefined}
+          >
             <svg viewBox="0 0 24 24" className="h-full w-full overflow-visible">
               <defs>
                 <clipPath id="hero-ark-head">
