@@ -1,0 +1,88 @@
+/*
+ * The genre swap — the widget's whole argument, on a 5.2s loop.
+ *
+ * Two pills occupy the same spot; one leaves as the other arrives, and a cursor
+ * nudges up to meet the moment. All three share the period, so the click and the
+ * change are one event rather than three things that happen to move.
+ */
+
+@keyframes chipOut {
+  0%,
+  44% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  50%,
+  94% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes chipIn {
+  0%,
+  44% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  50%,
+  94% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@keyframes cursorNudge {
+  0%,
+  40% {
+    transform: translate(0, 0);
+  }
+  55%,
+  90% {
+    transform: translate(-4px, -16px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.chipOut {
+  animation: chipOut 5.2s ease-in-out infinite;
+}
+
+.chipIn {
+  animation: chipIn 5.2s ease-in-out infinite;
+}
+
+.cursor {
+  animation: cursorNudge 5.2s ease-in-out infinite;
+}
+
+/*
+ * Reduced motion resolves the loop instead of freezing it mid-swap: the new
+ * genre is shown, the old one is gone, the cursor rests. The widget still says
+ * what it is there to say.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .chipOut,
+  .chipIn,
+  .cursor {
+    animation: none;
+  }
+
+  .chipOut {
+    opacity: 0;
+  }
+
+  .chipIn {
+    opacity: 1;
+  }
+}
