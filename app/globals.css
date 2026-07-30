@@ -1,32 +1,150 @@
 @import "tailwindcss";
 
 /*
- * Placeholder tokens — swap for the real values copied from the Sonarche
- * app's HeroUI v3 theme layer once available. See docs/CONTEXT.md.
+ * Typography — two self-hosted faces, two borrowed from the system.
+ *
+ * The mockup runs a four-voice system and only two of them need a download:
+ * Space Grotesk carries display (wordmark, headings, step titles) and
+ * Instrument Serif carries the italic second voice (tagline, step notes,
+ * emphasis spans). Body copy and mono ride the system stacks — the same
+ * --font-sans the app itself uses, so the landing costs 2 files, not 6.
+ *
+ * Files are vendored in public/fonts/ rather than pulled from @fontsource at
+ * build time: a static export can then preload them from a stable URL (see
+ * app/layout.tsx), which the hashed asset URLs of a CSS import cannot do.
+ * Both faces are OFL; the licenses ship beside them. Vietnamese subsets are
+ * dropped, latin + latin-ext kept — French needs œ (U+0153), in the latin range.
+ *
+ * Space Grotesk is variable over 300–700. The mockup asks for 800 in one
+ * place; it clamps to 700 rather than being faked, which is what we want.
+ */
+
+@font-face {
+  font-family: "Space Grotesk Variable";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("/fonts/space-grotesk-latin-wght-normal.woff2") format("woff2-variations");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Space Grotesk Variable";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("/fonts/space-grotesk-latin-ext-wght-normal.woff2") format("woff2-variations");
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+    U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/instrument-serif-latin-400-italic.woff2") format("woff2");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Instrument Serif";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/instrument-serif-latin-ext-400-italic.woff2") format("woff2");
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+    U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/*
+ * Colour — the useful subset of the app's src/app/theme.css, light block only.
+ *
+ * Values come from the app, not from the v7 mockup: the app's palette was
+ * reworked for contrast after the mockup was drawn (accent dropped from
+ * 0.58/0.21 to 0.505/0.185, structural greys moved from hue 277 to 279), so
+ * the built page reads a shade quieter than the mockup on purpose. The
+ * rationale for every value is commented in the app's theme.css — read it
+ * there rather than duplicating it here.
+ *
+ * Deliberately NOT copied: the dark block, the 13 genre-family tones, the
+ * category tones, the metadata drawer gradient, the artwork edge. A landing
+ * page has no genre shelf and no drawer.
  */
 :root {
-  --background: #0a0b0d;
-  --foreground: #f2f1ec;
-  --muted: #9a9a94;
-  --accent: #c9a24b;
-  --border: #22242a;
+  /* Paper, four steps of ~0.013, the veil thickening as a surface sinks. */
+  --surface: oklch(0.995 0.004 279);
+  --background: oklch(0.982 0.006 279);
+  --panel: oklch(0.968 0.007 279);
+  --tray: oklch(0.955 0.008 279);
 
-  /* Dark-only site: native UI (scrollbars, form controls) must follow. */
-  color-scheme: dark;
+  /*
+   * Ink, in three levels rather than the app's two. A landing page sets display
+   * type against long body copy, which the app never does: the wordmark wants to
+   * go darker than UI ink, and paragraphs want to sit above `muted` — that value
+   * is for labels, and a 17.5px paragraph set in it reads washed out.
+   */
+  --foreground-strong: oklch(0.19 0.02 279);
+  --foreground: oklch(0.255 0.02 279);
+  --body: oklch(0.45 0.02 279);
+  --muted: oklch(0.555 0.02 279);
+
+  /* Hairlines: separator rules cards and tables, border outlines controls. */
+  --separator: oklch(0.905 0.01 279);
+  --border: oklch(0.875 0.013 279);
+
+  /* Indigo, pressed into the paper rather than laid on it. */
+  --accent: oklch(0.505 0.185 277);
+  --accent-strong: oklch(0.44 0.16 277);
+  --accent-soft: oklch(0.955 0.02 277);
+  /* The italic second voice — tagline, step notes, asides. Indigo drained of
+     most of its chroma so it reads as a quieter register, not as a link. */
+  --accent-muted: oklch(0.45 0.1 277);
+  --snow: oklch(0.99 0 0);
+  --accent-foreground: var(--snow);
+
+  /* The flow's green checks, and the amber of incomplete metadata. */
+  --success: oklch(0.52 0.115 158);
+  --warning: oklch(0.545 0.13 70);
+
+  /* Light-only site (see docs/CONTEXT.md): native UI must not invert. */
+  color-scheme: light;
 }
 
 @theme inline {
+  --color-surface: var(--surface);
   --color-background: var(--background);
+  --color-panel: var(--panel);
+  --color-tray: var(--tray);
+  --color-foreground-strong: var(--foreground-strong);
   --color-foreground: var(--foreground);
+  --color-body: var(--body);
   --color-muted: var(--muted);
-  --color-accent: var(--accent);
+  --color-separator: var(--separator);
   --color-border: var(--border);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-muted: var(--accent-muted);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+
+  --font-display: "Space Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Liberation Mono", monospace;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
 }
