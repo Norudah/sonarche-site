@@ -2,7 +2,7 @@ import type { Locale } from "@/lib/site";
 
 import { flowCopy, type FlowStep } from "./copy";
 import { FlowCascade } from "./FlowCascade";
-import { StepScene } from "./StepScene";
+import { IsoScene } from "./IsoScene";
 
 /*
  * The flow — four steps, alternating sides, each stepping a little further right
@@ -61,7 +61,7 @@ function Row({ step, stepLabel, index }: RowProps) {
         mirrored ? "sm:flex-row-reverse" : "sm:flex-row"
       } ${INDENT[index]}`}
     >
-      <StepScene number={step.number} className="w-full max-w-[28rem] shrink-0 sm:w-112" />
+      <IsoScene step={index} className="w-full max-w-[28rem] shrink-0 sm:w-112" />
 
       <div className={`flex max-w-[28.75rem] flex-1 flex-col gap-3.5 ${mirrored ? "sm:items-end sm:text-right" : ""}`}>
         <div className={`flex w-full items-center gap-3 ${mirrored ? "flex-row-reverse" : ""}`}>
