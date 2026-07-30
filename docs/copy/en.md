@@ -24,8 +24,12 @@ v6 builds that still name platforms; never read copy from them.
 
 - Kicker: `WHY IT EXISTS`
 - Heading: Your music should outlive every app.
-- Body: Give it _true names_, _a home in plain files_, and a player worthy of
-  it — _forever, offline, yours_. (italics = emphasis spans)
+- Body, four lines. The italics are the mockup's: three runs, not four — the
+  third line carries none, and only the noun of the second is set in the serif.
+  - Give it _true names_,
+  - a home in _plain files_,
+  - and a player worthy of it —
+  - _forever, offline, yours_.
 - Chips: `plain files` · `no cloud` · `no account` · `no re-encode`
 
 ## The flow

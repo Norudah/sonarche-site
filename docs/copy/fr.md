@@ -30,9 +30,13 @@ la maquette avait laissées en anglais, sont traduites ici.
 
 - Kicker : `POURQUOI ELLE EXISTE`
 - Titre : Ta musique doit survivre à toutes les apps.
-- Corps : Donne-lui _ses vrais noms_, _un port d'attache en simples fichiers_,
-  et _un lecteur à sa hauteur_ — _pour toujours, hors ligne, à toi_.
-  (italiques = spans d'emphase, mêmes positions que l'EN)
+- Corps, quatre lignes. Les italiques sont celles de la maquette : trois runs,
+  pas quatre — la troisième ligne n'en porte aucune, et seule la fin de la
+  deuxième passe au serif. Mêmes positions que l'EN.
+  - Donne-lui _ses vrais noms_,
+  - un port d'attache en _simples fichiers_,
+  - et un lecteur à sa hauteur —
+  - _pour toujours, hors ligne, à toi_.
 - Chips : `fichiers simples` · `pas de cloud` · `aucun compte` ·
   `aucun ré-encodage`
 
