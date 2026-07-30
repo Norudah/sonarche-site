@@ -1,3 +1,4 @@
+import { LocaleSwitch } from "@/components/layout/LocaleSwitch";
 import { Deck } from "@/components/sections/deck/Deck";
 import { FirstLaunch } from "@/components/sections/first-launch/FirstLaunch";
 import { Flow } from "@/components/sections/flow/Flow";
@@ -11,10 +12,13 @@ import { RealThing } from "@/components/sections/real-thing/RealThing";
 import { ShipSound } from "@/components/sections/ship-sound/ShipSound";
 import { TrueNames } from "@/components/sections/true-names/TrueNames";
 import { UnderDeck } from "@/components/sections/under-deck/UnderDeck";
+import { Trace } from "@/components/trace/Trace";
 
 export default function EnHome() {
   return (
     <>
+      <LocaleSwitch locale="en" />
+
       <main className="flex flex-1 flex-col">
         <Hero locale="en" />
         <Manifesto locale="en" />
@@ -30,6 +34,9 @@ export default function EnHome() {
         <FirstLaunch locale="en" />
       </main>
       <Footer locale="en" />
+
+      {/* Renders nothing: it lights the line every section above has planted. */}
+      <Trace />
     </>
   );
 }

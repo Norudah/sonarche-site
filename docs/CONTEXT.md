@@ -51,9 +51,11 @@ The v7 Claude Design mockup ("Sonarche Landing v7", in the app repo under
 - The full validated copy lives in **`docs/copy/en.md`** (source of truth) and
   **`docs/copy/fr.md`** (validated French mirror). Components must render that
   text verbatim — copy fixes go to those files first.
-- Two static routes: `/` (EN) and `/fr/` (FR), cross-linked with `hreflang`
-  alternates (+ `x-default` → EN). No auto-redirect on Accept-Language: a
-  static export can't, and a visible language switch is better anyway.
+- Two static routes: `/` (FR) and `/en/` (EN), cross-linked with `hreflang`
+  alternates (+ `x-default` → FR). French is the default because the page is
+  aimed at a French audience first; English is the translation. No auto-redirect
+  on Accept-Language: a static export can't, and a visible language switch is
+  better anyway. The switch is top-right (revealed on scroll) and in the footer.
 - The FR page uses **tu**, never « vous » — it matches the app's own voice.
 - The tagline **"From the stream into the Ark."** is the brand: it is never
   translated and never reworded, in any language, hero and footer included.

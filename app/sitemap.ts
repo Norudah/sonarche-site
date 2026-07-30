@@ -15,12 +15,12 @@ const href = (path: string) => new URL(path, SITE_URL).href;
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const languages = {
-    en: href(LOCALE_PATH.en),
     fr: href(LOCALE_PATH.fr),
+    en: href(LOCALE_PATH.en),
   };
 
   return [
-    { url: languages.en, priority: 1, alternates: { languages } },
-    { url: languages.fr, priority: 0.9, alternates: { languages } },
+    { url: languages.fr, priority: 1, alternates: { languages } },
+    { url: languages.en, priority: 0.9, alternates: { languages } },
   ];
 }

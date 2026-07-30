@@ -18,6 +18,8 @@ export function Manifesto({ locale }: { locale: Locale }) {
 
   return (
     <section
+      /* The language switch upstairs waits for this section to come up. */
+      id="manifesto"
       className="relative overflow-hidden"
       style={{
         background:
