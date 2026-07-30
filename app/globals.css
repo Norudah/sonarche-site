@@ -175,3 +175,13 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
+
+/* Tailwind v4's preflight leaves buttons on the element's own `cursor: default`.
+   Every button on this page is a control, so the hand comes back once here
+   rather than being remembered on each one. */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
