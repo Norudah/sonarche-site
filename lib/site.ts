@@ -7,12 +7,14 @@ export type Locale = (typeof LOCALES)[number];
 export const SITE_URL = "https://sonarche.org";
 
 /**
- * The repo is still private (2026-07-30), so every CTA points at a URL that
- * does not resolve yet — deliberately, rather than rendering a dead button.
- * TODO: confirm the final handle before going public. This is the only string
- * to change.
+ * Where every call to action on the page goes — the app's repository, not this
+ * site's. Confirmed 2026-07-31.
+ *
+ * It is private until launch, so the link 404s for anyone but its owner until
+ * the day the repo is flipped public. That is the last thing standing between
+ * this page and being live: nothing here needs changing for it.
  */
-export const GITHUB_URL = "https://github.com/rpierucci/sonarche";
+export const GITHUB_URL = "https://github.com/Norudah/sonarche";
 
 /** Whose project this is. The colophon signs the page and the JSON-LD says the
  *  same thing to a machine — MIT already puts the name in the repo's first
