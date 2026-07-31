@@ -5,7 +5,7 @@ import "@/app/globals.css";
 
 import { Document } from "@/components/layout/Document";
 import { StructuredData } from "@/components/layout/StructuredData";
-import { BRAND_TITLE, LANGUAGE_ALTERNATES, LOCALE_PATH, OG_LOCALE, SEARCH_TITLE, SITE_URL } from "@/lib/site";
+import { BRAND_TITLE, LANGUAGE_ALTERNATES, LOCALE_PATH, OG_IMAGE, OG_LOCALE, SEARCH_TITLE, SITE_URL } from "@/lib/site";
 
 /* The hero's subline, verbatim from docs/copy/en.md, plus the four words that
    still fit inside a snippet. See the FR layout for why the length matters. */
@@ -27,8 +27,19 @@ export const metadata: Metadata = {
     siteName: "Sonarche",
     title: BRAND_TITLE,
     description: DESCRIPTION,
+    images: [
+      {
+        ...OG_IMAGE,
+        alt: 'Sonarche: the ark afloat on a sea drawn as equalizer bars, under the word SONARCHE and the tagline "From the stream into the Ark."',
+      },
+    ],
   },
-  twitter: { card: "summary_large_image", title: BRAND_TITLE, description: DESCRIPTION },
+  twitter: {
+    card: "summary_large_image",
+    title: BRAND_TITLE,
+    description: DESCRIPTION,
+    images: [OG_IMAGE.url],
+  },
 };
 
 export const viewport: Viewport = {

@@ -14,6 +14,11 @@ export const SITE_URL = "https://sonarche.org";
  */
 export const GITHUB_URL = "https://github.com/rpierucci/sonarche";
 
+/** Whose project this is. The colophon signs the page and the JSON-LD says the
+ *  same thing to a machine — MIT already puts the name in the repo's first
+ *  line, so this only makes it findable from the page it belongs to. */
+export const AUTHOR = { name: "Romain Pierucci", url: "https://github.com/Norudah" };
+
 /**
  * Two static routes, FR at the root. The audience this page is written for is
  * French, so French is what a bare sonarche.org serves; English is the
@@ -75,3 +80,13 @@ export const SEARCH_TITLE: Record<Locale, string> = {
 
 /** The brand title, for social cards and the site name. */
 export const BRAND_TITLE = "Sonarche — From the stream into the Ark.";
+
+/**
+ * The card an unfurler draws when the link is pasted into Discord or LinkedIn.
+ *
+ * Drawn by scripts/build-og-image.mjs — run it after any change to the mark, the
+ * palette or the tagline. It lives in public/ rather than as an
+ * `opengraph-image` file because that convention resolves per route segment, and
+ * the two locales are two route groups: one copy, two layouts pointing at it.
+ */
+export const OG_IMAGE = { url: "/og.png", width: 1200, height: 630 };

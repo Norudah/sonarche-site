@@ -5,7 +5,7 @@ import "@/app/globals.css";
 
 import { Document } from "@/components/layout/Document";
 import { StructuredData } from "@/components/layout/StructuredData";
-import { BRAND_TITLE, LANGUAGE_ALTERNATES, LOCALE_PATH, OG_LOCALE, SEARCH_TITLE, SITE_URL } from "@/lib/site";
+import { BRAND_TITLE, LANGUAGE_ALTERNATES, LOCALE_PATH, OG_IMAGE, OG_LOCALE, SEARCH_TITLE, SITE_URL } from "@/lib/site";
 
 /*
  * The description is the hero's subline, verbatim from docs/copy/fr.md, and
@@ -33,8 +33,19 @@ export const metadata: Metadata = {
     siteName: "Sonarche",
     title: BRAND_TITLE,
     description: DESCRIPTION,
+    images: [
+      {
+        ...OG_IMAGE,
+        alt: "Sonarche : l'arche flottant sur une mer dessinée en barres d'égaliseur, sous le mot SONARCHE et la devise « From the stream into the Ark. »",
+      },
+    ],
   },
-  twitter: { card: "summary_large_image", title: BRAND_TITLE, description: DESCRIPTION },
+  twitter: {
+    card: "summary_large_image",
+    title: BRAND_TITLE,
+    description: DESCRIPTION,
+    images: [OG_IMAGE.url],
+  },
 };
 
 /**
