@@ -9,7 +9,8 @@ Traduction validée par Romain le 2026-07-30. Miroir section par section de
   (hero + footer). C'est la marque : on ne la traduit pas.
 
 Micro-copy (cartes, lignes de tableau, chips, légendes) complétée le 2026-07-30
-depuis `Sonarche Landing FR (web).dc.html`. Attention : cette maquette-là
+depuis `Sonarche Landing FR (web).dc.html` (dans le dépôt de l'app, sous
+`docs/designs/landing/`). Attention : cette maquette-là
 **vouvoie** — c'est la passe antérieure. Tous les blocs repris ont été
 transposés au tutoiement ; ils attendent une relecture. Les chips d'étape, que
 la maquette avait laissées en anglais, sont traduites ici.

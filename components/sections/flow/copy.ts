@@ -5,8 +5,8 @@ import type { Locale } from "@/lib/site";
  *
  * The per-step chips the decks list ("single track", "yt-dlp", …) are not here:
  * they belong to the mockup's `stage` variant of this section, and the build
- * follows `cascade` (see docs/designs/README.md). Adding them would be inventing
- * a layout the design does not have.
+ * follows `cascade`. Adding them would be inventing a layout the design does
+ * not have.
  */
 
 export type FlowStep = {

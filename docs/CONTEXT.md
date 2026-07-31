@@ -124,9 +124,12 @@ every stream-ripping lawsuit targeted monetized web converters marketed as
 ## Design workflow
 
 Mockups are made in Claude Design (onboarded on the app's screenshots so it inherits
-the real design system), then built here with iteration in the browser. The reference
-is `docs/designs/Sonarche Landing v7.dc.html` and nothing else — see that folder's
-README for why the other exports are traps.
+the real design system), then built here with iteration in the browser. They live in
+the app repo under `docs/designs/landing/`, and the reference is
+`Sonarche Landing v7.dc.html` and nothing else — the other exports in that folder
+are stale v6 builds that still name platforms. Copies of them were vendored here
+for the port and dropped once it was finished; this repo holds the built site, not
+the drawings it came from.
 
 The design direction: **light only**, paper rather than white, indigo accent,
 restrained palette, strong typography, award-site energy. App screenshots are the

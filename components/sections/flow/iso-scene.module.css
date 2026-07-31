@@ -1,5 +1,5 @@
-/* GENERATED — see scratchpad/convert_iso.py. Ported from
- * docs/designs/IsoScene.dc.html. */
+/* GENERATED — see scratchpad/convert_iso.py. Ported from the mockup's
+ * IsoScene.dc.html, which lives in the app repo under docs/designs/landing/. */
 
 @keyframes dashFlow {
   to {

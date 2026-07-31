@@ -2,7 +2,9 @@ import styles from "./iso-scene.module.css";
 
 /*
  * The four isometric scenes of the flow, ported from the mockup's IsoScene
- * component (docs/designs/IsoScene.dc.html).
+ * component (`IsoScene.dc.html`, in the app repo under
+ * docs/designs/landing/ — the exports were vendored here for the port and
+ * dropped once it was done).
  *
  * The geometry is the design's, verbatim — these are drawings, and redrawing
  * them by hand would only introduce drift. Two things changed on the way in:

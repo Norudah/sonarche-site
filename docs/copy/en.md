@@ -5,9 +5,10 @@ This deck is the reference: the FR deck (`fr.md`) mirrors it section by section.
 Any copy change lands here first, then in `fr.md`, then in the components.
 
 Micro-copy (cards, table rows, chips, captions) completed 2026-07-30 by
-extraction from `docs/designs/Sonarche Landing v7.dc.html`. The reference mockup
-is that file only — `v7 - export` and the 8 MB `Sonarche Landing.html` are stale
-v6 builds that still name platforms; never read copy from them.
+extraction from `Sonarche Landing v7.dc.html` — in the app repo, under
+`docs/designs/landing/`. The reference mockup is that file only: `v7 - export`
+and the 8 MB `Sonarche Landing.html` beside it are stale v6 builds that still
+name platforms, and copy must never be read from them.
 
 ## Hero
 
