@@ -66,7 +66,7 @@ export function DownloadCta({ locale, children, stackedNote }: DownloadCtaProps)
   const isMac = platform === "macos";
 
   return (
-    <div className="flex w-full flex-col items-center">
+    <div className="relative flex w-full flex-col items-center">
       <div className="flex w-full max-w-xs flex-col items-stretch gap-3.5 sm:w-auto sm:max-w-none sm:flex-row sm:items-center sm:justify-center">
         {/* The pair stays a row on a phone, where everything else stacks: two
             words each, and stacking them would cost the hero a whole button of
@@ -129,10 +129,15 @@ export function DownloadCta({ locale, children, stackedNote }: DownloadCtaProps)
         </button>
       </div>
 
+      {/* A dropdown, not a row: the panel hangs below the cluster without
+          taking a line of the page, so opening it never pushes what follows —
+          the hero's fixed stage was already absorbing this, the footer was
+          not. The blur earns its keep here: the panel now sits on whatever is
+          under it. */}
       {showAll && (
         <div
           id="download-all"
-          className={`${styles.panel} border-border bg-surface/70 mt-4 w-full max-w-sm rounded-2xl border p-2 text-left backdrop-blur-sm`}
+          className={`${styles.panel} border-border bg-surface/70 absolute top-full left-1/2 z-20 mt-4 w-full max-w-sm -translate-x-1/2 rounded-2xl border p-2 text-left backdrop-blur-sm`}
         >
           <ul>
             {ALL_BUILDS.map((id) => {
