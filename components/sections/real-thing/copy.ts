@@ -3,7 +3,7 @@ import type { Locale } from "@/lib/site";
 /* Verbatim from docs/copy/en.md and fr.md § The real thing / En vrai. */
 
 export type Shot = {
-  /** Matches the file name in public/shots/<locale>/. */
+  /** Matches the file name in public/shots/<locale>/<theme>/. */
   id: "album" | "genres" | "metadata" | "inspector" | "upkeep";
   label: string;
   title: string;
@@ -15,6 +15,7 @@ export type RealThingCopy = {
   heading: string;
   previous: string;
   next: string;
+  theme: { group: string; light: string; dark: string };
   shots: Shot[];
 };
 
@@ -24,26 +25,28 @@ export const realThingCopy: Record<Locale, RealThingCopy> = {
     heading: "This is what the deck looks like.",
     previous: "Previous screenshot",
     next: "Next screenshot",
+    theme: { group: "Screenshot theme", light: "Light", dark: "Dark" },
     shots: [
       {
         id: "album",
         label: "Album",
         title: "An album, whole",
-        caption: "Twelve tracks, twelve complete tag sets, the right cover — and it plays from the very same window.",
+        caption:
+          "Fourteen tracks, fourteen complete tag sets, the right cover — and it plays from the very same window.",
       },
       {
         id: "genres",
         label: "Genres",
         title: "Genres as a tree",
         caption:
-          "Electronic holds Electro House, Dark Wave, Video Game Music — and knows it accounts for 39% of the shelf.",
+          "Metal holds Metalcore, Heavy Metal, Progressive Metal, Power Metal — and knows it accounts for 32% of the shelf.",
       },
       {
         id: "metadata",
         label: "Metadata",
         title: "Nothing written behind your back",
         caption:
-          "Rename one artist and Sonarche asks which of the other eleven tracks should follow. You decide before anything touches a file.",
+          "Rename one artist and Sonarche asks which of the other thirteen tracks should follow. You decide before anything touches a file.",
       },
       {
         id: "inspector",
@@ -65,26 +68,28 @@ export const realThingCopy: Record<Locale, RealThingCopy> = {
     heading: "Voici à quoi ressemble le pont.",
     previous: "Capture précédente",
     next: "Capture suivante",
+    theme: { group: "Thème des captures", light: "Clair", dark: "Sombre" },
     shots: [
       {
         id: "album",
         label: "Album",
         title: "Un album, entier",
-        caption: "Douze morceaux, douze jeux de tags complets, la bonne pochette — et ça joue depuis la même fenêtre.",
+        caption:
+          "Quatorze morceaux, quatorze jeux de tags complets, la bonne pochette — et ça joue depuis la même fenêtre.",
       },
       {
         id: "genres",
         label: "Genres",
         title: "Les genres en arbre",
         caption:
-          "Electronic contient Electro House, Dark Wave, Video Game Music — et sait qu'il représente 39 % de l'étagère.",
+          "Metal contient Metalcore, Heavy Metal, Progressive Metal, Power Metal — et sait qu'il représente 32 % de l'étagère.",
       },
       {
         id: "metadata",
         label: "Métadonnées",
         title: "Rien n'est écrit dans ton dos",
         caption:
-          "Renomme un artiste et Sonarche demande lequel des onze autres morceaux doit suivre. Tu tranches avant que quoi que ce soit ne touche un fichier.",
+          "Renomme un artiste et Sonarche demande lequel des treize autres morceaux doit suivre. Tu tranches avant que quoi que ce soit ne touche un fichier.",
       },
       {
         id: "inspector",

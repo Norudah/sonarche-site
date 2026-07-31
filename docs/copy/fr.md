@@ -273,15 +273,18 @@ Chaque carte : libellé d'étape — outil — grief — coût.
 - Kicker : `EN VRAI`
 - Titre : Voici à quoi ressemble le pont.
 - Compteur : `01 / 05`
+- Bascule de thème : `Clair` · `Sombre` — libellé du groupe : Thème des
+  captures
 
 ### Les cinq captures
 
-1. `Album` — **Un album, entier** — Douze morceaux, douze jeux de tags
+1. `Album` — **Un album, entier** — Quatorze morceaux, quatorze jeux de tags
    complets, la bonne pochette — et ça joue depuis la même fenêtre.
-2. `Genres` — **Les genres en arbre** — Electronic contient Electro House,
-   Dark Wave, Video Game Music — et sait qu'il représente 39 % de l'étagère.
+2. `Genres` — **Les genres en arbre** — Metal contient Metalcore, Heavy Metal,
+   Progressive Metal, Power Metal — et sait qu'il représente 32 % de
+   l'étagère.
 3. `Métadonnées` — **Rien n'est écrit dans ton dos** — Renomme un artiste et
-   Sonarche demande lequel des onze autres morceaux doit suivre. Tu tranches
+   Sonarche demande lequel des treize autres morceaux doit suivre. Tu tranches
    avant que quoi que ce soit ne touche un fichier.
 4. `Inspecteur` — **Sept champs sur sept** — L'inspecteur se glisse par-dessus
    la liste, pour corriger un morceau sans jamais perdre ta place.

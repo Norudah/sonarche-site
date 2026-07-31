@@ -249,15 +249,17 @@ Each card: step label — tool — gripe — cost.
 - Kicker: `THE REAL THING`
 - Heading: This is what the deck looks like.
 - Counter: `01 / 05`
+- Theme toggle: `Light` · `Dark` — group label: Screenshot theme
 
 ### The five shots
 
-1. `Album` — **An album, whole** — Twelve tracks, twelve complete tag sets,
-   the right cover — and it plays from the very same window.
-2. `Genres` — **Genres as a tree** — Electronic holds Electro House, Dark
-   Wave, Video Game Music — and knows it accounts for 39% of the shelf.
+1. `Album` — **An album, whole** — Fourteen tracks, fourteen complete tag
+   sets, the right cover — and it plays from the very same window.
+2. `Genres` — **Genres as a tree** — Metal holds Metalcore, Heavy Metal,
+   Progressive Metal, Power Metal — and knows it accounts for 32% of the
+   shelf.
 3. `Metadata` — **Nothing written behind your back** — Rename one artist and
-   Sonarche asks which of the other eleven tracks should follow. You decide
+   Sonarche asks which of the other thirteen tracks should follow. You decide
    before anything touches a file.
 4. `Inspector` — **Seven fields out of seven** — The inspector slides in over
    the list, so you can fix one track without ever losing your place.

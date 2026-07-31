@@ -27,9 +27,15 @@ const SHOT_LOCALE: Record<Locale, string> = { en: "fr", fr: "fr" };
    space and the section does not jump when the first image lands. */
 const SHOT = { width: 1600, height: 1040 };
 
+/* The app's two themes, captured separately in public/shots/<locale>/<theme>/.
+   Light first: it is what the rest of the page looks like. */
+const THEMES = ["light", "dark"] as const;
+type Theme = (typeof THEMES)[number];
+
 export function RealThing({ locale }: { locale: Locale }) {
   const copy = realThingCopy[locale];
   const [index, setIndex] = useState(0);
+  const [theme, setTheme] = useState<Theme>("light");
   const shot = copy.shots[index];
   const dir = SHOT_LOCALE[locale];
 
@@ -100,6 +106,32 @@ export function RealThing({ locale }: { locale: Locale }) {
               }`}
             >
               {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* One switch for the whole rail, not per slide: the app has two
+            themes and the visitor is choosing which app they are looking at,
+            not restyling one picture. Ink on the active side rather than the
+            accent, so it reads as a different axis from the tabs above. */}
+        <div
+          role="group"
+          aria-label={copy.theme.group}
+          className="border-border mt-4.5 flex rounded-full border bg-white p-1"
+        >
+          {THEMES.map((t) => (
+            <button
+              key={t}
+              type="button"
+              aria-pressed={theme === t}
+              onClick={() => setTheme(t)}
+              className={`focus-visible:ring-accent/40 rounded-full px-3.5 py-1.5 text-xs font-medium transition-[color,background-color,box-shadow] duration-200 outline-none focus-visible:ring-2 ${
+                theme === t
+                  ? "bg-foreground-strong text-background shadow-[0_4px_10px_oklch(0.32_0.11_277/0.25)]"
+                  : "text-body hover:text-accent"
+              }`}
+            >
+              {copy.theme[t]}
             </button>
           ))}
         </div>
@@ -174,21 +206,35 @@ export function RealThing({ locale }: { locale: Locale }) {
                     active ? "" : "scale-[0.92] opacity-55"
                   }`}
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element --
-                    `next/image` buys nothing here: `output: 'export'` runs with
-                    `images.unoptimized`, so it would emit this same tag plus a
-                    wrapper and some JavaScript. These webp are already sized and
-                    compressed at commit time, which is what docs/CONTEXT.md asks
-                    for, and the intrinsic dimensions below reserve the space. */}
-                  <img
-                    src={`/shots/${dir}/${slide.id}.webp`}
-                    alt={clone ? "" : slide.title}
-                    width={SHOT.width}
-                    height={SHOT.height}
-                    loading={at === 0 ? "eager" : "lazy"}
-                    decoding="async"
-                    className="block h-auto w-full"
-                  />
+                  {/* Both themes are in the DOM, stacked, and the switch is a
+                      crossfade of opacities: swapping one img's src would blank
+                      the frame until the other file decodes. The hidden theme
+                      still lazy-loads like any offscreen slide — only the
+                      slides near the viewport fetch their second capture. */}
+                  <div className="grid [&>img]:[grid-area:1/1]">
+                    {THEMES.map((t) => (
+                      /* eslint-disable-next-line @next/next/no-img-element --
+                        `next/image` buys nothing here: `output: 'export'` runs
+                        with `images.unoptimized`, so it would emit this same tag
+                        plus a wrapper and some JavaScript. These webp are
+                        already sized and compressed at commit time, which is
+                        what docs/CONTEXT.md asks for, and the intrinsic
+                        dimensions below reserve the space. */
+                      <img
+                        key={t}
+                        src={`/shots/${dir}/${t}/${slide.id}.webp`}
+                        alt={clone || t !== theme ? "" : slide.title}
+                        aria-hidden={t !== theme}
+                        width={SHOT.width}
+                        height={SHOT.height}
+                        loading={at === 0 && t === "light" ? "eager" : "lazy"}
+                        decoding="async"
+                        className={`block h-auto w-full transition-opacity duration-300 motion-reduce:transition-none ${
+                          t === theme ? "opacity-100" : "opacity-0"
+                        }`}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
             );
