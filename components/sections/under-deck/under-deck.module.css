@@ -53,8 +53,21 @@
     display: block;
     width: var(--stage-w);
     height: var(--stage-h);
-    /* 100cqw is the width of the aspect-ratio box this sits in. */
-    transform: scale(calc(100cqw / 1180));
+    /*
+     * Scaled to whatever width the container has, where 100cqw is that width.
+     *
+     * The obvious `calc(100cqw / 1180)` is invalid and was being dropped whole:
+     * a length over a number is still a length, and scale() takes a number, so
+     * the browser threw the declaration away and the stage stood at its full
+     * 1180 inside a narrower column. That is where the page's 10px of sideways
+     * scroll at 1280 came from — silently, because an invalid declaration says
+     * nothing.
+     *
+     * calc() cannot divide a length by a length either. atan2 of the two gives
+     * the angle whose tangent is the ratio, and tan() hands it back as the
+     * plain number scale() wants.
+     */
+    transform: scale(tan(atan2(100cqw, 1180px)));
     transform-origin: top left;
   }
 

@@ -13,7 +13,17 @@ import styles from "./under-deck.module.css";
  * than reflowed — a diagram's proportions carry its meaning, so it shrinks whole.
  */
 
-const STAGE = { width: 1180, height: 520 };
+/*
+ * The stage's own coordinate space, and the box the page reserves for it.
+ *
+ * 520 was the mockup's figure and it was 60px short of the drawing it holds:
+ * the nodes are pinned by top-left and the lowest of them, with real copy in
+ * it, ends at 580. Nothing showed, because the box let its content hang out —
+ * and that is exactly what gave the page a horizontal scrollbar once the stage
+ * was clipped. 600 is 580 with a little air, and it has to stay at or above
+ * whichever locale's copy runs longest.
+ */
+const STAGE = { width: 1180, height: 600 };
 
 /** Left, top and width on the stage, in the mockup's pixels. */
 const PLACE: Record<DiagramNode["id"], { x: number; y: number; w: number }> = {
@@ -29,7 +39,14 @@ const PLACE: Record<DiagramNode["id"], { x: number; y: number; w: number }> = {
 export function Diagram({ nodes, sealed }: { nodes: DiagramNode[]; sealed: string }) {
   return (
     <div className="mx-auto mt-11 w-full max-w-[73.75rem] px-8 sm:px-15">
-      <div className="@container relative lg:aspect-[1180/520]">
+      {/* `lg:overflow-clip` is the second half of the stage's scaling. A
+          transform never changes an element's layout size, so the box holding
+          the scaled 1180px stage still measures 1180px and pushes past this
+          column — invisibly, but far enough to give the whole page a horizontal
+          scrollbar at 1280. Clipping here drops that phantom box. Nothing real
+          is cut as long as this ratio matches STAGE: the drawing scales to
+          exactly this width, and its height to exactly this height. */}
+      <div className="@container relative lg:aspect-[1180/600] lg:overflow-clip">
         <div
           className="flex flex-col gap-3 lg:absolute lg:top-0 lg:left-0 lg:block lg:origin-top-left"
           style={{ "--stage-w": `${STAGE.width}px`, "--stage-h": `${STAGE.height}px` } as never}
