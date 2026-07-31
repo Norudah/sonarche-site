@@ -8,6 +8,7 @@ import { TraceSegment } from "@/components/trace/TraceSegment";
 import { AUTHOR, GITHUB_URL, LOCALE_PATH, OTHER_LOCALE, type Locale } from "@/lib/site";
 
 import { footerCopy } from "./copy";
+import { GitHubMark } from "./icons";
 
 /*
  * The last call, and the ark at rest.
@@ -130,8 +131,9 @@ export function Footer({ locale }: { locale: Locale }) {
             <a
               href={AUTHOR.url}
               rel="author"
-              className="hover:text-accent transition-colors hover:underline hover:underline-offset-3"
+              className="hover:text-accent inline-flex items-baseline gap-1.5 transition-colors hover:underline hover:underline-offset-3"
             >
+              <GitHubMark className="h-3 w-3 self-center opacity-70" />
               {copy.signature}
             </a>
           </p>
@@ -150,8 +152,9 @@ export function Footer({ locale }: { locale: Locale }) {
             </a>
             <a
               href={GITHUB_URL}
-              className="hover:text-accent-strong text-[oklch(0.48_0.03_279)] transition-colors hover:underline hover:underline-offset-3"
+              className="hover:text-accent-strong inline-flex items-baseline gap-1.5 text-[oklch(0.48_0.03_279)] transition-colors hover:underline hover:underline-offset-3"
             >
+              <GitHubMark className="h-3 w-3 self-center opacity-70" />
               {copy.github}
             </a>
           </div>

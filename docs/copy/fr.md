@@ -317,6 +317,9 @@ Ouvrir` — Ou si elle est déjà bloquée : Réglages Système → Confidential
   services que tu utilises et le droit de ton pays. · `SONARCHE` ·
   par Romain Pierucci (@Norudah) · _From the stream into the Ark._ (EN) ·
   `GitHub ↗`
+- Les deux liens du colophon qui mènent à GitHub — le profil et le dépôt —
+  portent la marque GitHub, petite et à l'opacité du texte. Elle signale où va
+  le lien ; ce n'est pas un bouton.
 - La signature est une attribution, pas une biographie : une ligne, en bas, à
   la taille du colophon, et le nom renvoie au profil GitHub. Le produit est le
   sujet ; l'auteur est la signature. Elle n'apparaît pas sur la carte de

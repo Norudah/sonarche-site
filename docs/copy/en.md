@@ -291,6 +291,9 @@ Each card: step label — tool — gripe — cost.
 - Footer: `License: MIT` · For personal use. Respect the terms of the services
   you use, and your local law. · `SONARCHE` · by Romain Pierucci (@Norudah) ·
   _From the stream into the Ark._ · `GitHub ↗`
+- Both colophon links that lead to GitHub — the profile and the repository —
+  carry the GitHub mark, small and at the text's own opacity. It marks where a
+  link goes; it is not a button.
 - The signature is an attribution, not a biography: one line, at the bottom, at
   the colophon's own size, and the name links to the GitHub profile. The
   product is the subject; the author is the signature. It stays off the share
