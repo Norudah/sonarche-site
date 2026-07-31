@@ -184,4 +184,20 @@ body {
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+
+  /*
+   * The hero's second button drops the reader into "The flow" — it should feel
+   * like being carried there, not like a cut. This is the whole of it: css, so
+   * it works with no javascript and covers every in-page anchor rather than one
+   * handler on one link.
+   *
+   * Guarded, and deliberately not with `motion-reduce`: this property has no
+   * settled end state to fall back to, it either travels or it teleports, and
+   * teleporting is what someone asking for less motion wants.
+   */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
 }

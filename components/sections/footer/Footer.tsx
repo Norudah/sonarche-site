@@ -105,7 +105,17 @@ export function Footer({ locale }: { locale: Locale }) {
             the least important, so it is set a step below body scale and drained
             of most of its contrast. The language switch keeps a hair more weight
             than the rest of the line — it is the only control down here. */}
-        <div className="absolute inset-x-0 bottom-0 z-[4] mx-auto flex max-w-[80rem] flex-col items-center gap-2 px-8 pb-4 text-[0.6875rem] sm:px-15 md:flex-row md:justify-between">
+        {/*
+         * Three equal columns, not a flex row spread apart.
+         *
+         * `justify-between` places the gaps, not the items, so the middle one
+         * only lands on the page's centre when the two flanking it happen to be
+         * the same width — and the signature made the left one twice the length
+         * of the right. The tagline is the axis of this line and it has to sit
+         * on the page's own axis; equal thirds put it there whatever grows
+         * either side of it.
+         */}
+        <div className="absolute inset-x-0 bottom-0 z-[4] mx-auto flex max-w-[80rem] flex-col items-center gap-2 px-8 pb-4 text-[0.6875rem] sm:px-15 md:grid md:grid-cols-3 md:items-center">
           {/* The signature rides with the wordmark rather than standing on its
               own: it is an attribution of the thing just named, not a fourth
               item competing with the tagline and the two links. One line, the
@@ -125,9 +135,11 @@ export function Footer({ locale }: { locale: Locale }) {
             </a>
           </p>
 
-          <p className="font-serif text-[0.8125rem] text-[oklch(0.5_0.05_277)] italic">{copy.tagline}</p>
+          <p className="font-serif text-[0.8125rem] text-[oklch(0.5_0.05_277)] italic md:justify-self-center">
+            {copy.tagline}
+          </p>
 
-          <div className="flex items-center gap-3.5">
+          <div className="flex items-center gap-3.5 md:justify-self-end">
             <a
               href={LOCALE_PATH[other]}
               hrefLang={other}
