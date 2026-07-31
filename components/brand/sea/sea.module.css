@@ -85,6 +85,25 @@
   border-radius: 3.5px;
 }
 
+/*
+ * Below the wide layout the individual bars stop breathing.
+ *
+ * There are ~700 of them across the two seas, each running its own keyframe
+ * loop, and on a phone each one is barely a pixel and a half wide — nobody has
+ * ever seen one of them swell by four percent. The layers and the body keep
+ * drifting, so the water is still one mass moving; what goes is the texture on
+ * top of it, which was costing seven hundred animations to render at a scale
+ * where it is invisible.
+ *
+ * Nothing is hidden and no geometry moves: the drawing at 390px is the same
+ * drawing, held still. Same `lg` as the trace, for the same reason.
+ */
+@media (max-width: 63.999rem) {
+  .bar {
+    animation: none;
+  }
+}
+
 /* Reduced motion: the sea settles. Every bar keeps its resting height, so the
    surface still reads as a surface — it just stops moving. */
 @media (prefers-reduced-motion: reduce) {
