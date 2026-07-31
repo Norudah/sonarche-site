@@ -4,7 +4,7 @@ import { SeaBody } from "@/components/brand/sea/SeaBody";
 import { SeaLayer } from "@/components/brand/sea/SeaLayer";
 import { buildSea, SEA_CALM } from "@/components/brand/sea/sea";
 import { TraceSegment } from "@/components/trace/TraceSegment";
-import { GITHUB_URL, LOCALE_PATH, OTHER_LOCALE, type Locale } from "@/lib/site";
+import { AUTHOR, GITHUB_URL, LOCALE_PATH, OTHER_LOCALE, type Locale } from "@/lib/site";
 
 import { footerCopy } from "./copy";
 
@@ -106,7 +106,24 @@ export function Footer({ locale }: { locale: Locale }) {
             of most of its contrast. The language switch keeps a hair more weight
             than the rest of the line — it is the only control down here. */}
         <div className="absolute inset-x-0 bottom-0 z-[4] mx-auto flex max-w-[80rem] flex-col items-center gap-2 px-8 pb-4 text-[0.6875rem] sm:px-15 md:flex-row md:justify-between">
-          <p className="font-display font-medium tracking-[0.12em] text-[oklch(0.42_0.03_279)]">{copy.wordmark}</p>
+          {/* The signature rides with the wordmark rather than standing on its
+              own: it is an attribution of the thing just named, not a fourth
+              item competing with the tagline and the two links. One line, the
+              colophon's own size, the name a link to the profile — the product
+              is the subject and the author is the signature. */}
+          <p className="flex items-baseline gap-2 text-[oklch(0.52_0.03_279)]">
+            <span className="font-display font-medium tracking-[0.12em] text-[oklch(0.42_0.03_279)]">
+              {copy.wordmark}
+            </span>
+            <span aria-hidden>·</span>
+            <a
+              href={AUTHOR.url}
+              rel="author"
+              className="hover:text-accent transition-colors hover:underline hover:underline-offset-3"
+            >
+              {copy.signature}
+            </a>
+          </p>
 
           <p className="font-serif text-[0.8125rem] text-[oklch(0.5_0.05_277)] italic">{copy.tagline}</p>
 

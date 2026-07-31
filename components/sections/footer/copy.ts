@@ -12,6 +12,8 @@ export type FooterCopy = {
   wordmark: string;
   /** BRAND — English in every language. */
   tagline: string;
+  /** The attribution line. The name itself is the same in both languages. */
+  signature: string;
   github: string;
   /** Label of the link to the other language, in that language. */
   otherLanguage: string;
@@ -27,6 +29,7 @@ export const footerCopy: Record<Locale, FooterCopy> = {
     personalUse: "For personal use. Respect the terms of the services you use, and your local law.",
     wordmark: "SONARCHE",
     tagline: "From the stream into the Ark.",
+    signature: "by Romain Pierucci (@Norudah)",
     github: "GitHub ↗",
     otherLanguage: "Français",
   },
@@ -39,6 +42,7 @@ export const footerCopy: Record<Locale, FooterCopy> = {
     personalUse: "Usage personnel — respecte les conditions des services que tu utilises et le droit de ton pays.",
     wordmark: "SONARCHE",
     tagline: "From the stream into the Ark.",
+    signature: "par Romain Pierucci (@Norudah)",
     github: "GitHub ↗",
     otherLanguage: "English",
   },

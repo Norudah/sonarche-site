@@ -287,8 +287,12 @@ Each card: step label — tool — gripe — cost.
   it, fork it, board it.
 - CTA: `Get Sonarche on GitHub ↗`
 - Footer: `License: MIT` · For personal use. Respect the terms of the services
-  you use, and your local law. · `SONARCHE` · _From the stream into the Ark._
-  · `GitHub ↗`
+  you use, and your local law. · `SONARCHE` · by Romain Pierucci (@Norudah) ·
+  _From the stream into the Ark._ · `GitHub ↗`
+- The signature is an attribution, not a biography: one line, at the bottom, at
+  the colophon's own size, and the name links to the GitHub profile. The
+  product is the subject; the author is the signature. It stays off the share
+  card.
 
 ## Metadata (never rendered on the page)
 

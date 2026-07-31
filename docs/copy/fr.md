@@ -313,7 +313,12 @@ Ouvrir` — Ou si elle est déjà bloquée : Réglages Système → Confidential
 - CTA : `Sonarche est sur GitHub ↗`
 - Footer : `Licence : MIT` · Usage personnel — respecte les conditions des
   services que tu utilises et le droit de ton pays. · `SONARCHE` ·
-  _From the stream into the Ark._ (EN) · `GitHub ↗`
+  par Romain Pierucci (@Norudah) · _From the stream into the Ark._ (EN) ·
+  `GitHub ↗`
+- La signature est une attribution, pas une biographie : une ligne, en bas, à
+  la taille du colophon, et le nom renvoie au profil GitHub. Le produit est le
+  sujet ; l'auteur est la signature. Elle n'apparaît pas sur la carte de
+  partage.
 
 ## Métadonnées (non visibles sur la page)
 
