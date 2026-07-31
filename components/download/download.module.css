@@ -1,0 +1,22 @@
+/* The panel arrives rather than appears. Opacity and transform only — the
+   height it takes is laid out instantly, so nothing below it animates. */
+@keyframes panelIn {
+  from {
+    opacity: 0;
+    transform: translateY(-0.375rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.panel {
+  animation: panelIn 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel {
+    animation: none;
+  }
+}

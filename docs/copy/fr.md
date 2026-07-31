@@ -23,7 +23,7 @@ la maquette avait laissées en anglais, sont traduites ici.
 - Subline : Une bibliothèque musicale qui t'appartient vraiment — chaque
   morceau identifié à l'oreille, rangé dans de simples fichiers, lu par un
   moteur natif.
-- CTA principal : `Sonarche est sur GitHub ↗`
+- CTA principal : le bouton de téléchargement — voir § Téléchargement
 - CTA secondaire : `Voir comment ça marche ↓`
 - Indice de scroll : `DÉFILER ↓`
 
@@ -311,7 +311,8 @@ Ouvrir` — Ou si elle est déjà bloquée : Réglages Système → Confidential
 - Titre : Gratuit. Open source. À toi.
 - Corps : Pas d'abonnement, pas de cloud, pas de verrou. Le code est sur
   GitHub — lis-le, forke-le, monte à bord.
-- CTA : `Sonarche est sur GitHub ↗`
+- CTA : le bouton de téléchargement — voir § Téléchargement. Le `GitHub ↗` du
+  colophon, juste en dessous, garde le dépôt à un clic : le corps reste vrai.
 - Footer : `Licence : MIT` · Usage personnel — respecte les conditions des
   services que tu utilises et le droit de ton pays. · `SONARCHE` ·
   par Romain Pierucci (@Norudah) · _From the stream into the Ark._ (EN) ·
@@ -320,6 +321,38 @@ Ouvrir` — Ou si elle est déjà bloquée : Réglages Système → Confidential
   la taille du colophon, et le nom renvoie au profil GitHub. Le produit est le
   sujet ; l'auteur est la signature. Elle n'apparaît pas sur la carte de
   partage.
+
+## Téléchargement
+
+Un seul composant, rendu comme CTA principal dans le hero puis dans le CTA
+final. Il lit le système du visiteur et propose la version qui lui correspond.
+
+macOS affiche **les deux** puces côte à côte plutôt que d'en choisir une. Ce
+n'est pas de l'indécision : sur macOS, tous les navigateurs annoncent
+`Intel Mac OS X` quelle que soit la puce, et la seule API qui dit vrai n'existe
+que sur Chromium. Deviner, c'est offrir un échec silencieux et incompréhensible
+à celui qu'on se trompe — la page demande donc, et la note dit où regarder.
+
+Chaque bouton et chaque ligne du panneau porte la marque de sa plateforme — le
+logo Pomme, le drapeau Windows. C'est la marque qui nomme la plateforme, et
+c'est pourquoi la paire macOS n'a pas besoin d'intitulé au-dessus : le logo dit
+`macOS`, le libellé dit quelle puce. Cet intitulé a existé, il a été coupé pour
+cette raison.
+
+- CTA neutre, avant que le système soit connu et si le JavaScript n'arrive
+  jamais : `Télécharger Sonarche ↓`
+- macOS, les deux boutons, chacun sous une Pomme : `Apple Silicon` · `Intel`
+- Windows, un seul bouton, sous le drapeau : `Télécharger pour Windows ↓`
+- Ligne meta sous les boutons, sur une seule ligne, les deux moitiés séparées
+  par `·` :
+  - Quel Mac : Tu ne sais pas ? Menu Pomme → À propos de ce Mac : `Puce` veut
+    dire Apple Silicon.
+  - Bascule : `Toutes les versions` / `Masquer les versions`
+- Lignes du panneau : `macOS · Apple Silicon` · `macOS · Intel` · `Windows`
+- Détail par ligne, une fois la release connue : `{taille} Mo`
+- Ligne de version sous le panneau : `Version {n}` — absente tant que la
+  release n'a pas répondu, jamais inventée.
+- Lien de repli du panneau, toujours présent : `Toutes les versions sur GitHub ↗`
 
 ## Métadonnées (non visibles sur la page)
 

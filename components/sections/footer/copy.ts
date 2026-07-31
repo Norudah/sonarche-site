@@ -6,7 +6,8 @@ export type FooterCopy = {
   headingBefore: string;
   headingEmphasis: string;
   body: string;
-  cta: string;
+  /** No `cta`: the last call is the download button, which builds its own
+   *  labels from the visitor's system. See components/download. */
   license: string;
   personalUse: string;
   wordmark: string;
@@ -24,7 +25,6 @@ export const footerCopy: Record<Locale, FooterCopy> = {
     headingBefore: "Free. Open source.",
     headingEmphasis: "Yours.",
     body: "No subscription, no cloud, no lock-in. The code is on GitHub — read it, fork it, board it.",
-    cta: "Get Sonarche on GitHub ↗",
     license: "License: MIT",
     personalUse: "For personal use. Respect the terms of the services you use, and your local law.",
     wordmark: "SONARCHE",
@@ -37,7 +37,6 @@ export const footerCopy: Record<Locale, FooterCopy> = {
     headingBefore: "Gratuit. Open source.",
     headingEmphasis: "À toi.",
     body: "Pas d'abonnement, pas de cloud, pas de verrou. Le code est sur GitHub — lis-le, forke-le, monte à bord.",
-    cta: "Sonarche est sur GitHub ↗",
     license: "Licence : MIT",
     personalUse: "Usage personnel — respecte les conditions des services que tu utilises et le droit de ton pays.",
     wordmark: "SONARCHE",

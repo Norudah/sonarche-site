@@ -7,14 +7,31 @@ export type Locale = (typeof LOCALES)[number];
 export const SITE_URL = "https://sonarche.org";
 
 /**
- * Where every call to action on the page goes — the app's repository, not this
- * site's. Confirmed 2026-07-31.
+ * The app's repository, not this site's. Public since 2026-07-30.
  *
- * It is private until launch, so the link 404s for anyone but its owner until
- * the day the repo is flipped public. That is the last thing standing between
- * this page and being live: nothing here needs changing for it.
+ * No longer the target of the page's calls to action — those download the app
+ * now (see components/download). This stays for the colophon and the JSON-LD:
+ * the code being readable is the argument, so it keeps a link.
  */
 export const GITHUB_URL = "https://github.com/Norudah/sonarche";
+
+/** The releases page. Every download path falls back to it, so it is the one
+ *  URL on this page that must never depend on anything being reachable. */
+export const RELEASES_URL = `${GITHUB_URL}/releases`;
+
+/**
+ * The latest release, asked at runtime from the visitor's own browser.
+ *
+ * A static export cannot know what the newest release is, and the asset names
+ * carry the version — `Sonarche_1.0.0_aarch64.dmg` stops existing at 1.1.0, so
+ * anything baked in here would 404 the day after a release, silently.
+ *
+ * Unauthenticated and CORS-open: 60 requests an hour per visitor IP, which is a
+ * limit a landing page reaches only from behind a shared NAT. When it is hit —
+ * or when GitHub is simply down — the button keeps the RELEASES_URL it was
+ * rendered with. The failure mode is the page we had before, never a dead link.
+ */
+export const LATEST_RELEASE_API = "https://api.github.com/repos/Norudah/sonarche/releases/latest";
 
 /** Whose project this is. The colophon signs the page and the JSON-LD says the
  *  same thing to a machine — MIT already puts the name in the repo's first

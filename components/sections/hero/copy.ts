@@ -11,7 +11,8 @@ export type HeroCopy = {
   /** BRAND — English in every language, never reworded. */
   tagline: string;
   subline: string;
-  ctaPrimary: string;
+  /** No `ctaPrimary`: the primary call is the download button, which builds its
+   *  own labels from the visitor's system. See components/download. */
   ctaSecondary: string;
   scrollHint: string;
 };
@@ -23,7 +24,6 @@ export const heroCopy: Record<Locale, HeroCopy> = {
     tagline: "From the stream into the Ark.",
     subline:
       "A music library that's truly yours — every track identified by its own audio, named in plain files, played on a native engine.",
-    ctaPrimary: "Get Sonarche on GitHub ↗",
     ctaSecondary: "See how it works ↓",
     scrollHint: "SCROLL ↓",
   },
@@ -33,7 +33,6 @@ export const heroCopy: Record<Locale, HeroCopy> = {
     tagline: "From the stream into the Ark.",
     subline:
       "Une bibliothèque musicale qui t'appartient vraiment — chaque morceau identifié à l'oreille, rangé dans de simples fichiers, lu par un moteur natif.",
-    ctaPrimary: "Sonarche est sur GitHub ↗",
     ctaSecondary: "Voir comment ça marche ↓",
     scrollHint: "DÉFILER ↓",
   },

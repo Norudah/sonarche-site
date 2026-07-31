@@ -17,7 +17,7 @@ name platforms, and copy must never be read from them.
 - Tagline (BRAND — never reworded): `From the stream into the Ark.`
 - Subline: A music library that's truly yours — every track identified by its
   own audio, named in plain files, played on a native engine.
-- CTA primary: `Get Sonarche on GitHub ↗`
+- CTA primary: the download button — see § Download
 - CTA secondary: `See how it works ↓`
 - Scroll hint: `SCROLL ↓`
 
@@ -286,7 +286,8 @@ Each card: step label — tool — gripe — cost.
 - Heading: Free. Open source. Yours.
 - Body: No subscription, no cloud, no lock-in. The code is on GitHub — read
   it, fork it, board it.
-- CTA: `Get Sonarche on GitHub ↗`
+- CTA: the download button — see § Download. The colophon's `GitHub ↗` below
+  it keeps the repository one click away, so the body still lands.
 - Footer: `License: MIT` · For personal use. Respect the terms of the services
   you use, and your local law. · `SONARCHE` · by Romain Pierucci (@Norudah) ·
   _From the stream into the Ark._ · `GitHub ↗`
@@ -294,6 +295,35 @@ Each card: step label — tool — gripe — cost.
   the colophon's own size, and the name links to the GitHub profile. The
   product is the subject; the author is the signature. It stays off the share
   card.
+
+## Download
+
+One component, rendered as the primary CTA in the hero and again in the final
+CTA. It reads the visitor's system and offers the matching build.
+
+macOS shows **both** chips side by side rather than picking one. That is not
+indecision: every browser on macOS reports `Intel Mac OS X` in its user agent
+whatever the chip, and the one API that tells the truth exists only on
+Chromium. Guessing would hand a silent, unexplained failure to whoever we get
+wrong, so the page asks instead — and the note below tells them where to look.
+
+Every button and every panel row carries its platform's mark — the Apple logo,
+the Windows flag. The mark is what names the platform, which is why the macOS
+pair needs no heading over it: the logo says `macOS` and the label says which
+chip. That heading existed and was cut for exactly this reason.
+
+- Neutral CTA, before the system is known and when JavaScript never lands:
+  `Download Sonarche ↓`
+- macOS, the two buttons, each under an Apple mark: `Apple Silicon` · `Intel`
+- Windows, one button, under the Windows mark: `Download for Windows ↓`
+- Meta line under the buttons, one line, the two halves separated by `·`:
+  - Which Mac: Not sure? Apple menu → About This Mac: `Chip` means Apple silicon.
+  - All-versions toggle: `All versions` / `Hide versions`
+- Panel rows: `macOS · Apple Silicon` · `macOS · Intel` · `Windows`
+- Per-row detail, once the release is known: `{size} MB`
+- Version line under the panel: `Version {n}` — omitted until the release
+  answers, never invented.
+- Panel fallback link, always present: `See all releases on GitHub ↗`
 
 ## Metadata (never rendered on the page)
 

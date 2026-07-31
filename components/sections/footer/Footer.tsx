@@ -3,6 +3,7 @@ import { Onde } from "@/components/brand/Onde";
 import { SeaBody } from "@/components/brand/sea/SeaBody";
 import { SeaLayer } from "@/components/brand/sea/SeaLayer";
 import { buildSea, SEA_CALM } from "@/components/brand/sea/sea";
+import { DownloadCta } from "@/components/download/DownloadCta";
 import { TraceSegment } from "@/components/trace/TraceSegment";
 import { AUTHOR, GITHUB_URL, LOCALE_PATH, OTHER_LOCALE, type Locale } from "@/lib/site";
 
@@ -59,12 +60,12 @@ export function Footer({ locale }: { locale: Locale }) {
 
         <p className="text-body mt-4 max-w-[32.5rem] text-[1.09rem] leading-relaxed">{copy.body}</p>
 
-        <a
-          href={GITHUB_URL}
-          className="bg-accent text-accent-foreground font-display hover:bg-accent-strong focus-visible:ring-accent/40 focus-visible:ring-offset-background mt-8 rounded-full px-8.5 py-4.25 text-base font-semibold shadow-[0_8px_24px_oklch(0.505_0.185_277/0.28)] transition-[translate,scale,box-shadow,background-color] duration-[260ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] outline-none hover:-translate-y-1 hover:scale-[1.05] hover:shadow-[0_18px_38px_oklch(0.505_0.185_277/0.45)] focus-visible:ring-2 focus-visible:ring-offset-2 active:translate-y-0 active:scale-[0.96] active:shadow-[0_4px_12px_oklch(0.505_0.185_277/0.3)] active:duration-75 motion-reduce:translate-none motion-reduce:scale-100 motion-reduce:transition-colors"
-        >
-          {copy.cta}
-        </a>
+        {/* The same button as the hero's, at the other end of the argument. The
+            body just said the code is on GitHub — the colophon two lines down
+            keeps that link, so this one can be the download. */}
+        <div className="mt-8 w-full">
+          <DownloadCta locale={locale} />
+        </div>
 
         <p className="text-muted mt-8 text-[0.8125rem]">{copy.license}</p>
 
