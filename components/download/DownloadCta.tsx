@@ -50,9 +50,13 @@ type DownloadCtaProps = {
   /** Rendered on the same line as the download buttons — the hero puts its
    *  "See how it works ↓" here. The footer passes nothing. */
   children?: ReactNode;
+  /** Stack the macOS note and the all-versions toggle, each centred, instead
+   *  of sharing a line. The footer can afford the row; the hero cannot — see
+   *  the comment on the line itself. */
+  stackedNote?: boolean;
 };
 
-export function DownloadCta({ locale, children }: DownloadCtaProps) {
+export function DownloadCta({ locale, children, stackedNote }: DownloadCtaProps) {
   const copy = downloadCopy[locale];
   const platform = usePlatform();
   const release = useLatestRelease();
@@ -91,17 +95,26 @@ export function DownloadCta({ locale, children }: DownloadCtaProps) {
 
       {/* Note and toggle on one line rather than two rows. The hero is a fixed
           stage and every row here pushes the waterline down: two of them cost
-          the scroll hint its place under the fold. */}
-      <div className="mt-3.5 flex flex-wrap items-baseline justify-center gap-x-2 gap-y-1 text-[0.78125rem]">
+          the scroll hint its place under the fold. `stackedNote` opts out where
+          vertical space is free. */}
+      <div
+        className={`mt-3.5 text-[0.78125rem] ${
+          stackedNote
+            ? "flex flex-col items-center gap-1.5"
+            : "flex flex-wrap items-baseline justify-center gap-x-2 gap-y-1"
+        }`}
+      >
         {isMac && (
           <>
             <span className="text-muted">{copy.whichMac}</span>
             {/* Only where the two actually share a line. Narrower than that the
                 note wraps, and a separator left behind reads as a bullet
                 hanging off the front of the toggle. */}
-            <span className="text-muted/45 hidden sm:inline" aria-hidden>
-              ·
-            </span>
+            {!stackedNote && (
+              <span className="text-muted/45 hidden sm:inline" aria-hidden>
+                ·
+              </span>
+            )}
           </>
         )}
 

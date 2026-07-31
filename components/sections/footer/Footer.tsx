@@ -65,12 +65,14 @@ export function Footer({ locale }: { locale: Locale }) {
             body just said the code is on GitHub — the colophon two lines down
             keeps that link, so this one can be the download. */}
         <div className="mt-8 w-full">
-          <DownloadCta locale={locale} />
+          <DownloadCta locale={locale} stackedNote />
         </div>
 
-        <p className="text-muted mt-8 text-[0.8125rem]">{copy.license}</p>
+        {/* The legal whisper: one small-print block, licence over its caveat,
+            close enough to read as a single note. */}
+        <p className="mt-8 text-[0.75rem] text-[oklch(0.58_0.02_279)]">{copy.license}</p>
 
-        <p className="mt-3 max-w-[32.5rem] text-[0.78125rem] leading-[1.6] text-[oklch(0.58_0.02_279)]">
+        <p className="mt-1 max-w-[32.5rem] text-[0.71875rem] leading-[1.6] text-[oklch(0.58_0.02_279)]">
           {copy.personalUse}
         </p>
       </div>
