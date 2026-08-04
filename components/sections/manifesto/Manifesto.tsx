@@ -18,6 +18,7 @@ export function Manifesto({ locale }: { locale: Locale }) {
 
   return (
     <section
+      data-anim-gate
       /* The language switch upstairs waits for this section to come up. */
       id="manifesto"
       className="relative overflow-hidden"

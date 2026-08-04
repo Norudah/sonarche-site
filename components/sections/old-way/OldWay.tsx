@@ -19,7 +19,7 @@ export function OldWay({ locale }: { locale: Locale }) {
   const copy = oldWayCopy[locale];
 
   return (
-    <section className="relative isolate py-24 sm:py-27">
+    <section data-anim-gate className="relative isolate py-24 sm:py-27">
       <TraceSegment />
       <header className="flex flex-col items-center px-8 text-center sm:px-15">
         <p className="text-rust font-sans text-xs font-semibold tracking-[0.3em]">{copy.kicker}</p>

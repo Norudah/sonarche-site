@@ -1,3 +1,4 @@
+import { AnimationGate } from "@/components/layout/AnimationGate";
 import { LocaleSwitch } from "@/components/layout/LocaleSwitch";
 import { Deck } from "@/components/sections/deck/Deck";
 import { FirstLaunch } from "@/components/sections/first-launch/FirstLaunch";
@@ -37,6 +38,8 @@ export default function EnHome() {
 
       {/* Renders nothing: it lights the line every section above has planted. */}
       <Trace />
+      {/* Renders nothing either: it pauses every section's idle loops off-screen. */}
+      <AnimationGate />
     </>
   );
 }

@@ -44,6 +44,7 @@ export function Footer({ locale }: { locale: Locale }) {
 
   return (
     <footer
+      data-anim-gate
       className="relative isolate overflow-hidden pt-24 sm:pt-26"
       style={{
         background: "linear-gradient(180deg, oklch(0.982 0.006 279 / 0), oklch(0.972 0.012 277 / 0.82) 60%)",

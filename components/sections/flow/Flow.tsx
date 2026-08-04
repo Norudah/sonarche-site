@@ -18,7 +18,7 @@ export function Flow({ locale }: { locale: Locale }) {
   const copy = flowCopy[locale];
 
   return (
-    <section id="flow" className="relative isolate scroll-mt-8 py-24 sm:pt-28 sm:pb-30">
+    <section data-anim-gate id="flow" className="relative isolate scroll-mt-8 py-24 sm:pt-28 sm:pb-30">
       {/* The trace is born here, at the top of the first section after the
           manifesto — it fades up out of nothing over its first 280px rather than
           starting on a cut. See components/trace. */}

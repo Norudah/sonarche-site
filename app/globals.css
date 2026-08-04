@@ -186,6 +186,20 @@ body {
   }
 
   /*
+   * The other half of AnimationGate (components/layout): while a gated section
+   * is off-screen, every CSS loop inside it holds its breath. `!important`
+   * outranks the per-element `animation` shorthands the sections set inline and
+   * in their modules; transitions and GSAP-driven inline styles are not
+   * animations and pass through untouched.
+   */
+  [data-anim-gate="off"],
+  [data-anim-gate="off"] *,
+  [data-anim-gate="off"] *::before,
+  [data-anim-gate="off"] *::after {
+    animation-play-state: paused !important;
+  }
+
+  /*
    * The hero's second button drops the reader into "The flow" — it should feel
    * like being carried there, not like a cut. This is the whole of it: css, so
    * it works with no javascript and covers every in-page anchor rather than one

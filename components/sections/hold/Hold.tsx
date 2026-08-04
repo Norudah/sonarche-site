@@ -16,7 +16,7 @@ export function Hold({ locale }: { locale: Locale }) {
   const copy = holdCopy[locale];
 
   return (
-    <section className="relative isolate bg-[oklch(0.976_0.008_279/0.8)] py-24 sm:py-27">
+    <section data-anim-gate className="relative isolate bg-[oklch(0.976_0.008_279/0.8)] py-24 sm:py-27">
       <TraceSegment />
       <header className="flex flex-col items-center px-8 text-center sm:px-15">
         <p className="text-accent font-sans text-xs font-semibold tracking-[0.3em]">{copy.kicker}</p>
