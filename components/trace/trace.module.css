@@ -1,0 +1,45 @@
+/*
+ * The firefly drift, moved off the JS ticker.
+ *
+ * The engine used to write a two-sine transform on every visible segment every
+ * frame; as a CSS animation the compositor carries it for free and the engine
+ * never touches a segment's transform again. The waypoints are a hand-drawn
+ * loop rather than a true sum of sines — at ±12px over half a minute the eye
+ * cannot tell a Lissajous figure from a wander, only stillness from motion.
+ *
+ * Every segment runs the same animation with the same phase, which is what
+ * keeps the slices meeting at their seams: the whole line drifts as one body.
+ *
+ * Reduced motion is handled by the media query here, mirroring the engine's own
+ * matchMedia split: those readers get the line at rest, exactly as before.
+ */
+
+@keyframes traceDrift {
+  0% {
+    transform: translate(-11px, -6px);
+  }
+  18% {
+    transform: translate(3px, 7px);
+  }
+  34% {
+    transform: translate(12px, -2px);
+  }
+  52% {
+    transform: translate(1px, -9px);
+  }
+  68% {
+    transform: translate(-8px, 4px);
+  }
+  84% {
+    transform: translate(7px, 9px);
+  }
+  100% {
+    transform: translate(-11px, -6px);
+  }
+}
+
+.drift {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: traceDrift 31s ease-in-out infinite;
+  }
+}

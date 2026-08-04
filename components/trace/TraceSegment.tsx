@@ -1,5 +1,7 @@
 import type { CSSProperties } from "react";
 
+import styles from "./trace.module.css";
+
 /*
  * One section's slice of the page-long trace.
  *
@@ -64,18 +66,18 @@ export function TraceSegment({ start, end, className = "absolute inset-0 z-[-1]"
     <div aria-hidden className={`pointer-events-none hidden overflow-hidden lg:block ${className}`} style={style}>
       {/*
        * `overflow-visible` is load-bearing, not tidiness. A root <svg> clips to
-       * its own viewport by default, and this one drifts vertically every frame:
-       * with the default clip, the few pixels the engine deliberately draws past
-       * each end get cut off, and every seam between two sections opens into a
-       * gap that scrolls with the drift. The host div does the clipping instead —
-       * it does not move, so the two slices always meet.
+       * its own viewport by default, and this one drifts (the CSS loop in
+       * trace.module.css): with the default clip, the few pixels the engine
+       * deliberately draws past each end get cut off, and every seam between two
+       * sections opens into a gap that scrolls with the drift. The host div does
+       * the clipping instead — it does not move, so the two slices always meet.
        */}
       <svg
         data-trace-seg=""
         data-trace-start={start}
         data-trace-end={end}
         fill="none"
-        className="absolute top-0 left-0 overflow-visible"
+        className={`absolute top-0 left-0 overflow-visible ${styles.drift}`}
       >
         <path data-trace-part="base" d="" stroke={INK.base} strokeWidth={1} />
         <path data-trace-part="lit" d="" stroke={INK.lit} strokeWidth={1.3} strokeLinecap="round" />

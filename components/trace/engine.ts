@@ -18,11 +18,15 @@ import { traceLiveScale, traceOffset, type TraceBounds } from "./shape";
  * still well under body copy (see TraceSegment.tsx). It crosses text; it does
  * not compete with it.
  *
- * Per frame, three things happen and they cost very different amounts:
- *   - the drift transform and the lit dash offset: two style writes per segment;
+ * Per frame, little happens and most of it only sometimes:
  *   - the live bulge: one path of ~108 points, on the one or two segments the
  *     playhead is inside;
+ *   - the lit dash offset, only while the page is actually scrolling — the
+ *     playhead's idle wander deliberately stays out of it (see frame()), so a
+ *     still page repaints nothing but the bulge;
  *   - nothing at all for segments outside the viewport, which is most of them.
+ * The firefly drift is not here at all any more: it is a CSS loop on the
+ * segments (trace.module.css), carried by the compositor.
  *
  * The measurement is deliberately NOT part of the frame: reading a rect after
  * writing attributes forces a layout, and doing that at 60fps on a dozen
@@ -211,28 +215,28 @@ export function createTrace(): Trace {
     const cx = bounds.width / 2;
     const liveScale = traceLiveScale(bounds.width);
 
-    // The line drifts like a firefly — never quite still, never locked to the
-    // viewport, so it reads as floating rather than as pasted on the page.
-    const driftX = 11 * Math.sin(time * 0.21) + 6 * Math.sin(time * 0.53 + 1.3);
-    const driftY = 9 * Math.sin(time * 0.29 + 0.7) + 4 * Math.sin(time * 0.67);
-
     // The playhead chases the middle of the viewport, but lazily and with a
     // wander of its own: a head welded to the scrollbar reads as a progress bar.
     const target = scrollY + vh * 0.5;
     head = head === null ? target : head + (target - head) * (1 - Math.exp(-delta / 1000 / HEAD_LAG));
     const wander = 30 * Math.sin(time * 0.33) + 12 * Math.sin(time * 0.79 + 2.1);
-    // It never leaves the drawn line.
+    // Neither ever leaves the drawn line.
     const headY = Math.min(bounds.end - 12, Math.max(bounds.start + 12, head + wander));
+    // The lit edge follows the head without the wander. The wander would keep
+    // nudging the dash offset on a page that is not scrolling, and a dash
+    // offset is paint — the one segment under the head would repaint its whole
+    // path every frame for a boundary the bulge is drawn on top of anyway.
+    // Without it, `head` settles once the scroll does, and the lit line goes
+    // quiet with it.
+    const headLit = Math.min(bounds.end - 12, Math.max(bounds.start + 12, head));
 
     for (const seg of segments) {
       const viewTop = seg.top - scrollY;
       if (viewTop > vh + MARGIN || viewTop + seg.height < -MARGIN) continue;
 
-      seg.svg.style.transform = `translate(${driftX.toFixed(2)}px, ${driftY.toFixed(2)}px)`;
-
       // Against the drawn span, not the box: see Segment.from.
       const span = seg.to - seg.from || 1;
-      const progress = Math.max(0, Math.min(1, (headY - seg.top - seg.from) / span));
+      const progress = Math.max(0, Math.min(1, (headLit - seg.top - seg.from) / span));
       if (Math.abs(progress - seg.litAt) > 0.0004) {
         seg.lit.style.strokeDashoffset = (seg.length * (1 - progress)).toFixed(1);
         seg.litAt = progress;
@@ -271,7 +275,6 @@ export function createTrace(): Trace {
   function settle() {
     if (stale) measure();
     for (const seg of segments) {
-      seg.svg.style.transform = "";
       seg.lit.style.strokeDashoffset = "0";
       seg.litAt = 1;
       clearLive(seg);

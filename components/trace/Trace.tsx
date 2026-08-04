@@ -19,6 +19,12 @@ gsap.registerPlugin(useGSAP);
  * already running, so the whole page still ticks once per frame, and useGSAP
  * disposes of it on unmount and on HMR.
  *
+ * Deliberately not throttled below the display's rate: the playhead is the one
+ * live thing crossing the whole screen, and a stepped bulge reads as a stutter,
+ * not as calm. Its budget is bought elsewhere — the drift is a compositor-run
+ * CSS loop (trace.module.css) and a still page writes no dash offsets (see
+ * engine.ts), so full rate is only ever paid for the bulge itself.
+ *
  * Reduced motion gets the line drawn and fully read — the end state of a page
  * someone has scrolled through — with no clock at all. The drawing survives;
  * only the movement goes.
