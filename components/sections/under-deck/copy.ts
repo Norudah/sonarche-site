@@ -8,13 +8,22 @@ export type TechCard = {
   text: string;
 };
 
+/** One outside service, named inside its group card. */
+export type DiagramService = {
+  name: string;
+  text: string;
+};
+
 /** A node of the architecture diagram. Geometry lives in the component. */
 export type DiagramNode = {
-  id: "stream" | "ytdlp" | "ffmpeg" | "beets" | "musicbrainz" | "acoustid" | "folder";
+  id: "stream" | "folders" | "ytdlp" | "ffmpeg" | "beets" | "identify" | "dress" | "accompany" | "folder";
   title: string;
-  text: string;
-  /** The italic aside under `beets`, and the badge under `the stream`. */
+  /** Absent on the three service groups, which say it through `services`. */
+  text?: string;
+  /** The italic aside under `beets`, and the badge under the two entry cards. */
   aside?: string;
+  /** The services a group card holds. Six of them, in three cards. */
+  services?: DiagramService[];
 };
 
 export type UnderDeckCopy = {
@@ -26,6 +35,8 @@ export type UnderDeckCopy = {
   cards: TechCard[];
   sealed: string;
   nodes: DiagramNode[];
+  /** The quiet line under the service column. */
+  servicesNote: string;
 };
 
 export const underDeckCopy: Record<Locale, UnderDeckCopy> = {
@@ -60,6 +71,12 @@ export const underDeckCopy: Record<Locale, UnderDeckCopy> = {
         text: "A URL out there — a track, an album, a playlist.",
         aside: "the open web",
       },
+      {
+        id: "folders",
+        title: "Your folders",
+        text: "What you already have — a home port, not just a loading dock. Copied in, never moved.",
+        aside: "no network",
+      },
       { id: "ytdlp", title: "yt-dlp", text: "Hauls the native audio in — no re-encode, ever." },
       {
         id: "ffmpeg",
@@ -73,14 +90,28 @@ export const underDeckCopy: Record<Locale, UnderDeckCopy> = {
         text: "Directs every call, checks every tag, and files each track into its right place in the library.",
       },
       {
-        id: "musicbrainz",
-        title: "MusicBrainz",
-        text: "The open encyclopedia of recorded music — titles, albums, years.",
+        id: "identify",
+        title: "Identify",
+        services: [
+          { name: "AcoustID", text: "matches the acoustic fingerprint to the exact recording." },
+          { name: "MusicBrainz", text: "the open encyclopedia: titles, albums, years." },
+        ],
       },
       {
-        id: "acoustid",
-        title: "AcoustID",
-        text: "Matches the fingerprint to the exact recording.",
+        id: "dress",
+        title: "Dress",
+        services: [
+          { name: "Cover Art Archive", text: "the covers." },
+          { name: "Last.fm", text: "the genres." },
+        ],
+      },
+      {
+        id: "accompany",
+        title: "Accompany",
+        services: [
+          { name: "LRCLIB", text: "synced lyrics, the ones that follow the music." },
+          { name: "lyrics.ovh", text: "backup lyrics, plain text, when LRCLIB has nothing." },
+        ],
       },
       {
         id: "folder",
@@ -88,6 +119,8 @@ export const underDeckCopy: Record<Locale, UnderDeckCopy> = {
         text: "After all that — it's just a folder of music. Yours. Open it, move it, back it up.",
       },
     ],
+    servicesNote:
+      "These services are queried on demand, never required. You have no account to create and no key to paste: the app introduces itself politely and spaces out its calls.",
   },
   fr: {
     kicker: "SOUS LE PONT",
@@ -120,6 +153,12 @@ export const underDeckCopy: Record<Locale, UnderDeckCopy> = {
         text: "Une URL quelque part — un titre, un album, une playlist.",
         aside: "le web ouvert",
       },
+      {
+        id: "folders",
+        title: "Tes dossiers",
+        text: "Ce que tu as déjà — un port d'attache, pas qu'un quai. Copié, jamais déplacé.",
+        aside: "hors réseau",
+      },
       { id: "ytdlp", title: "yt-dlp", text: "Hisse l'audio natif à bord — jamais de ré-encodage." },
       {
         id: "ffmpeg",
@@ -133,14 +172,28 @@ export const underDeckCopy: Record<Locale, UnderDeckCopy> = {
         text: "Dirige chaque appel, vérifie chaque tag, et range chaque morceau à sa place dans la bibliothèque.",
       },
       {
-        id: "musicbrainz",
-        title: "MusicBrainz",
-        text: "L'encyclopédie ouverte de la musique enregistrée — titres, albums, années.",
+        id: "identify",
+        title: "Identifier",
+        services: [
+          { name: "AcoustID", text: "relie l'empreinte acoustique à l'enregistrement exact." },
+          { name: "MusicBrainz", text: "l'encyclopédie ouverte : titres, albums, années." },
+        ],
       },
       {
-        id: "acoustid",
-        title: "AcoustID",
-        text: "Relie l'empreinte à l'enregistrement exact.",
+        id: "dress",
+        title: "Habiller",
+        services: [
+          { name: "Cover Art Archive", text: "les pochettes." },
+          { name: "Last.fm", text: "les genres." },
+        ],
+      },
+      {
+        id: "accompany",
+        title: "Accompagner",
+        services: [
+          { name: "LRCLIB", text: "les paroles synchronisées, celles qui suivent la musique." },
+          { name: "lyrics.ovh", text: "les paroles en secours, texte brut, quand LRCLIB n'a rien." },
+        ],
       },
       {
         id: "folder",
@@ -148,5 +201,7 @@ export const underDeckCopy: Record<Locale, UnderDeckCopy> = {
         text: "Après tout ça, ce n'est qu'un dossier de musique. Le tien. Ouvre-le, déplace-le, sauvegarde-le.",
       },
     ],
+    servicesNote:
+      "Ces services sont interrogés à la demande, jamais obligatoires. Tu n'as aucun compte à créer, aucune clé à coller : l'app s'annonce poliment et espace ses appels.",
   },
 };

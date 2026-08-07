@@ -230,16 +230,30 @@ Chaque carte : libellé d'étape — outil — grief — coût.
 
 - Le flux — Une URL quelque part — un titre, un album, une playlist.
   (_le web ouvert_)
+- Tes dossiers — Ce que tu as déjà — un port d'attache, pas qu'un quai.
+  Copié, jamais déplacé. (_hors réseau_)
 - `PYTHON EMBARQUÉ · SCELLÉ, LIVRÉ AVEC L'APP`
 - yt-dlp — Hisse l'audio natif à bord — jamais de ré-encodage.
 - ffmpeg + Chromaprint — Distille chaque morceau en empreinte acoustique.
 - beets (_le chef d'orchestre_) — Dirige chaque appel, vérifie chaque tag,
   et range chaque morceau à sa place dans la bibliothèque.
-- MusicBrainz — L'encyclopédie ouverte de la musique enregistrée — titres,
-  albums, années.
-- AcoustID — Relie l'empreinte à l'enregistrement exact.
 - 📁 /sonarche — Après tout ça, ce n'est qu'un dossier de musique. Le tien.
   Ouvre-le, déplace-le, sauvegarde-le.
+
+#### Les services, groupés par ce qu'ils répondent
+
+- `IDENTIFIER`
+  - AcoustID — relie l'empreinte acoustique à l'enregistrement exact.
+  - MusicBrainz — l'encyclopédie ouverte : titres, albums, années.
+- `HABILLER`
+  - Cover Art Archive — les pochettes.
+  - Last.fm — les genres.
+- `ACCOMPAGNER`
+  - LRCLIB — les paroles synchronisées, celles qui suivent la musique.
+  - lyrics.ovh — les paroles en secours, texte brut, quand LRCLIB n'a rien.
+- Note sous la colonne : Ces services sont interrogés à la demande, jamais
+  obligatoires. Tu n'as aucun compte à créer, aucune clé à coller : l'app
+  s'annonce poliment et espace ses appels.
 
 ## Le pont
 

@@ -45,7 +45,7 @@ export function UnderDeck({ locale }: { locale: Locale }) {
         ))}
       </ul>
 
-      <Diagram nodes={copy.nodes} sealed={copy.sealed} />
+      <Diagram nodes={copy.nodes} sealed={copy.sealed} note={copy.servicesNote} />
     </section>
   );
 }

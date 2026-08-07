@@ -208,15 +208,30 @@ Each card: step label — tool — gripe — cost.
 ### Diagram nodes
 
 - The stream — A URL out there — a track, an album, a playlist. (_the open web_)
+- Your folders — What you already have — a home port, not just a loading dock.
+  Copied in, never moved. (_no network_)
 - `EMBEDDED PYTHON · SEALED, SHIPPED WITH THE APP`
 - yt-dlp — Hauls the native audio in — no re-encode, ever.
 - ffmpeg + Chromaprint — Distills each track into an acoustic fingerprint.
 - beets (_the conductor_) — Directs every call, checks every tag, and files
   each track into its right place in the library.
-- MusicBrainz — The open encyclopedia of recorded music — titles, albums, years.
-- AcoustID — Matches the fingerprint to the exact recording.
 - 📁 /sonarche — After all that — it's just a folder of music. Yours. Open
   it, move it, back it up.
+
+#### The services, grouped by what they answer
+
+- `IDENTIFY`
+  - AcoustID — matches the acoustic fingerprint to the exact recording.
+  - MusicBrainz — the open encyclopedia: titles, albums, years.
+- `DRESS`
+  - Cover Art Archive — the covers.
+  - Last.fm — the genres.
+- `ACCOMPANY`
+  - LRCLIB — synced lyrics, the ones that follow the music.
+  - lyrics.ovh — backup lyrics, plain text, when LRCLIB has nothing.
+- Note under the column: These services are queried on demand, never required.
+  You have no account to create and no key to paste: the app introduces itself
+  politely and spaces out its calls.
 
 ## The deck
 

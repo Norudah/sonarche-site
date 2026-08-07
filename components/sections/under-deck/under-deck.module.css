@@ -2,7 +2,7 @@
  * The diagram's two layouts.
  *
  * Below `lg` the nodes are a plain stacked list and everything here is inert.
- * From `lg` up the stage takes its mockup geometry — 1180×520 — and is scaled
+ * From `lg` up the stage takes its mockup geometry — see STAGE — and is scaled
  * down as one piece by a container query, so between 1024px and 1180px the
  * proportions hold instead of the cards reflowing into a different diagram.
  */
@@ -30,6 +30,23 @@
 
 .service {
   background: oklch(0.988 0.004 279);
+}
+
+/* Stacked, the column is nothing: its cards are siblings of every other node. */
+.serviceColumn {
+  display: contents;
+}
+
+/*
+ * The footnote to the service column: no card, no border — a rule and a quieter
+ * ink, so it reads as an aside to the three groups rather than a fourth one.
+ */
+.servicesNote {
+  border-left: 2px solid oklch(0.88 0.02 279);
+  padding-left: 12px;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: var(--muted);
 }
 
 .sealedBox,
@@ -71,12 +88,29 @@
     transform-origin: top left;
   }
 
-  .node {
+  .node,
+  .serviceColumn {
     position: absolute;
     left: var(--x);
     top: var(--y);
     width: var(--w);
+  }
+
+  .node {
     padding: 16px;
+  }
+
+  /* Pinned as one block, its cards evenly spaced whatever the copy does to
+     their heights — which is why they are not pinned one by one. */
+  .serviceColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .serviceColumn .node {
+    position: static;
+    width: auto;
   }
 
   .sealedBox {
