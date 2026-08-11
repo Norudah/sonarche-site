@@ -385,3 +385,28 @@ of it.
   - Link: `Discover Sonarche →`
 - Journal footer: `← Back to the site` · `From the stream into the Ark.` ·
   `GitHub ↗`
+
+## The guide
+
+The walkthroughs, at `/en/guide/`. Same reading layout as the journal, different
+index: grouped by topic rather than by date. Each guide's text lives with it
+(`components/guide/guides/<id>/en.tsx`); what follows is the shared frame. The
+footer link only appears once a guide is published — see `draft` in lib/guide.ts.
+
+- Link in the landing's footer: `Guide`
+- Breadcrumb at the head: `SONARCHE · Guide`
+- Index title: `Using Sonarche`
+- Line under the title: How to get each part of the app to do what you want, one
+  walkthrough at a time. Written against a numbered version, and revised when
+  that version moves.
+- Index search title (`<title>`, never displayed):
+  `Sonarche guide — install, import, tag and play`
+- The four topics, in this order: `Getting started` · `Your library` ·
+  `Listening` · `Settings and upkeep`
+- Line above a guide's title: `Checked against Sonarche {version}` ·
+  `{n} min read`, plus the `Draft` badge until it ships.
+- Button on a row of the index: `Read the guide →`
+- Closing card of a guide: `All guides →` — never a download button: whoever is
+  reading a guide already has the app.
+- Empty index: `Nothing here yet` / The first walkthroughs are being written.
+  The journal has something to read in the meantime.

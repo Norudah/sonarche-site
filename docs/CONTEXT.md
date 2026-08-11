@@ -186,8 +186,46 @@ someone who already uses Sonarche belongs in the repo's README, not here.
   trace, no living ark. `components/blog/prose.module.css` is the whole of its
   typography — @tailwindcss/typography is a dependency whose only job would be
   to undo preflight with values that are not ours.
-- One trap, and it is silent: JSX drops the leading space of a text node that
-  wraps onto several lines, and Prettier keeps rewriting `{" "}` back into that
-  literal space. After an inline tag, write `&#32;` — an entity is not
-  whitespace, so nothing trims it. Grep the built HTML for `</strong>[A-Za-z]`
-  before publishing.
+- One trap, and it is silent — a word glues itself to an inline tag with no
+  compile error. The two halves are not symmetric:
+  - **After** a tag write `&#32;`: JSX trims the leading space of a text node
+    that wraps onto several lines, and Prettier rewrites `{" "}` back into that
+    literal space the moment it fits.
+  - **Before** a tag write `{" "}`: an entity at the end of a line is decoded
+    and then trimmed along with the newline; `{" "}` there is what Prettier
+    writes and keeps.
+
+  Run this over the built HTML before publishing anything — it is the only
+  check that catches it:
+
+  ```bash
+  python3 -c "import re,glob;[print(f,m.group(0)) for f in glob.glob('out/**/index.html',recursive=True) for a in re.findall(r'<article.*?</article>',open(f,encoding='utf8').read(),re.S) for m in re.finditer(r'.{20}</(?:strong|em|code|a)>[A-Za-z0-9].{15}|.{20}[A-Za-z0-9]<(?:strong|em|code|a)[ >].{15}',a)]"
+  ```
+
+## The guide (added 2026-08-11)
+
+Walkthroughs at `/guide/` (FR) and `/en/guide/` (EN). Same reading layout as the
+journal — they share `components/reading` — and a different index: grouped by
+topic, not reverse-chronological. A post is dated, read once, and written for
+someone who has never heard of Sonarche; a guide is undated, consulted, and
+written for someone who has the app open on the other screen.
+
+- **What replaces the date is the app version.** Every guide carries the version
+  it was checked against, on the page. A guide describing a screen that has
+  since moved is worse than no guide: it makes the reader doubt what they are
+  looking at. When the app ships a release that changes a screen, the guides
+  that describe it are part of that release's work.
+- **Drafts are real pages.** `draft: true` in lib/guide.ts keeps a guide off the
+  index and out of the sitemap and marks it `noindex`, while still building its
+  routes — so it can be read and judged at its own URL. `next dev` lists drafts;
+  a production build never does. The footer's guide link and the guide index
+  itself both opt out until something is actually published.
+- **Screenshots are the maintenance cost, so they are rationed.** Text first;
+  a shot only where the words genuinely cannot carry it. The places one is
+  needed are marked `CAPTURE` / `SHOT` in the prose file, with the list at the
+  top of that file.
+- **The legal rules apply here too, and one guide is the trap.** A walkthrough
+  of adding a track from a link is exactly the page that must never name a
+  platform, never show one in a screenshot, and never be the front door of the
+  guide. Write it last, with an empty input field in the shots and
+  royalty-free content. Import, triage, filing and playback carry none of that.

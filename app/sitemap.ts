@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 
 import { BLOG_PATH, POSTS, postAlternates, postPath } from "@/lib/blog";
+import { GUIDE_PATH, guideAlternates, guidePath, publishedGuides } from "@/lib/guide";
 import { CONTENT_UPDATED, LOCALE_PATH, LOCALES, SITE_URL } from "@/lib/site";
 
 /** Required by `output: 'export'` — a route handler has to opt into being a file. */
@@ -30,6 +31,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     POSTS[0]?.published ?? CONTENT_UPDATED,
   );
 
+  const guides = publishedGuides();
+  const guidesRevised = guides.reduce((latest, guide) => (guide.updated > latest ? guide.updated : latest), "");
+
   return [
     {
       url: href(LOCALE_PATH.fr),
@@ -57,5 +61,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
         alternates: { languages: absolute(postAlternates(post)) },
       })),
     ),
+    /* Drafts are excluded by publishedGuides, and so is the guide index while
+       nothing is published: a sitemap is a list of pages worth reading, not a
+       list of pages that happen to build. */
+    ...(guides.length === 0
+      ? []
+      : [
+          ...LOCALES.map((locale) => ({
+            url: href(GUIDE_PATH[locale]),
+            lastModified: guidesRevised,
+            priority: 0.6,
+            alternates: { languages: absolute({ ...GUIDE_PATH, "x-default": GUIDE_PATH.fr }) },
+          })),
+          ...guides.flatMap((guide) =>
+            LOCALES.map((locale) => ({
+              url: href(guidePath(guide, locale)),
+              lastModified: guide.updated,
+              priority: 0.7,
+              alternates: { languages: absolute(guideAlternates(guide)) },
+            })),
+          ),
+        ]),
   ];
 }

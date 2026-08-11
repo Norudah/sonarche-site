@@ -6,6 +6,7 @@ import { buildSea, SEA_CALM } from "@/components/brand/sea/sea";
 import { DownloadCta } from "@/components/download/DownloadCta";
 import { TraceSegment } from "@/components/trace/TraceSegment";
 import { BLOG_PATH } from "@/lib/blog";
+import { GUIDE_PATH, publishedGuides } from "@/lib/guide";
 import { AUTHOR, GITHUB_URL, LOCALE_PATH, OTHER_LOCALE, type Locale } from "@/lib/site";
 
 import { footerCopy } from "./copy";
@@ -147,15 +148,25 @@ export function Footer({ locale }: { locale: Locale }) {
           </p>
 
           <div className="flex items-center gap-3.5 md:justify-self-end">
-            {/* The only way into the journal. Deliberately the quietest link on
-                the page: it is for the reader who has finished, and for the
-                crawler that reads every line of a footer. */}
+            {/* The only way into the journal and the guide. Deliberately the
+                quietest links on the page: they are for the reader who has
+                finished, and for the crawler that reads every line of a footer.
+                The guide appears with its first published page — a link into an
+                empty section is worse than no link. */}
             <a
               href={BLOG_PATH[locale]}
               className="hover:text-accent-strong text-[oklch(0.48_0.03_279)] transition-colors hover:underline hover:underline-offset-3"
             >
               {copy.journal}
             </a>
+            {publishedGuides().length > 0 && (
+              <a
+                href={GUIDE_PATH[locale]}
+                className="hover:text-accent-strong text-[oklch(0.48_0.03_279)] transition-colors hover:underline hover:underline-offset-3"
+              >
+                {copy.guide}
+              </a>
+            )}
             <a
               href={LOCALE_PATH[other]}
               hrefLang={other}

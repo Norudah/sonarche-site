@@ -417,3 +417,29 @@ page écrite à la main, et son texte reste avec elle
   - Lien : `Découvrir Sonarche →`
 - Pied du journal : `← Retour au site` · `From the stream into the Ark.` ·
   `GitHub ↗`
+
+## Guide
+
+Les pas-à-pas, à `/guide/`. Même mise en page de lecture que le journal, index
+différent : groupé par thème et non par date. Le texte de chaque guide vit avec
+lui (`components/guide/guides/<id>/fr.tsx`) ; ce qui suit est le cadre partagé.
+Le lien du footer n'apparaît qu'une fois un guide publié — voir `draft` dans
+lib/guide.ts.
+
+- Lien dans le footer de la landing : `Guide`
+- Fil d'Ariane en tête : `SONARCHE · Guide`
+- Titre de l'index : `Utiliser Sonarche`
+- Ligne sous le titre : Comment obtenir de chaque partie de l'app ce que tu en
+  attends, un pas-à-pas à la fois. Écrit pour une version numérotée, et repris
+  quand cette version bouge.
+- Titre de recherche de l'index (`<title>`, jamais affiché) :
+  `Guide Sonarche — installer, importer, taguer et écouter`
+- Les quatre thèmes, dans cet ordre : `Démarrer` · `Ta bibliothèque` ·
+  `Écouter` · `Réglages et entretien`
+- Ligne au-dessus du titre d'un guide : `Vérifié sur Sonarche {version}` ·
+  `{n} min de lecture`, et la pastille `Brouillon` tant qu'il n'est pas publié.
+- Bouton d'une ligne de l'index : `Lire le guide →`
+- Carte de fin d'un guide : `Tous les guides →` — jamais un bouton de
+  téléchargement : la personne qui lit un guide a déjà l'app.
+- Index vide : `Rien ici pour l'instant` / Les premiers pas-à-pas sont en cours
+  d'écriture. En attendant, il y a de quoi lire dans le journal.
