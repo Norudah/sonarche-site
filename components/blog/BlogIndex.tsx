@@ -47,7 +47,7 @@ function PostCard({ post, locale }: { post: Post; locale: Locale }) {
   const copy = blogCopy[locale];
 
   return (
-    <a href={postPath(post, locale)} className="group block py-7">
+    <a href={postPath(post, locale)} className="block py-7">
       <p className="text-muted flex flex-wrap items-center gap-2 font-mono text-[0.6875rem] tracking-[0.1em] uppercase">
         <time dateTime={post.published}>{formatDate(post.published, locale)}</time>
         <span aria-hidden className="text-border">
@@ -56,7 +56,11 @@ function PostCard({ post, locale }: { post: Post; locale: Locale }) {
         <span>{copy.readingTime(post.minutes)}</span>
       </p>
 
-      <h2 className="text-foreground-strong group-hover:text-accent font-display mt-2 text-[1.4rem] leading-[1.25] font-bold tracking-[-0.02em] transition-colors">
+      {/* Each part answers for itself: no `group-hover` anywhere on this row.
+          Lighting up the title and the button together, from anywhere in a
+          400px-tall block, made the pointer look like it was hovering two
+          things at once. */}
+      <h2 className="text-foreground-strong hover:text-accent font-display mt-2 text-[1.4rem] leading-[1.25] font-bold tracking-[-0.02em] transition-colors">
         {post.title[locale]}
       </h2>
 
@@ -65,15 +69,14 @@ function PostCard({ post, locale }: { post: Post; locale: Locale }) {
       {/*
        * A span, not a nested link: the row above it is already the anchor, and
        * a link inside a link is invalid html that browsers repair by breaking
-       * one of the two. It reads as a button and fills with the accent when the
-       * row is hovered, which is the whole of its job — telling someone who
-       * scanned three titles which one they are about to open.
+       * one of the two. It is named as a group only so the arrow travels with
+       * the button it sits in, and with nothing else.
        */}
-      <span className="border-border text-accent group-hover:border-accent group-hover:bg-accent group-hover:text-accent-foreground mt-4 inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-[0.8125rem] font-medium transition-colors">
+      <span className="group/read border-border text-accent hover:border-accent hover:bg-accent hover:text-accent-foreground mt-4 inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-[0.8125rem] font-medium transition-colors">
         {copy.readPost}
         <span
           aria-hidden
-          className="transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none"
+          className="transition-transform duration-200 group-hover/read:translate-x-0.5 motion-reduce:transition-none"
         >
           →
         </span>
