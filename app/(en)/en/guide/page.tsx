@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { GuideIndex } from "@/components/guide/GuideIndex";
 import { guideCopy } from "@/components/guide/copy";
 import { GUIDE_PATH, publishedGuides } from "@/lib/guide";
-import { OG_IMAGE, OG_LOCALE } from "@/lib/site";
+import { OG_LOCALE, ogImage } from "@/lib/site";
 
 const copy = guideCopy.en;
 
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     siteName: "Sonarche",
     title: copy.indexTitle,
     description: copy.indexDek,
-    images: [OG_IMAGE],
+    images: [ogImage("en")],
   },
 };
 

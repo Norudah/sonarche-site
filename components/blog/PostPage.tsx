@@ -1,13 +1,15 @@
 import type { ReactNode } from "react";
 
-import { formatDate, type Post, postPath } from "@/lib/blog";
-import { OTHER_LOCALE, type Locale } from "@/lib/site";
+import { BLOG_PATH, formatDate, type Post, postPath } from "@/lib/blog";
+import { LOCALE_PATH, OTHER_LOCALE, type Locale } from "@/lib/site";
 
+import { Breadcrumb } from "@/components/reading/Breadcrumb";
 import { ReadingShell } from "@/components/reading/ReadingShell";
 import { Prose } from "@/components/reading/Prose";
 import { Toc, TocFolded } from "@/components/reading/Toc";
 import { readingCopy } from "@/components/reading/copy";
 
+import { blogCopy } from "./copy";
 import { PostCta } from "./PostCta";
 import { PostSchema } from "./PostSchema";
 
@@ -33,6 +35,14 @@ export function PostPage({ post, locale, children }: PostPageProps) {
   return (
     <ReadingShell locale={locale} section="journal" alternate={alternate}>
       <PostSchema post={post} locale={locale} />
+      <Breadcrumb
+        locale={locale}
+        trail={[
+          { name: "Sonarche", path: LOCALE_PATH[locale] },
+          { name: blogCopy[locale].journal, path: BLOG_PATH[locale] },
+          { name: post.title[locale], path: postPath(post, locale) },
+        ]}
+      />
 
       {/*
        * Three columns so the article stays on the page's own centre line and

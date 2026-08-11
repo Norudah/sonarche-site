@@ -1,4 +1,4 @@
-import { AUTHOR, BRAND_TITLE, GITHUB_URL, LOCALE_PATH, SITE_URL, type Locale } from "@/lib/site";
+import { AUTHOR, BRAND_TITLE, GITHUB_URL, LOCALE_PATH, OG_IMAGE, SITE_URL, type Locale } from "@/lib/site";
 
 /*
  * What the page is, said in the one vocabulary a search engine parses literally.
@@ -30,6 +30,7 @@ export function StructuredData({ locale, description }: StructuredDataProps) {
     operatingSystem: "macOS, Windows",
     url: new URL(LOCALE_PATH[locale], SITE_URL).href,
     description,
+    image: new URL(OG_IMAGE.url, SITE_URL).href,
     inLanguage: locale,
     author: { "@type": "Person", name: AUTHOR.name, url: AUTHOR.url },
     isAccessibleForFree: true,

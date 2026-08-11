@@ -1,8 +1,9 @@
 import type { ReactNode } from "react";
 
 import { GUIDE_PATH, type Guide, guidePath } from "@/lib/guide";
-import { OTHER_LOCALE, type Locale } from "@/lib/site";
+import { LOCALE_PATH, OTHER_LOCALE, type Locale } from "@/lib/site";
 
+import { Breadcrumb } from "@/components/reading/Breadcrumb";
 import { Prose } from "@/components/reading/Prose";
 import { ReadingShell } from "@/components/reading/ReadingShell";
 import { Toc, TocFolded } from "@/components/reading/Toc";
@@ -36,6 +37,18 @@ export function GuidePage({ guide, locale, children }: GuidePageProps) {
   return (
     <ReadingShell locale={locale} section="guide" alternate={alternate}>
       <GuideSchema guide={guide} locale={locale} />
+      {/* A draft carries no trail: its own page is noindex, and a breadcrumb
+          naming it is the one thing that could still put the title in an index. */}
+      {!guide.draft && (
+        <Breadcrumb
+          locale={locale}
+          trail={[
+            { name: "Sonarche", path: LOCALE_PATH[locale] },
+            { name: copy.guide, path: GUIDE_PATH[locale] },
+            { name: guide.title[locale], path: guidePath(guide, locale) },
+          ]}
+        />
+      )}
 
       {/*
        * Three columns so the article stays on the page's own centre line and

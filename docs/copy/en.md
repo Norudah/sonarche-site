@@ -341,6 +341,13 @@ copy.
 - Brand title (`og:title`, share card): `Sonarche — From the stream into the Ark.`
 - Description (`meta description`, `og:description`): the hero subline plus
   "Free and open source." — 147 characters, inside the ~155 a snippet shows.
+- Card description (`og:image:alt`), one for the whole site because there is
+  one card, and it describes the drawing rather than the page it was shared
+  from: Sonarche: the ark afloat on a sea drawn as equalizer bars, under the
+  word SONARCHE and the tagline "From the stream into the Ark."
+- The separator in every `<title>` is a pipe, the plain web convention, and
+  never a dash. `og:title` keeps its dash: a shared link is read as a sentence
+  by a person, not matched against a query.
 
 ## The journal
 

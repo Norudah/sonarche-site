@@ -360,7 +360,7 @@ cette raison.
 
 ## Métadonnées (non visibles sur la page)
 
-Ces trois chaînes ne sont lues que par un moteur de recherche ou par l'aperçu
+Ces chaînes ne sont lues que par un moteur de recherche ou par l'aperçu
 d'un lien partagé. Elles ne s'affichent nulle part sur la page, mais ce sont
 elles qu'on voit avant de cliquer, donc elles font partie de la copy.
 
@@ -374,6 +374,14 @@ elles qu'on voit avant de cliquer, donc elles font partie de la copy.
 - Description (`meta description`, `og:description`) : la subline du hero,
   telle quelle, sans rien ajouter — 147 caractères, sous la coupure des
   ~155 d'un extrait Google.
+- Description de la carte (`og:image:alt`), une seule pour tout le site
+  puisqu'il n'y a qu'une carte, et elle décrit le dessin et non la page depuis
+  laquelle on partage : Sonarche : l'arche flottant sur une mer dessinée en
+  barres d'égaliseur, sous le mot SONARCHE et la devise
+  « From the stream into the Ark. »
+- Le séparateur de tous les `<title>` est une barre verticale, la convention
+  web ordinaire, jamais un tiret. L'`og:title` garde le sien : un lien partagé
+  se lit comme une phrase, il n'est pas comparé à une requête.
 
 ## Journal
 

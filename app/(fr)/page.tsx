@@ -16,7 +16,7 @@ import { ShipSound } from "@/components/sections/ship-sound/ShipSound";
 import { TrueNames } from "@/components/sections/true-names/TrueNames";
 import { UnderDeck } from "@/components/sections/under-deck/UnderDeck";
 import { Trace } from "@/components/trace/Trace";
-import { BRAND_TITLE, LANGUAGE_ALTERNATES, LOCALE_PATH, OG_IMAGE, OG_LOCALE, SEARCH_TITLE } from "@/lib/site";
+import { BRAND_TITLE, LANGUAGE_ALTERNATES, LOCALE_PATH, OG_IMAGE, OG_LOCALE, SEARCH_TITLE, ogImage } from "@/lib/site";
 
 /*
  * The description is the hero's subline, verbatim from docs/copy/fr.md, and
@@ -44,12 +44,7 @@ export const metadata: Metadata = {
     siteName: "Sonarche",
     title: BRAND_TITLE,
     description: DESCRIPTION,
-    images: [
-      {
-        ...OG_IMAGE,
-        alt: "Sonarche : l'arche flottant sur une mer dessinée en barres d'égaliseur, sous le mot SONARCHE et la devise « From the stream into the Ark. »",
-      },
-    ],
+    images: [ogImage("fr")],
   },
   twitter: {
     card: "summary_large_image",

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { OG_IMAGE, OG_LOCALE, type Locale } from "@/lib/site";
+import { OG_IMAGE, OG_LOCALE, ogImage, type Locale } from "@/lib/site";
 
 /*
  * The guide, as a hand-kept list — the same shape as lib/blog.ts, and
@@ -133,7 +133,7 @@ export function guideMetadata(guide: Guide, locale: Locale): Metadata {
       description: guide.description[locale],
       modifiedTime: guide.updated,
       authors: ["Romain Pierucci"],
-      images: [OG_IMAGE],
+      images: [ogImage(locale)],
     },
     twitter: {
       card: "summary_large_image",

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { OG_IMAGE, OG_LOCALE, type Locale } from "@/lib/site";
+import { OG_IMAGE, OG_LOCALE, ogImage, type Locale } from "@/lib/site";
 
 /*
  * The journal, as a hand-kept list.
@@ -115,7 +115,7 @@ export function postMetadata(post: Post, locale: Locale): Metadata {
       publishedTime: post.published,
       modifiedTime: post.updated ?? post.published,
       authors: ["Romain Pierucci"],
-      images: [OG_IMAGE],
+      images: [ogImage(locale)],
     },
     twitter: {
       card: "summary_large_image",

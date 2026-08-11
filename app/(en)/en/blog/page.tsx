@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { BlogIndex } from "@/components/blog/BlogIndex";
 import { blogCopy } from "@/components/blog/copy";
 import { BLOG_PATH } from "@/lib/blog";
-import { OG_IMAGE, OG_LOCALE } from "@/lib/site";
+import { OG_LOCALE, ogImage } from "@/lib/site";
 
 const copy = blogCopy.en;
 
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     siteName: "Sonarche",
     title: copy.indexTitle,
     description: copy.indexDek,
-    images: [OG_IMAGE],
+    images: [ogImage("en")],
   },
 };
 

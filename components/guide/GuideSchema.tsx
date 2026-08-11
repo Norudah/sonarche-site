@@ -1,5 +1,5 @@
 import { type Guide, guidePath } from "@/lib/guide";
-import { AUTHOR, SITE_URL, type Locale } from "@/lib/site";
+import { AUTHOR, OG_IMAGE, SITE_URL, type Locale } from "@/lib/site";
 
 /*
  * The guide, said to a machine.
@@ -24,6 +24,7 @@ export function GuideSchema({ guide, locale }: GuideSchemaProps) {
     "@type": "TechArticle",
     headline: guide.title[locale],
     description: guide.description[locale],
+    image: [new URL(OG_IMAGE.url, SITE_URL).href],
     inLanguage: locale,
     dateModified: guide.updated,
     author: { "@type": "Person", name: AUTHOR.name, url: AUTHOR.url },

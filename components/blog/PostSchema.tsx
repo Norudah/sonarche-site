@@ -1,5 +1,5 @@
 import { type Post, postPath } from "@/lib/blog";
-import { AUTHOR, SITE_URL, type Locale } from "@/lib/site";
+import { AUTHOR, OG_IMAGE, SITE_URL, type Locale } from "@/lib/site";
 
 /*
  * The post, said to a machine — the journal's counterpart to the landing's
@@ -25,6 +25,7 @@ export function PostSchema({ post, locale }: PostSchemaProps) {
     "@type": "BlogPosting",
     headline: post.title[locale],
     description: post.description[locale],
+    image: [new URL(OG_IMAGE.url, SITE_URL).href],
     inLanguage: locale,
     datePublished: post.published,
     dateModified: post.updated ?? post.published,

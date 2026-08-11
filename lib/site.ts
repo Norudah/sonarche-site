@@ -109,3 +109,20 @@ export const BRAND_TITLE = "Sonarche — From the stream into the Ark.";
  * the two locales are two route groups: one copy, two layouts pointing at it.
  */
 export const OG_IMAGE = { url: "/og.png", width: 1200, height: 630 };
+
+/**
+ * What the card says to someone who cannot see it.
+ *
+ * One card serves every page, so one description does too — it describes the
+ * drawing, not the page it was shared from. Kept here rather than beside each
+ * `openGraph` block because a card with no alt is the default a route file
+ * falls into by forgetting, and there is nothing to forget if there is only
+ * one place it can come from.
+ */
+export const OG_IMAGE_ALT: Record<Locale, string> = {
+  fr: "Sonarche : l'arche flottant sur une mer dessinée en barres d'égaliseur, sous le mot SONARCHE et la devise « From the stream into the Ark. »",
+  en: 'Sonarche: the ark afloat on a sea drawn as equalizer bars, under the word SONARCHE and the tagline "From the stream into the Ark."',
+};
+
+/** The card, with its description, ready to drop into an `openGraph.images`. */
+export const ogImage = (locale: Locale) => ({ ...OG_IMAGE, alt: OG_IMAGE_ALT[locale] });
