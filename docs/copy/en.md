@@ -357,3 +357,30 @@ copy.
 - Brand title (`og:title`, share card): `Sonarche — From the stream into the Ark.`
 - Description (`meta description`, `og:description`): the hero subline plus
   "Free and open source." — 148 characters, inside the ~155 a snippet shows.
+
+## The journal
+
+The blog, entered from the footer's waterline and from nowhere else: the landing
+is a scroll narrative, and a list of articles in the middle of it would cut the
+narrative in half. The posts themselves do not live here — a post is a page
+written by hand and its text stays with it
+(`components/blog/posts/<id>/en.tsx`). What follows is the shared frame, and all
+of it.
+
+- Link in the landing's footer: `Journal`
+- Breadcrumb at the head of the journal: `SONARCHE · Journal`
+- Index title: `The ship's log`
+- Line under the title: Notes on music you own: files, metadata, formats, and
+  what it takes for a library to outlive the apps that read it.
+- Index search title (`<title>`, never displayed):
+  `Sonarche journal — music libraries, tags and metadata`
+- A post's dateline: `{date} · {n} min read`, plus `Updated {date}` when the
+  text has genuinely been revised.
+- Closing card of a post:
+  - Title: `Sonarche does all of this for you`
+  - Body: A desktop app that identifies every track by its own audio, files it
+    in plain folders you can read without it, and plays the lot on a native
+    engine. Free, open source, offline.
+  - Link: `Discover Sonarche →`
+- Journal footer: `← Back to the site` · `From the stream into the Ark.` ·
+  `GitHub ↗`

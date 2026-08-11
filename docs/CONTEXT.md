@@ -5,7 +5,7 @@
 A dedicated landing page for Sonarche at **sonarche.org** (domain bought on Hostinger).
 Single-purpose: present the app, make people want it, link to the GitHub repository
 (which will go public). Nothing to sell — the app is free and open-source. No signup,
-no pricing, no blog (for now).
+no pricing. A journal was added on 2026-08-11 — see § The journal below.
 
 ## What Sonarche is
 
@@ -150,3 +150,44 @@ four steps alternating left/right).
 - Video loops as mp4/webm (`autoplay muted loop playsinline`), never GIF.
 - Copy in English. The page is a scroll narrative echoing rescue → shelter →
   ownership in every section.
+
+## The journal (added 2026-08-11)
+
+A blog at `/blog/` (FR) and `/en/blog/` (EN), for organic search traffic. Decided
+after the landing shipped; the "no blog" line in § Intent is what it replaces.
+
+**Editorial line — this is the constraint, not the code.** The queries that would
+bring the most traffic are exactly the ones the legal positioning above forbids.
+The journal only ever writes about **owning, filing and identifying music**:
+metadata and tags, fingerprinting, audio formats, migrating a library off an app,
+beets and the surrounding tooling. Never a platform name, never a "free music"
+angle, never a legality claim — the rules in § Legal positioning apply to every
+post exactly as they apply to the landing.
+
+A dead blog costs more than no blog. Do not publish faster than the cadence you
+can hold; one post a month is enough, and a post that is only interesting to
+someone who already uses Sonarche belongs in the repo's README, not here.
+
+**Shape.**
+
+- No blog engine, ever: no markdown pipeline, no frontmatter parser, no
+  dependency. A post is a React component written by hand
+  (`components/blog/posts/<id>/{fr,en}.tsx`), and `lib/blog.ts` is the single
+  index that drives the list page, the sitemap and the language links.
+  Publishing is one entry there, two prose files and two four-line routes.
+- Every post exists in both languages — `Record<Locale, string>` makes a
+  half-translated post fail the build, because hreflang alternates have to be
+  reciprocal. Slugs are per-language: a French reader gets a French URL.
+- The two texts are not word-for-word translations of each other. Same argument,
+  two readers.
+- Entered from the footer's waterline only. No section on the landing: the page
+  is a scroll narrative and a list of articles would cut it in half.
+- The journal is a reading page, not a second landing: no GSAP, no sea, no
+  trace, no living ark. `components/blog/prose.module.css` is the whole of its
+  typography — @tailwindcss/typography is a dependency whose only job would be
+  to undo preflight with values that are not ours.
+- One trap, and it is silent: JSX drops the leading space of a text node that
+  wraps onto several lines, and Prettier keeps rewriting `{" "}` back into that
+  literal space. After an inline tag, write `&#32;` — an entity is not
+  whitespace, so nothing trims it. Grep the built HTML for `</strong>[A-Za-z]`
+  before publishing.

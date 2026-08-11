@@ -15,6 +15,9 @@ export type FooterCopy = {
   tagline: string;
   /** The attribution line. The name itself is the same in both languages. */
   signature: string;
+  /** The journal, entered from the waterline and nowhere else: the landing is a
+   *  scroll narrative that must not be interrupted by a list of articles. */
+  journal: string;
   github: string;
   /** Label of the link to the other language, in that language. */
   otherLanguage: string;
@@ -30,6 +33,7 @@ export const footerCopy: Record<Locale, FooterCopy> = {
     wordmark: "SONARCHE",
     tagline: "From the stream into the Ark.",
     signature: "by Romain Pierucci (@Norudah)",
+    journal: "Journal",
     github: "GitHub ↗",
     otherLanguage: "Français",
   },
@@ -42,6 +46,7 @@ export const footerCopy: Record<Locale, FooterCopy> = {
     wordmark: "SONARCHE",
     tagline: "From the stream into the Ark.",
     signature: "par Romain Pierucci (@Norudah)",
+    journal: "Journal",
     github: "GitHub ↗",
     otherLanguage: "English",
   },

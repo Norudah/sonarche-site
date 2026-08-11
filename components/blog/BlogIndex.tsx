@@ -1,0 +1,66 @@
+import { BLOG_PATH, formatDate, POSTS, type Post, postPath } from "@/lib/blog";
+import { OTHER_LOCALE, type Locale } from "@/lib/site";
+
+import { BlogShell } from "./BlogShell";
+import { blogCopy } from "./copy";
+
+/*
+ * The journal's front page: a title, a line saying what is written here, and
+ * the posts newest first.
+ *
+ * No pagination, no tags, no search, no archive by year. There will be a dozen
+ * posts a year at most, and every one of those would be a feature built for a
+ * list that fits on one screen. When the list stops fitting, that is the day to
+ * build the first of them.
+ */
+
+export function BlogIndex({ locale }: { locale: Locale }) {
+  const copy = blogCopy[locale];
+
+  return (
+    <BlogShell locale={locale} alternate={BLOG_PATH[OTHER_LOCALE[locale]]}>
+      <div className="mx-auto w-full max-w-[38rem] px-6 pt-16 sm:px-0 sm:pt-24">
+        <h1 className="text-foreground-strong font-display text-[clamp(2.25rem,5.5vw,3rem)] leading-[1.1] font-bold tracking-[-0.025em]">
+          {copy.indexTitle}
+        </h1>
+        <p className="text-body mt-4 text-[1.09rem] leading-relaxed">{copy.indexDek}</p>
+
+        <ul className="border-separator mt-14 border-t">
+          {POSTS.map((post) => (
+            <li key={post.id} className="border-separator border-b">
+              <PostCard post={post} locale={locale} />
+            </li>
+          ))}
+        </ul>
+      </div>
+    </BlogShell>
+  );
+}
+
+/*
+ * A row, not a card: no border box, no thumbnail, no "read more".
+ *
+ * The whole row is the link — a title-only hit area asks someone to aim at a
+ * line of text, and the dek is part of what they are choosing anyway.
+ */
+function PostCard({ post, locale }: { post: Post; locale: Locale }) {
+  const copy = blogCopy[locale];
+
+  return (
+    <a href={postPath(post, locale)} className="group block py-7">
+      <p className="text-muted flex flex-wrap items-center gap-2 font-mono text-[0.6875rem] tracking-[0.1em] uppercase">
+        <time dateTime={post.published}>{formatDate(post.published, locale)}</time>
+        <span aria-hidden className="text-border">
+          ·
+        </span>
+        <span>{copy.readingTime(post.minutes)}</span>
+      </p>
+
+      <h2 className="text-foreground-strong group-hover:text-accent font-display mt-2 text-[1.4rem] leading-[1.25] font-bold tracking-[-0.02em] transition-colors">
+        {post.title[locale]}
+      </h2>
+
+      <p className="text-body mt-2 text-[0.95rem] leading-relaxed">{post.description[locale]}</p>
+    </a>
+  );
+}

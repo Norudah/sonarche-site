@@ -389,3 +389,30 @@ elles qu'on voit avant de cliquer, donc elles font partie de la copy.
 - Description (`meta description`, `og:description`) : la subline du hero,
   telle quelle, sans rien ajouter — 147 caractères, sous la coupure des
   ~155 d'un extrait Google.
+
+## Journal
+
+Le blog, entré depuis la ligne de flottaison du footer et depuis nulle part
+ailleurs : la landing est une narration au scroll, une liste d'articles au
+milieu la couperait. Le corps des articles ne vit pas ici — un article est une
+page écrite à la main, et son texte reste avec elle
+(`components/blog/posts/<id>/fr.tsx`). Ce qui suit est le seul cadre partagé.
+
+- Lien dans le footer de la landing : `Journal`
+- Fil d'Ariane en tête du journal : `SONARCHE · Journal`
+- Titre de l'index : `Le journal de bord`
+- Ligne sous le titre : Des notes sur la musique qu'on possède : fichiers,
+  métadonnées, formats, et ce qu'il faut pour qu'une bibliothèque survive aux
+  applications qui la lisent.
+- Titre de recherche de l'index (`<title>`, jamais affiché) :
+  `Journal Sonarche — bibliothèque musicale, tags et métadonnées`
+- Ligne de date d'un article : `{date} · {n} min de lecture`, et
+  `Mis à jour le {date}` en plus quand le texte a vraiment été révisé.
+- Carte de fin d'article :
+  - Titre : `Sonarche fait tout ça pour toi`
+  - Corps : Une app de bureau qui identifie chaque morceau à l'oreille, le range
+    dans des dossiers clairs que tu peux lire sans elle, et joue l'ensemble sur
+    un moteur natif. Gratuite, open source, hors ligne.
+  - Lien : `Découvrir Sonarche →`
+- Pied du journal : `← Retour au site` · `From the stream into the Ark.` ·
+  `GitHub ↗`

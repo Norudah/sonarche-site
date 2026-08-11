@@ -5,6 +5,7 @@ import { SeaLayer } from "@/components/brand/sea/SeaLayer";
 import { buildSea, SEA_CALM } from "@/components/brand/sea/sea";
 import { DownloadCta } from "@/components/download/DownloadCta";
 import { TraceSegment } from "@/components/trace/TraceSegment";
+import { BLOG_PATH } from "@/lib/blog";
 import { AUTHOR, GITHUB_URL, LOCALE_PATH, OTHER_LOCALE, type Locale } from "@/lib/site";
 
 import { footerCopy } from "./copy";
@@ -146,6 +147,15 @@ export function Footer({ locale }: { locale: Locale }) {
           </p>
 
           <div className="flex items-center gap-3.5 md:justify-self-end">
+            {/* The only way into the journal. Deliberately the quietest link on
+                the page: it is for the reader who has finished, and for the
+                crawler that reads every line of a footer. */}
+            <a
+              href={BLOG_PATH[locale]}
+              className="hover:text-accent-strong text-[oklch(0.48_0.03_279)] transition-colors hover:underline hover:underline-offset-3"
+            >
+              {copy.journal}
+            </a>
             <a
               href={LOCALE_PATH[other]}
               hrefLang={other}
