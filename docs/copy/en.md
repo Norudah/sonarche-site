@@ -374,6 +374,7 @@ of it.
   what it takes for a library to outlive the apps that read it.
 - Index search title (`<title>`, never displayed):
   `Sonarche journal — music libraries, tags and metadata`
+- Button on a row of the index: `Read the post →`
 - A post's dateline: `{date} · {n} min read`, plus `Updated {date}` when the
   text has genuinely been revised.
 - Closing card of a post:

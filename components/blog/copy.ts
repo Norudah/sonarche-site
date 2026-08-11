@@ -15,6 +15,9 @@ export type BlogCopy = {
   /** Written as a function because the number is data, not copy. */
   readingTime: (minutes: number) => string;
   updatedOn: string;
+  /** The button on a row of the index. The whole row is the link — this says
+   *  out loud what clicking anywhere on it does. */
+  readPost: string;
   /** The closing card every post ends on. */
   ctaTitle: string;
   ctaBody: string;
@@ -36,6 +39,7 @@ export const blogCopy: Record<Locale, BlogCopy> = {
       "Notes on music you own: files, metadata, formats, and what it takes for a library to outlive the apps that read it.",
     readingTime: (minutes) => `${minutes} min read`,
     updatedOn: "Updated",
+    readPost: "Read the post",
     ctaTitle: "Sonarche does all of this for you",
     ctaBody:
       "A desktop app that identifies every track by its own audio, files it in plain folders you can read without it, and plays the lot on a native engine. Free, open source, offline.",
@@ -53,6 +57,7 @@ export const blogCopy: Record<Locale, BlogCopy> = {
       "Des notes sur la musique qu'on possède : fichiers, métadonnées, formats, et ce qu'il faut pour qu'une bibliothèque survive aux applications qui la lisent.",
     readingTime: (minutes) => `${minutes} min de lecture`,
     updatedOn: "Mis à jour le",
+    readPost: "Lire l'article",
     ctaTitle: "Sonarche fait tout ça pour toi",
     ctaBody:
       "Une app de bureau qui identifie chaque morceau à l'oreille, le range dans des dossiers clairs que tu peux lire sans elle, et joue l'ensemble sur un moteur natif. Gratuite, open source, hors ligne.",

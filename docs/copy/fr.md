@@ -406,6 +406,7 @@ page écrite à la main, et son texte reste avec elle
   applications qui la lisent.
 - Titre de recherche de l'index (`<title>`, jamais affiché) :
   `Journal Sonarche — bibliothèque musicale, tags et métadonnées`
+- Bouton d'une ligne de l'index : `Lire l'article →`
 - Ligne de date d'un article : `{date} · {n} min de lecture`, et
   `Mis à jour le {date}` en plus quand le texte a vraiment été révisé.
 - Carte de fin d'article :
