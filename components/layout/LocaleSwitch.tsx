@@ -15,8 +15,8 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
  * FR · EN, top right — but not on arrival.
  *
  * The hero is the one thing on this page that gets a clean screen, so nothing
- * is allowed to sit over it at first paint. The switch fades in when "why it
- * exists" has climbed near the top of the viewport — by then the visitor is
+ * is allowed to sit over it at first paint. The switch fades in when the flow
+ * has climbed near the top of the viewport — by then the visitor is
  * reading rather than looking — and once in, it stays: scrolling back up to the
  * hero does not take it away, because a control that comes and goes with the
  * scroll is a control nobody trusts. A reload puts it back to hidden, which is
@@ -43,8 +43,8 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
    only announced, and the deck has no entry for it. */
 const NAV_LABEL: Record<Locale, string> = { en: "Language", fr: "Langue" };
 
-/* Where "why it exists" has to reach, as a share of the viewport height, for the
-   switch to be earned. */
+/* Where the first section under the hero has to reach, as a share of the
+   viewport height, for the switch to be earned. */
 const REVEAL_AT = "top 32%";
 
 export function LocaleSwitch({ locale }: { locale: Locale }) {
@@ -53,7 +53,7 @@ export function LocaleSwitch({ locale }: { locale: Locale }) {
 
   useGSAP(() => {
     const trigger = ScrollTrigger.create({
-      trigger: "#manifesto",
+      trigger: "#flow",
       start: REVEAL_AT,
       once: true,
       onEnter: () => setShown(true),

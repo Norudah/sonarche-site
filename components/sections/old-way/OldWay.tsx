@@ -69,17 +69,6 @@ export function OldWay({ locale }: { locale: Locale }) {
           </h3>
 
           <p className="max-w-[37.5rem] text-[1.03rem] leading-[1.7] text-[oklch(0.42_0.03_279)]">{copy.punchBody}</p>
-
-          <ul className="mt-1 flex flex-wrap justify-center gap-2">
-            {copy.chips.map((chip) => (
-              <li
-                key={chip}
-                className="rounded-full border border-[oklch(0.86_0.05_277)] bg-white px-3.25 py-2 font-mono text-xs font-medium text-[oklch(0.4_0.14_277)]"
-              >
-                {chip}
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
     </section>

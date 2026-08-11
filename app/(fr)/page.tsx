@@ -9,7 +9,6 @@ import { Flow } from "@/components/sections/flow/Flow";
 import { Footer } from "@/components/sections/footer/Footer";
 import { Hero } from "@/components/sections/hero/Hero";
 import { Hold } from "@/components/sections/hold/Hold";
-import { Manifesto } from "@/components/sections/manifesto/Manifesto";
 import { NoExpertise } from "@/components/sections/no-expertise/NoExpertise";
 import { OldWay } from "@/components/sections/old-way/OldWay";
 import { RealThing } from "@/components/sections/real-thing/RealThing";
@@ -26,7 +25,7 @@ import { BRAND_TITLE, LANGUAGE_ALTERNATES, LOCALE_PATH, OG_IMAGE, OG_LOCALE, SEA
  * thing to 181 — the part Google cut off.
  */
 const DESCRIPTION =
-  "Une bibliothèque musicale qui t'appartient vraiment — chaque morceau identifié à l'oreille, rangé dans de simples fichiers, lu par un moteur natif.";
+  "Une bibliothèque musicale qui t'appartient vraiment : chaque morceau identifié à l'oreille, rangé dans de simples fichiers, lu par un moteur natif.";
 
 export const metadata: Metadata = {
   // See lib/site.ts: the search title says what this is, the brand title carries
@@ -68,7 +67,6 @@ export default function FrHome() {
 
       <main className="flex flex-1 flex-col">
         <Hero locale="fr" />
-        <Manifesto locale="fr" />
         <Flow locale="fr" />
         <OldWay locale="fr" />
         <TrueNames locale="fr" />

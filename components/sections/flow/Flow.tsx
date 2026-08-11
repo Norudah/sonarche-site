@@ -10,6 +10,10 @@ import { IsoScene } from "./IsoScene";
  * than the last. The indents are the mockup's and they are not decoration: they
  * pull the eye down and to the right, so the section reads as a descent rather
  * than as a list.
+ *
+ * This is also the section the hero hands over to, so it carries the dissolve
+ * out of the water: the band at its top starts on the hero's last colour and
+ * climbs back to paper. Without it the two meet on a cut.
  */
 
 const INDENT = ["", "sm:pl-[4.375rem]", "sm:pl-9", "sm:pl-[6.625rem]"];
@@ -19,8 +23,16 @@ export function Flow({ locale }: { locale: Locale }) {
 
   return (
     <section data-anim-gate id="flow" className="relative isolate scroll-mt-8 py-24 sm:pt-28 sm:pb-30">
-      {/* The trace is born here, at the top of the first section after the
-          manifesto — it fades up out of nothing over its first 280px rather than
+      <div
+        aria-hidden
+        className="absolute inset-x-0 top-0 -z-10 h-[26rem]"
+        style={{
+          background:
+            "linear-gradient(180deg, oklch(0.931 0.036 279), oklch(0.963 0.018 279) 52%, oklch(0.982 0.006 279))",
+        }}
+      />
+      {/* The trace is born here, at the top of the first section under the
+          hero — it fades up out of nothing over its first 280px rather than
           starting on a cut. See components/trace. */}
       <TraceSegment start={0} />
       <header className="flex flex-col items-center px-8 text-center sm:px-15">
