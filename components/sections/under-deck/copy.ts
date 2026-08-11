@@ -45,17 +45,17 @@ export const underDeckCopy: Record<Locale, UnderDeckCopy> = {
     headingBefore: "No magic.",
     headingEmphasis: "Proven tools",
     headingAfter: ", conducted well.",
-    body: "You don't have to care about any of this — but here it is, in plain words, because you deserve to know what's running on your machine.",
+    body: "You don't have to care about any of this, but here it is, in plain words, because you deserve to know what's running on your machine.",
     cards: [
       {
         tag: "THE SHELL",
         title: "Tauri, not a browser tab",
-        text: "The interface is built with modern web tooling, so it can be genuinely nice to look at and to use — but it ships as a real desktop app, a few megabytes, not a bundled browser eating your RAM.",
+        text: "The interface is built with modern web tooling, so it can be genuinely nice to look at and to use, but it ships as a real desktop app, a few megabytes, not a bundled browser eating your RAM.",
       },
       {
         tag: "THE ENGINE",
         title: "Rust underneath",
-        text: "Everything heavy — fetching, file writes, audio playback — runs in Rust. That's the difference between a player that stutters and one that just starts.",
+        text: "Everything heavy runs in Rust: fetching, file writes, audio playback. That's the difference between a player that stutters and one that just starts.",
       },
       {
         tag: "THE TOOLBOX",
@@ -68,16 +68,16 @@ export const underDeckCopy: Record<Locale, UnderDeckCopy> = {
       {
         id: "stream",
         title: "The stream",
-        text: "A URL out there — a track, an album, a playlist.",
+        text: "A URL out there: a track, an album, a playlist.",
         aside: "the open web",
       },
       {
         id: "folders",
         title: "Your folders",
-        text: "What you already have — a home port, not just a loading dock. Copied in, never moved.",
+        text: "What you already have: a home port, not just a loading dock. Copied in, never moved.",
         aside: "no network",
       },
-      { id: "ytdlp", title: "yt-dlp", text: "Hauls the native audio in — no re-encode, ever." },
+      { id: "ytdlp", title: "yt-dlp", text: "Hauls the native audio in. No re-encode, ever." },
       {
         id: "ffmpeg",
         title: "ffmpeg + Chromaprint",
@@ -116,7 +116,7 @@ export const underDeckCopy: Record<Locale, UnderDeckCopy> = {
       {
         id: "folder",
         title: "📁 /sonarche",
-        text: "After all that — it's just a folder of music. Yours. Open it, move it, back it up.",
+        text: "After all that, it's just a folder of music. Yours. Open it, move it, back it up.",
       },
     ],
     servicesNote:
@@ -127,17 +127,17 @@ export const underDeckCopy: Record<Locale, UnderDeckCopy> = {
     headingBefore: "Pas de magie.",
     headingEmphasis: "Des outils éprouvés",
     headingAfter: ", bien orchestrés.",
-    body: "Rien ne t'oblige à t'y intéresser — mais tout est là, en mots simples, parce que tu mérites de savoir ce qui tourne sur ta machine.",
+    body: "Rien ne t'oblige à t'y intéresser, mais tout est là, en mots simples, parce que tu mérites de savoir ce qui tourne sur ta machine.",
     cards: [
       {
         tag: "LA COQUE",
         title: "Tauri, pas un onglet de navigateur",
-        text: "L'interface est construite avec des outils web modernes, pour être vraiment agréable à regarder et à utiliser — mais elle est livrée comme une vraie app de bureau, quelques mégaoctets, pas un navigateur embarqué qui dévore ta RAM.",
+        text: "L'interface est construite avec des outils web modernes, pour être vraiment agréable à regarder et à utiliser, mais elle est livrée comme une vraie app de bureau, quelques mégaoctets, pas un navigateur embarqué qui dévore ta RAM.",
       },
       {
         tag: "LE MOTEUR",
         title: "Du Rust en dessous",
-        text: "Tout ce qui est lourd — la récupération, l'écriture des fichiers, la lecture audio — tourne en Rust. C'est la différence entre un lecteur qui hoquette et un lecteur qui ne bronche pas.",
+        text: "Tout ce qui est lourd tourne en Rust : la récupération, l'écriture des fichiers, la lecture audio. C'est la différence entre un lecteur qui hoquette et un lecteur qui ne bronche pas.",
       },
       {
         tag: "LA CAISSE À OUTILS",
@@ -150,16 +150,16 @@ export const underDeckCopy: Record<Locale, UnderDeckCopy> = {
       {
         id: "stream",
         title: "Le flux",
-        text: "Une URL quelque part — un titre, un album, une playlist.",
+        text: "Une URL quelque part : un titre, un album, une playlist.",
         aside: "le web ouvert",
       },
       {
         id: "folders",
         title: "Tes dossiers",
-        text: "Ce que tu as déjà — un port d'attache, pas qu'un quai. Copié, jamais déplacé.",
+        text: "Ce que tu as déjà : un port d'attache, pas qu'un quai. Copié, jamais déplacé.",
         aside: "hors réseau",
       },
-      { id: "ytdlp", title: "yt-dlp", text: "Hisse l'audio natif à bord — jamais de ré-encodage." },
+      { id: "ytdlp", title: "yt-dlp", text: "Hisse l'audio natif à bord. Jamais de ré-encodage." },
       {
         id: "ffmpeg",
         title: "ffmpeg + Chromaprint",

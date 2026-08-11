@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     // Never rendered — every page sets its own. It is the safety net a missing
     // export would fall into, so it says what the site is rather than nothing.
     default: SEARCH_TITLE.fr,
-    template: "%s — Sonarche",
+    template: "%s | Sonarche",
   },
 };
 

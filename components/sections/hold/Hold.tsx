@@ -28,7 +28,7 @@ export function Hold({ locale }: { locale: Locale }) {
 
         <p className="text-body mt-3.5 max-w-[42.5rem] text-[1.09rem] leading-relaxed">
           {copy.bodyBefore}{" "}
-          <code className="font-mono text-base font-medium text-[oklch(0.35_0.06_277)]">{copy.bodyPath}</code>{" "}
+          <code className="font-mono text-base font-medium text-[oklch(0.35_0.06_277)]">{copy.bodyPath}</code>
           {copy.bodyAfter}
         </p>
       </header>

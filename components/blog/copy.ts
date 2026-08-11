@@ -27,7 +27,7 @@ export const blogCopy: Record<Locale, BlogCopy> = {
   en: {
     journal: "Journal",
     indexTitle: "The ship's log",
-    indexSearchTitle: "Sonarche journal — music libraries, tags and metadata",
+    indexSearchTitle: "Sonarche journal | music libraries, tags and metadata",
     indexDek:
       "Notes on music you own: files, metadata, formats, and what it takes for a library to outlive the apps that read it.",
     readPost: "Read the post",
@@ -39,7 +39,7 @@ export const blogCopy: Record<Locale, BlogCopy> = {
   fr: {
     journal: "Journal",
     indexTitle: "Le journal de bord",
-    indexSearchTitle: "Journal Sonarche — bibliothèque musicale, tags et métadonnées",
+    indexSearchTitle: "Journal Sonarche | bibliothèque musicale, tags et métadonnées",
     indexDek:
       "Des notes sur la musique qu'on possède : fichiers, métadonnées, formats, et ce qu'il faut pour qu'une bibliothèque survive aux applications qui la lisent.",
     readPost: "Lire l'article",

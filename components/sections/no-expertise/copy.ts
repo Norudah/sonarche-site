@@ -34,11 +34,11 @@ export const noExpertiseCopy: Record<Locale, NoExpertiseCopy> = {
     // with a full stop, English needs a word after it.
     headingAfter: " is.",
     bodies: [
-      "Everything that can be automated already is — you get a tidy library without ever opening a metadata editor. What's left, the app explains in plain words instead of empty fields.",
-      "And when it disagrees with you, you win. Convinced your favourite record is Thrash, not Heavy Metal? Change it. One click, no friction — and Sonarche tells you exactly what it wrote, into which files, in words you don't need a wiki for.",
+      "Everything that can be automated already is, so you get a tidy library without ever opening a metadata editor. What's left, the app explains in plain words instead of empty fields.",
+      "And when it disagrees with you, you win. Convinced your favourite record is Thrash, not Heavy Metal? Change it. One click, no friction, and Sonarche tells you exactly what it wrote, into which files, in words you don't need a wiki for.",
     ],
     guides: [
-      "Sensible defaults on import — most albums need nothing from you at all.",
+      "Sensible defaults on import: most albums need nothing from you at all.",
       "Anything uncertain is flagged in plain language, with the choice spelled out.",
       "Every edit tells you which files it touched, before and after.",
     ],
@@ -50,7 +50,7 @@ export const noExpertiseCopy: Record<Locale, NoExpertiseCopy> = {
       explainerBefore: "Thrash Metal sits under the",
       explainerFamily: "Metal",
       explainerAfter:
-        "family, so the album stays where it is in your library. The new genre is written into all 8 files' tags — nothing else changes.",
+        "family, so the album stays where it is in your library. The new genre is written into all 8 files' tags, and nothing else changes.",
       familyLabel: "Genre family",
       familyValue: "Metal",
       derived: "↳ derived",
@@ -63,10 +63,10 @@ export const noExpertiseCopy: Record<Locale, NoExpertiseCopy> = {
     headingAfter: ".",
     bodies: [
       "Tout ce qui peut être automatisé l'est déjà : une bibliothèque impeccable sans jamais ouvrir un éditeur de métadonnées. Et ce qui reste, l'app l'explique en mots simples plutôt qu'en champs vides.",
-      "Quand elle n'est pas d'accord avec toi, c'est toi qui gagnes. Ton disque préféré, c'est du thrash et pas du heavy metal ? Change-le. Un clic, zéro friction — et Sonarche te dit exactement ce qu'il a écrit, dans quels fichiers, avec des mots qui se passent de wiki.",
+      "Quand elle n'est pas d'accord avec toi, c'est toi qui gagnes. Ton disque préféré, c'est du thrash et pas du heavy metal ? Change-le. Un clic, zéro friction, et Sonarche te dit exactement ce qu'il a écrit, dans quels fichiers, avec des mots qui se passent de wiki.",
     ],
     guides: [
-      "Des réglages sensés à l'import — la plupart des albums n'attendent rien de toi.",
+      "Des réglages sensés à l'import : la plupart des albums n'attendent rien de toi.",
       "Tout ce qui est incertain est signalé en langage clair, et le choix t'est posé noir sur blanc.",
       "Chaque modification te dit quels fichiers elle a touchés, avant et après.",
     ],
@@ -78,7 +78,7 @@ export const noExpertiseCopy: Record<Locale, NoExpertiseCopy> = {
       explainerBefore: "Thrash Metal appartient à la famille",
       explainerFamily: "Metal",
       explainerAfter:
-        ": l'album ne bouge pas de ta bibliothèque. Le nouveau genre est écrit dans les tags des 8 fichiers — rien d'autre ne change.",
+        ": l'album ne bouge pas de ta bibliothèque. Le nouveau genre est écrit dans les tags des 8 fichiers, et rien d'autre ne change.",
       familyLabel: "Famille de genre",
       familyValue: "Metal",
       derived: "↳ dérivé",

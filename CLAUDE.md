@@ -37,6 +37,9 @@
   screenshots. yt-dlp/ffmpeg/beets in the technical section are fine.
 - No "free music" framing, no legality claims. The footer's personal-use line is
   the only trace of the topic. Full rationale: docs/CONTEXT.md § Legal positioning.
+- Ration the em dash. In copy, prefer a colon, a comma or a full stop; the dash
+  survives only in `<title>` separators, app-UI labels the widgets mirror, and
+  the diagram legend. Prose stacked with dashes reads as machine-written.
 
 ## Code Structure
 
@@ -82,7 +85,7 @@
   risky or parallel work. Direct commits to `main` are fine for small changes.
   Commit to `develop` is fine as well for feature work
 - Conventional Commits: `type(scope): subject` — imperative, English, no trailing
-  period. Natural scopes: hero, manifesto, flow, library, player, footer, ui, seo,
+  period. Natural scopes: hero, flow, library, player, footer, ui, seo, copy,
   build, deps.
 - Never commit or push without explicit authorization for that batch of work.
 - Never add a `Co-Authored-By` trailer or otherwise credit Claude/Anthropic/any AI

@@ -29,7 +29,7 @@ export const footerCopy: Record<Locale, FooterCopy> = {
   en: {
     headingBefore: "Free. Open source.",
     headingEmphasis: "Yours.",
-    body: "No subscription, no cloud, no lock-in. The code is on GitHub — read it, fork it, board it.",
+    body: "No subscription, no cloud, no lock-in. The code is on GitHub: read it, fork it, board it.",
     license: "License: MIT",
     personalUse: "For personal use. Respect the terms of the services you use, and your local law.",
     wordmark: "SONARCHE",
@@ -43,9 +43,9 @@ export const footerCopy: Record<Locale, FooterCopy> = {
   fr: {
     headingBefore: "Gratuit. Open source.",
     headingEmphasis: "À toi.",
-    body: "Pas d'abonnement, pas de cloud, pas de verrou. Le code est sur GitHub — lis-le, forke-le, monte à bord.",
+    body: "Pas d'abonnement, pas de cloud, pas de verrou. Le code est sur GitHub : lis-le, forke-le, monte à bord.",
     license: "Licence : MIT",
-    personalUse: "Usage personnel — respecte les conditions des services que tu utilises et le droit de ton pays.",
+    personalUse: "Usage personnel. Respecte les conditions des services que tu utilises et le droit de ton pays.",
     wordmark: "SONARCHE",
     tagline: "From the stream into the Ark.",
     signature: "par Romain Pierucci (@Norudah)",

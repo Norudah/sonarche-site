@@ -55,7 +55,7 @@ export const POSTS: Post[] = [
     },
     description: {
       fr: "Un fichier audio ne sait pas ce qu'il contient : il porte ce qu'on a bien voulu écrire dessus. Comment les tags se cassent, pourquoi la recherche par texte ne les répare pas, et ce que l'empreinte acoustique change.",
-      en: "An audio file doesn't know what it holds — it carries whatever was typed onto it. How tags break, why text search can't fix them, and what an audio fingerprint changes.",
+      en: "An audio file doesn't know what it holds: it carries whatever was typed onto it. How tags break, why text search can't fix them, and what an audio fingerprint changes.",
     },
     minutes: 7,
   },

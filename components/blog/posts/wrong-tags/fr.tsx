@@ -22,7 +22,7 @@ export function WrongTagsFr() {
     <>
       <Lead>
         Un fichier audio ne sait pas ce qu&apos;il contient. Il porte un titre, un artiste et une pochette parce que
-        quelqu&apos;un, un jour, les a écrits dedans — et ce quelqu&apos;un pouvait se tromper.
+        quelqu&apos;un, un jour, les a écrits dedans. Et ce quelqu&apos;un pouvait se tromper.
       </Lead>
 
       <p>
@@ -34,7 +34,7 @@ export function WrongTagsFr() {
 
       <p>
         Un MP3 n&apos;est pas qu&apos;un flux audio : il traîne un petit bloc de texte, le tag <code>ID3</code>, collé
-        en tête ou en queue de fichier. Les autres formats ont leur équivalent — les commentaires Vorbis pour FLAC et
+        en tête ou en queue de fichier. Les autres formats ont leur équivalent : les commentaires Vorbis pour FLAC et
         Opus, les atomes <code>ilst</code>&#32;pour l&apos;AAC en conteneur MP4. Le principe ne change pas : des paires
         clé-valeur, plus une image.
       </p>
@@ -62,7 +62,7 @@ TRACKNUMBER=4`}</code>
       <ul>
         <li>
           <strong>Un CD extrait.</strong>&#32;Le logiciel calcule un identifiant à partir de la longueur des pistes et
-          interroge une base — historiquement CDDB, aujourd&apos;hui MusicBrainz. Deux disques qui ont par hasard le
+          interroge une base : historiquement CDDB, aujourd&apos;hui MusicBrainz. Deux disques qui ont par hasard le
           même découpage donnent le même identifiant, et le mauvais album gagne.
         </li>
         <li>
@@ -92,7 +92,7 @@ TRACKNUMBER=4`}</code>
         <li>
           <strong>Le champ « artiste de l&apos;album ».</strong>&#32;Sur une compilation, chaque piste a son artiste,
           mais l&apos;album n&apos;en a qu&apos;un. Les outils qui ignorent <code>ALBUMARTIST</code>&#32;font exploser
-          l&apos;album en dix-huit albums d&apos;une piste — la panne la plus courante de toutes.
+          l&apos;album en dix-huit albums d&apos;une piste. C&apos;est la panne la plus courante de toutes.
         </li>
         <li>
           <strong>L&apos;encodage.</strong>&#32;ID3v2 admet plusieurs encodages de texte. Un tag écrit en latin-1 puis
@@ -124,8 +124,8 @@ TRACKNUMBER=4`}</code>
       <p>
         Une recherche par texte hérite de l&apos;erreur qu&apos;elle est censée corriger. Elle ne distingue pas deux
         morceaux homonymes de deux groupes différents, ni un enregistrement studio de sa version live, ni un original de
-        sa reprise. Pire : elle répond toujours quelque chose. Sur mille fichiers, ces réponses plausibles-mais-fausses
-        sont invisibles — jusqu&apos;au jour où tu cherches un morceau et où il n&apos;est nulle part.
+        sa reprise. Pire : elle répond toujours quelque chose. Sur mille fichiers, ces réponses plausibles mais fausses
+        sont invisibles, jusqu&apos;au jour où tu cherches un morceau et où il n&apos;est nulle part.
       </p>
 
       <H2>Une empreinte plutôt qu&apos;un nom</H2>
@@ -210,7 +210,7 @@ $ beet import ~/Musique/à-ranger`}</code>
 
       <p>
         Compte une soirée pour la première configuration, et une certaine patience avec les cas que beets te demande de
-        trancher toi-même. C&apos;est un excellent outil, écrit par des gens qui ont pensé à tout — mais il vit dans un
+        trancher toi-même. C&apos;est un excellent outil, écrit par des gens qui ont pensé à tout, mais il vit dans un
         terminal, et il faut vouloir y vivre aussi.
       </p>
 

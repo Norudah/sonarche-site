@@ -30,16 +30,16 @@ export const holdCopy: Record<Locale, HoldCopy> = {
     bodyBefore: "Everything lands in",
     bodyPath: "Music/Sonarche/",
     bodyAfter:
-      "— right beside the folder your current app already uses. The names live in the files themselves, in the same tag standards every player has read for twenty years. Sonarche organises your music and hands it straight back; it never holds it hostage.",
+      ", right beside the folder your current app already uses. The names live in the files themselves, in the same tag standards every player has read for twenty years. Sonarche organises your music and hands it straight back; it never holds it hostage.",
     otherApp: "YourOtherMusicApp",
     note: "Drag the folder anywhere and it still works.",
     destinations: [
       { where: "A phone", note: "plug it in, drop the folder, done" },
       { where: "A hard drive", note: "your backup is a copy-paste" },
-      { where: "Another player", note: "the tags are standard — it reads them" },
+      { where: "Another player", note: "the tags are standard, so it reads them" },
       { where: "Another machine", note: "no account, no re-import, no sync service" },
     ],
-    closer: "If you decide you don't like Sonarche, your library leaves with you — fully tagged.",
+    closer: "If you decide you don't like Sonarche, your library leaves with you, fully tagged.",
   },
   fr: {
     kicker: "LA CALE EST À TOI",
@@ -48,7 +48,7 @@ export const holdCopy: Record<Locale, HoldCopy> = {
     bodyBefore: "Tout atterrit dans",
     bodyPath: "Music/Sonarche/",
     bodyAfter:
-      "— juste à côté du dossier que ton app actuelle utilise déjà. Les noms vivent dans les fichiers eux-mêmes, dans les standards de tags que tous les lecteurs lisent depuis vingt ans. Sonarche range ta musique et te la rend aussitôt — il ne la prend jamais en otage.",
+      ", juste à côté du dossier que ton app actuelle utilise déjà. Les noms vivent dans les fichiers eux-mêmes, dans les standards de tags que tous les lecteurs lisent depuis vingt ans. Sonarche range ta musique et te la rend aussitôt ; il ne la prend jamais en otage.",
     otherApp: "TonAutreAppMusique",
     note: "Déplace le dossier où tu veux : tout marche encore.",
     destinations: [
@@ -57,6 +57,6 @@ export const holdCopy: Record<Locale, HoldCopy> = {
       { where: "Un autre lecteur", note: "les tags sont standard : il les lit" },
       { where: "Une autre machine", note: "aucun compte, aucun ré-import, aucun service de synchro" },
     ],
-    closer: "Et si Sonarche ne te plaît plus, ta bibliothèque part avec toi — taguée jusqu'au dernier morceau.",
+    closer: "Et si Sonarche ne te plaît plus, ta bibliothèque part avec toi, taguée jusqu'au dernier morceau.",
   },
 };

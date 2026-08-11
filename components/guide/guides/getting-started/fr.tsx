@@ -24,7 +24,7 @@ export function GettingStartedFr() {
   return (
     <>
       <Lead>
-        Sonarche est signée mais pas certifiée par Apple — cette validation-là demande un compte développeur payant.
+        Sonarche est signée mais pas certifiée par Apple : cette validation-là demande un compte développeur payant.
         Résultat : macOS et Windows affichent un avertissement au premier lancement, une seule fois. Voici le chemin
         complet, de l&apos;installation à ta première bibliothèque.
       </Lead>
@@ -33,8 +33,8 @@ export function GettingStartedFr() {
 
       <p>
         Tout est sur la page des versions, et il n&apos;y a qu&apos;un fichier à prendre selon la machine. Les{" "}
-        <code>.tar.gz</code>&#32;et <code>.sig</code>&#32;posés à côté servent au mécanisme de mise à jour — tu
-        n&apos;en as pas besoin.
+        <code>.tar.gz</code>&#32;et <code>.sig</code>&#32;posés à côté servent au mécanisme de mise à jour. Tu n&apos;en
+        as pas besoin.
       </p>
 
       <ul>
@@ -87,7 +87,7 @@ export function GettingStartedFr() {
         SmartScreen affiche « Windows a protégé votre ordinateur », pour la même raison : l&apos;installateur n&apos;est
         pas signé par un certificat payant. Clique sur « Informations complémentaires », puis sur « Exécuter quand
         même&nbsp;». L&apos;installation se fait pour ton compte utilisateur uniquement, donc sans demande
-        d&apos;élévation — ni à l&apos;installation, ni aux mises à jour.
+        d&apos;élévation, ni à l&apos;installation, ni aux mises à jour.
       </p>
 
       <H2>Le premier lancement</H2>
@@ -109,14 +109,14 @@ export function GettingStartedFr() {
       <H2>La clé AcoustID, et pourquoi la prendre</H2>
 
       <p>
-        Elle est gratuite, elle se demande en une minute, et elle est facultative — mais sans elle, tes morceaux sont
+        Elle est gratuite, elle se demande en une minute, et elle est facultative, mais sans elle, tes morceaux sont
         tagués à partir des indices disponibles au lieu d&apos;être identifiés par leur son. C&apos;est toute la
         différence entre un nom deviné et un nom reconnu, et{" "}
         <a href={postPath(postById("wrong-tags"), "fr")}>le journal raconte pourquoi</a>.
       </p>
 
       <p>
-        Une fois saisie, la clé est rangée dans le trousseau du système — jamais dans un fichier de configuration — et
+        Une fois saisie, la clé est rangée dans le trousseau du système, jamais dans un fichier de configuration, et
         elle ne réapparaît plus dans l&apos;interface.
       </p>
 
@@ -124,8 +124,8 @@ export function GettingStartedFr() {
 
       <p>
         À partir de là, tu as deux entrées : pointer l&apos;application sur des dossiers que tu possèdes déjà, ou
-        ajouter les morceaux un par un. Les deux passent par la même chaîne — empreinte, identification, tags, rangement
-        — et aboutissent au même arbre de fichiers.
+        ajouter les morceaux un par un. Les deux passent par la même chaîne (empreinte, identification, tags, rangement)
+        et aboutissent au même arbre de fichiers.
       </p>
     </>
   );

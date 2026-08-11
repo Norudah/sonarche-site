@@ -26,7 +26,7 @@ export const firstLaunchCopy: Record<Locale, FirstLaunchCopy> = {
     kicker: "FIRST LAUNCH",
     headingBefore: "Your system will hesitate.",
     headingEmphasis: "Once.",
-    body: "Sonarche isn't signed by Apple or Microsoft — those are yearly certificate fees, not security audits, and this project chose the code-is-public route instead. So the very first launch costs you one extra click, on either platform.",
+    body: "Sonarche isn't signed by Apple or Microsoft. Those are yearly certificate fees, not security audits, and this project chose the code-is-public route instead. So the very first launch costs you one extra click, on either platform.",
     platforms: [
       {
         label: "MACOS",
@@ -47,7 +47,7 @@ export const firstLaunchCopy: Record<Locale, FirstLaunchCopy> = {
     kicker: "PREMIER LANCEMENT",
     headingBefore: "Ton système va hésiter.",
     headingEmphasis: "Une fois.",
-    body: "Sonarche n'est signé ni par Apple ni par Microsoft — ce sont des certificats à l'année, pas des audits de sécurité, et ce projet a préféré la voie du code public. Le tout premier lancement te coûte donc un clic de plus, sur l'une comme sur l'autre plateforme.",
+    body: "Sonarche n'est signé ni par Apple ni par Microsoft. Ce sont des certificats à l'année, pas des audits de sécurité, et ce projet a préféré la voie du code public. Le tout premier lancement te coûte donc un clic de plus, sur l'une comme sur l'autre plateforme.",
     platforms: [
       {
         label: "MACOS",

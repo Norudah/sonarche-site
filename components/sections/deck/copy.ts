@@ -22,11 +22,11 @@ export const deckCopy: Record<Locale, DeckCopy> = {
     kicker: "THE DECK",
     headingBefore: "Your library,",
     headingEmphasis: "your rules.",
-    body: "Albums, artists, genre families — organized by verified metadata, browsable like a real collection. Every single field stays editable, and one click re-runs the fingerprint if a match was wrong.",
+    body: "Albums, artists, genre families, organized by verified metadata and browsable like a real collection. Every single field stays editable, and one click re-runs the fingerprint if a match was wrong.",
     bullets: [
-      "Change once — written to every file.",
+      "Change once: written to every file.",
       "Completeness at a glance: 7/7 fields, 100% badges.",
-      "Genres form families — Metal, Electronic, Jazz — each with its own tone.",
+      "Genres form families (Metal, Electronic, Jazz), each with its own tone.",
     ],
     widget: {
       // The v7 mockup left this widget's labels in French; these are the EN
@@ -47,11 +47,11 @@ export const deckCopy: Record<Locale, DeckCopy> = {
     kicker: "LE PONT",
     headingBefore: "Ta bibliothèque,",
     headingEmphasis: "tes règles.",
-    body: "Albums, artistes, familles de genres — organisés par des métadonnées vérifiées, et qui se parcourent comme une vraie collection. Chaque champ reste modifiable, et un clic relance l'empreinte si une correspondance est fausse.",
+    body: "Albums, artistes, familles de genres, organisés par des métadonnées vérifiées et qui se parcourent comme une vraie collection. Chaque champ reste modifiable, et un clic relance l'empreinte si une correspondance est fausse.",
     bullets: [
-      "Modifie une fois — écrit dans tous les fichiers.",
+      "Modifie une fois : écrit dans tous les fichiers.",
       "Tu vois d'un coup d'œil ce qui est complet : 7 champs sur 7, badges 100 %.",
-      "Les genres forment des familles — Metal, Électro, Jazz — chacune avec sa teinte.",
+      "Les genres forment des familles (Metal, Électro, Jazz), chacune avec sa teinte.",
     ],
     widget: {
       title: "Métadonnées — Oath",

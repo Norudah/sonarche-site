@@ -22,7 +22,7 @@ export function GettingStartedEn() {
   return (
     <>
       <Lead>
-        Sonarche is signed but not notarised — that part needs a paid Apple developer account. So macOS and Windows both
+        Sonarche is signed but not notarised: that part needs a paid Apple developer account. So macOS and Windows both
         show a warning the first time you open it, and only the first time. Here is the whole path, from the download to
         your first library.
       </Lead>
@@ -31,7 +31,7 @@ export function GettingStartedEn() {
 
       <p>
         Everything is on the releases page, and there is exactly one file to take per machine. The <code>.tar.gz</code>
-        &#32;and <code>.sig</code>&#32;sitting beside it are the updater&apos;s plumbing — you do not need them.
+        &#32;and <code>.sig</code>&#32;sitting beside it are the updater&apos;s plumbing. You do not need them.
       </p>
 
       <ul>
@@ -55,8 +55,8 @@ export function GettingStartedEn() {
       <H2>Getting past the warning on macOS</H2>
 
       <p>
-        On first launch macOS says it could not verify the app. <strong>Do not click the blue button</strong> — it
-        offers to move it to the Trash.
+        On first launch macOS says it could not verify the app. <strong>Do not click the blue button</strong>: it offers
+        to move it to the Trash.
       </p>
 
       {/* SHOT 1 — the macOS dialog, full column width. */}
@@ -82,8 +82,8 @@ export function GettingStartedEn() {
 
       <p>
         SmartScreen shows &ldquo;Windows protected your PC&rdquo;, for the same reason: the installer is not signed by a
-        paid certificate. Click More info, then Run anyway. The install is per-user, so nothing asks you to elevate —
-        not at install, not at update.
+        paid certificate. Click More info, then Run anyway. The install is per-user, so nothing asks you to elevate, not
+        at install, not at update.
       </p>
 
       <H2>The first run</H2>
@@ -91,8 +91,7 @@ export function GettingStartedEn() {
       <p>
         The app opens on a short walkthrough that builds its environment: it unpacks the Python it carries, installs{" "}
         <code>yt-dlp</code>&#32;and <code>beets</code>&#32;into a virtual environment of its own, and asks you for an
-        AcoustID key. Give it about fifteen seconds. No network access is needed — the packages travel inside the
-        bundle.
+        AcoustID key. Give it about fifteen seconds. No network access is needed: the packages travel inside the bundle.
       </p>
 
       <p>Your system Python is never touched, and nothing is installed outside the folder the app owns.</p>
@@ -102,22 +101,22 @@ export function GettingStartedEn() {
       <H2>The AcoustID key, and why to bother</H2>
 
       <p>
-        It is free, it takes a minute to request, and it is optional — but without it your tracks are tagged from
+        It is free, it takes a minute to request, and it is optional, but without it your tracks are tagged from
         whatever hints are available instead of being identified by their sound. That is the whole difference between a
         guessed name and a recognised one, and{" "}
         <a href={postPath(postById("wrong-tags"), "en")}>the journal has the long version</a>.
       </p>
 
       <p>
-        Once entered, the key is kept in the OS keychain — never in a config file — and it never shows up in the
-        interface again.
+        Once entered, the key is kept in the OS keychain, never in a config file, and it never shows up in the interface
+        again.
       </p>
 
       <H2>Where to go next</H2>
 
       <p>
         From here there are two ways in: point the app at folders you already own, or add tracks one at a time. Both run
-        through the same chain — fingerprint, identify, tag, file — and end in the same tree of files.
+        through the same chain (fingerprint, identify, tag, file) and end in the same tree of files.
       </p>
     </>
   );

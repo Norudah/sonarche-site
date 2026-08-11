@@ -34,7 +34,7 @@ export const guideCopy: Record<Locale, GuideCopy> = {
   en: {
     guide: "Guide",
     indexTitle: "Using Sonarche",
-    indexSearchTitle: "Sonarche guide — install, import, tag and play",
+    indexSearchTitle: "Sonarche guide | install, import, tag and play",
     indexDek:
       "How to get each part of the app to do what you want, one walkthrough at a time. Written against a numbered version, and revised when that version moves.",
     topics: {
@@ -53,7 +53,7 @@ export const guideCopy: Record<Locale, GuideCopy> = {
   fr: {
     guide: "Guide",
     indexTitle: "Utiliser Sonarche",
-    indexSearchTitle: "Guide Sonarche — installer, importer, taguer et écouter",
+    indexSearchTitle: "Guide Sonarche | installer, importer, taguer et écouter",
     indexDek:
       "Comment obtenir de chaque partie de l'app ce que tu en attends, un pas-à-pas à la fois. Écrit pour une version numérotée, et repris quand cette version bouge.",
     topics: {

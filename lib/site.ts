@@ -80,7 +80,7 @@ export const OG_LOCALE: Record<Locale, string> = {
  * sitemap that cries wolf is one that stops being read. Move it when
  * docs/copy/*.md moves.
  */
-export const CONTENT_UPDATED = "2026-07-31";
+export const CONTENT_UPDATED = "2026-08-11";
 
 /**
  * The <title>, which is a different job from the wordmark.
@@ -93,8 +93,8 @@ export const CONTENT_UPDATED = "2026-07-31";
  * against a query.
  */
 export const SEARCH_TITLE: Record<Locale, string> = {
-  fr: "Sonarche — bibliothèque musicale open source et hors ligne",
-  en: "Sonarche — open-source, offline music library",
+  fr: "Sonarche | bibliothèque musicale open source et hors ligne",
+  en: "Sonarche | open-source, offline music library",
 };
 
 /** The brand title, for social cards and the site name. */

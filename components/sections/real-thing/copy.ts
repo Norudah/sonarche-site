@@ -32,14 +32,14 @@ export const realThingCopy: Record<Locale, RealThingCopy> = {
         label: "Album",
         title: "An album, whole",
         caption:
-          "Fourteen tracks, fourteen complete tag sets, the right cover — and it plays from the very same window.",
+          "Fourteen tracks, fourteen complete tag sets, the right cover, and it plays from the very same window.",
       },
       {
         id: "genres",
         label: "Genres",
         title: "Genres as a tree",
         caption:
-          "Metal holds Metalcore, Heavy Metal, Progressive Metal, Power Metal — and knows it accounts for 32% of the shelf.",
+          "Metal holds Metalcore, Heavy Metal, Progressive Metal, Power Metal, and knows it accounts for 32% of the shelf.",
       },
       {
         id: "metadata",
@@ -59,7 +59,7 @@ export const realThingCopy: Record<Locale, RealThingCopy> = {
         label: "Upkeep",
         title: "It keeps its own to-do list",
         caption:
-          "Missing years, genres off the tree, tracklists with holes — twenty things to correct, gathered in one screen.",
+          "Missing years, genres off the tree, tracklists with holes: twenty things to correct, gathered in one screen.",
       },
     ],
   },
@@ -75,14 +75,14 @@ export const realThingCopy: Record<Locale, RealThingCopy> = {
         label: "Album",
         title: "Un album, entier",
         caption:
-          "Quatorze morceaux, quatorze jeux de tags complets, la bonne pochette — et ça joue depuis la même fenêtre.",
+          "Quatorze morceaux, quatorze jeux de tags complets, la bonne pochette, et ça joue depuis la même fenêtre.",
       },
       {
         id: "genres",
         label: "Genres",
         title: "Les genres en arbre",
         caption:
-          "Metal contient Metalcore, Heavy Metal, Progressive Metal, Power Metal — et sait qu'il représente 32 % de l'étagère.",
+          "Metal contient Metalcore, Heavy Metal, Progressive Metal, Power Metal, et sait qu'il représente 32 % de l'étagère.",
       },
       {
         id: "metadata",
@@ -102,7 +102,7 @@ export const realThingCopy: Record<Locale, RealThingCopy> = {
         label: "Entretien",
         title: "Il tient sa propre liste de corrections",
         caption:
-          "Années manquantes, genres hors arbre, tracklists à trous — vingt choses à corriger, réunies sur un écran.",
+          "Années manquantes, genres hors arbre, tracklists à trous : vingt choses à corriger, réunies sur un écran.",
       },
     ],
   },

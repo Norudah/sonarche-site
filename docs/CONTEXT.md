@@ -32,19 +32,25 @@ The v7 Claude Design mockup ("Sonarche Landing v7", in the app repo under
 
 1. **Hero** — badge, wordmark, tagline, subline, GitHub CTA. The "Ark moment"
    SVG/GSAP animation on load (stream of particles gathered into the vessel).
-2. **Why it exists** — manifesto: "Your music should outlive every app."
-3. **The flow** — 4 numbered steps (paste / come aboard / fingerprint / named).
-4. **The old way** — 5-tools pain table, then "Sonarche does all five."
-5. **True names** — scraped-vs-identified compare, the fingerprint story.
-6. **No expertise needed** — automation + the genre-edit widget.
-7. **The hold is yours** — plain files, no lock-in.
-8. **Under the deck** — architecture diagram (yt-dlp, ffmpeg+Chromaprint,
+2. **The flow** — 4 numbered steps (paste / come aboard / fingerprint / named).
+3. **The old way** — 5-tools pain table, then "Sonarche does all five."
+4. **True names** — scraped-vs-identified compare, the fingerprint story.
+5. **No expertise needed** — automation + the genre-edit widget.
+6. **The hold is yours** — plain files, no lock-in.
+7. **Under the deck** — architecture diagram (yt-dlp, ffmpeg+Chromaprint,
    beets, MusicBrainz, AcoustID, embedded Python).
-9. **The deck** — library views, editable fields.
-10. **The ship's sound** — the native Rust player.
-11. **The real thing** — real screenshots carousel.
-12. **First launch** — Gatekeeper (macOS) + SmartScreen (Windows) walkthrough.
-13. **Final CTA + footer** — "Free. Open source. Yours.", MIT, personal-use line.
+8. **The deck** — library views, editable fields.
+9. **The ship's sound** — the native Rust player.
+10. **The real thing** — real screenshots carousel.
+11. **First launch** — Gatekeeper (macOS) + SmartScreen (Windows) walkthrough.
+12. **Final CTA + footer** — "Free. Open source. Yours.", MIT, personal-use line.
+
+The v7 mockup opened on a "Why it exists" manifesto between the hero and the
+flow ("Your music should outlive every app.", four italic lines, four chips).
+It was cut on 2026-08-11: it restated the hero in bigger type and delayed the
+only section that answers "what does this thing do". The hero now hands
+straight over to the flow, which carries the dissolve out of the water the
+manifesto used to draw.
 
 ## Copy & languages
 
@@ -59,6 +65,17 @@ The v7 Claude Design mockup ("Sonarche Landing v7", in the app repo under
 - The FR page uses **tu**, never « vous » — it matches the app's own voice.
 - The tagline **"From the stream into the Ark."** is the brand: it is never
   translated and never reworded, in any language, hero and footer included.
+- **The em dash is rationed.** A pass on 2026-08-11 took it out of the copy
+  almost everywhere: a page where every other sentence breaks on a dash reads
+  as machine-written, and it was doing three different jobs (aside, colon,
+  full stop) in the same paragraph. Use the punctuation that means what you
+  mean — a colon before an explanation, a comma for an aside, a full stop for
+  a second thought — and keep the dash for the places it is still doing real
+  work: the `<title>` separators, the app-UI labels the widgets mirror
+  (`Genre — Ride the Lightning`), the empty cell in the compare table, and the
+  name/definition separator in the architecture diagram's legend. The same
+  goes for the FR deck, which has the colon and the semicolon available and
+  should use them.
 
 ## Legal positioning (hard rules — never relax without Romain's say-so)
 

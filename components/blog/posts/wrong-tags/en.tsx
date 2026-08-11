@@ -21,7 +21,7 @@ export function WrongTagsEn() {
     <>
       <Lead>
         An audio file doesn&apos;t know what it holds. It carries a title, an artist and a cover because someone, once,
-        typed them into it — and that someone could be wrong.
+        typed them into it. And that someone could be wrong.
       </Lead>
 
       <p>
@@ -32,7 +32,7 @@ export function WrongTagsEn() {
       <H2>What is actually in the file</H2>
 
       <p>
-        An MP3 is not only an audio stream. It drags a small block of text along with it — the <code>ID3</code>&#32;tag,
+        An MP3 is not only an audio stream. It drags a small block of text along with it: the <code>ID3</code>&#32;tag,
         stuck to the front or the back of the file. Other formats have their own: Vorbis comments for FLAC and Opus,{" "}
         <code>ilst</code>&#32;atoms for AAC in an MP4 container. The idea never changes: key-value pairs, plus a
         picture.
@@ -60,14 +60,14 @@ TRACKNUMBER=4`}</code>
 
       <ul>
         <li>
-          <strong>A ripped CD.</strong>&#32;The software derives an id from the track lengths and asks a database —
+          <strong>A ripped CD.</strong>&#32;The software derives an id from the track lengths and asks a database:
           historically CDDB, now MusicBrainz. Two discs that happen to share a layout share an id, and the wrong album
           wins.
         </li>
         <li>
           <strong>The filename.</strong>&#32;Plenty of tools assume <code>Artist - Title.mp3</code>&#32;and split on the
           first dash. An artist whose name contains a dash, a title that contains one, a file called{" "}
-          <code>01 - track 01.mp3</code>&#32;— the rule produces garbage with exactly the same confidence.
+          <code>01 - track 01.mp3</code>, and the rule produces garbage with exactly the same confidence.
         </li>
         <li>
           <strong>The page the file came from.</strong>&#32;A web page title is not a track title, it is a pitch. Hence
@@ -90,8 +90,8 @@ TRACKNUMBER=4`}</code>
       <ul>
         <li>
           <strong>The album-artist field.</strong>&#32;On a compilation every track has its own artist, but the album
-          has one. Tools that ignore <code>ALBUMARTIST</code>&#32;shatter it into eighteen one-track albums — the single
-          most common failure there is.
+          has one. Tools that ignore <code>ALBUMARTIST</code>&#32;shatter it into eighteen one-track albums. That is the
+          most common failure of all.
         </li>
         <li>
           <strong>Text encoding.</strong>&#32;ID3v2 allows several. A tag written as latin-1 and read back as UTF-8
@@ -121,8 +121,8 @@ TRACKNUMBER=4`}</code>
       <p>
         A text search inherits the error it is meant to correct. It cannot separate two same-named songs by two
         different bands, a studio take from its live version, an original from a cover. Worse, it always answers
-        something. Across a thousand files those plausible-but-wrong answers are invisible — until the day you go
-        looking for a track and it is nowhere.
+        something. Across a thousand files those plausible but wrong answers are invisible, until the day you go looking
+        for a track and it is nowhere.
       </p>
 
       <H2>A fingerprint instead of a name</H2>
@@ -173,7 +173,7 @@ FINGERPRINT=AQADtEmiKFKSJIeS5Hkg5X...`}</code>
       <ul>
         <li>
           <strong>It identifies a recording, not a song.</strong>&#32;A live take, a remix, an acoustic session are
-          different recordings and get different ids. That is the intent — and exactly what a title search cannot do.
+          different recordings and get different ids. That is the intent, and exactly what a title search cannot do.
         </li>
         <li>
           <strong>It only finds what has been submitted.</strong>&#32;A self-released EP, a recording of a local gig, a
@@ -205,8 +205,8 @@ $ beet import ~/Music/to-sort`}</code>
 
       <p>
         Budget an evening for the first setup, and some patience for the cases beets asks you to settle yourself. It is
-        an excellent tool, written by people who thought of everything — but it lives in a terminal, and you have to
-        want to live there too.
+        an excellent tool, written by people who thought of everything, but it lives in a terminal, and you have to want
+        to live there too.
       </p>
 
       <H2>What you get out of it</H2>

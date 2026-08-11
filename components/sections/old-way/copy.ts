@@ -19,7 +19,6 @@ export type OldWayCopy = {
   chain: ChainLink[];
   punchHeading: string;
   punchBody: string;
-  chips: string[];
 };
 
 export const oldWayCopy: Record<Locale, OldWayCopy> = {
@@ -40,7 +39,7 @@ export const oldWayCopy: Record<Locale, OldWayCopy> = {
         step: "APP 1",
         tool: "A bulk downloader",
         gripe:
-          "Handles the playlist, at least. But it fills the tags from the file name — so your artist is « Unknown » and your album is blank.",
+          "Handles the playlist, at least. But it fills the tags from the file name, so your artist is « Unknown » and your album is blank.",
         cost: "Tags are a guess.",
       },
       {
@@ -65,16 +64,7 @@ export const oldWayCopy: Record<Locale, OldWayCopy> = {
     ],
     punchHeading: "Sonarche does all five. In one window.",
     punchBody:
-      "Point it at a link and walk away. The audio lands in the hold, gets listened to, identified, tagged, given its real cover, filed in the right folder — and then it plays, on a native Rust audio engine. No hand-off, no re-import, no second app.",
-    chips: [
-      "one link in",
-      "no re-encode",
-      "fingerprint",
-      "real metadata",
-      "proper artwork",
-      "filed folders",
-      "native playback",
-    ],
+      "Point it at a link and walk away. The audio lands in the hold, gets listened to, identified, tagged, given its real cover, filed in the right folder. Then it plays, on a native Rust audio engine. No hand-off, no re-import, no second app.",
   },
   fr: {
     kicker: "L'ANCIENNE MÉTHODE",
@@ -93,7 +83,7 @@ export const oldWayCopy: Record<Locale, OldWayCopy> = {
         step: "APP 1",
         tool: "Un téléchargeur en masse",
         gripe:
-          "Il gère la playlist, au moins. Mais il remplit les tags avec le nom du fichier — ton artiste s'appelle « Unknown » et ton album est vide.",
+          "Il gère la playlist, au moins. Mais il remplit les tags avec le nom du fichier : ton artiste s'appelle « Unknown » et ton album est vide.",
         cost: "Des tags devinés.",
       },
       {
@@ -119,15 +109,6 @@ export const oldWayCopy: Record<Locale, OldWayCopy> = {
     ],
     punchHeading: "Sonarche fait les cinq. Dans une seule fenêtre.",
     punchBody:
-      "Donne-lui un lien et va vivre ta vie. L'audio rejoint la cale, se fait écouter, identifier, taguer, coiffer de sa vraie pochette, ranger dans le bon dossier — puis la lecture démarre, sur un moteur audio natif en Rust. Pas de relais, pas de ré-import, pas de deuxième app.",
-    chips: [
-      "un lien en entrée",
-      "aucun ré-encodage",
-      "empreinte",
-      "vraies métadonnées",
-      "vraie pochette",
-      "dossiers rangés",
-      "lecture native",
-    ],
+      "Donne-lui un lien et va vivre ta vie. L'audio rejoint la cale, se fait écouter, identifier, taguer, coiffer de sa vraie pochette, ranger dans le bon dossier. Puis la lecture démarre, sur un moteur audio natif en Rust. Pas de relais, pas de ré-import, pas de deuxième app.",
   },
 };
