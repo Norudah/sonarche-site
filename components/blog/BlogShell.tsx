@@ -37,20 +37,29 @@ export function BlogShell({ locale, alternate, children }: BlogShellProps) {
     <>
       <header className="border-separator/70 bg-background/80 sticky top-0 z-50 border-b backdrop-blur-md">
         <div className="mx-auto flex max-w-[68rem] items-center justify-between px-6 py-3 sm:px-10">
-          <div className="flex items-baseline gap-2.5">
+          {/*
+           * Centred, not baseline-aligned. The wordmark link is itself a flex
+           * container, so its baseline is the mark's bottom edge rather than
+           * its text's — align these three on a baseline and the separator and
+           * "Journal" sit visibly lower than the brand. Everything on this row
+           * is one line tall, so the centre line is the honest axis.
+           */}
+          <div className="flex items-center gap-2.5">
             <a
               href={LOCALE_PATH[locale]}
-              className="group hover:text-foreground-strong text-foreground flex items-center gap-2 transition-colors"
+              className="hover:text-foreground-strong text-foreground flex items-center gap-2 transition-colors"
             >
-              <SonarcheMark className="h-5 w-5 self-center" />
-              <span className="font-display text-[0.8125rem] font-medium tracking-[0.14em]">{copy.wordmark}</span>
+              <SonarcheMark className="h-5 w-5" />
+              <span className="font-display text-[0.8125rem] leading-none font-medium tracking-[0.14em]">
+                {copy.wordmark}
+              </span>
             </a>
-            <span aria-hidden className="text-border">
+            <span aria-hidden className="text-border leading-none">
               ·
             </span>
             <a
               href={BLOG_PATH[locale]}
-              className="hover:text-accent text-muted font-display text-[0.8125rem] tracking-[0.02em] transition-colors"
+              className="hover:text-accent text-muted font-display text-[0.8125rem] leading-none tracking-[0.02em] transition-colors"
             >
               {copy.journal}
             </a>
@@ -59,7 +68,7 @@ export function BlogShell({ locale, alternate, children }: BlogShellProps) {
           <a
             href={alternate}
             hrefLang={other}
-            className="hover:text-accent text-muted font-mono text-[0.625rem] font-medium tracking-[0.14em] uppercase transition-colors"
+            className="hover:text-accent text-muted font-mono text-[0.625rem] leading-none font-medium tracking-[0.14em] uppercase transition-colors"
           >
             {other}
           </a>
