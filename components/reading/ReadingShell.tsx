@@ -1,6 +1,10 @@
 import type { ReactNode } from "react";
 
 import { SonarcheMark } from "@/components/brand/SonarcheMark";
+import { blogCopy } from "@/components/blog/copy";
+import { guideCopy } from "@/components/guide/copy";
+import { BLOG_PATH } from "@/lib/blog";
+import { GUIDE_PATH, publishedGuides } from "@/lib/guide";
 import { GITHUB_URL, LOCALE_PATH, OTHER_LOCALE, type Locale } from "@/lib/site";
 
 import { readingCopy } from "./copy";
@@ -22,10 +26,12 @@ import { readingCopy } from "./copy";
  * belongs in it.
  */
 
+export type ReadingSection = "journal" | "guide";
+
 type ReadingShellProps = {
   locale: Locale;
-  /** The section this page belongs to — its name, and its index. */
-  section: { label: string; href: string };
+  /** Which of the two the page belongs to. The header shows both. */
+  section: ReadingSection;
   /** The other language's URL for the page being framed. */
   alternate: string;
   children: ReactNode;
@@ -34,6 +40,19 @@ type ReadingShellProps = {
 export function ReadingShell({ locale, section, alternate, children }: ReadingShellProps) {
   const copy = readingCopy[locale];
   const other = OTHER_LOCALE[locale];
+
+  /*
+   * Both sections in the header, always — that is what makes them read as two
+   * rooms of one place rather than two pages that happen to share a stylesheet.
+   * The guide joins the moment it has something published, on the same rule as
+   * the landing's footer link: a tab into an empty section is worse than no tab.
+   */
+  const sections = [
+    { key: "journal" as const, label: blogCopy[locale].journal, href: BLOG_PATH[locale] },
+    ...(publishedGuides().length > 0
+      ? [{ key: "guide" as const, label: guideCopy[locale].guide, href: GUIDE_PATH[locale] }]
+      : []),
+  ];
 
   return (
     <>
@@ -59,12 +78,21 @@ export function ReadingShell({ locale, section, alternate, children }: ReadingSh
             <span aria-hidden className="text-border leading-none">
               ·
             </span>
-            <a
-              href={section.href}
-              className="hover:text-accent text-muted font-display text-[0.8125rem] leading-none tracking-[0.02em] transition-colors"
-            >
-              {section.label}
-            </a>
+
+            <nav aria-label={copy.sections} className="flex items-center gap-3.5">
+              {sections.map((entry) => (
+                <a
+                  key={entry.key}
+                  href={entry.href}
+                  aria-current={entry.key === section ? "page" : undefined}
+                  className={`font-display text-[0.8125rem] leading-none tracking-[0.02em] transition-colors ${
+                    entry.key === section ? "text-foreground-strong font-medium" : "text-muted hover:text-accent"
+                  }`}
+                >
+                  {entry.label}
+                </a>
+              ))}
+            </nav>
           </div>
 
           <a

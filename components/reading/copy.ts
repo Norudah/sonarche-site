@@ -12,6 +12,10 @@ export type ReadingCopy = {
   /** Written as a function because the number is data, not copy. */
   readingTime: (minutes: number) => string;
   updatedOn: string;
+  /** Heading of the table of contents, and its accessible name. */
+  tableOfContents: string;
+  /** Accessible name of the header nav — never rendered, only announced. */
+  sections: string;
 };
 
 export const readingCopy: Record<Locale, ReadingCopy> = {
@@ -21,6 +25,8 @@ export const readingCopy: Record<Locale, ReadingCopy> = {
     backToSite: "Back to the site",
     readingTime: (minutes) => `${minutes} min read`,
     updatedOn: "Updated",
+    tableOfContents: "On this page",
+    sections: "Sections",
   },
   fr: {
     wordmark: "SONARCHE",
@@ -28,5 +34,7 @@ export const readingCopy: Record<Locale, ReadingCopy> = {
     backToSite: "Retour au site",
     readingTime: (minutes) => `${minutes} min de lecture`,
     updatedOn: "Mis à jour le",
+    tableOfContents: "Sommaire",
+    sections: "Sections",
   },
 };

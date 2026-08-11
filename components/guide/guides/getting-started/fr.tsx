@@ -1,6 +1,6 @@
 import { postById, postPath } from "@/lib/blog";
 
-import { Lead } from "@/components/reading/Prose";
+import { H2, Lead } from "@/components/reading/Prose";
 
 /*
  * Première mise en route, en français. Son pendant anglais est dans ./en.tsx.
@@ -29,7 +29,7 @@ export function GettingStartedFr() {
         complet, de l&apos;installation à ta première bibliothèque.
       </Lead>
 
-      <h2>Choisir le bon fichier</h2>
+      <H2>Choisir le bon fichier</H2>
 
       <p>
         Tout est sur la page des versions, et il n&apos;y a qu&apos;un fichier à prendre selon la machine. Les{" "}
@@ -55,7 +55,7 @@ export function GettingStartedFr() {
         <code>x86_64</code>. Windows sur ARM fait tourner la version x64 en émulation.
       </p>
 
-      <h2>Passer l&apos;avertissement, sur macOS</h2>
+      <H2>Passer l&apos;avertissement, sur macOS</H2>
 
       <p>
         Au premier lancement, macOS annonce qu&apos;il n&apos;a pas pu vérifier l&apos;application.{" "}
@@ -81,7 +81,7 @@ export function GettingStartedFr() {
         écrites par le mécanisme interne de l&apos;app, qui ne marque pas les fichiers comme téléchargés.
       </p>
 
-      <h2>Passer l&apos;avertissement, sur Windows</h2>
+      <H2>Passer l&apos;avertissement, sur Windows</H2>
 
       <p>
         SmartScreen affiche « Windows a protégé votre ordinateur », pour la même raison : l&apos;installateur n&apos;est
@@ -90,7 +90,7 @@ export function GettingStartedFr() {
         d&apos;élévation — ni à l&apos;installation, ni aux mises à jour.
       </p>
 
-      <h2>Le premier lancement</h2>
+      <H2>Le premier lancement</H2>
 
       <p>
         L&apos;application s&apos;ouvre sur un court parcours qui construit son environnement : elle déballe le Python
@@ -106,7 +106,7 @@ export function GettingStartedFr() {
 
       {/* CAPTURE 3 — le panneau de premier lancement, environnement construit. */}
 
-      <h2>La clé AcoustID, et pourquoi la prendre</h2>
+      <H2>La clé AcoustID, et pourquoi la prendre</H2>
 
       <p>
         Elle est gratuite, elle se demande en une minute, et elle est facultative — mais sans elle, tes morceaux sont
@@ -120,7 +120,7 @@ export function GettingStartedFr() {
         elle ne réapparaît plus dans l&apos;interface.
       </p>
 
-      <h2>Et ensuite</h2>
+      <H2>Et ensuite</H2>
 
       <p>
         À partir de là, tu as deux entrées : pointer l&apos;application sur des dossiers que tu possèdes déjà, ou

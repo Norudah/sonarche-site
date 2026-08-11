@@ -410,3 +410,15 @@ footer link only appears once a guide is published — see `draft` in lib/guide.
   reading a guide already has the app.
 - Empty index: `Nothing here yet` / The first walkthroughs are being written.
   The journal has something to read in the meantime.
+
+## Reading pages
+
+What the journal and the guide say identically. They share one frame
+(`components/reading`): same header, same footer, same typography.
+
+- Header: `SONARCHE` · `Journal` `Guide` — both sections always visible, the
+  current one in ink. The guide only joins once it has something published.
+- Table of contents heading, in the left card and folded on small screens:
+  `On this page`
+- Footer: `← Back to the site` · `From the stream into the Ark.` · `GitHub ↗`
+- Length: `{n} min read` · Revision: `Updated {date}`

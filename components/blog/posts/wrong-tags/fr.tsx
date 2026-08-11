@@ -1,4 +1,4 @@
-import { Lead, Pull } from "@/components/reading/Prose";
+import { H2, Lead, Pull } from "@/components/reading/Prose";
 
 /*
  * Le corps de l'article, en français. Son pendant anglais est dans ./en.tsx —
@@ -30,7 +30,7 @@ export function WrongTagsFr() {
         métadonnées d&apos;un morceau ne sont pas une propriété du son. Ce sont des notes laissées à côté.
       </p>
 
-      <h2>Ce qu&apos;il y a vraiment dans le fichier</h2>
+      <H2>Ce qu&apos;il y a vraiment dans le fichier</H2>
 
       <p>
         Un MP3 n&apos;est pas qu&apos;un flux audio : il traîne un petit bloc de texte, le tag <code>ID3</code>, collé
@@ -55,7 +55,7 @@ TRACKNUMBER=4`}</code>
 
       <Pull>Une bibliothèque musicale, c&apos;est un mur d&apos;étiquettes que personne n&apos;a jamais relues.</Pull>
 
-      <h2>D&apos;où viennent les étiquettes</h2>
+      <H2>D&apos;où viennent les étiquettes</H2>
 
       <p>Elles ont presque toujours l&apos;une de ces quatre origines, et chacune a sa manière de mentir.</p>
 
@@ -81,7 +81,7 @@ TRACKNUMBER=4`}</code>
         </li>
       </ul>
 
-      <h2>Les cinq façons dont ça casse</h2>
+      <H2>Les cinq façons dont ça casse</H2>
 
       <p>
         Les dégâts sont toujours les mêmes, quel que soit le point de départ. Si tu ouvres ta propre collection
@@ -114,7 +114,7 @@ TRACKNUMBER=4`}</code>
         </li>
       </ul>
 
-      <h2>Pourquoi chercher le titre ne répare rien</h2>
+      <H2>Pourquoi chercher le titre ne répare rien</H2>
 
       <p>
         Le réflexe est d&apos;envoyer le texte du tag à une base de données et de prendre le premier résultat. Ça échoue
@@ -128,7 +128,7 @@ TRACKNUMBER=4`}</code>
         sont invisibles — jusqu&apos;au jour où tu cherches un morceau et où il n&apos;est nulle part.
       </p>
 
-      <h2>Une empreinte plutôt qu&apos;un nom</h2>
+      <H2>Une empreinte plutôt qu&apos;un nom</H2>
 
       <p>
         L&apos;autre approche part du son. Un outil comme{" "}
@@ -170,7 +170,7 @@ FINGERPRINT=AQADtEmiKFKSJIeS5Hkg5X...`}</code>
         qu&apos;il prétend être.
       </Pull>
 
-      <h2>Ce que l&apos;empreinte ne fait pas</h2>
+      <H2>Ce que l&apos;empreinte ne fait pas</H2>
 
       <p>Trois limites, à connaître avant de croire à la magie.</p>
 
@@ -191,7 +191,7 @@ FINGERPRINT=AQADtEmiKFKSJIeS5Hkg5X...`}</code>
         </li>
       </ul>
 
-      <h2>Le faire soi-même</h2>
+      <H2>Le faire soi-même</H2>
 
       <p>
         Rien de tout ça n&apos;est propriétaire. <code>fpcalc</code>&#32;vient avec Chromaprint, et{" "}
@@ -214,7 +214,7 @@ $ beet import ~/Musique/à-ranger`}</code>
         terminal, et il faut vouloir y vivre aussi.
       </p>
 
-      <h2>Ce qu&apos;on gagne</h2>
+      <H2>Ce qu&apos;on gagne</H2>
 
       <p>
         Des tags justes, ce n&apos;est pas de la maniaquerie. C&apos;est ce qui fait qu&apos;une collection reste

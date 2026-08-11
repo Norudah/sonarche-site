@@ -23,11 +23,7 @@ export function GuideIndex({ locale }: { locale: Locale }) {
   const guides = publishedGuides();
 
   return (
-    <ReadingShell
-      locale={locale}
-      section={{ label: copy.guide, href: GUIDE_PATH[locale] }}
-      alternate={GUIDE_PATH[OTHER_LOCALE[locale]]}
-    >
+    <ReadingShell locale={locale} section="guide" alternate={GUIDE_PATH[OTHER_LOCALE[locale]]}>
       <div className="mx-auto w-full max-w-[38rem] px-6 pt-16 sm:px-0 sm:pt-24">
         <h1 className="text-foreground-strong font-display text-[clamp(2.25rem,5.5vw,3rem)] leading-[1.1] font-bold tracking-[-0.025em]">
           {copy.indexTitle}

@@ -35,6 +35,13 @@
  * These come after the blanket `* + *` on purpose — same specificity, and the
  * later rule is the one that wins.
  */
+/* The sticky header is 44px tall: without this, following an anchor parks the
+   heading underneath it. The extra air is what the eye expects above a title. */
+.prose h2,
+.prose h3 {
+  scroll-margin-top: 5.5rem;
+}
+
 .prose h2 {
   color: var(--foreground-strong);
   font-family: var(--font-display);

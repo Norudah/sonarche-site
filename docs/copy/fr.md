@@ -443,3 +443,14 @@ lib/guide.ts.
   téléchargement : la personne qui lit un guide a déjà l'app.
 - Index vide : `Rien ici pour l'instant` / Les premiers pas-à-pas sont en cours
   d'écriture. En attendant, il y a de quoi lire dans le journal.
+
+## Pages de lecture
+
+Ce que le journal et le guide disent à l'identique. Leur cadre est le même
+(`components/reading`) : même en-tête, même pied, même typographie.
+
+- En-tête : `SONARCHE` · `Journal` `Guide` — les deux sections toujours
+  visibles, la courante en ink. Le guide n'y entre qu'une fois publié.
+- Titre du sommaire, dans la carte de gauche et sur mobile plié : `Sommaire`
+- Pied : `← Retour au site` · `From the stream into the Ark.` · `GitHub ↗`
+- Durée : `{n} min de lecture` · Révision : `Mis à jour le {date}`

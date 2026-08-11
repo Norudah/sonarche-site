@@ -20,11 +20,7 @@ export function BlogIndex({ locale }: { locale: Locale }) {
   const copy = blogCopy[locale];
 
   return (
-    <ReadingShell
-      locale={locale}
-      section={{ label: copy.journal, href: BLOG_PATH[locale] }}
-      alternate={BLOG_PATH[OTHER_LOCALE[locale]]}
-    >
+    <ReadingShell locale={locale} section="journal" alternate={BLOG_PATH[OTHER_LOCALE[locale]]}>
       <div className="mx-auto w-full max-w-[38rem] px-6 pt-16 sm:px-0 sm:pt-24">
         <h1 className="text-foreground-strong font-display text-[clamp(2.25rem,5.5vw,3rem)] leading-[1.1] font-bold tracking-[-0.025em]">
           {copy.indexTitle}

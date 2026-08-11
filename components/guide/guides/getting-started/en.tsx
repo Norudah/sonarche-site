@@ -1,6 +1,6 @@
 import { postById, postPath } from "@/lib/blog";
 
-import { Lead } from "@/components/reading/Prose";
+import { H2, Lead } from "@/components/reading/Prose";
 
 /*
  * Getting started, in English. Its French counterpart is ./fr.tsx.
@@ -27,7 +27,7 @@ export function GettingStartedEn() {
         your first library.
       </Lead>
 
-      <h2>Picking the right file</h2>
+      <H2>Picking the right file</H2>
 
       <p>
         Everything is on the releases page, and there is exactly one file to take per machine. The <code>.tar.gz</code>
@@ -52,7 +52,7 @@ export function GettingStartedEn() {
         runs the x64 build under emulation.
       </p>
 
-      <h2>Getting past the warning on macOS</h2>
+      <H2>Getting past the warning on macOS</H2>
 
       <p>
         On first launch macOS says it could not verify the app. <strong>Do not click the blue button</strong> — it
@@ -78,7 +78,7 @@ export function GettingStartedEn() {
         does not mark files as quarantined.
       </p>
 
-      <h2>Getting past the warning on Windows</h2>
+      <H2>Getting past the warning on Windows</H2>
 
       <p>
         SmartScreen shows &ldquo;Windows protected your PC&rdquo;, for the same reason: the installer is not signed by a
@@ -86,7 +86,7 @@ export function GettingStartedEn() {
         not at install, not at update.
       </p>
 
-      <h2>The first run</h2>
+      <H2>The first run</H2>
 
       <p>
         The app opens on a short walkthrough that builds its environment: it unpacks the Python it carries, installs{" "}
@@ -99,7 +99,7 @@ export function GettingStartedEn() {
 
       {/* SHOT 3 — the first-run panel, environment built. */}
 
-      <h2>The AcoustID key, and why to bother</h2>
+      <H2>The AcoustID key, and why to bother</H2>
 
       <p>
         It is free, it takes a minute to request, and it is optional — but without it your tracks are tagged from
@@ -113,7 +113,7 @@ export function GettingStartedEn() {
         interface again.
       </p>
 
-      <h2>Where to go next</h2>
+      <H2>Where to go next</H2>
 
       <p>
         From here there are two ways in: point the app at folders you already own, or add tracks one at a time. Both run

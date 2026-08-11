@@ -1,4 +1,4 @@
-import { Lead, Pull } from "@/components/reading/Prose";
+import { H2, Lead, Pull } from "@/components/reading/Prose";
 
 /*
  * The body of the post, in English. Its French counterpart is ./fr.tsx — the
@@ -29,7 +29,7 @@ export function WrongTagsEn() {
         not a property of the sound. It is a note left beside it.
       </p>
 
-      <h2>What is actually in the file</h2>
+      <H2>What is actually in the file</H2>
 
       <p>
         An MP3 is not only an audio stream. It drags a small block of text along with it — the <code>ID3</code>&#32;tag,
@@ -54,7 +54,7 @@ TRACKNUMBER=4`}</code>
 
       <Pull>A music library is a wall of labels nobody has ever read back.</Pull>
 
-      <h2>Where the labels come from</h2>
+      <H2>Where the labels come from</H2>
 
       <p>Almost always one of four places, and each has its own way of lying.</p>
 
@@ -80,7 +80,7 @@ TRACKNUMBER=4`}</code>
         </li>
       </ul>
 
-      <h2>The five ways it breaks</h2>
+      <H2>The five ways it breaks</H2>
 
       <p>
         The damage is always the same, whatever the source. Open your own collection now and you will find at least
@@ -111,7 +111,7 @@ TRACKNUMBER=4`}</code>
         </li>
       </ul>
 
-      <h2>Why searching the title fixes nothing</h2>
+      <H2>Why searching the title fixes nothing</H2>
 
       <p>
         The instinct is to send the tag text to a database and take the first hit. That fails precisely where you need
@@ -125,7 +125,7 @@ TRACKNUMBER=4`}</code>
         looking for a track and it is nowhere.
       </p>
 
-      <h2>A fingerprint instead of a name</h2>
+      <H2>A fingerprint instead of a name</H2>
 
       <p>
         The other approach starts from the sound.{" "}
@@ -166,7 +166,7 @@ FINGERPRINT=AQADtEmiKFKSJIeS5Hkg5X...`}</code>
         It stops being a search and becomes a recognition: the file no longer gets a say in what it claims to be.
       </Pull>
 
-      <h2>What a fingerprint will not do</h2>
+      <H2>What a fingerprint will not do</H2>
 
       <p>Three limits, worth knowing before believing in magic.</p>
 
@@ -186,7 +186,7 @@ FINGERPRINT=AQADtEmiKFKSJIeS5Hkg5X...`}</code>
         </li>
       </ul>
 
-      <h2>Doing it yourself</h2>
+      <H2>Doing it yourself</H2>
 
       <p>
         None of this is proprietary. <code>fpcalc</code>&#32;ships with Chromaprint, and{" "}
@@ -209,7 +209,7 @@ $ beet import ~/Music/to-sort`}</code>
         want to live there too.
       </p>
 
-      <h2>What you get out of it</h2>
+      <H2>What you get out of it</H2>
 
       <p>
         Correct tags are not fussiness. They are what keeps a collection readable when it changes machine, software or
