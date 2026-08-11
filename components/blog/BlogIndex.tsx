@@ -1,7 +1,9 @@
 import { BLOG_PATH, formatDate, POSTS, type Post, postPath } from "@/lib/blog";
 import { OTHER_LOCALE, type Locale } from "@/lib/site";
 
-import { BlogShell } from "./BlogShell";
+import { ReadingShell } from "@/components/reading/ReadingShell";
+import { readingCopy } from "@/components/reading/copy";
+
 import { blogCopy } from "./copy";
 
 /*
@@ -18,7 +20,11 @@ export function BlogIndex({ locale }: { locale: Locale }) {
   const copy = blogCopy[locale];
 
   return (
-    <BlogShell locale={locale} alternate={BLOG_PATH[OTHER_LOCALE[locale]]}>
+    <ReadingShell
+      locale={locale}
+      section={{ label: copy.journal, href: BLOG_PATH[locale] }}
+      alternate={BLOG_PATH[OTHER_LOCALE[locale]]}
+    >
       <div className="mx-auto w-full max-w-[38rem] px-6 pt-16 sm:px-0 sm:pt-24">
         <h1 className="text-foreground-strong font-display text-[clamp(2.25rem,5.5vw,3rem)] leading-[1.1] font-bold tracking-[-0.025em]">
           {copy.indexTitle}
@@ -33,7 +39,7 @@ export function BlogIndex({ locale }: { locale: Locale }) {
           ))}
         </ul>
       </div>
-    </BlogShell>
+    </ReadingShell>
   );
 }
 
@@ -45,6 +51,7 @@ export function BlogIndex({ locale }: { locale: Locale }) {
  */
 function PostCard({ post, locale }: { post: Post; locale: Locale }) {
   const copy = blogCopy[locale];
+  const shared = readingCopy[locale];
 
   return (
     <a href={postPath(post, locale)} className="block py-7">
@@ -53,7 +60,7 @@ function PostCard({ post, locale }: { post: Post; locale: Locale }) {
         <span aria-hidden className="text-border">
           ·
         </span>
-        <span>{copy.readingTime(post.minutes)}</span>
+        <span>{shared.readingTime(post.minutes)}</span>
       </p>
 
       {/* Each part answers for itself: no `group-hover` anywhere on this row.

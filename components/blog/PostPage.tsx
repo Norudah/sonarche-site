@@ -1,12 +1,14 @@
 import type { ReactNode } from "react";
 
-import { formatDate, type Post, postPath } from "@/lib/blog";
+import { BLOG_PATH, formatDate, type Post, postPath } from "@/lib/blog";
 import { OTHER_LOCALE, type Locale } from "@/lib/site";
 
-import { BlogShell } from "./BlogShell";
+import { ReadingShell } from "@/components/reading/ReadingShell";
+import { Prose } from "@/components/reading/Prose";
+import { readingCopy } from "@/components/reading/copy";
+
 import { PostCta } from "./PostCta";
 import { PostSchema } from "./PostSchema";
-import { Prose } from "./Prose";
 import { blogCopy } from "./copy";
 
 /*
@@ -26,10 +28,11 @@ type PostPageProps = {
 
 export function PostPage({ post, locale, children }: PostPageProps) {
   const copy = blogCopy[locale];
+  const shared = readingCopy[locale];
   const alternate = postPath(post, OTHER_LOCALE[locale]);
 
   return (
-    <BlogShell locale={locale} alternate={alternate}>
+    <ReadingShell locale={locale} section={{ label: copy.journal, href: BLOG_PATH[locale] }} alternate={alternate}>
       <PostSchema post={post} locale={locale} />
 
       <article className="mx-auto w-full max-w-[38rem] px-6 pt-14 sm:px-0 sm:pt-20">
@@ -42,14 +45,14 @@ export function PostPage({ post, locale, children }: PostPageProps) {
             <span aria-hidden className="text-border">
               ·
             </span>
-            <span>{copy.readingTime(post.minutes)}</span>
+            <span>{shared.readingTime(post.minutes)}</span>
             {post.updated && (
               <>
                 <span aria-hidden className="text-border">
                   ·
                 </span>
                 <time dateTime={post.updated}>
-                  {copy.updatedOn} {formatDate(post.updated, locale)}
+                  {shared.updatedOn} {formatDate(post.updated, locale)}
                 </time>
               </>
             )}
@@ -66,6 +69,6 @@ export function PostPage({ post, locale, children }: PostPageProps) {
 
         <PostCta locale={locale} />
       </article>
-    </BlogShell>
+    </ReadingShell>
   );
 }

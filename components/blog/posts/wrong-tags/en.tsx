@@ -1,15 +1,19 @@
-import { Lead, Pull } from "@/components/blog/Prose";
+import { Lead, Pull } from "@/components/reading/Prose";
 
 /*
  * The body of the post, in English. Its French counterpart is ./fr.tsx — the
  * two make the same argument and are not word-for-word translations of each
  * other: they are two texts written for two readers.
  *
- * `&#32;` after an inline tag rather than a space: JSX strips the leading space
- * of a text node that wraps onto several lines, and Prettier rewrites `{" "}`
- * back into a literal space the moment it fits. Together they glue the next
- * word to the tag — silently, with no compile error. An entity is not
- * whitespace: nothing trims it and nothing rewrites it.
+ * Two rules for the space around an inline tag, and they are not symmetric:
+ *   - AFTER the tag, `&#32;` — JSX trims the leading space of a text node that
+ *     wraps onto several lines, and Prettier rewrites `{" "}` back into a
+ *     literal space the moment it fits.
+ *   - BEFORE the tag, `{" "}` — the other way round: an entity at the end of a
+ *     line is decoded and then trimmed along with the newline, while `{" "}`
+ *     there is exactly what Prettier writes and keeps.
+ * Either way the mistake is silent: the word glues itself to the tag, with no
+ * compile error. The check is in docs/CONTEXT.md.
  */
 
 export function WrongTagsEn() {

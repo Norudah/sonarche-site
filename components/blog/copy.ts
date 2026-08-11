@@ -1,7 +1,9 @@
 import type { Locale } from "@/lib/site";
 
 /* Verbatim from docs/copy/en.md and fr.md § The journal / Le journal.
-   The posts' own text lives with each post, in components/blog/posts. */
+   What the journal shares with the guide — wordmark, tagline, reading time —
+   lives in components/reading/copy.ts. The posts' own text lives with each
+   post, in components/blog/posts. */
 
 export type BlogCopy = {
   /** The nav label, beside the wordmark. */
@@ -12,9 +14,6 @@ export type BlogCopy = {
    *  be matched against a query — "Le journal de bord" is a good headline and a
    *  useless title. */
   indexSearchTitle: string;
-  /** Written as a function because the number is data, not copy. */
-  readingTime: (minutes: number) => string;
-  updatedOn: string;
   /** The button on a row of the index. The whole row is the link — this says
    *  out loud what clicking anywhere on it does. */
   readPost: string;
@@ -22,12 +21,6 @@ export type BlogCopy = {
   ctaTitle: string;
   ctaBody: string;
   ctaLink: string;
-  backToSite: string;
-  /** Label of the link to the other language, in that language. */
-  otherLanguage: string;
-  /** BRAND — English in every language. */
-  tagline: string;
-  wordmark: string;
 };
 
 export const blogCopy: Record<Locale, BlogCopy> = {
@@ -37,17 +30,11 @@ export const blogCopy: Record<Locale, BlogCopy> = {
     indexSearchTitle: "Sonarche journal — music libraries, tags and metadata",
     indexDek:
       "Notes on music you own: files, metadata, formats, and what it takes for a library to outlive the apps that read it.",
-    readingTime: (minutes) => `${minutes} min read`,
-    updatedOn: "Updated",
     readPost: "Read the post",
     ctaTitle: "Sonarche does all of this for you",
     ctaBody:
       "A desktop app that identifies every track by its own audio, files it in plain folders you can read without it, and plays the lot on a native engine. Free, open source, offline.",
     ctaLink: "Discover Sonarche",
-    backToSite: "Back to the site",
-    otherLanguage: "Français",
-    tagline: "From the stream into the Ark.",
-    wordmark: "SONARCHE",
   },
   fr: {
     journal: "Journal",
@@ -55,16 +42,10 @@ export const blogCopy: Record<Locale, BlogCopy> = {
     indexSearchTitle: "Journal Sonarche — bibliothèque musicale, tags et métadonnées",
     indexDek:
       "Des notes sur la musique qu'on possède : fichiers, métadonnées, formats, et ce qu'il faut pour qu'une bibliothèque survive aux applications qui la lisent.",
-    readingTime: (minutes) => `${minutes} min de lecture`,
-    updatedOn: "Mis à jour le",
     readPost: "Lire l'article",
     ctaTitle: "Sonarche fait tout ça pour toi",
     ctaBody:
       "Une app de bureau qui identifie chaque morceau à l'oreille, le range dans des dossiers clairs que tu peux lire sans elle, et joue l'ensemble sur un moteur natif. Gratuite, open source, hors ligne.",
     ctaLink: "Découvrir Sonarche",
-    backToSite: "Retour au site",
-    otherLanguage: "English",
-    tagline: "From the stream into the Ark.",
-    wordmark: "SONARCHE",
   },
 };
