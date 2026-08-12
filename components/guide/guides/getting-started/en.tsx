@@ -5,13 +5,13 @@ import { H2, Lead } from "@/components/reading/Prose";
 /*
  * Getting started, in English. Its French counterpart is ./fr.tsx.
  *
- * DRAFT — see `draft: true` in lib/guide.ts. What it needs before it ships:
+ * Published without its screenshots: the text carries the walkthrough on its
+ * own, and three shots are still owed to it.
  *   1. SHOT — the macOS warning as it really appears (Romain took one on
  *      2026-07-28, in the app repo).
  *   2. SHOT — System Settings › Privacy & Security, the Sonarche line and its
  *      "Open Anyway" button.
  *   3. SHOT — the first-run panel, once the environment is built.
- *   4. Re-read against the version of the day and bump `appVersion`.
  * The places they go are marked SHOT below.
  *
  * Spaces around inline tags: see the comment at the head of

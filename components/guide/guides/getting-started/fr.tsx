@@ -5,15 +5,14 @@ import { H2, Lead } from "@/components/reading/Prose";
 /*
  * Première mise en route, en français. Son pendant anglais est dans ./en.tsx.
  *
- * BROUILLON — voir `draft: true` dans lib/guide.ts. Ce qui manque avant de le
- * publier :
+ * Publié sans ses captures : le texte porte le pas-à-pas tout seul, et trois
+ * captures lui sont encore dues.
  *   1. CAPTURE — l'avertissement macOS, tel qu'il apparaît vraiment (Romain en
  *      a pris une le 2026-07-28, dans le repo de l'app).
  *   2. CAPTURE — Réglages Système › Confidentialité et sécurité, la ligne
  *      Sonarche et le bouton « Ouvrir quand même ».
  *   3. CAPTURE — le panneau de premier lancement, une fois l'environnement
  *      construit.
- *   4. Relire sur la version publiée du jour et remonter `appVersion`.
  * Les emplacements sont marqués ci-dessous par des commentaires CAPTURE.
  *
  * Espaces autour des balises en ligne : voir le commentaire en tête de

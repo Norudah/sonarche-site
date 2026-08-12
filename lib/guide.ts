@@ -40,7 +40,7 @@ export type Guide = {
   /** The URL segment, per language: a French reader gets a French slug. */
   slug: Record<Locale, string>;
   topic: Topic;
-  /** The app version this guide was last checked against, e.g. "0.9.1". */
+  /** The app version this guide was last checked against, e.g. "2.0.0". */
   appVersion: string;
   /** ISO day of the last real revision. Drives the sitemap, not the page. */
   updated: string;
@@ -70,8 +70,8 @@ export const GUIDES: Guide[] = [
       en: "getting-started",
     },
     topic: "start",
-    appVersion: "0.9.1",
-    updated: "2026-08-11",
+    appVersion: "2.0.0",
+    updated: "2026-08-12",
     title: {
       fr: "Première mise en route",
       en: "Getting started",
@@ -81,7 +81,63 @@ export const GUIDES: Guide[] = [
       en: "From install to a first library: the system warning, the first-run walkthrough, the AcoustID key and what it changes.",
     },
     minutes: 5,
-    draft: true,
+  },
+  {
+    id: "interface-tour",
+    slug: {
+      fr: "visite-de-l-interface",
+      en: "interface-tour",
+    },
+    topic: "start",
+    appVersion: "2.0.0",
+    updated: "2026-08-12",
+    title: {
+      fr: "Visite de l'interface",
+      en: "A tour of the interface",
+    },
+    description: {
+      fr: "Les quatre zones de la fenêtre, la bascule Écoute / Inspection, le code couleur, et ce que chaque étagère de l'Arche range exactement.",
+      en: "The window's four fixed zones, the Listening / Inspecting switch, the color code, and what each shelf of the Arche actually holds.",
+    },
+    minutes: 10,
+  },
+  {
+    id: "edit-track",
+    slug: {
+      fr: "modifier-un-morceau",
+      en: "editing-a-track",
+    },
+    topic: "library",
+    appVersion: "2.0.0",
+    updated: "2026-08-12",
+    title: {
+      fr: "Modifier les métadonnées d'un morceau",
+      en: "Editing a track's metadata",
+    },
+    description: {
+      fr: "Le tiroir Piste de haut en bas : les sept champs comptés, Artiste contre Artiste de l'album, l'autocomplétion, le re-match, et ce que l'enregistrement écrit vraiment dans le fichier.",
+      en: "The Track drawer top to bottom: the seven counted fields, Artist versus Album artist, autocompletion, re-match, and what saving actually writes into the file.",
+    },
+    minutes: 9,
+  },
+  {
+    id: "edit-album",
+    slug: {
+      fr: "modifier-un-album",
+      en: "editing-an-album",
+    },
+    topic: "library",
+    appVersion: "2.0.0",
+    updated: "2026-08-12",
+    title: {
+      fr: "Modifier un album entier",
+      en: "Editing a whole album",
+    },
+    description: {
+      fr: "La modale Album · métadonnées : l'anneau de complétion, Album ou Collection, les champs mixtes qui n'écrasent rien, les propositions à trancher et le remplacement de pochette.",
+      en: "The Album · metadata modal: the completion ring, Album versus Collection, mixed fields that never flatten anything, the suggestions to answer, and replacing the cover.",
+    },
+    minutes: 11,
   },
 ];
 
