@@ -211,12 +211,18 @@ someone who already uses Sonarche belongs in the repo's README, not here.
   - **Before** a tag write `{" "}`: an entity at the end of a line is decoded
     and then trimmed along with the newline; `{" "}` there is what Prettier
     writes and keeps.
+  - **French punctuation is a third face of the same trap** (found 2026-08-12):
+    `:` `;` `?` `!` `»` take a space before them and `«` one after, so a
+    multi-line text node starting with `: ` after `</a>` loses its leading
+    space to the same JSX trim and builds `morceau</a>:` instead of
+    `morceau</a>&#32;:`. The check flags those adjacencies on FR pages only —
+    everything outside `out/en/` — because in English `</strong>:` is correct.
 
   Run this over the built HTML before publishing anything — it is the only
   check that catches it:
 
   ```bash
-  python3 -c "import re,glob;[print(f,m.group(0)) for f in glob.glob('out/**/index.html',recursive=True) for a in re.findall(r'<article.*?</article>',open(f,encoding='utf8').read(),re.S) for m in re.finditer(r'.{20}</(?:strong|em|code|a)>[A-Za-z0-9].{15}|.{20}[A-Za-z0-9]<(?:strong|em|code|a)[ >].{15}',a)]"
+  python3 -c 'import re,glob;[print(f,m.group(0)) for f in glob.glob("out/**/index.html",recursive=True) for a in re.findall(r"<article.*?</article>",open(f,encoding="utf8").read(),re.S) for m in re.finditer(r".{20}</(?:strong|em|code|a)>[A-Za-z0-9].{15}|.{20}[A-Za-z0-9]<(?:strong|em|code|a)[ >].{15}"+(""if f.startswith("out/en/")else r"|.{20}</(?:strong|em|code|a)>[:;?!»].{15}|.{20}«<(?:strong|em|code|a)[ >].{15}"),a)]'
   ```
 
 ## The guide (added 2026-08-11)
@@ -237,6 +243,11 @@ written for someone who has the app open on the other screen.
   routes — so it can be read and judged at its own URL. `next dev` lists drafts;
   a production build never does. The footer's guide link and the guide index
   itself both opt out until something is actually published.
+- **Published on 2026-08-12, against Sonarche 2.0.0** (first mise en route,
+  interface tour, editing a track, editing an album). The mechanism above stays
+  for whatever is written next; nothing on the site is a draft any more. The
+  first mise en route ships without its three screenshots: the text carries the
+  walkthrough alone, and the `CAPTURE` marks say where they go.
 - **Screenshots are the maintenance cost, so they are rationed.** Text first;
   a shot only where the words genuinely cannot carry it. The places one is
   needed are marked `CAPTURE` / `SHOT` in the prose file, with the list at the
