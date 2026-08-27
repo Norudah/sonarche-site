@@ -77,7 +77,7 @@ export const oldWayCopy: Record<Locale, OldWayCopy> = {
         tool: "Un site de conversion",
         gripe:
           "Un lien à la fois, converti sur le serveur de quelqu'un d'autre. Tu attends dans une file, puis le navigateur dépose le fichier où bon lui semble.",
-        cost: "Lent, un morceau, ré-encodé.",
+        cost: "Lent et un seul morceau à la fois.",
       },
       {
         step: "APP 1",
@@ -90,25 +90,25 @@ export const oldWayCopy: Record<Locale, OldWayCopy> = {
         step: "APP 2",
         tool: "Un éditeur de tags",
         gripe: "Ouvrir chaque fichier. Retaper le titre, l'artiste, l'année, le numéro de piste. Multiplié par 80.",
-        cost: "Des heures de saisie.",
+        cost: "Des heures de saisies et de clics manuels.",
       },
       {
         step: "ONGLET 2",
         tool: "Une recherche d'images",
         gripe:
           "Chercher une pochette carrée qui ne soit pas une vignette filigranée, la recadrer, espérer qu'elle corresponde au bon pressage.",
-        cost: "La mauvaise pochette pour toujours.",
+        cost: "Des rectangles, des carrés : c'est pas carré.",
       },
       {
         step: "APP 3",
         tool: "Ton lecteur de musique",
         gripe:
           "Déplacer les fichiers, relancer l'analyse du dossier, puis découvrir trois doublons et un album coupé en deux.",
-        cost: "Une bibliothèque bancale quand même.",
+        cost: "Résultat ? Une bibliothèque bancale.",
       },
     ],
-    punchHeading: "Sonarche fait les cinq. Dans une seule fenêtre.",
+    punchHeading: "Sonarche fait les cinq. Dans une seule application.",
     punchBody:
-      "Donne-lui un lien et va vivre ta vie. L'audio rejoint la cale, se fait écouter, identifier, taguer, coiffer de sa vraie pochette, ranger dans le bon dossier. Puis la lecture démarre, sur un moteur audio natif en Rust. Pas de relais, pas de ré-import, pas de deuxième app.",
+      "Colle un lien et fais ta vie à côté. Sonarche s'occupe du reste : il télécharge ou importe tes musiques, les identifie, remplit les tags, donne une pochette d'album. Le tout dans ton dossier, sur ta machine. Rien n'est fermé, tu peux transférer ta bibliothèque ailleurs ou lire ta musique ici, sur un vrai lecteur audio écrit en Rust.",
   },
 };

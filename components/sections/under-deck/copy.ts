@@ -127,7 +127,7 @@ export const underDeckCopy: Record<Locale, UnderDeckCopy> = {
     headingBefore: "Pas de magie.",
     headingEmphasis: "Des outils éprouvés",
     headingAfter: ", bien orchestrés.",
-    body: "Rien ne t'oblige à t'y intéresser, mais tout est là, en mots simples, parce que tu mérites de savoir ce qui tourne sur ta machine.",
+    body: "Rien ne t'oblige à t'y intéresser, mais tout est là si tu t'y intéresses, parce que tu mérites de savoir ce qui tourne sur ta machine.",
     cards: [
       {
         tag: "LA COQUE",
@@ -137,7 +137,7 @@ export const underDeckCopy: Record<Locale, UnderDeckCopy> = {
       {
         tag: "LE MOTEUR",
         title: "Du Rust en dessous",
-        text: "Tout ce qui est lourd tourne en Rust : la récupération, l'écriture des fichiers, la lecture audio. C'est la différence entre un lecteur qui hoquette et un lecteur qui ne bronche pas.",
+        text: "Tout ce qui est lourd tourne en Rust : la récupération, l'écriture des fichiers, la lecture audio. C'est la différence entre un lecteur bugué, lent et un lecteur efficace, rapide, qui ne bronche pas.",
       },
       {
         tag: "LA CAISSE À OUTILS",
@@ -149,17 +149,17 @@ export const underDeckCopy: Record<Locale, UnderDeckCopy> = {
     nodes: [
       {
         id: "stream",
-        title: "Le flux",
-        text: "Une URL quelque part : un titre, un album, une playlist.",
+        title: "Téléchargement",
+        text: "Un URL quelque part : un titre, un album, une playlist.",
         aside: "le web ouvert",
       },
       {
         id: "folders",
-        title: "Tes dossiers",
-        text: "Ce que tu as déjà : un port d'attache, pas qu'un quai. Copié, jamais déplacé.",
-        aside: "hors réseau",
+        title: "Importation",
+        text: "Ta bibliothèque actuelle, ce que tu as déjà : copié, jamais déplacé.",
+        aside: "hors ligne",
       },
-      { id: "ytdlp", title: "yt-dlp", text: "Hisse l'audio natif à bord. Jamais de ré-encodage." },
+      { id: "ytdlp", title: "yt-dlp", text: "Récupère l'audio original du lien, tel quel : jamais reconverti." },
       {
         id: "ffmpeg",
         title: "ffmpeg + Chromaprint",
@@ -198,7 +198,7 @@ export const underDeckCopy: Record<Locale, UnderDeckCopy> = {
       {
         id: "folder",
         title: "📁 /sonarche",
-        text: "Après tout ça, ce n'est qu'un dossier de musique. Le tien. Ouvre-le, déplace-le, sauvegarde-le.",
+        text: "Ton dossier de musique. Le tien. Ouvre-le, déplace-le, sauvegarde-le.",
       },
     ],
     servicesNote:

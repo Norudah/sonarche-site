@@ -62,12 +62,12 @@ export const noExpertiseCopy: Record<Locale, NoExpertiseCopy> = {
     headingEmphasis: "un tag",
     headingAfter: ".",
     bodies: [
-      "Tout ce qui peut être automatisé l'est déjà : une bibliothèque impeccable sans jamais ouvrir un éditeur de métadonnées. Et ce qui reste, l'app l'explique en mots simples plutôt qu'en champs vides.",
-      "Quand elle n'est pas d'accord avec toi, c'est toi qui gagnes. Ton disque préféré, c'est du thrash et pas du heavy metal ? Change-le. Un clic, zéro friction, et Sonarche te dit exactement ce qu'il a écrit, dans quels fichiers, avec des mots qui se passent de wiki.",
+      "Ou bien même les « métadonnées » ou tout autre nom technique. Tout ce qui peut être automatisé l'est déjà : une bibliothèque impeccable sans jamais ouvrir un éditeur de métadonnées ou de fichier. Pour le reste tu n'es pas perdu, des aides sont disséminées un peu partout dans l'application et t'expliquent les termes compliqués.",
+      "Quand elle n'est pas d'accord avec toi, c'est toi qui gagnes. Ton disque préféré, c'est du thrash et pas du heavy metal ? Change-le. Un clic, zéro friction.",
     ],
     guides: [
-      "Des réglages sensés à l'import : la plupart des albums n'attendent rien de toi.",
-      "Tout ce qui est incertain est signalé en langage clair, et le choix t'est posé noir sur blanc.",
+      "Des réglages intelligents à l'importation : la plupart des albums n'attendent rien de toi.",
+      "Tout ce qui est incertain est signalé clairement dans l'onglet Métadonnées : tu as le choix de t'en occuper ou non.",
       "Chaque modification te dit quels fichiers elle a touchés, avant et après.",
     ],
     widget: {

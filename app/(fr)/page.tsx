@@ -25,7 +25,7 @@ import { BRAND_TITLE, LANGUAGE_ALTERNATES, LOCALE_PATH, OG_IMAGE, OG_LOCALE, SEA
  * thing to 181 — the part Google cut off.
  */
 const DESCRIPTION =
-  "Une bibliothèque musicale qui t'appartient vraiment : chaque morceau identifié à l'oreille, rangé dans de simples fichiers, lu par un moteur natif.";
+  "Une bibliothèque musicale qui t'appartient vraiment : chaque morceau identifié à l'oreille, tes fichiers sur ta machine, avec les bonnes informations.";
 
 export const metadata: Metadata = {
   // See lib/site.ts: the search title says what this is, the brand title carries

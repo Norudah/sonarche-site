@@ -21,51 +21,59 @@ la maquette avait laissées en anglais, sont traduites ici.
 - Wordmark : `SONARCHE`
 - Tagline : `From the stream into the Ark.` (EN — voir règle ci-dessus)
 - Subline : Une bibliothèque musicale qui t'appartient vraiment : chaque
-  morceau identifié à l'oreille, rangé dans de simples fichiers, lu par un
-  moteur natif.
+  morceau identifié à l'oreille, tes fichiers sur ta machine, avec les
+  bonnes informations.
 - CTA principal : le bouton de téléchargement — voir § Téléchargement
-- CTA secondaire : `Voir comment ça marche ↓`
+- CTA secondaire : `Comment ça marche ↓`
 - Indice de scroll : `DÉFILER ↓`
 
 ## La traversée
 
 - Kicker : `LA TRAVERSÉE`
-- Titre : Un lien y entre. Une bibliothèque en sort.
-- Sous-titre : Quatre gestes, une chaîne d'un seul tenant, et plus un clic
-  après le premier.
+- Titre : Un lien entre, et une bibliothèque naît.
+- Sous-titre : Un processus en 4 étapes simples : tu n'as presque rien à
+  faire à part regarder Sonarche travailler pour toi.
 
 ### Étape 01 — Colle un lien
 
-Un titre, un album, une playlist entière. Dépose-le dans l'app et le voyage
-s'organise : une ligne par morceau, avant que rien ne soit embarqué.
-Chips : `un morceau` · `un album` · `une playlist`
-Note : Déjà dans la cale ? Il passe son tour, sans un mot.
+Un titre, un album, une playlist entière sur internet. Colle le lien dans
+l'application et le voyage commence.
+Note : Déjà dans la cale ? Il passe son tour. Pas de duplication.
 
 ### Étape 02 — Regarde la cargaison monter à bord
 
-Les pastilles passent au vert une à une pendant que l'audio natif est hissé à
-bord, intact et jamais ré-encodé, puis rejoint la cale.
-Chips : `yt-dlp` · `audio natif` · `aucun ré-encodage`
-Note : Ferme la fenêtre en pleine manœuvre : la file reprendra exactement où
-elle s'est arrêtée.
+L'interface te montre exactement ce qu'il se passe : la source a-t-elle été
+récupérée ? Check. Le fichier est-il présent physiquement sur ton
+ordinateur ? Check. A-t-on pu identifier le morceau correctement ? Check.
+Les pastilles passent au vert une à une, tu sais exactement où regarder si
+un problème est détecté.
+Note : Si tu fermes la fenêtre pendant l'opération, la suite sera reprise
+automatiquement au prochain lancement : tu ne perds pas ta progression.
 
 ### Étape 03 — Empreinte et identification
 
-ffmpeg et Chromaprint distillent l'audio lui-même en une empreinte acoustique.
-AcoustID répond : c'est cet enregistrement-là, exactement, sans jamais
-deviner d'après le titre.
-Chips : `ffmpeg` · `Chromaprint` · `AcoustID`
-Note : Pas de correspondance sûre ? L'app le dit et te laisse trancher, plutôt
-que d'inventer un artiste.
+ffmpeg et Chromaprint analysent l'audio directement, et extraient une
+empreinte acoustique. Cette empreinte, si elle est identifiée, sert de carte
+d'identité au morceau associé. Elle peut alors être utilisée auprès
+d'AcoustID, qui va permettre de certifier avec certitude que le morceau est
+bien celui-ci, et non deviné par divers tags ou autre.
+Note : Pas de correspondance sûre ? Sonarche t'informe et te laisse trancher
+plutôt que d'inventer.
 
-### Étape 04 — Il reçoit son nom
+### Étape 04 — Informations et métadonnées
 
 Titre, artiste, album, genre, piste, année. Et la vraie pochette. Tout est
-écrit dans les tags du fichier lui-même, et jusque dans le dossier qui
-l'abrite désormais.
-Chips : `MusicBrainz` · `pochette` · `famille de genre`
+écrit dans les tags et les métadonnées du fichier. Pas de nom bizarre ou de
+convention : la source de vérité est dans les tags, et Sonarche s'en occupe
+correctement. Et si tu n'es pas satisfait, ou que tu souhaites customiser à
+ta sauce, Sonarche met à disposition un système accessible pour modifier en
+quelques clics le genre d'une musique ou d'un artiste, pour que ta
+bibliothèque corresponde vraiment à tes goûts et à ta propre façon de
+t'organiser.
 Note : Dans les fichiers eux-mêmes, pas dans une base que seul Sonarche
-saurait lire.
+saurait lire. Sonarche reste libre et open source. Tes fichiers, ta décision.
+Sonarche complète les fichiers au maximum : libre à toi de rester ou non
+dans l'écosystème Sonarche.
 
 ## L'ancienne méthode
 
@@ -80,27 +88,29 @@ Chaque carte : libellé d'étape — outil — grief — coût.
 
 1. `ONGLET 1` — **Un site de conversion** — Un lien à la fois, converti sur le
    serveur de quelqu'un d'autre. Tu attends dans une file, puis le navigateur
-   dépose le fichier où bon lui semble. — _Lent, un morceau, ré-encodé._
+   dépose le fichier où bon lui semble. — _Lent et un seul morceau à la fois._
 2. `APP 1` — **Un téléchargeur en masse** — Il gère la playlist, au moins.
    Mais il remplit les tags avec le nom du fichier : ton artiste s'appelle
    « Unknown » et ton album est vide. — _Des tags devinés._
 3. `APP 2` — **Un éditeur de tags** — Ouvrir chaque fichier. Retaper le titre,
    l'artiste, l'année, le numéro de piste. Multiplié par 80. — _Des heures de
-   saisie._
+   saisies et de clics manuels._
 4. `ONGLET 2` — **Une recherche d'images** — Chercher une pochette carrée qui
    ne soit pas une vignette filigranée, la recadrer, espérer qu'elle
-   corresponde au bon pressage. — _La mauvaise pochette pour toujours._
+   corresponde au bon pressage. — _Des rectangles, des carrés : c'est pas
+   carré._
 5. `APP 3` — **Ton lecteur de musique** — Déplacer les fichiers, relancer
    l'analyse du dossier, puis découvrir trois doublons et un album coupé en
-   deux. — _Une bibliothèque bancale quand même._
+   deux. — _Résultat ? Une bibliothèque bancale._
 
 ### La chute
 
-- Titre punch : Sonarche fait les cinq. Dans une seule fenêtre.
-- Corps punch : Donne-lui un lien et va vivre ta vie. L'audio rejoint la cale,
-  se fait écouter, identifier, taguer, coiffer de sa vraie pochette, ranger dans
-  le bon dossier. Puis la lecture démarre, sur un moteur audio natif en Rust.
-  Pas de relais, pas de ré-import, pas de deuxième app.
+- Titre punch : Sonarche fait les cinq. Dans une seule application.
+- Corps punch : Colle un lien et fais ta vie à côté. Sonarche s'occupe du
+  reste : il télécharge ou importe tes musiques, les identifie, remplit les
+  tags, donne une pochette d'album. Le tout dans ton dossier, sur ta machine.
+  Rien n'est fermé, tu peux transférer ta bibliothèque ailleurs ou lire ta
+  musique ici, sur un vrai lecteur audio écrit en Rust.
 
 ## Les vrais noms
 
@@ -133,18 +143,19 @@ Chaque carte : libellé d'étape — outil — grief — coût.
 
 - Kicker : `ZÉRO EXPERTISE REQUISE`
 - Titre : Tu n'as pas besoin de savoir ce qu'est un tag.
-- Corps 1 : Tout ce qui peut être automatisé l'est déjà : une bibliothèque
-  impeccable sans jamais ouvrir un éditeur de métadonnées. Et ce qui reste,
-  l'app l'explique en mots simples plutôt qu'en champs vides.
+- Corps 1 : Ou bien même les « métadonnées » ou tout autre nom technique.
+  Tout ce qui peut être automatisé l'est déjà : une bibliothèque impeccable
+  sans jamais ouvrir un éditeur de métadonnées ou de fichier. Pour le reste
+  tu n'es pas perdu, des aides sont disséminées un peu partout dans
+  l'application et t'expliquent les termes compliqués.
 - Corps 2 : Quand elle n'est pas d'accord avec toi, c'est toi qui gagnes. Ton
   disque préféré, c'est du thrash et pas du heavy metal ? Change-le. Un clic,
-  zéro friction, et Sonarche te dit exactement ce qu'il a écrit, dans quels
-  fichiers, avec des mots qui se passent de wiki.
+  zéro friction.
 - Repères (3 puces) :
-  - Des réglages sensés à l'import : la plupart des albums n'attendent rien
-    de toi.
-  - Tout ce qui est incertain est signalé en langage clair, et le choix t'est
-    posé noir sur blanc.
+  - Des réglages intelligents à l'importation : la plupart des albums
+    n'attendent rien de toi.
+  - Tout ce qui est incertain est signalé clairement dans l'onglet
+    Métadonnées : tu as le choix de t'en occuper ou non.
   - Chaque modification te dit quels fichiers elle a touchés, avant et après.
 - Widget : `Genre — Ride the Lightning` · Heavy Metal → Thrash Metal ·
   « Ce qui vient de se passer » — Thrash Metal appartient à la famille Metal :
@@ -152,9 +163,9 @@ Chaque carte : libellé d'étape — outil — grief — coût.
   tags des 8 fichiers, et rien d'autre ne change. ·
   `Famille de genre : Metal ↳ dérivé`
 
-## La cale est à toi
+## Ton navire, ton équipage
 
-- Kicker : `LA CALE EST À TOI`
+- Kicker : `TON NAVIRE, TON ÉQUIPAGE`
 - Titre : Rien n'est verrouillé ici. Ce ne sont que des fichiers.
 - Corps : Tout atterrit dans `Music/Sonarche/`, juste à côté du dossier que
   ton app actuelle utilise déjà. Les noms vivent dans les fichiers eux-mêmes,
@@ -182,8 +193,7 @@ Chaque carte : libellé d'étape — outil — grief — coût.
 - **Un téléphone** — branche-le, dépose le dossier, terminé
 - **Un disque dur** — ta sauvegarde est un copier-coller
 - **Un autre lecteur** — les tags sont standard : il les lit
-- **Une autre machine** — aucun compte, aucun ré-import, aucun service de
-  synchro
+- **Une autre machine** — aucun compte, aucun ré-import ni synchronisation
 
 - Chute : Et si Sonarche ne te plaît plus, ta bibliothèque part avec toi,
   taguée jusqu'au dernier morceau.
@@ -192,8 +202,8 @@ Chaque carte : libellé d'étape — outil — grief — coût.
 
 - Kicker : `SOUS LE PONT`
 - Titre : Pas de magie. Des outils éprouvés, bien orchestrés.
-- Corps : Rien ne t'oblige à t'y intéresser, mais tout est là, en mots
-  simples, parce que tu mérites de savoir ce qui tourne sur ta machine.
+- Corps : Rien ne t'oblige à t'y intéresser, mais tout est là si tu t'y
+  intéresses, parce que tu mérites de savoir ce qui tourne sur ta machine.
 
 ### Trois cartes
 
@@ -203,8 +213,8 @@ Chaque carte : libellé d'étape — outil — grief — coût.
   quelques mégaoctets, pas un navigateur embarqué qui dévore ta RAM.
 - `LE MOTEUR` — **Du Rust en dessous** — Tout ce qui est lourd tourne en Rust : la
   récupération, l'écriture des fichiers, la lecture audio.
-  C'est la différence entre un lecteur qui hoquette et un lecteur qui ne
-  bronche pas.
+  C'est la différence entre un lecteur bugué, lent et un lecteur efficace,
+  rapide, qui ne bronche pas.
 - `LA CAISSE À OUTILS` — **Un sidecar scellé** — beets et ses outils Python
   vivent à l'intérieur de l'app, dans leur propre runtime embarqué. Rien à
   installer, rien à mettre à jour, et rien qui puisse entrer en conflit avec
@@ -212,17 +222,17 @@ Chaque carte : libellé d'étape — outil — grief — coût.
 
 ### Nœuds du schéma
 
-- Le flux — Une URL quelque part : un titre, un album, une playlist.
+- Téléchargement — Une URL quelque part : un titre, un album, une playlist.
   (_le web ouvert_)
-- Tes dossiers — Ce que tu as déjà : un port d'attache, pas qu'un quai.
-  Copié, jamais déplacé. (_hors réseau_)
+- Importation — Ta bibliothèque actuelle, ce que tu as déjà : copié, jamais
+  déplacé. (_hors ligne_)
 - `PYTHON EMBARQUÉ · SCELLÉ, LIVRÉ AVEC L'APP`
-- yt-dlp — Hisse l'audio natif à bord. Jamais de ré-encodage.
+- yt-dlp — Récupère l'audio original du lien, tel quel : jamais reconverti.
 - ffmpeg + Chromaprint — Distille chaque morceau en empreinte acoustique.
 - beets (_le chef d'orchestre_) — Dirige chaque appel, vérifie chaque tag,
   et range chaque morceau à sa place dans la bibliothèque.
-- 📁 /sonarche — Après tout ça, ce n'est qu'un dossier de musique. Le tien.
-  Ouvre-le, déplace-le, sauvegarde-le.
+- 📁 /sonarche — Ton dossier de musique. Le tien. Ouvre-le, déplace-le,
+  sauvegarde-le.
 
 #### Les services, groupés par ce qu'ils répondent
 
@@ -256,14 +266,16 @@ Chaque carte : libellé d'étape — outil — grief — coût.
   Année `2021` · Genre `Progressive Metal` · Genre parent `Metal · dérivé` ·
   boutons `✦ Re-matcher` et `Modifier`.
 
-## Le son du navire
+## Hissez la grande voile
 
-- Kicker : `LE SON DU NAVIRE`
+- Kicker : `HISSEZ LA GRANDE VOILE` (exception volontaire au tutoiement :
+  c'est une formule de commandement marin figée, iconique du registre pirate,
+  pas une adresse au lecteur — voir CLAUDE.md § tutoiement)
 - Titre : Pas seulement le port : le son du navire lui-même.
 - Corps : La dernière étape de l'ancienne méthode, c'était de déplacer les
   fichiers vers un autre lecteur. Sonarche est aussi le lecteur, un moteur
-  audio natif en Rust : les morceaux démarrent au quart de tour, et ceux d'un
-  même album s'enchaînent sans le moindre blanc.
+  audio natif écrit en Rust : les morceaux démarrent au quart de tour, et
+  ceux d'un même album s'enchaînent sans le moindre blanc.
 - Lecteur : `Oath` · `The Algorithm` · `1:12` / `2:54`
 
 ## En vrai (screenshots)

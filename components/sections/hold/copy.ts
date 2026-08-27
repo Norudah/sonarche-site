@@ -42,7 +42,7 @@ export const holdCopy: Record<Locale, HoldCopy> = {
     closer: "If you decide you don't like Sonarche, your library leaves with you, fully tagged.",
   },
   fr: {
-    kicker: "LA CALE EST À TOI",
+    kicker: "TON NAVIRE, TON ÉQUIPAGE",
     headingBefore: "Rien n'est verrouillé ici.",
     headingEmphasis: "Ce ne sont que des fichiers.",
     bodyBefore: "Tout atterrit dans",
@@ -55,7 +55,7 @@ export const holdCopy: Record<Locale, HoldCopy> = {
       { where: "Un téléphone", note: "branche-le, dépose le dossier, terminé" },
       { where: "Un disque dur", note: "ta sauvegarde est un copier-coller" },
       { where: "Un autre lecteur", note: "les tags sont standard : il les lit" },
-      { where: "Une autre machine", note: "aucun compte, aucun ré-import, aucun service de synchro" },
+      { where: "Une autre machine", note: "aucun compte, aucun ré-import ni synchronisation" },
     ],
     closer: "Et si Sonarche ne te plaît plus, ta bibliothèque part avec toi, taguée jusqu'au dernier morceau.",
   },

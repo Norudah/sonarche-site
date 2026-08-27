@@ -32,8 +32,8 @@ export const heroCopy: Record<Locale, HeroCopy> = {
     wordmark: "SONARCHE",
     tagline: "From the stream into the Ark.",
     subline:
-      "Une bibliothèque musicale qui t'appartient vraiment : chaque morceau identifié à l'oreille, rangé dans de simples fichiers, lu par un moteur natif.",
-    ctaSecondary: "Voir comment ça marche ↓",
+      "Une bibliothèque musicale qui t'appartient vraiment : chaque morceau identifié à l'oreille, tes fichiers sur ta machine, avec les bonnes informations.",
+    ctaSecondary: "Comment ça marche ↓",
     scrollHint: "DÉFILER ↓",
   },
 };
