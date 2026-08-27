@@ -98,7 +98,7 @@ export const SEARCH_TITLE: Record<Locale, string> = {
 };
 
 /** The brand title, for social cards and the site name. */
-export const BRAND_TITLE = "Sonarche — From the stream into the Ark.";
+export const BRAND_TITLE = "Sonarche: From the stream into the Ark.";
 
 /**
  * The card an unfurler draws when the link is pasted into Discord or LinkedIn.

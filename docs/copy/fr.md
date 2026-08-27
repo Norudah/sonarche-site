@@ -390,10 +390,12 @@ elles qu'on voit avant de cliquer, donc elles font partie de la copy.
   — la tagline n'y est pas : personne ne la tape dans une barre de recherche.
   Marque d'abord, puis ce que c'est, en français.
 - Titre de marque (`og:title`, carte partagée) :
-  `Sonarche — From the stream into the Ark.` — un lien partagé est lu par
-  quelqu'un, pas comparé à une requête.
+  `Sonarche: From the stream into the Ark.` (sans espace avant les deux-points,
+  ponctuation anglaise : la tagline reste en anglais et la chaîne est partagée
+  entre les deux locales) — un lien partagé est lu par quelqu'un, pas comparé
+  à une requête.
 - Description (`meta description`, `og:description`) : la subline du hero,
-  telle quelle, sans rien ajouter — 147 caractères, sous la coupure des
+  telle quelle, sans rien ajouter — 150 caractères, sous la coupure des
   ~155 d'un extrait Google.
 - Description de la carte (`og:image:alt`), une seule pour tout le site
   puisqu'il n'y a qu'une carte, et elle décrit le dessin et non la page depuis
@@ -401,8 +403,9 @@ elles qu'on voit avant de cliquer, donc elles font partie de la copy.
   barres d'égaliseur, sous le mot SONARCHE et la devise
   « From the stream into the Ark. »
 - Le séparateur de tous les `<title>` est une barre verticale, la convention
-  web ordinaire, jamais un tiret. L'`og:title` garde le sien : un lien partagé
-  se lit comme une phrase, il n'est pas comparé à une requête.
+  web ordinaire. L'`og:title` recolle la marque et la tagline avec un
+  deux-points plutôt qu'un tiret : un lien partagé se lit comme une phrase,
+  il n'est pas comparé à une requête.
 
 ## Journal
 

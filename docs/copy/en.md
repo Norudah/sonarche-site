@@ -338,7 +338,7 @@ copy.
 - Search title (`<title>`): `Sonarche | open-source, offline music library`
   — no tagline: nobody types it into a search box. Brand first, then what the
   thing is.
-- Brand title (`og:title`, share card): `Sonarche — From the stream into the Ark.`
+- Brand title (`og:title`, share card): `Sonarche: From the stream into the Ark.`
 - Description (`meta description`, `og:description`): the hero subline plus
   "Free and open source." — 147 characters, inside the ~155 a snippet shows.
 - Card description (`og:image:alt`), one for the whole site because there is
