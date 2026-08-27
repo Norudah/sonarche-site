@@ -45,18 +45,23 @@ Note : Déjà dans la cale ? Il passe son tour. Pas de duplication.
 L'interface te montre exactement ce qu'il se passe : la source a-t-elle été
 récupérée ? Check. Le fichier est-il présent physiquement sur ton
 ordinateur ? Check. A-t-on pu identifier le morceau correctement ? Check.
+
 Les pastilles passent au vert une à une, tu sais exactement où regarder si
 un problème est détecté.
+
 Note : Si tu fermes la fenêtre pendant l'opération, la suite sera reprise
 automatiquement au prochain lancement : tu ne perds pas ta progression.
 
 ### Étape 03 — Empreinte et identification
 
 ffmpeg et Chromaprint analysent l'audio directement, et extraient une
-empreinte acoustique. Cette empreinte, si elle est identifiée, sert de carte
-d'identité au morceau associé. Elle peut alors être utilisée auprès
-d'AcoustID, qui va permettre de certifier avec certitude que le morceau est
-bien celui-ci, et non deviné par divers tags ou autre.
+empreinte acoustique.
+
+Cette empreinte, si elle est identifiée, sert de carte d'identité au
+morceau associé. Elle peut alors être utilisée auprès d'AcoustID, qui va
+permettre de certifier avec certitude que le morceau est bien celui-ci, et
+non deviné par divers tags ou autre.
+
 Note : Pas de correspondance sûre ? Sonarche t'informe et te laisse trancher
 plutôt que d'inventer.
 
@@ -65,15 +70,19 @@ plutôt que d'inventer.
 Titre, artiste, album, genre, piste, année. Et la vraie pochette. Tout est
 écrit dans les tags et les métadonnées du fichier. Pas de nom bizarre ou de
 convention : la source de vérité est dans les tags, et Sonarche s'en occupe
-correctement. Et si tu n'es pas satisfait, ou que tu souhaites customiser à
-ta sauce, Sonarche met à disposition un système accessible pour modifier en
-quelques clics le genre d'une musique ou d'un artiste, pour que ta
-bibliothèque corresponde vraiment à tes goûts et à ta propre façon de
-t'organiser.
+correctement.
+
+Et si tu n'es pas satisfait, ou que tu souhaites customiser à ta sauce,
+Sonarche met à disposition un système accessible pour modifier en quelques
+clics le genre d'une musique ou d'un artiste, pour que ta bibliothèque
+corresponde vraiment à tes goûts et à ta propre façon de t'organiser.
+
+Sonarche reste libre et open source. Tes fichiers, ta décision. Sonarche
+complète les fichiers au maximum : libre à toi de rester ou non dans
+l'écosystème Sonarche.
+
 Note : Dans les fichiers eux-mêmes, pas dans une base que seul Sonarche
-saurait lire. Sonarche reste libre et open source. Tes fichiers, ta décision.
-Sonarche complète les fichiers au maximum : libre à toi de rester ou non
-dans l'écosystème Sonarche.
+saurait lire.
 
 ## L'ancienne méthode
 

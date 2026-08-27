@@ -53,7 +53,7 @@ export function FlowCascade({ children }: { children: ReactNode }) {
   );
 
   return (
-    <div ref={root} className="mx-auto mt-14 flex max-w-[80rem] flex-col gap-16 sm:mt-18 sm:gap-19">
+    <div ref={root} className="mx-auto mt-14 flex max-w-[80rem] flex-col gap-18 sm:mt-18 sm:gap-22">
       {children}
     </div>
   );

@@ -80,8 +80,8 @@ function Row({ step, stepLabel, index }: RowProps) {
     >
       <IsoScene step={index} className="w-full max-w-[28rem] shrink-0 sm:w-112" />
 
-      <div className={`flex max-w-[28.75rem] flex-1 flex-col gap-3.5 ${mirrored ? "sm:items-end sm:text-right" : ""}`}>
-        <div className={`flex w-full items-center gap-3 ${mirrored ? "flex-row-reverse" : ""}`}>
+      <div className="flex max-w-[28.75rem] flex-1 flex-col gap-3.5">
+        <div className="flex w-full items-center gap-3">
           <p className="text-accent font-mono text-xs font-semibold tracking-[0.1em]">
             {stepLabel} {step.number}
           </p>
@@ -92,7 +92,13 @@ function Row({ step, stepLabel, index }: RowProps) {
           {step.title}
         </h3>
 
-        <p className="text-body text-base leading-[1.65]">{step.text}</p>
+        <div className="flex flex-col gap-2.5">
+          {step.text.map((paragraph, i) => (
+            <p key={i} className="text-body text-base leading-[1.65]">
+              {paragraph}
+            </p>
+          ))}
+        </div>
 
         <p className="text-accent-muted mt-1 font-serif text-base leading-normal italic">{step.note}</p>
       </div>
