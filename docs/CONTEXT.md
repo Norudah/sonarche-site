@@ -30,8 +30,9 @@ kitsch).
 The v7 Claude Design mockup ("Sonarche Landing v7", in the app repo under
 `docs/designs/landing/`) superseded the earlier 6-section plan. Final order:
 
-1. **Hero** — badge, wordmark, tagline, subline, GitHub CTA. The "Ark moment"
-   SVG/GSAP animation on load (stream of particles gathered into the vessel).
+1. **Hero** — badge, wordmark, tagline, subline, download CTA. The CSS storm
+   paints first; on wide screens a three.js scene takes over from it (see
+   § The hero scene below).
 2. **The flow** — 4 numbered steps (paste / come aboard / fingerprint / named).
 3. **The old way** — 5-tools pain table, then "Sonarche does all five."
 4. **True names** — scraped-vs-identified compare, the fingerprint story.
@@ -133,8 +134,9 @@ every stream-ripping lawsuit targeted monetized web converters marketed as
   the brand's second voice, not decoration.
 - **GSAP** as the single animation engine (100% free since the Webflow acquisition,
   all plugins included): ScrollTrigger for scroll narrative, SplitText for text
-  reveals, DrawSVG/MorphSVG for the hand-made SVG animations. No Motion/framer-motion,
-  no three.js/WebGL.
+  reveals, DrawSVG/MorphSVG for the hand-made SVG animations. No Motion/framer-motion.
+- **three.js for the hero scene, and nowhere else** (reopened 2026-09-28, see
+  § The hero scene). The original "no WebGL" stands for every other section.
 - **Hosting: Vercel Hobby** (fine for non-commercial open-source) + DNS pointed
   from Hostinger.
 
@@ -167,6 +169,72 @@ four steps alternating left/right).
 - Video loops as mp4/webm (`autoplay muted loop playsinline`), never GIF.
 - Copy in English. The page is a scroll narrative echoing rescue → shelter →
   ownership in every section.
+
+## The page-long trace (removed 2026-09-28)
+
+The line that wandered across every section from the hero's water to the
+footer's ark is gone. It crossed copy by design, and however light its ink it
+cost legibility on every paragraph it ran behind; it was also the one thing
+running every frame on a page that was otherwise idle. Nothing replaced it:
+the hero and the footer carry the sea, the sections between are paper.
+
+Side effect worth knowing: its SVG sat behind every section, which made axe
+(Lighthouse accessibility) give up on measuring contrast there. With it gone,
+the Flow rows — scrubbed from 0.28 opacity before they are scrolled to — are
+measured and flagged, and accessibility reads 97 instead of 100. That is the
+reveal's doing, not the trace's absence.
+
+## The hero scene (added 2026-09-28)
+
+The storm in the hero is a three.js scene on wide screens. Decided after the
+"no WebGL" line above was challenged and the spike measured; the reasoning is
+the arrival: the first seconds on the page are the one place the site can
+afford to spend a GPU, and the visitor it is for is at a computer.
+
+**Art direction — the brand in perspective, not re-imagined.** The sea is the
+poster's own equalizer bars, as flat rounded cards facing the camera, in rows
+running to a horizon that dissolves into the sky; the palette is the poster's
+oklch continuum computed per bar. The ark is extruded from the mark's paths —
+head-on it is the logo in its flat colours, and only its roll and yaw show the
+beam, the set-back cabin and the cargo two deep. Unlit, no shadows, no post:
+a lit ark would put gradients on a brand that has none.
+
+**The three moments** (components/sections/hero/scene/createScene.ts):
+
+1. **The ping.** Sonarche is sonar + arche. On the first frame the ark sends a
+   sonar pulse across the sea; the bars leap and flash accent as the ring
+   passes. It echoes, smaller, every 7.5s.
+2. **The rescue.** Pixels lift off the water from a handful of spots and
+   stream into the hold — the "Ark moment" this section always promised.
+3. **The calm.** Scrolling out of the hero thins the rain, drops the swell and
+   lifts the camera: the footer's home water, previewed.
+
+And the visitor's: a mouse over the sea leaves a wake, and the camera leans a
+couple of degrees after the cursor.
+
+**The poster is the contract.** The CSS storm (Storm.tsx) still renders first,
+server-side, and is the LCP's backdrop; the scene is fetched after load and
+idle, framed so its first frame puts the ark exactly where the poster has it
+(framing.ts solves the camera from the poster's numbers), then cross-fades
+over it. The poster is hidden and paused underneath, and comes back if the
+scene gives up.
+
+**Who gets it** (HeroScene.tsx): `min-width: 64rem`, no reduced motion, no
+Save-Data, a hardware GL context (software rasterisers are refused). Two
+tiers from core count and device memory. A watchdog drops the resolution once
+if the median frame runs over 26ms, and hands back to the poster if that is
+not enough. Phones keep the poster: measured under Lighthouse's throttling the
+scene was a 5.6s main-thread block for a sea filling the bottom fifth of the
+screen.
+
+**Measured** (2026-09-28, static export, Lighthouse 12):
+
+|                                         | main | this scene                                   |
+| --------------------------------------- | ---- | -------------------------------------------- |
+| Mobile performance                      | 93   | 93 (scene not loaded)                        |
+| Desktop performance                     | 100  | 100, LCP 0.8s, TBT 10ms                      |
+| three.js chunk                          | —    | 145KB gzip, lazy, never on the critical path |
+| Frame time (M1 Pro, 1280×860, DPR 1.75) | —    | 8.3ms median                                 |
 
 ## The journal (added 2026-08-11)
 

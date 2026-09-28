@@ -6,8 +6,8 @@
  *
  * These are CSS keyframes, not GSAP, on purpose: they are endless ambient loops
  * with no scroll or event input, so paying for a JS ticker on ~200 elements buys
- * nothing. GSAP owns what CSS cannot do well — the scroll narrative and the
- * trace's playhead (see components/trace).
+ * nothing. GSAP owns what CSS cannot do well — the scroll narrative, and the
+ * WebGL scene that takes over from all of this once it is ready (see scene/).
  *
  * Everything below animates transform or opacity only. The reduced-motion block
  * at the end stops all of it at a settled state — suspended rain and a dimpled
@@ -111,4 +111,38 @@
   .scrollHint {
     opacity: 1;
   }
+}
+
+/*
+ * The handover from the CSS storm to the WebGL one (see HeroScene.tsx).
+ *
+ * The poster is what renders first and what stays for anyone the scene is not
+ * for. Once the scene has a frame the section is flagged `live` and the two
+ * cross-fade; once that is over it is `settled`, and the poster is hidden and
+ * its two hundred loops paused — it is still there to come back if the scene
+ * gives up.
+ */
+.scene {
+  opacity: 0;
+  transition: opacity 1.1s ease;
+}
+
+.poster {
+  transition: opacity 1.1s ease;
+}
+
+[data-scene] .scene {
+  opacity: 1;
+}
+
+[data-scene] .poster {
+  opacity: 0;
+}
+
+[data-scene="settled"] .poster {
+  visibility: hidden;
+}
+
+[data-scene="settled"] .poster * {
+  animation-play-state: paused;
 }
