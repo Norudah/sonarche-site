@@ -54,7 +54,7 @@ export function Hero({ locale }: { locale: Locale }) {
     >
       <div className={`${styles.poster} absolute inset-0`}>
         <Storm>
-          <div className="absolute inset-0 z-[2]">
+          <div className={`${styles.posterArk} absolute inset-0 z-[2]`}>
             {/* Narrower and lower on a phone: the text block above it is twice as
               tall there, and a 320px ark in a 375px viewport is a bath toy.
               Both offsets put the hull bottom 4px under the waterline. */}

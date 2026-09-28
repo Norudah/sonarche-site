@@ -201,23 +201,28 @@ a lit ark would put gradients on a brand that has none.
 
 **The three moments** (components/sections/hero/scene/createScene.ts):
 
-1. **The ping.** Sonarche is sonar + arche. On the first frame the ark sends a
-   sonar pulse across the sea; the bars leap and flash accent as the ring
-   passes. It echoes, smaller, every 7.5s.
+1. **The ping.** Sonarche is sonar + arche. On arrival the ark sends a sonar
+   pulse, and the sea exists only where it has reached: the ring sweeps out
+   from the hull, wiping the CSS poster away (a CSS mask the scene grows in
+   step) and finding the 3D water behind it, bars flashing at its front. It
+   echoes, smaller, every 7.5s.
 2. **The rescue.** Pixels lift off the water from a handful of spots and
    stream into the hold — the "Ark moment" this section always promised.
-3. **The calm.** Scrolling out of the hero thins the rain, drops the swell and
-   lifts the camera: the footer's home water, previewed.
+3. **The calm.** Scrolling out of the hero thins the rain, drops the swell,
+   lifts the camera and closes it in on the ark: the footer's home water,
+   previewed, with parallax a flat drawing cannot give.
 
-And the visitor's: a mouse over the sea leaves a wake, and the camera leans a
-couple of degrees after the cursor.
+And the visitor's: a mouse over the sea leaves a wake, a click on open water
+sends a ping from there, and the camera leans a couple of degrees after the
+cursor.
 
 **The poster is the contract.** The CSS storm (Storm.tsx) still renders first,
 server-side, and is the LCP's backdrop; the scene is fetched after load and
 idle, framed so its first frame puts the ark exactly where the poster has it
-(framing.ts solves the camera from the poster's numbers), then cross-fades
-over it. The poster is hidden and paused underneath, and comes back if the
-scene gives up.
+(framing.ts solves the camera from the poster's numbers). The two arks
+cross-fade, the ping wipes the rest, and the poster is then hidden and paused
+underneath; it comes back if the scene gives up (including on a shader that
+fails to compile).
 
 **Who gets it** (HeroScene.tsx): `min-width: 64rem`, no reduced motion, no
 Save-Data, a hardware GL context (software rasterisers are refused). Two

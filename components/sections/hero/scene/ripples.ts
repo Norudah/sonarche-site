@@ -24,6 +24,7 @@ export type RingSpec = {
 export const PING: RingSpec = { strength: 1.5, speed: 30, width: 3.2 };
 export const ECHO: RingSpec = { strength: 0.75, speed: 24, width: 2.6 };
 export const WAKE: RingSpec = { strength: 0.55, speed: 10, width: 1.6 };
+export const CLICK: RingSpec = { strength: 1.2, speed: 20, width: 2.6 };
 
 export function createRipples() {
   // x, z, start time, strength — and speed, width. Start at -1000 so every slot

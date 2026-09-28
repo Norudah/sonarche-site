@@ -12,8 +12,9 @@ import type { Tier } from "./scene/createScene";
  * The CSS storm (Storm.tsx) is the poster: server-rendered, the first thing
  * painted, and what every visitor the scene is not for keeps. This mounts an
  * empty canvas over it and, once the page has loaded and gone idle, fetches the
- * WebGL chunk. When the scene has its first frame it flags the section, the
- * canvas fades in over the poster and the poster is put to sleep underneath.
+ * WebGL chunk. When the scene has its first frame it flags the section and
+ * the ark's first ping sweeps the poster away (hero.module.css); once the
+ * ring has covered the frame the poster is put to sleep underneath.
  * Any failure on the way — no WebGL, a chunk that never lands, a device the
  * watchdog finds too slow — just leaves the poster where it was.
  *
@@ -21,11 +22,8 @@ import type { Tier } from "./scene/createScene";
  * of its own: it is created once, and disposed of on unmount and on HMR.
  */
 
-const HIGH: Tier = { pixelRatio: 1.75, antialias: true, density: 1, rain: 520, pixels: 260 };
+const HIGH: Tier = { pixelRatio: 1.75, antialias: true, density: 1, rain: 520, pixels: 210 };
 const LOW: Tier = { pixelRatio: 1.25, antialias: false, density: 0.7, rain: 320, pixels: 160 };
-
-/** How long the canvas takes to fade in; the poster is put to sleep after it. */
-const HANDOVER_MS = 1400;
 
 type NavigatorHints = Navigator & { deviceMemory?: number; connection?: { saveData?: boolean } };
 
@@ -88,7 +86,6 @@ export function HeroScene() {
 
     let scene: { dispose(): void } | undefined;
     let cancelled = false;
-    let handover = 0;
 
     const cancel = whenSettled(() => {
       import("./scene/createScene").then(
@@ -98,14 +95,9 @@ export function HeroScene() {
             canvas,
             host,
             tier,
-            onLive: () => {
-              host.dataset.scene = "live";
-              handover = window.setTimeout(() => (host.dataset.scene = "settled"), HANDOVER_MS);
-            },
-            onFail: () => {
-              window.clearTimeout(handover);
-              delete host.dataset.scene;
-            },
+            onLive: () => (host.dataset.scene = "live"),
+            onSettled: () => (host.dataset.scene = "settled"),
+            onFail: () => delete host.dataset.scene,
           });
         },
         // The chunk never came: the poster is already the page.
@@ -116,7 +108,6 @@ export function HeroScene() {
     return () => {
       cancelled = true;
       cancel();
-      window.clearTimeout(handover);
       scene?.dispose();
       delete host.dataset.scene;
     };

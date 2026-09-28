@@ -29,7 +29,7 @@ import { RIPPLE_GLSL, type createRipples } from "./ripples";
 /** Rows, nearest first, grow apart by this fraction of their distance. */
 const ROW_GROWTH = 0.085;
 /** Target spacing between two bars of a row, px, at full density. */
-const COLUMN_PX = 6;
+const COLUMN_PX = 9;
 /** How far past the frame's edges a row still gets bars, px. */
 const OVERSCAN = 80;
 /** How deep a bar's foot runs under the surface — the body of water. */
@@ -80,6 +80,7 @@ uniform float uStorm;
 uniform vec2 uArk;
 uniform vec3 uEye;
 uniform vec2 uFade;
+uniform vec3 uReveal; // radius, soft edge, strength of the front
 
 varying float vX;
 varying float vFromTop;
@@ -90,6 +91,9 @@ varying float vFlash;
 varying float vFar;
 varying vec3 vFoot;
 varying vec3 vCrest;
+varying float vReveal;
+varying float vShade;
+varying float vHeight;
 
 const float TAU = 6.2831853;
 const float DEPTH = ${DEPTH.toFixed(2)};
@@ -131,6 +135,16 @@ void main() {
   h += splash * 0.7 * uStorm;
 
   vec2 ring = ripples(p, t);
+
+  // The reveal: on arrival the sea exists only where the ark's first ping has
+  // reached, and the front of that ping is a ring like any other — the sonar
+  // finding the water.
+  float fromArk = distance(p, uArk);
+  vReveal = smoothstep(uReveal.x, uReveal.x - uReveal.y, fromArk);
+  float k0 = (fromArk - uReveal.x + uReveal.y * 0.5) / (uReveal.y * 0.7);
+  float front = exp(-k0 * k0) * uReveal.z;
+  ring += vec2(front * 0.8, front);
+
   h = max(0.12, h + ring.x * 2.4);
 
   float surface = heave(p, t) * shelter * uStorm;
@@ -156,6 +170,9 @@ void main() {
   vSurface = surface;
   vTop = top;
   vFlash = clamp(ring.y, 0.0, 1.0) + splash * 0.4;
+  vHeight = h;
+  // The hull's shadow on the water it sits in: what anchors it.
+  vShade = 1.0 - smoothstep(5.0, 11.0, berth);
 
   gl_Position = projectionMatrix * viewMatrix * vec4(world, 1.0);
 }
@@ -176,10 +193,14 @@ varying float vFlash;
 varying float vFar;
 varying vec3 vFoot;
 varying vec3 vCrest;
+varying float vReveal;
+varying float vShade;
+varying float vHeight;
 
 const float DEPTH = ${DEPTH.toFixed(2)};
 
 void main() {
+  if (vReveal <= 0.0) discard;
   // A rounded cap, antialiased on its own edge: the card is a pill, not a quad.
   float aa = fwidth(vX) * 1.2;
   float r = vFromTop < 1.0 ? length(vec2(vX, 1.0 - vFromTop)) : abs(vX);
@@ -190,14 +211,19 @@ void main() {
   float alpha;
   if (vY >= vSurface) {
     col = mix(vFoot, vCrest, clamp((vY - vSurface) / max(0.001, vTop - vSurface), 0.0, 1.0));
+    // The tallest crests catch the light at their tip: the storm glinting.
+    float glint = (1.0 - smoothstep(0.4, 1.6, vFromTop)) * smoothstep(1.1, 2.4, vHeight);
+    col = mix(col, oklch(0.96, 0.025, 285.0), glint * 0.75);
     alpha = 0.93;
   } else {
     // Under the surface the bar becomes the body of water: paler and thinner
     // with depth, so the rows stack into one translucent mass.
     float d = clamp((vSurface - vY) / DEPTH, 0.0, 1.0);
     col = mix(vFoot, oklch(0.83, 0.07, 277.0), smoothstep(0.0, 0.6, d));
-    alpha = mix(0.9, 0.0, d);
+    alpha = mix(0.75, 0.0, d);
   }
+
+  col = mix(col, oklch(0.42, 0.15, 277.0), vShade * 0.4);
 
   // The ping lights a bar up as it passes: the sea answering the sonar.
   col = mix(col, oklch(0.6, 0.23, 280.0), clamp(vFlash, 0.0, 1.0) * 0.85);
@@ -209,7 +235,7 @@ void main() {
 
   // The hero hands over to the next section on paper, not on a cut through
   // the water: the bottom of the frame fades the way the poster's body does.
-  alpha *= smoothstep(0.0, uFadeBottom, gl_FragCoord.y);
+  alpha *= smoothstep(0.0, uFadeBottom, gl_FragCoord.y) * vReveal;
 
   gl_FragColor = vec4(col, alpha * edge);
   #include <colorspace_fragment>
@@ -231,6 +257,7 @@ export function createSea(ripples: ReturnType<typeof createRipples>, density: nu
       uFade: { value: new Vector2(60, 180) },
       uFadeBottom: { value: 60 },
       uPresence: { value: 1 },
+      uReveal: { value: new Vector3(1e5, 1, 0) },
       uRipWhere: { value: ripples.where },
       uRipHow: { value: ripples.how },
     },

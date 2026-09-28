@@ -5,7 +5,7 @@ import { PerspectiveCamera, Scene, Vector3, WebGLRenderer } from "three";
 import { createArk } from "./ark";
 import { FOV, frame, PITCH, type Framing } from "./framing";
 import { createRain } from "./rain";
-import { createRipples, ECHO, PING, WAKE } from "./ripples";
+import { CLICK, createRipples, ECHO, PING, WAKE } from "./ripples";
 import { createSea } from "./sea";
 import { createStream } from "./stream";
 
@@ -19,16 +19,19 @@ gsap.registerPlugin(ScrollTrigger);
  * This owns the renderer, the camera, the clock and the three moments the scene
  * is built around:
  *
- *   1. The ping. Once the first frame is up, the ark sends a sonar pulse
- *      across the sea — Sonarche is sonar + arche, and this is the name said
- *      out loud. The bars flash and leap as the ring passes under them.
+ *   1. The ping. Sonarche is sonar + arche, and this is the name said out
+ *      loud: on arrival the ark sends a sonar pulse, and the sea exists only
+ *      where it has reached. The ring sweeps out from the hull, wiping the
+ *      CSS poster away and finding the 3D water behind it, the bars flashing
+ *      and leaping at its front. It echoes, smaller, every few seconds.
  *   2. The rescue. In the ping's wake pixels start lifting off the water and
  *      streaming into the hold: a trickle, then a current.
  *   3. The calm. Scrolling out of the hero settles the storm — the rain thins,
  *      the swell drops, the camera lifts — the footer's home water, previewed.
  *
- * And one that belongs to the visitor: a mouse dragged over the sea leaves a
- * wake in it, and the camera leans a degree or two after the cursor.
+ * And the visitor's own: a mouse dragged over the sea leaves a wake in it, a
+ * click on the water sends a ping from there, and the camera leans a degree or
+ * two after the cursor.
  *
  * Frame budget, in the order it is defended: no lighting, no shadows, no
  * post-processing; one draw call each for the sea, the rain and the pixels,
@@ -52,8 +55,10 @@ type SceneOptions = {
   /** The hero section: sized from, observed, and listened to for the pointer. */
   host: HTMLElement;
   tier: Tier;
-  /** The first frame is on the canvas: the poster can go. */
+  /** The first frame is on the canvas: the reveal is starting over the poster. */
   onLive: () => void;
+  /** The reveal has covered the frame: the poster can sleep. */
+  onSettled: () => void;
   /** The scene gave up (no WebGL, context lost, too slow): the poster stays. */
   onFail: () => void;
 };
@@ -63,8 +68,12 @@ const DEG = Math.PI / 180;
 const ECHO_EVERY = 7.5;
 /** Median frame time, ms, above which the watchdog steps in. ~38fps. */
 const SLOW_FRAME = 26;
+/** The first ping starts just clear of the hull… */
+const REVEAL_FROM = 6.5;
+/** …and once it has swept the frame, the sea is simply there. */
+const REVEALED = Number.POSITIVE_INFINITY;
 
-export function createScene({ canvas, host, tier, onLive, onFail }: SceneOptions) {
+export function createScene({ canvas, host, tier, onLive, onSettled, onFail }: SceneOptions) {
   let renderer: WebGLRenderer;
   try {
     renderer = new WebGLRenderer({
@@ -78,6 +87,12 @@ export function createScene({ canvas, host, tier, onLive, onFail }: SceneOptions
     return { dispose() {} };
   }
   renderer.setClearColor(0x000000, 0);
+  // A shader that does not compile renders nothing and says so only in the
+  // console; the poster is a better page than an empty sea.
+  renderer.debug.onShaderError = (gl, program) => {
+    if (process.env.NODE_ENV !== "production") console.error(gl.getProgramInfoLog(program));
+    fail();
+  };
 
   // A machine rendering WebGL on the CPU gets the poster: at this fill rate a
   // software rasteriser spends seconds on a frame, and blocks the page doing it.
@@ -104,7 +119,8 @@ export function createScene({ canvas, host, tier, onLive, onFail }: SceneOptions
   let disposed = false;
 
   // Tweened by the intro and the scroll; read every frame.
-  const state = { stream: 0, calm: 0 };
+  // `reveal` is the first ping's radius, world units from the hull.
+  const state = { stream: 0, calm: 0, reveal: REVEAL_FROM };
   // Where the pointer is (-1..1 across the hero), and where the camera has got to.
   const lean = { x: 0, y: 0, toX: 0, toY: 0 };
 
@@ -112,7 +128,10 @@ export function createScene({ canvas, host, tier, onLive, onFail }: SceneOptions
     if (!framing) return;
     const pitch = (PITCH + state.calm * 7 + lean.y * 1.1) * DEG;
     const yaw = lean.x * 2.4 * DEG;
-    const d = framing.distance;
+    // Scrolling away closes in on the ark as the hero leaves the screen: the
+    // page moves up, the camera moves in, and the two together are parallax
+    // no flat drawing can give.
+    const d = framing.distance * (1 - 0.2 * state.calm);
     camera.position.set(Math.sin(yaw) * d * Math.cos(pitch), d * Math.sin(pitch), Math.cos(yaw) * d * Math.cos(pitch));
     camera.lookAt(0, 0, 0);
   }
@@ -153,6 +172,20 @@ export function createScene({ canvas, host, tier, onLive, onFail }: SceneOptions
     s.uStorm.value = storm;
     s.uArk.value.set(ark.group.position.x, 0);
     s.uEye.value.copy(camera.position);
+
+    const revealing = state.reveal < REVEALED;
+    const soft = revealing ? 3 + state.reveal * 0.06 : 1;
+    s.uReveal.value.set(revealing ? state.reveal : 1e5, soft, revealing ? 1 : 0);
+    rain.uniforms.uReveal.value.set(revealing ? state.reveal : 1e5, soft, 0);
+    if (revealing && framing) {
+      // The same ring, on the poster: an ellipse on the water plane as the
+      // camera sees it, so the CSS sea is wiped exactly where the 3D one is
+      // found.
+      const rx = (state.reveal * framing.focal) / framing.distance;
+      host.style.setProperty("--reveal-x", `${rx.toFixed(1)}px`);
+      host.style.setProperty("--reveal-y", `${(rx * Math.sin(PITCH * DEG)).toFixed(1)}px`);
+      host.style.setProperty("--reveal-cy", `${(framing.height / 2 + framing.shift).toFixed(1)}px`);
+    }
 
     rain.uniforms.uTime.value = clock;
     rain.uniforms.uRain.value = 1 - state.calm;
@@ -236,6 +269,18 @@ export function createScene({ canvas, host, tier, onLive, onFail }: SceneOptions
     lean.toY = 0;
   }
 
+  // A click on open water — not on the copy or a button — pings from there.
+  function onClick(e: MouseEvent) {
+    if (!framing || (e.target as Element).closest("a, button, p, h1, h2, span")) return;
+    const rect = host.getBoundingClientRect();
+    const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    const ny = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+    ray.set(nx, -ny, 0.5).unproject(camera).sub(camera.position).normalize();
+    if (ray.y > -0.01) return;
+    ray.multiplyScalar(-camera.position.y / ray.y).add(camera.position);
+    ripples.spawn(ray.x, ray.z, clock, CLICK);
+  }
+
   // --- Lifecycle ------------------------------------------------------------
 
   const visibility = new IntersectionObserver(([entry]) => run(entry.isIntersecting && !disposed));
@@ -259,11 +304,17 @@ export function createScene({ canvas, host, tier, onLive, onFail }: SceneOptions
   }
 
   function intro() {
+    const reach = (framing?.distance ?? 60) * 3.2;
     ctx.add(() => {
       gsap
         .timeline()
-        .call(() => ping(PING), [], 0.35)
-        .to(state, { stream: 1, duration: 3.4, ease: "power1.in" }, 0.7);
+        .call(() => ark.ping(), [], 0.1)
+        .to(state, { reveal: reach, duration: 2.1, ease: "power1.in" }, 0.1)
+        .call(() => {
+          state.reveal = REVEALED;
+          onSettled();
+        })
+        .to(state, { stream: 1, duration: 3, ease: "power1.in" }, 1.4);
 
       gsap
         .timeline({ repeat: -1, delay: ECHO_EVERY })
@@ -305,6 +356,7 @@ export function createScene({ canvas, host, tier, onLive, onFail }: SceneOptions
     visibility.observe(host);
     host.addEventListener("pointermove", onPointer, { passive: true });
     host.addEventListener("pointerleave", onLeave, { passive: true });
+    host.addEventListener("click", onClick);
   }
 
   start().catch(fail);
@@ -319,6 +371,10 @@ export function createScene({ canvas, host, tier, onLive, onFail }: SceneOptions
     cancelAnimationFrame(resizeFrame);
     host.removeEventListener("pointermove", onPointer);
     host.removeEventListener("pointerleave", onLeave);
+    host.removeEventListener("click", onClick);
+    host.style.removeProperty("--reveal-x");
+    host.style.removeProperty("--reveal-y");
+    host.style.removeProperty("--reveal-cy");
     canvas.removeEventListener("webglcontextlost", onContextLost);
     sea.dispose();
     rain.dispose();

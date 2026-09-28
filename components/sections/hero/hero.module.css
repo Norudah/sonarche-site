@@ -117,26 +117,38 @@
  * The handover from the CSS storm to the WebGL one (see HeroScene.tsx).
  *
  * The poster is what renders first and what stays for anyone the scene is not
- * for. Once the scene has a frame the section is flagged `live` and the two
- * cross-fade; once that is over it is `settled`, and the poster is hidden and
- * its two hundred loops paused — it is still there to come back if the scene
- * gives up.
+ * for. Once the scene has a frame the section is flagged `live`: the two arks,
+ * drawn to coincide, cross-fade, and the rest of the poster is wiped by the
+ * ark's first ping — an ellipse the scene grows through `--reveal-*`, matching
+ * the ring that finds the 3D sea. When the ring has covered the frame the
+ * section is `settled`, and the poster is hidden and its two hundred loops
+ * paused; it is still there to come back if the scene gives up.
  */
 .scene {
   opacity: 0;
-  transition: opacity 1.1s ease;
+  transition: opacity 0.35s ease;
 }
 
-.poster {
-  transition: opacity 1.1s ease;
+.posterArk {
+  transition: opacity 0.35s ease;
 }
 
 [data-scene] .scene {
   opacity: 1;
 }
 
-[data-scene] .poster {
+[data-scene] .posterArk {
   opacity: 0;
+}
+
+[data-scene="live"] .poster {
+  --reveal-mask: radial-gradient(
+    ellipse var(--reveal-x, 0px) var(--reveal-y, 0px) at 50% var(--reveal-cy, 100%),
+    transparent calc(100% - 70px),
+    #000 100%
+  );
+  -webkit-mask-image: var(--reveal-mask);
+  mask-image: var(--reveal-mask);
 }
 
 [data-scene="settled"] .poster {

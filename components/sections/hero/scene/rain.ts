@@ -1,4 +1,4 @@
-import { InstancedBufferAttribute, Mesh, ShaderMaterial } from "three";
+import { InstancedBufferAttribute, Mesh, ShaderMaterial, Vector3 } from "three";
 
 import { cardGeometry } from "./card";
 import { OKLCH_GLSL } from "./color";
@@ -45,10 +45,12 @@ attribute vec4 aDrop; // x, z, seed, distance
 uniform float uTime;
 uniform float uFocal;
 uniform float uDistance;
+uniform vec3 uReveal;
 
 varying float vAlong;
 varying float vAlpha;
 varying float vY;
+varying float vReveal;
 
 void main() {
   float seed = aDrop.z;
@@ -64,6 +66,8 @@ void main() {
   float w = px * dz / uFocal;
 
   vec3 world = vec3(aDrop.x + position.x * w, foot + position.y * len, aDrop.y);
+  // Drops fall only where the ark's first ping has reached (see sea.ts).
+  vReveal = smoothstep(uReveal.x, uReveal.x - uReveal.y, length(aDrop.xy));
   vAlong = position.y;
   vY = world.y;
   vAlpha = (0.14 + fract(seed * 13.7) * 0.34) * (1.0 - smoothstep(0.7, 2.0, near) * 0.6);
@@ -79,6 +83,7 @@ uniform float uRain;
 varying float vAlong;
 varying float vAlpha;
 varying float vY;
+varying float vReveal;
 
 void main() {
   // Swallowed by the water, like the poster's drops clipped at the waterline.
@@ -86,7 +91,7 @@ void main() {
   // Transparent at the tail, the poster's gradient: the tip is what lands.
   // Thinner high up, where it falls behind the copy: the storm is on the
   // water, and the headline should not have to read through it.
-  float a = (1.0 - vAlong) * vAlpha * uRain * mix(1.0, 0.45, smoothstep(6.0, 26.0, vY));
+  float a = (1.0 - vAlong) * vAlpha * uRain * vReveal * mix(1.0, 0.45, smoothstep(6.0, 26.0, vY));
   gl_FragColor = vec4(oklch(0.6, 0.16, 277.0), a);
   #include <colorspace_fragment>
 }
@@ -103,6 +108,7 @@ export function createRain(count: number) {
       uFocal: { value: 1 },
       uDistance: { value: 60 },
       uRain: { value: 1 },
+      uReveal: { value: new Vector3(1e5, 1, 0) },
     },
   });
 
