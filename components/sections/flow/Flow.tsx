@@ -1,4 +1,3 @@
-import { TraceSegment } from "@/components/trace/TraceSegment";
 import type { Locale } from "@/lib/site";
 
 import { flowCopy, type FlowStep } from "./copy";
@@ -31,10 +30,6 @@ export function Flow({ locale }: { locale: Locale }) {
             "linear-gradient(180deg, oklch(0.931 0.036 279), oklch(0.963 0.018 279) 52%, oklch(0.982 0.006 279))",
         }}
       />
-      {/* The trace is born here, at the top of the first section under the
-          hero — it fades up out of nothing over its first 280px rather than
-          starting on a cut. See components/trace. */}
-      <TraceSegment start={0} />
       <header className="flex flex-col items-center px-8 text-center sm:px-15">
         <p className="text-accent font-sans text-xs font-semibold tracking-[0.3em]">{copy.kicker}</p>
 

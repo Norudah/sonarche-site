@@ -15,7 +15,6 @@ import { RealThing } from "@/components/sections/real-thing/RealThing";
 import { ShipSound } from "@/components/sections/ship-sound/ShipSound";
 import { TrueNames } from "@/components/sections/true-names/TrueNames";
 import { UnderDeck } from "@/components/sections/under-deck/UnderDeck";
-import { Trace } from "@/components/trace/Trace";
 import { BRAND_TITLE, LANGUAGE_ALTERNATES, LOCALE_PATH, OG_IMAGE, OG_LOCALE, SEARCH_TITLE, ogImage } from "@/lib/site";
 
 /* The hero's subline, verbatim from docs/copy/en.md, plus the four words that
@@ -67,10 +66,7 @@ export default function EnHome() {
         <FirstLaunch locale="en" />
       </main>
       <Footer locale="en" />
-
-      {/* Renders nothing: it lights the line every section above has planted. */}
-      <Trace />
-      {/* Renders nothing either: it pauses every section's idle loops off-screen. */}
+      {/* Renders nothing: it pauses every section's idle loops off-screen. */}
       <AnimationGate />
     </>
   );

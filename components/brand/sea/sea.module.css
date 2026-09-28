@@ -2,8 +2,7 @@
  * The sea's idle loops.
  *
  * CSS keyframes, not GSAP: these are endless ambient loops with no scroll or
- * event input, so paying for a JS ticker on ~500 elements buys nothing. The one
- * thing on this page that does need a ticker is the trace, and it has one.
+ * event input, so paying for a JS ticker on ~500 elements buys nothing.
  *
  * Storm and calm share every rule here — the weather arrives as custom
  * properties set by buildSea(), so how rough the water is stays a decision made
@@ -96,7 +95,7 @@
  * where it is invisible.
  *
  * Nothing is hidden and no geometry moves: the drawing at 390px is the same
- * drawing, held still. Same `lg` as the trace, for the same reason.
+ * drawing, held still. Same `lg` where the page's own layouts go wide.
  */
 @media (max-width: 63.999rem) {
   .bar {

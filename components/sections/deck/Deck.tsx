@@ -1,4 +1,3 @@
-import { TraceSegment } from "@/components/trace/TraceSegment";
 import type { Locale } from "@/lib/site";
 
 import { deckCopy, type DeckCopy } from "./copy";
@@ -15,7 +14,6 @@ export function Deck({ locale }: { locale: Locale }) {
 
   return (
     <section data-anim-gate className="relative isolate bg-[oklch(0.976_0.008_279/0.8)] py-24 sm:py-27">
-      <TraceSegment />
       <div className="mx-auto flex max-w-[77.5rem] flex-col items-center gap-12 px-8 sm:px-15 lg:flex-row lg:gap-20">
         <div className="flex flex-1 flex-col gap-4.5">
           <p className="text-accent font-sans text-xs font-semibold tracking-[0.3em]">{copy.kicker}</p>

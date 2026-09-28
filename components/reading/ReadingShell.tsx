@@ -13,7 +13,7 @@ import { readingCopy } from "./copy";
  * The frame around anything on this site that is meant to be read — the journal
  * and the guide, and whatever else ends up being prose on a page.
  *
- * Everything the landing page is not: no storm, no sea, no trace, no GSAP. The
+ * Everything the landing page is not: no storm, no sea, no WebGL, no GSAP. The
  * landing is a scroll narrative that has to be felt; these are pages someone
  * came to read, and the only job of the frame is to say whose text it is and
  * how to get back to the product. The brand shows up three times and small: the

@@ -9,8 +9,7 @@ import styles from "./ark.module.css";
  *
  * It renders inside the ark (as its child) so that it sails and rises with the
  * hull, and it keeps a slow float of its own on top of that — sound that hangs
- * over a boat should lag behind it a little, the way the bulge lags behind the
- * playhead on the page's trace.
+ * over a boat should lag behind it a little.
  *
  * The resting place is expressed against the ark's box rather than in absolute
  * px: the arch's roof is at 32.8% of that box whatever its size, so one rule

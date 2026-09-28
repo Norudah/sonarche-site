@@ -4,7 +4,6 @@ import { SeaBody } from "@/components/brand/sea/SeaBody";
 import { SeaLayer } from "@/components/brand/sea/SeaLayer";
 import { buildSea, SEA_CALM } from "@/components/brand/sea/sea";
 import { DownloadCta } from "@/components/download/DownloadCta";
-import { TraceSegment } from "@/components/trace/TraceSegment";
 import { BLOG_PATH } from "@/lib/blog";
 import { GUIDE_PATH, publishedGuides } from "@/lib/guide";
 import { AUTHOR, GITHUB_URL, LOCALE_PATH, OTHER_LOCALE, type Locale } from "@/lib/site";
@@ -32,13 +31,6 @@ import { GitHubMark } from "./icons";
  */
 const WATERLINE = 92;
 
-/*
- * Where the page-long trace ends, in px from the footer's top edge — just above
- * the last call, inside the section's own top padding. It arrives faded out
- * rather than cut: the ramp is the trace's business, not this section's.
- */
-const LANDFALL = 68;
-
 export function Footer({ locale }: { locale: Locale }) {
   const copy = footerCopy[locale];
   const other = OTHER_LOCALE[locale];
@@ -52,10 +44,6 @@ export function Footer({ locale }: { locale: Locale }) {
         background: "linear-gradient(180deg, oklch(0.982 0.006 279 / 0), oklch(0.972 0.012 277 / 0.82) 60%)",
       }}
     >
-      {/* The trace comes to rest in the footer's top padding, above the
-          heading. Its box only has to contain that point — everything below is
-          past the end of the line. See components/trace. */}
-      <TraceSegment end={LANDFALL} className="absolute inset-x-0 top-0 z-[-1] h-[12.5rem]" />
       <div className="relative z-10 flex flex-col items-center px-8 text-center sm:px-15">
         <h2 className="text-foreground-strong font-display flex max-w-[46rem] flex-col text-[clamp(2rem,4.1vw,3.625rem)] leading-[1.15] font-bold tracking-[-0.02em]">
           <span>{copy.headingBefore}</span>
