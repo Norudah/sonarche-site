@@ -78,14 +78,14 @@ export function createCabin(kit: Kit) {
   group.position.y = HULL.deck;
 
   const head = new Mesh(
-    kit.keep(
+    kit.smooth(
       new ExtrudeGeometry(headShape(), {
         depth: DEPTH,
         bevelEnabled: true,
         bevelThickness: BEVEL,
         bevelSize: BEVEL,
         bevelSegments: 6,
-        curveSegments: 28,
+        curveSegments: 36,
       }).translate(0, 0, -DEPTH / 2),
     ),
     kit.paint(INK.cabin, 0.42),
@@ -94,10 +94,15 @@ export function createCabin(kit: Kit) {
 
   // The brow the mark draws under the eyes, as a moulded band round the base.
   const band = new Mesh(
-    kit.keep(new ExtrudeGeometry(roundRect(0, 0.2, 4.95, 0.4, 0.16), { depth: DEPTH + 0.5, bevelEnabled: false })),
+    kit.smooth(
+      new ExtrudeGeometry(roundRect(0, 0.2, 4.95, 0.4, 0.16), {
+        depth: DEPTH + 0.5,
+        bevelEnabled: false,
+        curveSegments: 12,
+      }).translate(0, 0, -(DEPTH + 0.5) / 2),
+    ),
     kit.paint(INK.brow, 0.5),
   );
-  band.geometry.translate(0, 0, -(DEPTH + 0.5) / 2);
   group.add(band);
 
   // The eyes: dark glass screens, a hair proud of the face.
@@ -109,17 +114,17 @@ export function createCabin(kit: Kit) {
   eyes.position.set(0, eyeY, FACE);
   const pupils: Mesh[] = [];
   const glints: Mesh[] = [];
-  const eyeGeometry = kit.keep(
+  const eyeGeometry = kit.smooth(
     new ExtrudeGeometry(roundRect(0, 0, 1.08, 1.2, 0.42), {
       depth: 0.08,
       bevelEnabled: true,
       bevelThickness: 0.05,
       bevelSize: 0.05,
-      bevelSegments: 3,
-      curveSegments: 16,
+      bevelSegments: 5,
+      curveSegments: 32,
     }),
   );
-  const glintGeometry = kit.keep(new CircleGeometry(0.2, 24));
+  const glintGeometry = kit.keep(new CircleGeometry(0.2, 40));
   for (const x of [X(10), X(14)]) {
     const socket = new Group();
     socket.position.x = x;
@@ -142,7 +147,7 @@ export function createCabin(kit: Kit) {
     const h = (bar.height / 26) * 0.95;
     const g = new Group();
     g.position.x = (i - 2.5) * 0.27;
-    const capsule = new Mesh(kit.keep(new CapsuleGeometry(0.085, h, 6, 12)), ondeInk);
+    const capsule = new Mesh(kit.keep(new CapsuleGeometry(0.085, h, 10, 20)), ondeInk);
     capsule.position.y = h / 2 + 0.085;
     g.add(capsule);
     onde.add(g);
@@ -151,8 +156,8 @@ export function createCabin(kit: Kit) {
   group.add(onde);
 
   // Portholes, four a side along the strake: a lavender ring round a lit pane.
-  const ringGeometry = kit.keep(new TorusGeometry(0.3, 0.075, 10, 32));
-  const paneGeometry = kit.keep(new CircleGeometry(0.27, 28));
+  const ringGeometry = kit.keep(new TorusGeometry(0.3, 0.075, 16, 64));
+  const paneGeometry = kit.keep(new CircleGeometry(0.27, 48));
   const ringInk = kit.paint(INK.cabin, 0.35);
   const panes: MeshStandardMaterial[] = [];
   const portholes = new Group();
@@ -171,10 +176,10 @@ export function createCabin(kit: Kit) {
   group.add(portholes);
 
   // The bow lamp, amber, on a short mast: it blinks, so the vessel is manned.
-  const mast = new Mesh(kit.keep(new CylinderGeometry(0.06, 0.07, 1.3, 10)), kit.paint(INK.hull, 0.4));
+  const mast = new Mesh(kit.keep(new CylinderGeometry(0.06, 0.07, 1.3, 20)), kit.paint(INK.hull, 0.4));
   mast.position.set(5.7, 0.65, 0);
   const lampInk = kit.glow(INK.amber, INK.amber, 1.2);
-  const lamp = new Mesh(kit.keep(new SphereGeometry(0.17, 16, 12)), lampInk);
+  const lamp = new Mesh(kit.keep(new SphereGeometry(0.17, 32, 20)), lampInk);
   lamp.position.set(5.7, 1.38, 0);
   group.add(mast, lamp);
 

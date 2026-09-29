@@ -1,4 +1,5 @@
 import { Color, MeshStandardMaterial, type BufferGeometry, type Material } from "three";
+import { toCreasedNormals } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 
 import { oklch } from "../color";
 
@@ -38,6 +39,13 @@ export type Kit = {
   /** Something that glows: portholes, glints, notes, the equalizer. */
   glow(hex: string | Color, emissive: string | Color, intensity: number): MeshStandardMaterial;
   keep<T extends BufferGeometry>(geometry: T): T;
+  /**
+   * Kept, with its normals smoothed across every edge under 50°. Extruded
+   * shapes come out flat-shaded, face by face, which is what made the
+   * cabin's arch read as a polygon; this lets a curve be a curve and keeps
+   * the crisp edges crisp.
+   */
+  smooth(geometry: BufferGeometry): BufferGeometry;
   dispose(): void;
 };
 
@@ -65,6 +73,12 @@ export function createKit(): Kit {
     keep(geometry) {
       geometries.push(geometry);
       return geometry;
+    },
+    smooth(geometry) {
+      const smoothed = toCreasedNormals(geometry, (50 * Math.PI) / 180);
+      geometry.dispose();
+      geometries.push(smoothed);
+      return smoothed;
     },
     dispose() {
       geometries.forEach((g) => g.dispose());

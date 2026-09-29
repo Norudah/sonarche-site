@@ -22,7 +22,7 @@ export function createWaterline(kit: Kit, freeboard: number) {
   const ink = new MeshBasicMaterial({ color: "#eef0ff", transparent: true, opacity: 0.85, side: DoubleSide });
   const foam = new Mesh(
     kit.keep(
-      new TubeGeometry(new CatmullRomCurve3(waterline(-freeboard, 0.06), true, "centripetal"), 160, 0.1, 6, true),
+      new TubeGeometry(new CatmullRomCurve3(waterline(-freeboard, 0.06), true, "centripetal"), 256, 0.1, 10, true),
     ),
     ink,
   );

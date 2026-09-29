@@ -93,7 +93,7 @@ export function Footer({ locale }: { locale: Locale }) {
           <SeaLayer bars={sea.back} />
 
           <Ark
-            className={`${scene.posterArk} absolute bottom-[3.625rem] left-1/2 z-[2] h-[14.375rem] w-[14.375rem] -translate-x-1/2`}
+            className="absolute bottom-[3.625rem] left-1/2 z-[2] h-[14.375rem] w-[14.375rem] -translate-x-1/2"
             shadow="0 6px 12px oklch(0.38 0.1 277 / 0.16)"
           >
             <Onde />
@@ -101,7 +101,7 @@ export function Footer({ locale }: { locale: Locale }) {
 
           <SeaLayer bars={sea.front} className="z-[3]" />
         </div>
-        <LiveSea weather="calm" className="z-[3]" />
+        <LiveSea weather="calm" waterline={WATERLINE} className="z-[3]" />
 
         {/* A waterline, not a footer bar: it is the last thing on the page and
             the least important, so it is set a step below body scale and drained

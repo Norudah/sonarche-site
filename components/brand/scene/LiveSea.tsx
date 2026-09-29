@@ -14,10 +14,11 @@ import type { WeatherName } from "./weather";
  * harbour): server-rendered, painted first, and what every visitor the scene is
  * not for keeps. This mounts an empty canvas over it and, once the page has
  * loaded and gone idle, fetches the WebGL chunk. When the scene has its first
- * frame it flags its host and the ark's first ping sweeps the poster away
- * (scene.module.css); once the ring has covered the frame the poster is put to
- * sleep underneath. Any failure on the way — no WebGL, a chunk that never
- * lands, a device the watchdog finds too slow — leaves the poster where it was.
+ * frame it flags its host: the loader drawn in the poster's place (sonar rings
+ * on flat water) bows out and the sea deploys from where it pinged
+ * (scene.module.css). Any failure on the way — no WebGL, a chunk that never
+ * lands, a device the watchdog finds too slow — flags the host `off`, and the
+ * poster is shown.
  *
  * The host is the canvas's parent: the element the poster fills. The harbour,
  * at the foot of the page, is only built once the visitor is on their way to
@@ -28,8 +29,8 @@ import type { WeatherName } from "./weather";
  * of its own: it is created once, and disposed of on unmount and on HMR.
  */
 
-const HIGH: Tier = { pixelRatio: 2, antialias: true, density: 1, rain: 520, pixels: 110 };
-const LOW: Tier = { pixelRatio: 1.25, antialias: false, density: 0.7, rain: 320, pixels: 80 };
+const HIGH: Tier = { pixelRatio: 2, antialias: true, density: 1, rain: 520, pixels: 60 };
+const LOW: Tier = { pixelRatio: 1.5, antialias: true, density: 0.7, rain: 320, pixels: 40 };
 
 type NavigatorHints = Navigator & { deviceMemory?: number; connection?: { saveData?: boolean } };
 
@@ -97,11 +98,16 @@ function whenNear(host: Element, run: () => void): () => void {
 
 type LiveSeaProps = {
   weather: WeatherName;
+  /** The poster's waterline, px above the host's bottom edge: where the loader pings. */
+  waterline: number;
   /** Stacking within the host: above the poster, under the copy. */
   className?: string;
 };
 
-export function LiveSea({ weather, className = "" }: LiveSeaProps) {
+/** The loader's equalizer: the Onde's delays, so it plays the same tune. */
+const BARS = ["-0.1s", "-0.35s", "-0.6s", "-0.2s", "-0.5s"];
+
+export function LiveSea({ weather, waterline, className = "" }: LiveSeaProps) {
   const ref = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -109,7 +115,11 @@ export function LiveSea({ weather, className = "" }: LiveSeaProps) {
     const host = canvas?.parentElement;
     if (!canvas || !host) return;
     const tier = pickTier();
-    if (!tier) return;
+    if (!tier) {
+      // Not for this visitor: the poster, straight away.
+      host.dataset.scene = "off";
+      return () => delete host.dataset.scene;
+    }
 
     let scene: { dispose(): void } | undefined;
     let cancelled = false;
@@ -119,18 +129,23 @@ export function LiveSea({ weather, className = "" }: LiveSeaProps) {
       import("./createScene").then(
         ({ createScene }) => {
           if (cancelled) return;
-          scene = createScene({
-            canvas,
-            host,
-            weather,
-            tier,
-            onLive: () => (host.dataset.scene = "live"),
-            onSettled: () => (host.dataset.scene = "settled"),
-            onFail: () => delete host.dataset.scene,
-          });
+          try {
+            scene = createScene({
+              canvas,
+              host,
+              weather,
+              tier,
+              onLive: () => (host.dataset.scene = "live"),
+              onSettled: () => (host.dataset.scene = "settled"),
+              onFail: () => (host.dataset.scene = "off"),
+            });
+          } catch {
+            // A scene that throws on the way up is a scene that gave up: the poster, now.
+            host.dataset.scene = "off";
+          }
         },
-        // The chunk never came: the poster is already the page.
-        () => {},
+        // The chunk never came: the poster, now.
+        () => (host.dataset.scene = "off"),
       );
 
     const cancel = whenSettled(() => {
@@ -148,10 +163,22 @@ export function LiveSea({ weather, className = "" }: LiveSeaProps) {
   }, [weather]);
 
   return (
-    <canvas
-      ref={ref}
-      aria-hidden
-      className={`${styles.canvas} pointer-events-none absolute inset-0 h-full w-full ${className}`}
-    />
+    <>
+      <canvas
+        ref={ref}
+        aria-hidden
+        className={`${styles.canvas} pointer-events-none absolute inset-0 h-full w-full ${className}`}
+      />
+      <div aria-hidden className={styles.loader} style={{ bottom: waterline }}>
+        <span className={styles.ring} />
+        <span className={styles.ring} />
+        <span className={styles.ring} />
+        <span className={styles.equalizer}>
+          {BARS.map((delay) => (
+            <span key={delay} style={{ animationDelay: delay }} />
+          ))}
+        </span>
+      </div>
+    </>
   );
 }

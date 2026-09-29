@@ -207,20 +207,30 @@ ringed portholes that glow; the mark's basket-handle cabin as its head, with
 dark glass eyes whose glints follow the cursor and the equalizer on its
 roof; satin paint, a room environment for sheen (built in a startup slice of its own: its shaders are the one expensive compile), a warm key, a lavender rim, and painted contact shadows rather than a shadow map. The hull is clipped at the sea's surface
 and a line of foam hugs the cut, so it sits in the bars rather than behind
-them. It works: a stern crane, amber, fishes notes out of the sea and stows
-them in a rack of four amber crates (the logo's cargo), which go below when
-full; the bow keeps the logo's indigo crates, stacked. The sea stays unlit —
-the boat is the only lit thing in the frame, which is what makes it the
-subject.
+them. It works: a stern crane, amber, fishes notes out of the sea and stows them in
+two real shipping containers (corrugated sides, corner castings, locking
+bars, a butterfly hatch) whose door lights count the notes inside; when both
+are full the lights travel along the deck into the sealed indigo container at
+the bow, the archive. Nothing appears or vanishes without a visible cause:
+notes surface in a spray, stretch when yanked, go in through the hatch.
+Quality notes from the 2026-09-29 pass: extruded shapes get creased normals
+(flat-shaded extrusions read as polygons), everything is tessellated for a
+2x screen, the pixel swarm stays local to the note (a lone square over the
+hull reads as a rendering fault), and the sea caps any crest between the hull
+and the camera below the hull's waterline as seen from the eye (otherwise
+tall rows in front comb across its silhouette). The sea stays unlit — the
+boat is the only lit thing in the frame, which is what makes it the subject.
 
 **The three moments** (createScene.ts), the storm's; the harbour keeps only
 the first, fired when the visitor gets there:
 
-1. **The ping.** Sonarche is sonar + arche. On arrival the ark sends a sonar
-   pulse, and the sea exists only where it has reached: the ring sweeps out
-   from the hull, wiping the CSS poster away (a CSS mask the scene grows in
-   step) and finding the 3D water behind it, bars flashing at its front. It
-   echoes, smaller, every 7.5s.
+1. **The arrival.** Sonarche is sonar + arche. Until the scene is ready the
+   sea's place holds a loader: sonar rings on flat water and the equalizer.
+   Then the first ping deploys the sea from exactly there — out from the
+   centre to the horizon, the bars rising out of flat water behind its front
+   — and the storm's vessel drops into it (at home it is already moored): a fall, a splash, a dip under its own
+   waterline and a few damped bobs (a buoyancy spring, and a squash on
+   impact like the toy it is). It echoes, smaller, every 7.5s.
 2. **The rescue.** The vessel patrols, stops and fishes: a note forms out of
    the sea's pixels, the crane slews out, hooks it, hauls it over the rack
    and lowers it into an open crate; the lid snaps shut and the portholes
@@ -236,13 +246,15 @@ cursor, and the ark's eyes follow it. In the hero the rain parts around the
 copy (`data-scene-clear`), an eye of the storm the headline is read in; in
 the footer the water thins to a wash under the colophon that sits in it.
 
-**The poster is the contract.** The CSS drawings (Storm.tsx, the footer's
-harbour) still render first, server-side; the scene is fetched after load and
-idle (the harbour's only once the visitor is within a screen of it), framed so its first frame puts the ark exactly where the poster has it
-(framing.ts solves the camera from the poster's numbers). The two arks
-cross-fade, the ping wipes the rest, and the poster is then hidden and paused
-underneath; it comes back if the scene gives up (including on a shader that
-fails to compile).
+**The poster is the fallback, not the opening.** The CSS drawings (Storm.tsx,
+the footer's harbour) are always server-rendered. On narrow screens and under
+reduced motion they are what shows. On wide screens they are held back and
+the loader shows instead (scene.module.css): the scene flags its host `live`
+when it has a frame, `off` when it is not for this visitor or gives up (no
+WebGL, a failed chunk, a shader that does not compile, the watchdog), which
+brings the poster straight in; and with no JavaScript at all, a plain CSS
+delay swaps the loader for the poster at 3.6s. The scene is fetched after
+load and idle (the harbour's only once the visitor is within a screen of it).
 
 **Who gets it** (LiveSea.tsx): `min-width: 64rem`, no reduced motion, no
 Save-Data, a hardware GL context (software rasterisers are refused). Two

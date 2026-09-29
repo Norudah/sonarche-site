@@ -36,8 +36,8 @@ export function createLighting(renderer: WebGLRenderer, scene: Scene) {
   // The hull is cut at the waterline by a clipping plane (boat/waterline.ts).
   renderer.localClippingEnabled = true;
 
-  const fill = new HemisphereLight("#f3f4ff", "#3d4097", 1.3);
-  const key = new DirectionalLight("#fff4e6", 2.6);
+  const fill = new HemisphereLight("#f3f4ff", "#3d4097", 0.95);
+  const key = new DirectionalLight("#fff4e6", 3.1);
   const rim = new DirectionalLight("#c7ccff", 1.7);
   scene.add(fill, key, key.target, rim, rim.target);
 
@@ -49,7 +49,7 @@ export function createLighting(renderer: WebGLRenderer, scene: Scene) {
       const room = new RoomEnvironment();
       const target = pmrem.fromScene(room, 0.04, 0.1, 100, { size: 128 });
       scene.environment = target.texture;
-      scene.environmentIntensity = 0.55;
+      scene.environmentIntensity = 0.7;
       room.dispose();
       pmrem.dispose();
       environment = target;

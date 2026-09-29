@@ -1,43 +1,73 @@
 /*
  * The handover from a CSS poster to the live scene over it (see LiveSea.tsx).
  *
- * The poster is what renders first and what stays for anyone the scene is not
- * for. Once the scene has a frame its host is flagged `live`: the two arks,
- * drawn to coincide, cross-fade, and the rest of the poster is wiped by the
- * ark's first ping — an ellipse the scene grows through `--reveal-*`, matching
- * the ring that finds the 3D sea. When the ring has covered the frame the host
- * is `settled`, and the poster is hidden and its loops paused; it is still
- * there to come back if the scene gives up.
+ * Where the scene is likely to run — wide screens, motion welcome — the poster
+ * is not shown first. The sea's place holds a loader instead: the ark's sonar,
+ * pinging on flat water, with its equalizer over it. When the scene has its
+ * first frame the host is flagged `live`, the loader bows out, and the first
+ * real ping deploys the sea from exactly where the rings were drawn.
+ *
+ * Three ways out, all without the scene's help:
+ *   - `off`: the scene is not for this visitor (or gave up) — the poster, now.
+ *   - no JavaScript, or a chunk that never lands: after 3.6s the loader fades
+ *     and the poster fades in on a plain CSS delay.
+ *   - narrow screens and reduced motion never see the loader at all.
  *
  * The host is whatever element the canvas sits in: the hero section, the
- * footer's harbour. Three classes to place — the canvas, the poster, and the
- * poster's ark.
+ * footer's harbour.
  */
+
 .canvas {
   opacity: 0;
-  transition: opacity 0.35s ease;
+  transition: opacity 0.3s ease;
 }
 
-.posterArk {
-  transition: opacity 0.35s ease;
+.loader {
+  display: none;
 }
 
-[data-scene] .canvas {
+@media (min-width: 64rem) and (prefers-reduced-motion: no-preference) {
+  .poster {
+    opacity: 0;
+    animation: fallbackIn 0.8s ease 3.6s forwards;
+  }
+
+  .loader {
+    display: block;
+    position: absolute;
+    left: 50%;
+    z-index: 5;
+    width: 0;
+    height: 0;
+    animation: fallbackOut 0.4s ease 3.6s forwards;
+  }
+}
+
+[data-scene="off"] .poster {
+  animation: none;
   opacity: 1;
 }
 
-[data-scene] .posterArk {
+[data-scene="off"] .loader {
+  display: none;
+}
+
+[data-scene="live"] .canvas,
+[data-scene="settled"] .canvas {
+  opacity: 1;
+}
+
+[data-scene="live"] .poster,
+[data-scene="settled"] .poster {
+  animation: none;
   opacity: 0;
 }
 
-[data-scene="live"] .poster {
-  --reveal-mask: radial-gradient(
-    ellipse var(--reveal-x, 0px) var(--reveal-y, 0px) at 50% var(--reveal-cy, 100%),
-    transparent calc(100% - 70px),
-    #000 100%
-  );
-  -webkit-mask-image: var(--reveal-mask);
-  mask-image: var(--reveal-mask);
+[data-scene="live"] .loader,
+[data-scene="settled"] .loader {
+  animation: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
 }
 
 [data-scene="settled"] .poster {
@@ -46,4 +76,79 @@
 
 [data-scene="settled"] .poster * {
   animation-play-state: paused;
+}
+
+/* --- The loader: sonar on flat water ------------------------------------ */
+
+.ring {
+  position: absolute;
+  left: -70px;
+  top: -12px;
+  width: 140px;
+  height: 24px;
+  border: 1.5px solid oklch(0.505 0.185 277 / 0.7);
+  border-radius: 50%;
+  opacity: 0;
+  animation: sonar 2.1s cubic-bezier(0.2, 0.6, 0.35, 1) infinite;
+}
+
+.ring:nth-child(2) {
+  animation-delay: 0.7s;
+}
+
+.ring:nth-child(3) {
+  animation-delay: 1.4s;
+}
+
+.equalizer {
+  position: absolute;
+  left: -17px;
+  bottom: 8px;
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 24px;
+}
+
+.equalizer span {
+  width: 4px;
+  height: 100%;
+  border-radius: 2px;
+  background: oklch(0.505 0.185 277);
+  transform-origin: bottom;
+  animation: bar 0.9s ease-in-out infinite;
+}
+
+@keyframes sonar {
+  0% {
+    transform: scale(0.15);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+@keyframes bar {
+  0%,
+  100% {
+    transform: scaleY(0.25);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes fallbackIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fallbackOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
 }

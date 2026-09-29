@@ -3,6 +3,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { PerspectiveCamera, Scene, Vector3, WebGLRenderer } from "three";
 
 import { createBoat } from "./boat/boat";
+import { createBursts } from "./bursts";
 import { FOV, frame, PITCH, type Framing } from "./framing";
 import { createLighting } from "./lighting";
 import { createRain } from "./rain";
@@ -114,9 +115,12 @@ export function createScene({ canvas, host, weather: name, tier, onLive, onSettl
   const sea = createSea(ripples, tier.density);
   const rain = weather.rain ? createRain(tier.rain) : undefined;
   const stream = weather.stream ? createStream(tier.pixels) : undefined;
-  const boat = createBoat({ ripples, now: () => clock, patrol: weather.patrol });
+  const bursts = createBursts();
+  const boat = createBoat({ ripples, bursts, now: () => clock, patrol: weather.patrol, laden: !weather.fishing });
+  // The storm's vessel arrives by falling into the sea (see intro).
+  if (weather.fishing) boat.hide();
   const lighting = createLighting(renderer, scene);
-  scene.add(sea.mesh, boat.group, boat.world);
+  scene.add(sea.mesh, boat.group, boat.world, bursts.mesh);
   if (rain) scene.add(rain.mesh);
   if (stream) scene.add(stream.mesh);
   sea.uniforms.uPallor.value = weather.pallor;
@@ -164,6 +168,7 @@ export function createScene({ canvas, host, weather: name, tier, onLive, onSettl
     sea.uniforms.uShore.value.set(weather.shore.fade * pixelRatio, weather.shore.floor);
     rain?.relayout(framing);
     stream?.relayout(framing);
+    bursts.uniforms.uFocal.value = framing.focal;
     clearCopy();
     place();
   }
@@ -189,15 +194,8 @@ export function createScene({ canvas, host, weather: name, tier, onLive, onSettl
     const soft = revealing ? 3 + state.reveal * 0.06 : 1;
     s.uReveal.value.set(revealing ? state.reveal : 1e5, soft, revealing ? 1 : 0);
     rain?.uniforms.uReveal.value.set(revealing ? state.reveal : 1e5, soft, 0);
-    if (revealing && framing) {
-      // The same ring, on the poster: an ellipse on the water plane as the
-      // camera sees it, so the CSS sea is wiped exactly where the 3D one is
-      // found.
-      const rx = (state.reveal * framing.focal) / framing.distance;
-      host.style.setProperty("--reveal-x", `${rx.toFixed(1)}px`);
-      host.style.setProperty("--reveal-y", `${(rx * Math.sin(PITCH * DEG)).toFixed(1)}px`);
-      host.style.setProperty("--reveal-cy", `${(framing.height / 2 + framing.shift).toFixed(1)}px`);
-    }
+    bursts.uniforms.uTime.value = clock;
+    bursts.uniforms.uEye.value.copy(camera.position);
 
     if (rain && framing) {
       rain.uniforms.uTime.value = clock;
@@ -345,21 +343,32 @@ export function createScene({ canvas, host, weather: name, tier, onLive, onSettl
     boat.ping();
   }
 
+  /*
+   * Arrival. The sea deploys out of the loader's sonar rings (LiveSea.tsx):
+   * the first ping sweeps out from the centre to the horizon and the bars
+   * rise out of flat water behind its front. The storm's vessel drops into it
+   * as it goes, and starts work once the sea is all there.
+   */
   function intro() {
     const reach = (framing?.distance ?? 60) * 3.2;
     ctx.add(() => {
-      gsap
-        .timeline()
-        .call(() => boat.ping(), [], 0.1)
-        .to(state, { reveal: reach, duration: 2.1, ease: "power1.in" }, 0.1)
-        .call(() => {
+      const tl = gsap.timeline();
+      tl.to(state, { reveal: reach, duration: 2.4, ease: "power2.in" }, 0.05).call(
+        () => {
           state.reveal = REVEALED;
           onSettled();
-          if (weather.fishing) boat.work();
-        });
+        },
+        [],
+        ">",
+      );
+      if (weather.fishing) {
+        tl.call(() => boat.drop(), [], 0.45).call(() => boat.work(), [], 3.4);
+      } else {
+        tl.call(() => boat.ping(), [], 0.1);
+      }
 
       gsap
-        .timeline({ repeat: -1, delay: weather.echoEvery })
+        .timeline({ repeat: -1, delay: weather.echoEvery + 3 })
         .call(() => ping(weather.echo))
         .to({}, { duration: weather.echoEvery });
 
@@ -433,13 +442,11 @@ export function createScene({ canvas, host, weather: name, tier, onLive, onSettl
     host.removeEventListener("pointermove", onPointer);
     host.removeEventListener("pointerleave", onLeave);
     host.removeEventListener("click", onClick);
-    host.style.removeProperty("--reveal-x");
-    host.style.removeProperty("--reveal-y");
-    host.style.removeProperty("--reveal-cy");
     canvas.removeEventListener("webglcontextlost", onContextLost);
     sea.dispose();
     rain?.dispose();
     stream?.dispose();
+    bursts.dispose();
     boat.dispose();
     lighting.dispose();
     renderer.dispose();

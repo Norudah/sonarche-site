@@ -38,7 +38,7 @@ export const HULL = {
 
 const BOTTOM_HALF_LENGTH = 5.1;
 const BOTTOM_HALF_BEAM = 1.55;
-const SEGMENTS = 96;
+const SEGMENTS = 160;
 /** Down the side, 0 at the deck and 1 at the keel; doubled up at the band edges. */
 const LEVELS = [
   0, 0.03, 0.08, 0.15, 0.165, 0.25, 0.35, 0.45, 0.55, 0.61, 0.625, 0.7, 0.78, 0.85, 0.9, 0.94, 0.97, 0.99, 1,
@@ -151,7 +151,7 @@ export function createHull(kit: Kit) {
 
   // The rail: the mark's lavender gunwale, as a rounded bumper all the way round.
   const railPath = new CatmullRomCurve3(outline(0.06), true, "centripetal");
-  const rail = new Mesh(kit.keep(new TubeGeometry(railPath, 160, 0.2, 12, true)), kit.paint(INK.rail, 0.42));
+  const rail = new Mesh(kit.keep(new TubeGeometry(railPath, 256, 0.2, 20, true)), kit.paint(INK.rail, 0.42));
   rail.position.y = HULL.deck + 0.08;
 
   return [hull, deck, rail];

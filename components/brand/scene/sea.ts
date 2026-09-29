@@ -138,18 +138,33 @@ void main() {
 
   vec2 ring = ripples(p, t);
 
+
   // The reveal: on arrival the sea exists only where the ark's first ping has
   // reached, and the front of that ping is a ring like any other — the sonar
   // finding the water.
   float fromArk = distance(p, uArk);
   vReveal = smoothstep(uReveal.x, uReveal.x - uReveal.y, fromArk);
+  // Behind the front the bars rise out of flat water: the sea unfolding.
+  float grow = smoothstep(uReveal.x, uReveal.x - uReveal.y * 2.5, fromArk);
   float k0 = (fromArk - uReveal.x + uReveal.y * 0.5) / (uReveal.y * 0.7);
   float front = exp(-k0 * k0) * uReveal.z;
   ring += vec2(front * 0.8, front);
 
   h = max(0.12, h + ring.x * 2.4);
 
-  float surface = heave(p, t) * shelter * uStorm;
+
+  h *= mix(0.05, 1.0, grow);
+  float surface = heave(p, t) * shelter * uStorm * grow;
+  // Between the hull and the camera, no crest may rise into the vessel's
+  // outline: each is capped where, seen from the eye, it would cross the
+  // hull's waterline. Waves still run in front of the boat; they just pass
+  // under its silhouette instead of combing across it.
+  float bow = uArk.y + 2.6;
+  if (p.y > bow) {
+    float inFront = 1.0 - smoothstep(7.5, 9.5, abs(p.x - uArk.x));
+    float cap = uEye.y * (p.y - bow) / max(1.0, uEye.z - bow) - 0.1;
+    h = mix(h, clamp(cap - surface, 0.12, h), inFront);
+  }
   float top = surface + h;
   float y = mix(surface - DEPTH, top, position.y);
 
@@ -280,7 +295,9 @@ export function createSea(ripples: ReturnType<typeof createRipples>, density: nu
 
     const u = material.uniforms;
     u.uEye.value.set(0, framing.eyeY, framing.eyeZ);
-    u.uFade.value.set(framing.distance * 0.9, framing.distance * 2.6);
+    // Haze sets in early: a busy horizon right behind the boat reads as noise
+    // on its outline; a paler, softer one sets it off.
+    u.uFade.value.set(framing.distance * 0.7, framing.distance * 2.4);
   }
 
   return {

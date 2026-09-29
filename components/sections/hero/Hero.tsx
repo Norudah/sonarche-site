@@ -8,7 +8,7 @@ import { DownloadCta } from "@/components/download/DownloadCta";
 
 import { heroCopy } from "./copy";
 import styles from "./hero.module.css";
-import { Storm } from "./Storm";
+import { Storm, WATERLINE } from "./Storm";
 
 /*
  * The hero — the LCP of the whole site, so nothing it paints waits on
@@ -16,10 +16,12 @@ import { Storm } from "./Storm";
  *
  * No entrance animation on the text, deliberately: revealing an h1 from
  * opacity 0 hands the LCP to whenever the bundle lands, and leaves the page
- * blank if it never does. What paints first is the CSS storm (Storm, Ark,
- * Onde), server-rendered and self-running. The WebGL storm (LiveSea) is
- * fetched once the page is idle and cross-fades over it: the first impression
- * is the scene's, the first paint never is.
+ * blank if it never does. The sea is not the LCP either way: on narrow screens
+ * and under reduced motion the CSS storm (Storm, Ark, Onde) paints first and
+ * stays; on wide screens the sea's place holds a sonar loader until the WebGL
+ * storm (LiveSea) is ready, deploys from it, and drops the vessel in — with the
+ * CSS storm as the fallback if it never comes. The first impression is the
+ * scene's, the first paint never is.
  *
  * The h1 carries both the wordmark and the tagline, so the page has one heading
  * that reads as a sentence — "Sonarche. From the stream into the Ark." — rather
@@ -55,7 +57,7 @@ export function Hero({ locale }: { locale: Locale }) {
     >
       <div className={`${scene.poster} absolute inset-0`}>
         <Storm>
-          <div className={`${scene.posterArk} absolute inset-0 z-[2]`}>
+          <div className="absolute inset-0 z-[2]">
             {/* Narrower and lower on a phone: the text block above it is twice as
               tall there, and a 320px ark in a 375px viewport is a bath toy.
               Both offsets put the hull bottom 4px under the waterline. */}
@@ -68,7 +70,7 @@ export function Hero({ locale }: { locale: Locale }) {
           </div>
         </Storm>
       </div>
-      <LiveSea weather="storm" className="z-[4]" />
+      <LiveSea weather="storm" waterline={WATERLINE} className="z-[4]" />
 
       {/* `data-scene-clear`: the live storm's rain parts around this block. */}
       <div

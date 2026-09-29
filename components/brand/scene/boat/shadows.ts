@@ -26,8 +26,8 @@ function pool(): CanvasTexture {
 /** Footprints on the deck: x, z, half-length, half-beam. */
 const FOOTPRINTS = [
   [0, 0, 2.9, 1.95], // the cabin
-  [-4.1, 0, 1.6, 1.6], // the rack
-  [3.25, 0, 0.9, 1.25], // the bow stack
+  [-4.07, 0, 1.55, 1.35], // the stern containers
+  [3.45, 0, 0.75, 1.15], // the archive at the bow
   [-6, 0, 0.85, 0.85], // the crane
 ];
 
