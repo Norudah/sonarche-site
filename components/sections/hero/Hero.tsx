@@ -2,11 +2,12 @@ import { type Locale } from "@/lib/site";
 
 import { Ark } from "@/components/brand/Ark";
 import { Onde } from "@/components/brand/Onde";
+import { LiveSea } from "@/components/brand/scene/LiveSea";
+import scene from "@/components/brand/scene/scene.module.css";
 import { DownloadCta } from "@/components/download/DownloadCta";
 
 import { heroCopy } from "./copy";
 import styles from "./hero.module.css";
-import { HeroScene } from "./HeroScene";
 import { Storm } from "./Storm";
 
 /*
@@ -16,7 +17,7 @@ import { Storm } from "./Storm";
  * No entrance animation on the text, deliberately: revealing an h1 from
  * opacity 0 hands the LCP to whenever the bundle lands, and leaves the page
  * blank if it never does. What paints first is the CSS storm (Storm, Ark,
- * Onde), server-rendered and self-running. The WebGL storm (HeroScene) is
+ * Onde), server-rendered and self-running. The WebGL storm (LiveSea) is
  * fetched once the page is idle and cross-fades over it: the first impression
  * is the scene's, the first paint never is.
  *
@@ -52,9 +53,9 @@ export function Hero({ locale }: { locale: Locale }) {
           "linear-gradient(180deg, oklch(0.986 0.004 279), oklch(0.972 0.01 279) 55%, oklch(0.93 0.036 279) 100%)",
       }}
     >
-      <div className={`${styles.poster} absolute inset-0`}>
+      <div className={`${scene.poster} absolute inset-0`}>
         <Storm>
-          <div className={`${styles.posterArk} absolute inset-0 z-[2]`}>
+          <div className={`${scene.posterArk} absolute inset-0 z-[2]`}>
             {/* Narrower and lower on a phone: the text block above it is twice as
               tall there, and a 320px ark in a 375px viewport is a bath toy.
               Both offsets put the hull bottom 4px under the waterline. */}
@@ -67,9 +68,13 @@ export function Hero({ locale }: { locale: Locale }) {
           </div>
         </Storm>
       </div>
-      <HeroScene />
+      <LiveSea weather="storm" className="z-[4]" />
 
-      <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-8 pt-16 text-center sm:px-15 sm:pt-20">
+      {/* `data-scene-clear`: the live storm's rain parts around this block. */}
+      <div
+        data-scene-clear
+        className="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-8 pt-16 text-center sm:px-15 sm:pt-20"
+      >
         <p className="text-accent font-sans text-[0.625rem] font-semibold tracking-[0.2em] sm:text-xs sm:tracking-[0.34em]">
           {copy.badge}
         </p>

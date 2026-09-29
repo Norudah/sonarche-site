@@ -2,27 +2,33 @@
 
 import { useEffect, useRef } from "react";
 
-import styles from "./hero.module.css";
-import type { Tier } from "./scene/createScene";
+import type { Tier } from "./createScene";
+import styles from "./scene.module.css";
+import type { WeatherName } from "./weather";
 
 /*
- * The live storm's front door — and the reason the hero still costs nothing
- * before it is read.
+ * The live sea's front door — and the reason the posters still cost nothing
+ * before they are read.
  *
- * The CSS storm (Storm.tsx) is the poster: server-rendered, the first thing
- * painted, and what every visitor the scene is not for keeps. This mounts an
- * empty canvas over it and, once the page has loaded and gone idle, fetches the
- * WebGL chunk. When the scene has its first frame it flags the section and
- * the ark's first ping sweeps the poster away (hero.module.css); once the
- * ring has covered the frame the poster is put to sleep underneath.
- * Any failure on the way — no WebGL, a chunk that never lands, a device the
- * watchdog finds too slow — just leaves the poster where it was.
+ * Each sea on the page has a CSS poster (the hero's Storm, the footer's
+ * harbour): server-rendered, painted first, and what every visitor the scene is
+ * not for keeps. This mounts an empty canvas over it and, once the page has
+ * loaded and gone idle, fetches the WebGL chunk. When the scene has its first
+ * frame it flags its host and the ark's first ping sweeps the poster away
+ * (scene.module.css); once the ring has covered the frame the poster is put to
+ * sleep underneath. Any failure on the way — no WebGL, a chunk that never
+ * lands, a device the watchdog finds too slow — leaves the poster where it was.
+ *
+ * The host is the canvas's parent: the element the poster fills. The harbour,
+ * at the foot of the page, is only built once the visitor is on their way to
+ * it — a scene nobody scrolls to is GPU memory held for nothing. Both share
+ * one chunk, so the second costs no download.
  *
  * The effect is here because the scene is an external system with a lifetime
  * of its own: it is created once, and disposed of on unmount and on HMR.
  */
 
-const HIGH: Tier = { pixelRatio: 1.75, antialias: true, density: 1, rain: 520, pixels: 210 };
+const HIGH: Tier = { pixelRatio: 2, antialias: true, density: 1, rain: 520, pixels: 210 };
 const LOW: Tier = { pixelRatio: 1.25, antialias: false, density: 0.7, rain: 320, pixels: 160 };
 
 type NavigatorHints = Navigator & { deviceMemory?: number; connection?: { saveData?: boolean } };
@@ -40,7 +46,8 @@ type NavigatorHints = Navigator & { deviceMemory?: number; connection?: { saveDa
  * Reduced motion never gets it: the poster already settles for them. Data
  * savers keep the poster too — this is 150KB of decoration. Everyone else gets
  * a tier from what the browser says about the machine, and the watchdog in
- * createScene.ts corrects a tier that turns out to be optimistic.
+ * createScene.ts corrects a tier that turns out to be optimistic. The rain
+ * and pixel counts only mean anything to the storm.
  */
 const WIDE = "(min-width: 64rem)";
 
@@ -74,26 +81,48 @@ function whenSettled(run: () => void): () => void {
   };
 }
 
-export function HeroScene() {
+/** Once the host is within a screen or so of the viewport. */
+function whenNear(host: Element, run: () => void): () => void {
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (!entry.isIntersecting) return;
+      observer.disconnect();
+      run();
+    },
+    { rootMargin: "100% 0px" },
+  );
+  observer.observe(host);
+  return () => observer.disconnect();
+}
+
+type LiveSeaProps = {
+  weather: WeatherName;
+  /** Stacking within the host: above the poster, under the copy. */
+  className?: string;
+};
+
+export function LiveSea({ weather, className = "" }: LiveSeaProps) {
   const ref = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = ref.current;
-    const host = canvas?.closest("section");
+    const host = canvas?.parentElement;
     if (!canvas || !host) return;
     const tier = pickTier();
     if (!tier) return;
 
     let scene: { dispose(): void } | undefined;
     let cancelled = false;
+    let cancelNear = () => {};
 
-    const cancel = whenSettled(() => {
-      import("./scene/createScene").then(
+    const load = () =>
+      import("./createScene").then(
         ({ createScene }) => {
           if (cancelled) return;
           scene = createScene({
             canvas,
             host,
+            weather,
             tier,
             onLive: () => (host.dataset.scene = "live"),
             onSettled: () => (host.dataset.scene = "settled"),
@@ -103,21 +132,26 @@ export function HeroScene() {
         // The chunk never came: the poster is already the page.
         () => {},
       );
+
+    const cancel = whenSettled(() => {
+      if (weather === "calm") cancelNear = whenNear(host, load);
+      else load();
     });
 
     return () => {
       cancelled = true;
       cancel();
+      cancelNear();
       scene?.dispose();
       delete host.dataset.scene;
     };
-  }, []);
+  }, [weather]);
 
   return (
     <canvas
       ref={ref}
       aria-hidden
-      className={`${styles.scene} pointer-events-none absolute inset-0 z-[4] h-full w-full`}
+      className={`${styles.canvas} pointer-events-none absolute inset-0 h-full w-full ${className}`}
     />
   );
 }

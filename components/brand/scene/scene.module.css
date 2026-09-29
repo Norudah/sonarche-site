@@ -1,0 +1,49 @@
+/*
+ * The handover from a CSS poster to the live scene over it (see LiveSea.tsx).
+ *
+ * The poster is what renders first and what stays for anyone the scene is not
+ * for. Once the scene has a frame its host is flagged `live`: the two arks,
+ * drawn to coincide, cross-fade, and the rest of the poster is wiped by the
+ * ark's first ping — an ellipse the scene grows through `--reveal-*`, matching
+ * the ring that finds the 3D sea. When the ring has covered the frame the host
+ * is `settled`, and the poster is hidden and its loops paused; it is still
+ * there to come back if the scene gives up.
+ *
+ * The host is whatever element the canvas sits in: the hero section, the
+ * footer's harbour. Three classes to place — the canvas, the poster, and the
+ * poster's ark.
+ */
+.canvas {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.posterArk {
+  transition: opacity 0.35s ease;
+}
+
+[data-scene] .canvas {
+  opacity: 1;
+}
+
+[data-scene] .posterArk {
+  opacity: 0;
+}
+
+[data-scene="live"] .poster {
+  --reveal-mask: radial-gradient(
+    ellipse var(--reveal-x, 0px) var(--reveal-y, 0px) at 50% var(--reveal-cy, 100%),
+    transparent calc(100% - 70px),
+    #000 100%
+  );
+  -webkit-mask-image: var(--reveal-mask);
+  mask-image: var(--reveal-mask);
+}
+
+[data-scene="settled"] .poster {
+  visibility: hidden;
+}
+
+[data-scene="settled"] .poster * {
+  animation-play-state: paused;
+}

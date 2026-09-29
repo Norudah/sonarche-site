@@ -1,5 +1,7 @@
 import { Ark } from "@/components/brand/Ark";
 import { Onde } from "@/components/brand/Onde";
+import { LiveSea } from "@/components/brand/scene/LiveSea";
+import scene from "@/components/brand/scene/scene.module.css";
 import { SeaBody } from "@/components/brand/sea/SeaBody";
 import { SeaLayer } from "@/components/brand/sea/SeaLayer";
 import { buildSea, SEA_CALM } from "@/components/brand/sea/sea";
@@ -72,13 +74,17 @@ export function Footer({ locale }: { locale: Locale }) {
        * The ark, home. The hero's sea, calmed: no rain, no crests, a swell that
        * barely breathes.
        *
+       * On wide screens the same water goes live (LiveSea, in its calm
+       * weather): the ark's ping finds the harbour when the visitor arrives
+       * there, and the drawing below stays as the poster it takes over from.
+       *
        * The colophon sits down here, in the water, rather than on a rule above
        * the harbour. It was taking a strip of paper the vessel needed — with it
        * moved, the ark gets that air back and the page ends on one picture
        * instead of a picture with a caption bar bolted over it.
        */}
       <div className="relative mt-10 h-[19.5rem]" style={sea.style}>
-        <div aria-hidden>
+        <div aria-hidden className={`${scene.poster} absolute inset-0`}>
           {/* The water itself: the section's gradient stops at paper, so without
               a body of its own the swell would stand on nothing. */}
           <SeaBody body={sea.body} />
@@ -87,7 +93,7 @@ export function Footer({ locale }: { locale: Locale }) {
           <SeaLayer bars={sea.back} />
 
           <Ark
-            className="absolute bottom-[3.625rem] left-1/2 z-[2] h-[14.375rem] w-[14.375rem] -translate-x-1/2"
+            className={`${scene.posterArk} absolute bottom-[3.625rem] left-1/2 z-[2] h-[14.375rem] w-[14.375rem] -translate-x-1/2`}
             shadow="0 6px 12px oklch(0.38 0.1 277 / 0.16)"
           >
             <Onde />
@@ -95,6 +101,7 @@ export function Footer({ locale }: { locale: Locale }) {
 
           <SeaLayer bars={sea.front} className="z-[3]" />
         </div>
+        <LiveSea weather="calm" className="z-[3]" />
 
         {/* A waterline, not a footer bar: it is the last thing on the page and
             the least important, so it is set a step below body scale and drained

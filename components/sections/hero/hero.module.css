@@ -7,7 +7,8 @@
  * These are CSS keyframes, not GSAP, on purpose: they are endless ambient loops
  * with no scroll or event input, so paying for a JS ticker on ~200 elements buys
  * nothing. GSAP owns what CSS cannot do well — the scroll narrative, and the
- * WebGL scene that takes over from all of this once it is ready (see scene/).
+ * WebGL scene that takes over from all of this once it is ready
+ * (components/brand/scene).
  *
  * Everything below animates transform or opacity only. The reduced-motion block
  * at the end stops all of it at a settled state — suspended rain and a dimpled
@@ -111,50 +112,4 @@
   .scrollHint {
     opacity: 1;
   }
-}
-
-/*
- * The handover from the CSS storm to the WebGL one (see HeroScene.tsx).
- *
- * The poster is what renders first and what stays for anyone the scene is not
- * for. Once the scene has a frame the section is flagged `live`: the two arks,
- * drawn to coincide, cross-fade, and the rest of the poster is wiped by the
- * ark's first ping — an ellipse the scene grows through `--reveal-*`, matching
- * the ring that finds the 3D sea. When the ring has covered the frame the
- * section is `settled`, and the poster is hidden and its two hundred loops
- * paused; it is still there to come back if the scene gives up.
- */
-.scene {
-  opacity: 0;
-  transition: opacity 0.35s ease;
-}
-
-.posterArk {
-  transition: opacity 0.35s ease;
-}
-
-[data-scene] .scene {
-  opacity: 1;
-}
-
-[data-scene] .posterArk {
-  opacity: 0;
-}
-
-[data-scene="live"] .poster {
-  --reveal-mask: radial-gradient(
-    ellipse var(--reveal-x, 0px) var(--reveal-y, 0px) at 50% var(--reveal-cy, 100%),
-    transparent calc(100% - 70px),
-    #000 100%
-  );
-  -webkit-mask-image: var(--reveal-mask);
-  mask-image: var(--reveal-mask);
-}
-
-[data-scene="settled"] .poster {
-  visibility: hidden;
-}
-
-[data-scene="settled"] .poster * {
-  animation-play-state: paused;
 }

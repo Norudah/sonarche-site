@@ -1,8 +1,9 @@
 import { Vector4 } from "three";
 
 /*
- * Rings travelling across the water: the sonar ping the ark sends out, and the
- * wake a pointer leaves when it drags across the sea.
+ * Rings travelling across the water: the sonar ping the ark sends out, its
+ * echoes (their loudness is the weather's, see weather.ts), the wake a pointer
+ * leaves when it drags across the sea and the ping a click sends.
  *
  * A fixed pool of uniforms rather than anything clever: the sea's vertex shader
  * loops over every slot for every bar, so the pool size is the frame budget's
@@ -22,7 +23,6 @@ export type RingSpec = {
 };
 
 export const PING: RingSpec = { strength: 1.5, speed: 30, width: 3.2 };
-export const ECHO: RingSpec = { strength: 0.75, speed: 24, width: 2.6 };
 export const WAKE: RingSpec = { strength: 0.55, speed: 10, width: 1.6 };
 export const CLICK: RingSpec = { strength: 1.2, speed: 20, width: 2.6 };
 

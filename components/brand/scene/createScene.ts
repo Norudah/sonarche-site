@@ -5,19 +5,21 @@ import { PerspectiveCamera, Scene, Vector3, WebGLRenderer } from "three";
 import { createArk } from "./ark";
 import { FOV, frame, PITCH, type Framing } from "./framing";
 import { createRain } from "./rain";
-import { CLICK, createRipples, ECHO, PING, WAKE } from "./ripples";
+import { CLICK, createRipples, PING, WAKE, type RingSpec } from "./ripples";
 import { createSea } from "./sea";
 import { createStream } from "./stream";
+import { WEATHER, type WeatherName } from "./weather";
 
 gsap.registerPlugin(ScrollTrigger);
 
 /*
- * The hero's storm, live.
+ * The sea, live — the hero's storm and the footer's home water, told by one
+ * scene in two weathers (weather.ts).
  *
  * Loaded after the page is idle and only on a device that passed the gate in
- * HeroScene.tsx; everything the visitor reads is already on screen by then.
- * This owns the renderer, the camera, the clock and the three moments the scene
- * is built around:
+ * LiveSea.tsx; everything the visitor reads is already on screen by then.
+ * This owns the renderer, the camera, the clock and the three moments the storm
+ * is built around (the harbour keeps only the first, on arrival):
  *
  *   1. The ping. Sonarche is sonar + arche, and this is the name said out
  *      loud: on arrival the ark sends a sonar pulse, and the sea exists only
@@ -36,7 +38,7 @@ gsap.registerPlugin(ScrollTrigger);
  * Frame budget, in the order it is defended: no lighting, no shadows, no
  * post-processing; one draw call each for the sea, the rain and the pixels,
  * however many thousand cards they hold; a pixel-ratio ceiling set by the gate;
- * the clock stops whenever the hero is off-screen; and a watchdog that drops
+ * the clock stops whenever the host is off-screen; and a watchdog that drops
  * the resolution once, and hands back to the poster if that is not enough.
  */
 
@@ -52,8 +54,9 @@ export type Tier = {
 
 type SceneOptions = {
   canvas: HTMLCanvasElement;
-  /** The hero section: sized from, observed, and listened to for the pointer. */
+  /** The element the canvas covers: sized from, observed, listened to for the pointer. */
   host: HTMLElement;
+  weather: WeatherName;
   tier: Tier;
   /** The first frame is on the canvas: the reveal is starting over the poster. */
   onLive: () => void;
@@ -64,8 +67,6 @@ type SceneOptions = {
 };
 
 const DEG = Math.PI / 180;
-/** Seconds between the ark's echoes once the intro is over. */
-const ECHO_EVERY = 7.5;
 /** Median frame time, ms, above which the watchdog steps in. ~38fps. */
 const SLOW_FRAME = 26;
 /** The first ping starts just clear of the hull… */
@@ -73,7 +74,8 @@ const REVEAL_FROM = 6.5;
 /** …and once it has swept the frame, the sea is simply there. */
 const REVEALED = Number.POSITIVE_INFINITY;
 
-export function createScene({ canvas, host, tier, onLive, onSettled, onFail }: SceneOptions) {
+export function createScene({ canvas, host, weather: name, tier, onLive, onSettled, onFail }: SceneOptions) {
+  const weather = WEATHER[name];
   let renderer: WebGLRenderer;
   try {
     renderer = new WebGLRenderer({
@@ -107,10 +109,14 @@ export function createScene({ canvas, host, tier, onLive, onSettled, onFail }: S
   const camera = new PerspectiveCamera(FOV, 1, 1, 1000);
   const ripples = createRipples();
   const sea = createSea(ripples, tier.density);
-  const rain = createRain(tier.rain);
-  const stream = createStream(tier.pixels);
+  const rain = weather.rain ? createRain(tier.rain) : undefined;
+  const stream = weather.stream ? createStream(tier.pixels) : undefined;
   const ark = createArk();
-  scene.add(sea.mesh, ark.group, rain.mesh, stream.mesh);
+  scene.add(sea.mesh, ark.group);
+  if (rain) scene.add(rain.mesh);
+  if (stream) scene.add(stream.mesh);
+  sea.uniforms.uPallor.value = weather.pallor;
+  sea.uniforms.uPresence.value = weather.presence;
 
   let framing: Framing | undefined;
   let pixelRatio = Math.min(window.devicePixelRatio || 1, tier.pixelRatio);
@@ -121,7 +127,7 @@ export function createScene({ canvas, host, tier, onLive, onSettled, onFail }: S
   // Tweened by the intro and the scroll; read every frame.
   // `reveal` is the first ping's radius, world units from the hull.
   const state = { stream: 0, calm: 0, reveal: REVEAL_FROM };
-  // Where the pointer is (-1..1 across the hero), and where the camera has got to.
+  // Where the pointer is (-1..1 across the host), and where the camera has got to.
   const lean = { x: 0, y: 0, toX: 0, toY: 0 };
 
   function place() {
@@ -140,7 +146,7 @@ export function createScene({ canvas, host, tier, onLive, onSettled, onFail }: S
     const width = host.clientWidth;
     const height = host.clientHeight;
     if (!width || !height) return;
-    framing = frame(width, height);
+    framing = frame(width, height, weather.stage(width));
 
     renderer.setPixelRatio(pixelRatio);
     renderer.setSize(width, height, false);
@@ -150,9 +156,11 @@ export function createScene({ canvas, host, tier, onLive, onSettled, onFail }: S
     camera.setViewOffset(width, height, 0, -framing.shift, width, height);
     camera.updateProjectionMatrix();
 
-    sea.relayout(framing, pixelRatio);
-    rain.relayout(framing);
-    stream.relayout(framing);
+    sea.relayout(framing);
+    sea.uniforms.uShore.value.set(weather.shore.fade * pixelRatio, weather.shore.floor);
+    rain?.relayout(framing);
+    stream?.relayout(framing);
+    clearCopy();
     place();
   }
 
@@ -163,9 +171,9 @@ export function createScene({ canvas, host, tier, onLive, onSettled, onFail }: S
     lean.y += (lean.toY - lean.y) * follow;
     place();
 
-    ark.update(clock, dt);
+    ark.update(clock, dt, lean);
     const [hx, hy, hz] = ark.hold();
-    const storm = 1 - 0.6 * state.calm;
+    const storm = weather.swell * (1 - 0.6 * state.calm);
 
     const s = sea.uniforms;
     s.uTime.value = clock;
@@ -176,7 +184,7 @@ export function createScene({ canvas, host, tier, onLive, onSettled, onFail }: S
     const revealing = state.reveal < REVEALED;
     const soft = revealing ? 3 + state.reveal * 0.06 : 1;
     s.uReveal.value.set(revealing ? state.reveal : 1e5, soft, revealing ? 1 : 0);
-    rain.uniforms.uReveal.value.set(revealing ? state.reveal : 1e5, soft, 0);
+    rain?.uniforms.uReveal.value.set(revealing ? state.reveal : 1e5, soft, 0);
     if (revealing && framing) {
       // The same ring, on the poster: an ellipse on the water plane as the
       // camera sees it, so the CSS sea is wiped exactly where the 3D one is
@@ -187,14 +195,18 @@ export function createScene({ canvas, host, tier, onLive, onSettled, onFail }: S
       host.style.setProperty("--reveal-cy", `${(framing.height / 2 + framing.shift).toFixed(1)}px`);
     }
 
-    rain.uniforms.uTime.value = clock;
-    rain.uniforms.uRain.value = 1 - state.calm;
+    if (rain) {
+      rain.uniforms.uTime.value = clock;
+      rain.uniforms.uRain.value = 1 - state.calm;
+    }
 
-    const p = stream.uniforms;
-    p.uTime.value = clock;
-    p.uStream.value = state.stream;
-    p.uHold.value.set(hx, hy, hz);
-    p.uEye.value.copy(camera.position);
+    if (stream) {
+      const p = stream.uniforms;
+      p.uTime.value = clock;
+      p.uStream.value = state.stream;
+      p.uHold.value.set(hx, hy, hz);
+      p.uEye.value.copy(camera.position);
+    }
 
     renderer.render(scene, camera);
   }
@@ -298,7 +310,22 @@ export function createScene({ canvas, host, tier, onLive, onSettled, onFail }: S
 
   const ctx = gsap.context(() => {});
 
-  function ping(ring = PING) {
+  /*
+   * The eye of the storm: the rain parts around whatever the host marks
+   * `data-scene-clear` (the hero's copy), measured here rather than guessed so
+   * a longer French subline or a wrapped button row moves it too.
+   */
+  function clearCopy() {
+    const copy = host.querySelector("[data-scene-clear]");
+    if (!rain || !copy || !framing) return;
+    const box = copy.getBoundingClientRect();
+    const frameBox = host.getBoundingClientRect();
+    const cx = box.left - frameBox.left + box.width / 2;
+    const cy = framing.height - (box.top - frameBox.top + box.height / 2);
+    rain.uniforms.uClear.value.set(cx, cy, box.width * 0.62, box.height * 0.68).multiplyScalar(pixelRatio);
+  }
+
+  function ping(ring: RingSpec = PING) {
     ripples.spawn(ark.group.position.x, 0, clock, ring);
     ark.ping();
   }
@@ -317,21 +344,34 @@ export function createScene({ canvas, host, tier, onLive, onSettled, onFail }: S
         .to(state, { stream: 1, duration: 3, ease: "power1.in" }, 1.4);
 
       gsap
-        .timeline({ repeat: -1, delay: ECHO_EVERY })
-        .call(() => ping(ECHO))
-        .to({}, { duration: ECHO_EVERY });
+        .timeline({ repeat: -1, delay: weather.echoEvery })
+        .call(() => ping(weather.echo))
+        .to({}, { duration: weather.echoEvery });
 
-      gsap.to(state, {
-        calm: 1,
-        ease: "none",
-        scrollTrigger: { trigger: host, start: "top top", end: "bottom top", scrub: 0.8 },
-      });
+      if (weather.settlesOnScroll) {
+        gsap.to(state, {
+          calm: 1,
+          ease: "none",
+          scrollTrigger: { trigger: host, start: "top top", end: "bottom top", scrub: 0.8 },
+        });
+      }
     });
   }
 
+  // The harbour's first ping waits for the visitor to get there: it is the
+  // page's last moment, and it should not be spent below the fold.
+  const arrival = new IntersectionObserver(
+    ([entry]) => {
+      if (!entry.isIntersecting) return;
+      arrival.disconnect();
+      intro();
+    },
+    { threshold: 0.6 },
+  );
+
   if (process.env.NODE_ENV !== "production") {
     // Dev only: a handle for tuning the scene from the console.
-    (window as unknown as { __heroScene: object }).__heroScene = { ping, state, ripples };
+    (window as unknown as Record<string, object>)[`__scene_${name}`] = { ping, state, ripples };
   }
 
   // Startup in slices, each its own task, so none of it is one long block on
@@ -352,7 +392,8 @@ export function createScene({ canvas, host, tier, onLive, onSettled, onFail }: S
     await nextTask();
     if (disposed) return;
     onLive();
-    intro();
+    if (weather.revealsOnView) arrival.observe(host);
+    else intro();
     visibility.observe(host);
     host.addEventListener("pointermove", onPointer, { passive: true });
     host.addEventListener("pointerleave", onLeave, { passive: true });
@@ -367,6 +408,7 @@ export function createScene({ canvas, host, tier, onLive, onSettled, onFail }: S
     run(false);
     ctx.revert();
     visibility.disconnect();
+    arrival.disconnect();
     sizes.disconnect();
     cancelAnimationFrame(resizeFrame);
     host.removeEventListener("pointermove", onPointer);
@@ -377,8 +419,8 @@ export function createScene({ canvas, host, tier, onLive, onSettled, onFail }: S
     host.style.removeProperty("--reveal-cy");
     canvas.removeEventListener("webglcontextlost", onContextLost);
     sea.dispose();
-    rain.dispose();
-    stream.dispose();
+    rain?.dispose();
+    stream?.dispose();
     ark.dispose();
     renderer.dispose();
     // Hand the context back now rather than at GC: a dev session with HMR, or

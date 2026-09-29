@@ -32,7 +32,7 @@ The v7 Claude Design mockup ("Sonarche Landing v7", in the app repo under
 
 1. **Hero** — badge, wordmark, tagline, subline, download CTA. The CSS storm
    paints first; on wide screens a three.js scene takes over from it (see
-   § The hero scene below).
+   § The live sea below).
 2. **The flow** — 4 numbered steps (paste / come aboard / fingerprint / named).
 3. **The old way** — 5-tools pain table, then "Sonarche does all five."
 4. **True names** — scraped-vs-identified compare, the fingerprint story.
@@ -45,6 +45,7 @@ The v7 Claude Design mockup ("Sonarche Landing v7", in the app repo under
 10. **The real thing** — real screenshots carousel.
 11. **First launch** — Gatekeeper (macOS) + SmartScreen (Windows) walkthrough.
 12. **Final CTA + footer** — "Free. Open source. Yours.", MIT, personal-use line.
+    The harbour's calm sea goes live too, on the same terms as the hero's.
 
 The v7 mockup opened on a "Why it exists" manifesto between the hero and the
 flow ("Your music should outlive every app.", four italic lines, four chips).
@@ -135,8 +136,8 @@ every stream-ripping lawsuit targeted monetized web converters marketed as
 - **GSAP** as the single animation engine (100% free since the Webflow acquisition,
   all plugins included): ScrollTrigger for scroll narrative, SplitText for text
   reveals, DrawSVG/MorphSVG for the hand-made SVG animations. No Motion/framer-motion.
-- **three.js for the hero scene, and nowhere else** (reopened 2026-09-28, see
-  § The hero scene). The original "no WebGL" stands for every other section.
+- **three.js for the two seas, and nowhere else** (reopened 2026-09-28, see
+  § The live sea). The original "no WebGL" stands for every other section.
 - **Hosting: Vercel Hobby** (fine for non-commercial open-source) + DNS pointed
   from Hostinger.
 
@@ -184,9 +185,10 @@ the Flow rows — scrubbed from 0.28 opacity before they are scrolled to — are
 measured and flagged, and accessibility reads 97 instead of 100. That is the
 reveal's doing, not the trace's absence.
 
-## The hero scene (added 2026-09-28)
+## The live sea (added 2026-09-28)
 
-The storm in the hero is a three.js scene on wide screens. Decided after the
+The storm in the hero and the calm in the footer are one three.js scene
+(components/brand/scene) in two weathers (weather.ts), on wide screens. Decided after the
 "no WebGL" line above was challenged and the spike measured; the reasoning is
 the arrival: the first seconds on the page are the one place the site can
 afford to spend a GPU, and the visitor it is for is at a computer.
@@ -199,7 +201,8 @@ head-on it is the logo in its flat colours, and only its roll and yaw show the
 beam, the set-back cabin and the cargo two deep. Unlit, no shadows, no post:
 a lit ark would put gradients on a brand that has none.
 
-**The three moments** (components/sections/hero/scene/createScene.ts):
+**The three moments** (createScene.ts), the storm's; the harbour keeps only
+the first, fired when the visitor gets there:
 
 1. **The ping.** Sonarche is sonar + arche. On arrival the ark sends a sonar
    pulse, and the sea exists only where it has reached: the ring sweeps out
@@ -213,18 +216,20 @@ a lit ark would put gradients on a brand that has none.
    previewed, with parallax a flat drawing cannot give.
 
 And the visitor's: a mouse over the sea leaves a wake, a click on open water
-sends a ping from there, and the camera leans a couple of degrees after the
-cursor.
+sends a ping from there, the camera leans a couple of degrees after the
+cursor, and the ark's eyes follow it. In the hero the rain parts around the
+copy (`data-scene-clear`), an eye of the storm the headline is read in; in
+the footer the water thins to a wash under the colophon that sits in it.
 
-**The poster is the contract.** The CSS storm (Storm.tsx) still renders first,
-server-side, and is the LCP's backdrop; the scene is fetched after load and
-idle, framed so its first frame puts the ark exactly where the poster has it
+**The poster is the contract.** The CSS drawings (Storm.tsx, the footer's
+harbour) still render first, server-side; the scene is fetched after load and
+idle (the harbour's only once the visitor is within a screen of it), framed so its first frame puts the ark exactly where the poster has it
 (framing.ts solves the camera from the poster's numbers). The two arks
 cross-fade, the ping wipes the rest, and the poster is then hidden and paused
 underneath; it comes back if the scene gives up (including on a shader that
 fails to compile).
 
-**Who gets it** (HeroScene.tsx): `min-width: 64rem`, no reduced motion, no
+**Who gets it** (LiveSea.tsx): `min-width: 64rem`, no reduced motion, no
 Save-Data, a hardware GL context (software rasterisers are refused). Two
 tiers from core count and device memory. A watchdog drops the resolution once
 if the median frame runs over 26ms, and hands back to the poster if that is

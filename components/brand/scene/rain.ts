@@ -1,4 +1,4 @@
-import { InstancedBufferAttribute, Mesh, ShaderMaterial, Vector3 } from "three";
+import { InstancedBufferAttribute, Mesh, ShaderMaterial, Vector3, Vector4 } from "three";
 
 import { cardGeometry } from "./card";
 import { OKLCH_GLSL } from "./color";
@@ -79,6 +79,7 @@ const fragment = /* glsl */ `
 ${OKLCH_GLSL}
 
 uniform float uRain;
+uniform vec4 uClear; // centre and radii of the copy, device px
 
 varying float vAlong;
 varying float vAlpha;
@@ -92,6 +93,12 @@ void main() {
   // Thinner high up, where it falls behind the copy: the storm is on the
   // water, and the headline should not have to read through it.
   float a = (1.0 - vAlong) * vAlpha * uRain * vReveal * mix(1.0, 0.45, smoothstep(6.0, 26.0, vY));
+  // And it parts around the copy itself: an eye of the storm, so the headline
+  // is read against paper and the rain is seen all around it.
+  if (uClear.z > 0.0) {
+    float e = length((gl_FragCoord.xy - uClear.xy) / uClear.zw);
+    a *= mix(0.12, 1.0, smoothstep(0.55, 1.15, e));
+  }
   gl_FragColor = vec4(oklch(0.6, 0.16, 277.0), a);
   #include <colorspace_fragment>
 }
@@ -108,6 +115,7 @@ export function createRain(count: number) {
       uFocal: { value: 1 },
       uDistance: { value: 60 },
       uRain: { value: 1 },
+      uClear: { value: new Vector4() },
       uReveal: { value: new Vector3(1e5, 1, 0) },
     },
   });

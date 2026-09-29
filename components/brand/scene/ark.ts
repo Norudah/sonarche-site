@@ -37,11 +37,11 @@ import { ARK_SPAN } from "./framing";
 const K = ARK_SPAN / 24;
 /*
  * The viewBox row that sits on the water. The hull bottoms out at 19.8, so a
- * good third of it is under: seen from above, the rows in front of the berth
+ * fifth of it is under: seen from above, the rows in front of the berth
  * have to climb the hull for the vessel to read as afloat rather than parked on
  * the surface. The poster gets away with less because it has no perspective.
  */
-const WATERLINE = 18.0;
+const WATERLINE = 18.6;
 
 const X = (x: number) => (x - 12) * K;
 const Y = (y: number) => (WATERLINE - y) * K;
@@ -216,14 +216,21 @@ export function createArk() {
   const eyes = new Group();
   const eyeInk = flat(parts, "#222652");
   const glint = flat(parts, "#818cf9");
+  // Pupils and glints, kept apart: they are what follows the visitor's cursor.
+  const pupils: Mesh[] = [];
+  const glints: Mesh[] = [];
   for (const x of [9, 13]) {
-    eyes.add(decal(parts, roundRect(x, 9.05, 2, 2, 0.75), cabinFront + 0.005, eyeInk));
-    eyes.add(decal(parts, circle(x + 0.6, 9.65, 0.42), cabinFront + 0.01, glint));
+    const pupil = decal(parts, roundRect(x, 9.05, 2, 2, 0.75), cabinFront + 0.005, eyeInk);
+    const shine = decal(parts, circle(x + 0.6, 9.65, 0.42), cabinFront + 0.01, glint);
+    pupils.push(pupil);
+    glints.push(shine);
+    eyes.add(pupil, shine);
   }
   // Blinks about the eyes' own middle, like arkBlink's transform-origin.
   const eyeLine = Y(10.05);
   eyes.position.y = eyeLine;
   eyes.children.forEach((c) => (c.position.y -= eyeLine));
+  const eyeRest = -eyeLine;
   body.add(eyes);
 
   // The cargo, two deep: amber crates at the ends, indigo amidships. On the
@@ -281,7 +288,12 @@ export function createArk() {
 
   let kick = 0;
 
-  function update(t: number, dt: number) {
+  /**
+   * @param look where the visitor's cursor is, -1..1 each way, y up. At rest
+   * the eyes are the logo's; the glints and, a little, the pupils slide
+   * towards the cursor, so the vessel watches whoever is looking at it.
+   */
+  function update(t: number, dt: number, look = { x: 0, y: 0 }) {
     const cos = (period: number, phase = 0) => Math.cos(((t + phase) / period) * TAU);
     const ease = (period: number, phase = 0) => 0.5 - 0.5 * cos(period, phase);
 
@@ -297,6 +309,16 @@ export function createArk() {
     // arkBlink: 6.8s, shut for a sliver around 95%.
     const blink = (t % 6.8) / 6.8;
     eyes.scale.y = blink > 0.92 ? 1 - 0.92 * Math.sin(((blink - 0.92) / 0.08) * Math.PI) : 1;
+    const lx = Math.max(-1, Math.min(1, look.x));
+    const ly = Math.max(-1, Math.min(1, look.y));
+    // The glint rests in the eye's top-left corner, as on the mark: it has
+    // most of the eye to travel right and down, and almost none left or up.
+    const px = lx * 0.18;
+    const py = ly * 0.14;
+    pupils.forEach((p) => p.position.set(px * K, eyeRest + py * K, p.position.z));
+    const gx = px + (lx > 0 ? lx * 0.75 : lx * 0.08);
+    const gy = py + (ly < 0 ? ly * 0.8 : ly * 0.08);
+    glints.forEach((g) => g.position.set(gx * K, eyeRest + gy * K, g.position.z));
 
     // arkCargo: settling apart on 3.9s.
     cargo.position.y = Math.sin((t / 3.9) * TAU) * 0.14 * K;

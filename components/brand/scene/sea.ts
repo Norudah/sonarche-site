@@ -81,6 +81,7 @@ uniform vec2 uArk;
 uniform vec3 uEye;
 uniform vec2 uFade;
 uniform vec3 uReveal; // radius, soft edge, strength of the front
+uniform float uPallor;
 
 varying float vX;
 varying float vFromTop;
@@ -128,7 +129,7 @@ void main() {
   float s = swell(p, t);
   float breath = 0.18 * sin(t * TAU / (2.1 + seed * 0.7) + seed * TAU);
   float h = 0.3 + uStorm * (0.05 + 2.3 * s * s * (0.5 + 0.7 * rise) + 0.15 * seed);
-  h *= (0.4 + 0.6 * shelter) * (1.0 + breath);
+  h *= (0.3 + 0.7 * shelter) * (1.0 + breath);
 
   // Rain landing: one bar at a time jumps and falls back.
   float splash = pow(max(0.0, sin(t * (1.1 + seed * 1.7) + seed * 91.0)), 90.0);
@@ -160,7 +161,7 @@ void main() {
   // The poster's tint continuum: deep indigo at the foot, paler and bluer as a
   // bar rises into the light. Where a bar lands on it is its swell, its place
   // on the flanks and a little of its own noise.
-  float k = clamp(0.25 * rise + 0.8 * s * s + 0.2 * (fract(seed * 7.13) - 0.5), 0.0, 1.0);
+  float k = clamp(0.25 * rise + 0.8 * s * s + 0.2 * (fract(seed * 7.13) - 0.5) + uPallor, 0.0, 1.0);
   vFoot = oklch(0.545 + 0.135 * k, 0.2 - 0.062 * k, 276.0 + 7.0 * k);
   vCrest = oklch(0.705 + 0.135 * k, 0.14 - 0.075 * k, 274.0 + 9.0 * k);
 
@@ -181,7 +182,7 @@ void main() {
 const fragment = /* glsl */ `
 ${OKLCH_GLSL}
 
-uniform float uFadeBottom;
+uniform vec2 uShore; // fade length in device px, what is left at the edge
 uniform float uPresence;
 
 varying float vX;
@@ -223,7 +224,7 @@ void main() {
     alpha = mix(0.75, 0.0, d);
   }
 
-  col = mix(col, oklch(0.42, 0.15, 277.0), vShade * 0.4);
+  col = mix(col, oklch(0.42, 0.15, 277.0), vShade * 0.15);
 
   // The ping lights a bar up as it passes: the sea answering the sonar.
   col = mix(col, oklch(0.6, 0.23, 280.0), clamp(vFlash, 0.0, 1.0) * 0.85);
@@ -233,9 +234,9 @@ void main() {
   col = mix(col, oklch(0.84, 0.045, 278.0), vFar * 0.8);
   alpha *= (1.0 - smoothstep(0.55, 1.0, vFar)) * uPresence;
 
-  // The hero hands over to the next section on paper, not on a cut through
-  // the water: the bottom of the frame fades the way the poster's body does.
-  alpha *= smoothstep(0.0, uFadeBottom, gl_FragCoord.y) * vReveal;
+  // Where the water meets the host's bottom edge: gone for the hero, which
+  // hands over to paper; thinned for the footer, whose colophon sits in it.
+  alpha *= mix(uShore.y, 1.0, smoothstep(0.0, uShore.x, gl_FragCoord.y)) * vReveal;
 
   gl_FragColor = vec4(col, alpha * edge);
   #include <colorspace_fragment>
@@ -255,8 +256,9 @@ export function createSea(ripples: ReturnType<typeof createRipples>, density: nu
       uArk: { value: new Vector2() },
       uEye: { value: new Vector3() },
       uFade: { value: new Vector2(60, 180) },
-      uFadeBottom: { value: 60 },
+      uShore: { value: new Vector2(60, 0) },
       uPresence: { value: 1 },
+      uPallor: { value: 0 },
       uReveal: { value: new Vector3(1e5, 1, 0) },
       uRipWhere: { value: ripples.where },
       uRipHow: { value: ripples.how },
@@ -267,7 +269,7 @@ export function createSea(ripples: ReturnType<typeof createRipples>, density: nu
   const mesh = new Mesh(geometry, material);
   mesh.frustumCulled = false;
 
-  function relayout(framing: Framing, pixelRatio: number) {
+  function relayout(framing: Framing) {
     const bars = layout(framing, density);
     geometry.dispose();
     geometry = cardGeometry();
@@ -278,7 +280,6 @@ export function createSea(ripples: ReturnType<typeof createRipples>, density: nu
     const u = material.uniforms;
     u.uEye.value.set(0, framing.eyeY, framing.eyeZ);
     u.uFade.value.set(framing.distance * 0.9, framing.distance * 2.6);
-    u.uFadeBottom.value = 70 * pixelRatio;
   }
 
   return {
