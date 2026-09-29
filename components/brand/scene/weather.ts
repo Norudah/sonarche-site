@@ -27,8 +27,12 @@ export type Weather = {
   /** Opacity multiplier on the water. */
   presence: number;
   rain: boolean;
-  /** Pixels lifted out of the sea into the hold. */
+  /** Pixels lifted out of the sea, converging on each note as it forms. */
   stream: boolean;
+  /** The vessel patrols and fishes notes into its crates. */
+  fishing: boolean;
+  /** Half the width of the patrol, world units. */
+  patrol: number;
   /** Seconds between the ark's echoes, and how loud they are. */
   echoEvery: number;
   echo: RingSpec;
@@ -50,6 +54,8 @@ export const STORM: Weather = {
   presence: 1,
   rain: true,
   stream: true,
+  fishing: true,
+  patrol: 3.2,
   echoEvery: 7.5,
   echo: { strength: 0.75, speed: 24, width: 2.6 },
   settlesOnScroll: true,
@@ -72,6 +78,8 @@ export const CALM: Weather = {
   presence: 0.82,
   rain: false,
   stream: false,
+  fishing: false,
+  patrol: 0,
   echoEvery: 13,
   echo: { strength: 0.45, speed: 16, width: 2.4 },
   settlesOnScroll: false,

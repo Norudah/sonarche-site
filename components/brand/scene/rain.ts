@@ -80,6 +80,7 @@ ${OKLCH_GLSL}
 
 uniform float uRain;
 uniform vec4 uClear; // centre and radii of the copy, device px
+uniform vec4 uClearBoat; // the same around the vessel, which moves
 
 varying float vAlong;
 varying float vAlpha;
@@ -99,6 +100,12 @@ void main() {
     float e = length((gl_FragCoord.xy - uClear.xy) / uClear.zw);
     a *= mix(0.12, 1.0, smoothstep(0.55, 1.15, e));
   }
+  // And around the vessel: a drop drawn across the cabin reads as a scratch
+  // on it, not as weather in front of it.
+  if (uClearBoat.z > 0.0) {
+    float e = length((gl_FragCoord.xy - uClearBoat.xy) / uClearBoat.zw);
+    a *= smoothstep(0.6, 1.1, e);
+  }
   gl_FragColor = vec4(oklch(0.6, 0.16, 277.0), a);
   #include <colorspace_fragment>
 }
@@ -116,6 +123,7 @@ export function createRain(count: number) {
       uDistance: { value: 60 },
       uRain: { value: 1 },
       uClear: { value: new Vector4() },
+      uClearBoat: { value: new Vector4() },
       uReveal: { value: new Vector3(1e5, 1, 0) },
     },
   });

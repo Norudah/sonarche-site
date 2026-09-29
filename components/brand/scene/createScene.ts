@@ -2,8 +2,9 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { PerspectiveCamera, Scene, Vector3, WebGLRenderer } from "three";
 
-import { createArk } from "./ark";
+import { createBoat } from "./boat/boat";
 import { FOV, frame, PITCH, type Framing } from "./framing";
+import { createLighting } from "./lighting";
 import { createRain } from "./rain";
 import { CLICK, createRipples, PING, WAKE, type RingSpec } from "./ripples";
 import { createSea } from "./sea";
@@ -26,8 +27,8 @@ gsap.registerPlugin(ScrollTrigger);
  *      where it has reached. The ring sweeps out from the hull, wiping the
  *      CSS poster away and finding the 3D water behind it, the bars flashing
  *      and leaping at its front. It echoes, smaller, every few seconds.
- *   2. The rescue. In the ping's wake pixels start lifting off the water and
- *      streaming into the hold: a trickle, then a current.
+ *   2. The rescue. The vessel patrols and fishes: a note forms out of the
+ *      sea's pixels, the crane hooks it and stows it in a crate (boat/).
  *   3. The calm. Scrolling out of the hero settles the storm — the rain thins,
  *      the swell drops, the camera lifts — the footer's home water, previewed.
  *
@@ -69,6 +70,8 @@ type SceneOptions = {
 const DEG = Math.PI / 180;
 /** Median frame time, ms, above which the watchdog steps in. ~38fps. */
 const SLOW_FRAME = 26;
+/** Half-width of the rain's clearing round the vessel, world units. */
+const BOAT_CLEAR = 10;
 /** The first ping starts just clear of the hull… */
 const REVEAL_FROM = 6.5;
 /** …and once it has swept the frame, the sea is simply there. */
@@ -111,8 +114,9 @@ export function createScene({ canvas, host, weather: name, tier, onLive, onSettl
   const sea = createSea(ripples, tier.density);
   const rain = weather.rain ? createRain(tier.rain) : undefined;
   const stream = weather.stream ? createStream(tier.pixels) : undefined;
-  const ark = createArk();
-  scene.add(sea.mesh, ark.group);
+  const boat = createBoat({ ripples, now: () => clock, patrol: weather.patrol });
+  const lighting = createLighting(renderer, scene);
+  scene.add(sea.mesh, boat.group, boat.world);
   if (rain) scene.add(rain.mesh);
   if (stream) scene.add(stream.mesh);
   sea.uniforms.uPallor.value = weather.pallor;
@@ -126,7 +130,7 @@ export function createScene({ canvas, host, weather: name, tier, onLive, onSettl
 
   // Tweened by the intro and the scroll; read every frame.
   // `reveal` is the first ping's radius, world units from the hull.
-  const state = { stream: 0, calm: 0, reveal: REVEAL_FROM };
+  const state = { calm: 0, reveal: REVEAL_FROM };
   // Where the pointer is (-1..1 across the host), and where the camera has got to.
   const lean = { x: 0, y: 0, toX: 0, toY: 0 };
 
@@ -171,14 +175,14 @@ export function createScene({ canvas, host, weather: name, tier, onLive, onSettl
     lean.y += (lean.toY - lean.y) * follow;
     place();
 
-    ark.update(clock, dt, lean);
-    const [hx, hy, hz] = ark.hold();
+    boat.update(clock, dt, lean);
+    lighting.follow(boat.group);
     const storm = weather.swell * (1 - 0.6 * state.calm);
 
     const s = sea.uniforms;
     s.uTime.value = clock;
     s.uStorm.value = storm;
-    s.uArk.value.set(ark.group.position.x, 0);
+    s.uArk.value.set(boat.x(), 0);
     s.uEye.value.copy(camera.position);
 
     const revealing = state.reveal < REVEALED;
@@ -195,16 +199,26 @@ export function createScene({ canvas, host, weather: name, tier, onLive, onSettl
       host.style.setProperty("--reveal-cy", `${(framing.height / 2 + framing.shift).toFixed(1)}px`);
     }
 
-    if (rain) {
+    if (rain && framing) {
       rain.uniforms.uTime.value = clock;
       rain.uniforms.uRain.value = 1 - state.calm;
+      // The vessel's clearing follows it: its centre, projected, in device px.
+      projected.set(boat.x(), 2.2, 0).project(camera);
+      const px = framing.width * pixelRatio;
+      const py = framing.height * pixelRatio;
+      rain.uniforms.uClearBoat.value.set(
+        ((projected.x + 1) / 2) * px,
+        ((projected.y + 1) / 2) * py,
+        (BOAT_CLEAR * framing.focal * pixelRatio) / framing.distance,
+        (BOAT_CLEAR * 0.55 * framing.focal * pixelRatio) / framing.distance,
+      );
     }
 
     if (stream) {
       const p = stream.uniforms;
       p.uTime.value = clock;
-      p.uStream.value = state.stream;
-      p.uHold.value.set(hx, hy, hz);
+      p.uStream.value = boat.surfacing();
+      p.uHold.value.copy(boat.target());
       p.uEye.value.copy(camera.position);
     }
 
@@ -254,6 +268,7 @@ export function createScene({ canvas, host, weather: name, tier, onLive, onSettl
   // --- The visitor ----------------------------------------------------------
 
   const ray = new Vector3();
+  const projected = new Vector3();
   let lastWake = -1;
   const lastHit = new Vector3(1e6, 0, 0);
 
@@ -326,8 +341,8 @@ export function createScene({ canvas, host, weather: name, tier, onLive, onSettl
   }
 
   function ping(ring: RingSpec = PING) {
-    ripples.spawn(ark.group.position.x, 0, clock, ring);
-    ark.ping();
+    ripples.spawn(boat.x(), 0, clock, ring);
+    boat.ping();
   }
 
   function intro() {
@@ -335,13 +350,13 @@ export function createScene({ canvas, host, weather: name, tier, onLive, onSettl
     ctx.add(() => {
       gsap
         .timeline()
-        .call(() => ark.ping(), [], 0.1)
+        .call(() => boat.ping(), [], 0.1)
         .to(state, { reveal: reach, duration: 2.1, ease: "power1.in" }, 0.1)
         .call(() => {
           state.reveal = REVEALED;
           onSettled();
-        })
-        .to(state, { stream: 1, duration: 3, ease: "power1.in" }, 1.4);
+          if (weather.fishing) boat.work();
+        });
 
       gsap
         .timeline({ repeat: -1, delay: weather.echoEvery })
@@ -392,6 +407,10 @@ export function createScene({ canvas, host, weather: name, tier, onLive, onSettl
     await nextTask();
     if (disposed) return;
     onLive();
+    // The sheen, in a slice of its own (see lighting.ts).
+    await nextTask();
+    if (disposed) return;
+    lighting.environment();
     if (weather.revealsOnView) arrival.observe(host);
     else intro();
     visibility.observe(host);
@@ -421,7 +440,8 @@ export function createScene({ canvas, host, weather: name, tier, onLive, onSettl
     sea.dispose();
     rain?.dispose();
     stream?.dispose();
-    ark.dispose();
+    boat.dispose();
+    lighting.dispose();
     renderer.dispose();
     // Hand the context back now rather than at GC: a dev session with HMR, or
     // a visitor bouncing between the two locales, would otherwise pile them up.

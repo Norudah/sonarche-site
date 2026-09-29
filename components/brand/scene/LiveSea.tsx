@@ -28,8 +28,8 @@ import type { WeatherName } from "./weather";
  * of its own: it is created once, and disposed of on unmount and on HMR.
  */
 
-const HIGH: Tier = { pixelRatio: 2, antialias: true, density: 1, rain: 520, pixels: 210 };
-const LOW: Tier = { pixelRatio: 1.25, antialias: false, density: 0.7, rain: 320, pixels: 160 };
+const HIGH: Tier = { pixelRatio: 2, antialias: true, density: 1, rain: 520, pixels: 110 };
+const LOW: Tier = { pixelRatio: 1.25, antialias: false, density: 0.7, rain: 320, pixels: 80 };
 
 type NavigatorHints = Navigator & { deviceMemory?: number; connection?: { saveData?: boolean } };
 

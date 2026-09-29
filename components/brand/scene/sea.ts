@@ -133,6 +133,7 @@ void main() {
 
   // Rain landing: one bar at a time jumps and falls back.
   float splash = pow(max(0.0, sin(t * (1.1 + seed * 1.7) + seed * 91.0)), 90.0);
+  splash *= shelter;
   h += splash * 0.7 * uStorm;
 
   vec2 ring = ripples(p, t);

@@ -196,10 +196,22 @@ afford to spend a GPU, and the visitor it is for is at a computer.
 **Art direction — the brand in perspective, not re-imagined.** The sea is the
 poster's own equalizer bars, as flat rounded cards facing the camera, in rows
 running to a horizon that dissolves into the sky; the palette is the poster's
-oklch continuum computed per bar. The ark is extruded from the mark's paths —
-head-on it is the logo in its flat colours, and only its roll and yaw show the
-beam, the set-back cabin and the cargo two deep. Unlit, no shadows, no post:
-a lit ark would put gradients on a brand that has none.
+oklch continuum computed per bar.
+
+**The vessel — the mascot (reworked 2026-09-29).** The first live ark was the
+mark's paths extruded and left unlit, and it read as a paper cut-out. It is
+now a toy tug in the mark's colours, lit like a studio product shot
+(components/brand/scene/boat, lighting.ts): a lofted hull that falls straight
+and curls under, the logo's three bands painted on, a tubular lavender rail,
+ringed portholes that glow; the mark's basket-handle cabin as its head, with
+dark glass eyes whose glints follow the cursor and the equalizer on its
+roof; satin paint, a room environment for sheen (built in a startup slice of its own: its shaders are the one expensive compile), a warm key, a lavender rim, and painted contact shadows rather than a shadow map. The hull is clipped at the sea's surface
+and a line of foam hugs the cut, so it sits in the bars rather than behind
+them. It works: a stern crane, amber, fishes notes out of the sea and stows
+them in a rack of four amber crates (the logo's cargo), which go below when
+full; the bow keeps the logo's indigo crates, stacked. The sea stays unlit —
+the boat is the only lit thing in the frame, which is what makes it the
+subject.
 
 **The three moments** (createScene.ts), the storm's; the harbour keeps only
 the first, fired when the visitor gets there:
@@ -209,10 +221,13 @@ the first, fired when the visitor gets there:
    from the hull, wiping the CSS poster away (a CSS mask the scene grows in
    step) and finding the 3D water behind it, bars flashing at its front. It
    echoes, smaller, every 7.5s.
-2. **The rescue.** Pixels lift off the water from a handful of spots and
-   stream into the hold — the "Ark moment" this section always promised.
+2. **The rescue.** The vessel patrols, stops and fishes: a note forms out of
+   the sea's pixels, the crane slews out, hooks it, hauls it over the rack
+   and lowers it into an open crate; the lid snaps shut and the portholes
+   and equalizer answer. The "Ark moment" this section always promised,
+   acted out.
 3. **The calm.** Scrolling out of the hero thins the rain, drops the swell,
-   lifts the camera and closes it in on the ark: the footer's home water,
+   lifts the camera and closes it in on the vessel: the footer's home water,
    previewed, with parallax a flat drawing cannot give.
 
 And the visitor's: a mouse over the sea leaves a wake, a click on open water
