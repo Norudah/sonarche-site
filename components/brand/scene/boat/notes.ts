@@ -99,8 +99,8 @@ type SwarmOptions = {
 };
 
 const MAX = 64;
-/** A note's size at the boat; far out they are drawn bigger so they still read. */
-export const NOTE_SIZE = 0.5;
+/** A note's size: all much the same, small, with a little give either way. */
+export const NOTE_SIZE = 0.46;
 export const FLOAT_Y = 0.25;
 const DEEP = -1.6;
 const RISE = 1.3;
@@ -248,7 +248,7 @@ export function createSwarm({ glyphs, bursts, ripples, now, water, population, r
 
   function rise(n: Note, x: number, z: number) {
     dress(n);
-    n.size = NOTE_SIZE * (1 + Math.min(0.7, Math.max(0, -z / 30)));
+    n.size = NOTE_SIZE * rand(0.88, 1.1);
     n.pos.set(x, DEEP, z);
     n.state = "rising";
     n.holder = null;
@@ -462,7 +462,6 @@ export function createSwarm({ glyphs, bursts, ripples, now, water, population, r
     summon(x: number, z: number): Note {
       const n = free();
       rise(n, x, z);
-      n.size = NOTE_SIZE;
       n.claimed = true;
       return n;
     },

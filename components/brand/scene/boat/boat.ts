@@ -115,6 +115,8 @@ export function createBoat({ ripples, bursts, now, patrol, laden, shoal }: BoatO
   // Tweened by the voyage; read every frame.
   const travel = { x: 0, heading: 0, surfacing: 0 };
   const focus = { note: null as Note | null, watched: false, load: 0 };
+  // The trawl's catch on the deck, between the net and the crew.
+  const landed: Note[] = [];
   // The drop: height over the ride line and its speed; `settle` blends the swell back in.
   const drop = { active: false, falling: false, y: 0, v: 0, settle: 1 };
   const squash = { y: 1, v: 0 };
@@ -149,6 +151,7 @@ export function createBoat({ ripples, bursts, now, patrol, laden, shoal }: BoatO
         water,
         travel,
         focus,
+        landed,
       });
   const crew = laden
     ? undefined
@@ -161,6 +164,7 @@ export function createBoat({ ripples, bursts, now, patrol, laden, shoal }: BoatO
         swarm,
         bursts,
         now,
+        landed,
         watch: { crane: () => watching.crane, trawl: () => watching.trawl },
       });
   const overflow = laden
@@ -296,6 +300,7 @@ export function createBoat({ ripples, bursts, now, patrol, laden, shoal }: BoatO
   }
 
   const held = new Vector3();
+  const net = [new Vector3(), new Vector3(), new Vector3()];
 
   return {
     group: sail,
@@ -317,6 +322,12 @@ export function createBoat({ ripples, bursts, now, patrol, laden, shoal }: BoatO
     /** The notes in the water, for the sea to keep its crests under: x, z, height to show, on. */
     sight(out: Vector4[]) {
       swarm.sights(out);
+      // The trawl, while it is in the water, takes the last few: its whole length stays in view.
+      const n = trawl.lying(net);
+      for (let i = 0; i < n; i++) {
+        const p = net[i];
+        out[out.length - 1 - i].set(p.x, p.z, p.y - 0.45, 1);
+      }
     },
     /** Out of sight until it drops. */
     hide() {

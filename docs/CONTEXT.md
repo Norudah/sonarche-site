@@ -210,7 +210,8 @@ and a line of foam hugs the cut, so it sits in the bars rather than behind
 them. It works (reworked twice on 2026-09-30; hull lengthened and raised,
 the head back in the middle). The sea is full of notes of every glyph and
 colour, rising, drifting and sinking back all the way to the horizon
-(boat/notes.ts). The vessel is never still: it rides that swell (the sea's
+(boat/notes.ts), all small and much the same size. The vessel, its hull
+raised on 2026-09-30 so it no longer sits flat, is never still: it rides that swell (the sea's
 heave, computed on the CPU in swell.ts, lifts, pitches and rolls it, and
 moves its waterline) and steams across the frame and back, only ever
 bouncing once, when it drops in. At the bow, a knuckle-boom crane that is a machine, not a prop
@@ -218,9 +219,13 @@ bouncing once, when it drops in. At the bow, a knuckle-boom crane that is a mach
 three-fingered claw on links), driven by where the load should be: it lifts
 clear of the deck, crosses at that height, stops while the swing dies out,
 and lowers straight in through a hatch; it fishes while the vessel lies
-stopped. Off the stern, a beam trawl on an A-frame gantry: shot as a run
-begins, it streams astern on its warps and sweeps up a shoal, then is hauled
-and tipped inboard over one of the two boxes at the gantry's foot. Two deckhands
+stopped. Off the stern, an otter trawl (a long cone of net, a headline of
+floats, a ground-rope, two otter boards) on an A-frame gantry. It obeys its
+warps: shot, it lies where it lands until the boat has steamed far enough
+for them to come taut, then is dragged astern and sweeps up a shoal (the
+notes are seen going in at the mouth and down to the cod-end); hauled, it is
+winched in, hoisted and tipped over a pound on the deck, where the catch is
+spilled out like fish for the aft deckhand to carry to the head or stow. Two deckhands
 (little automata with the vessel's eyes) empty the full boxes through their
 doors and post each note through a letterbox in the head's brow (a flap
 in the brow's own colour, only seen when it opens): the head

@@ -9,7 +9,8 @@ import type { Container } from "./container";
 import { GRASP } from "./crane/claw";
 import { CLEAR, REST, type Pose, type createCrane } from "./crane/crane";
 import type { createSwarm, Note } from "./notes";
-import { tiltOver, TRAWL_REST, type createTrawl } from "./trawl";
+import { HULL } from "./hull";
+import { POUND, tiltOver, TRAWL_REST, type createTrawl } from "./trawl";
 
 /*
  * The day's work, told as a sequence of causes: a vessel under way, fishing
@@ -54,6 +55,8 @@ type Crew = {
   travel: { x: number; surfacing: number };
   /** What the vessel is looking at, and the note the stream swirls into. */
   focus: { note: Note | null; watched: boolean; load: number };
+  /** The trawl's catch, lying in the pound for the crew to take. */
+  landed: Note[];
 };
 
 /** The ark's sonar looking for music: a quick, light ring. */
@@ -66,11 +69,15 @@ const SET_DOWN = 0.05;
 /** World units a second: ahead, trawling, and astern, going back for another run. */
 const AHEAD = 1.15;
 const ASTERN = 0.75;
+/** At most this much of the net's run is spent dragging it, world units: the warp is paid out to suit. */
+const WARP = 5;
+/** How much catch the pound holds before the trawl waits for the crew to clear it. */
+const POUND_ROOM = 8;
 
 const between = ([a, b]: number[]) => a + Math.random() * (b - a);
 
 export function createVoyage(crew: Crew) {
-  const { body, sail, cabin, cargo, crane, trawl, swarm, ripples, bursts, now, travel, focus } = crew;
+  const { body, sail, cabin, cargo, crane, trawl, swarm, ripples, bursts, now, travel, focus, landed } = crew;
   const ctx = gsap.context(() => {});
   let running = true;
 
@@ -246,115 +253,157 @@ export function createVoyage(crew: Crew) {
 
   // --- The trawl -----------------------------------------------------------------
 
-  /** Over the stern and down to the water. */
+  /** Over the stern, down to the water, and let go: it lies where it lands. */
   async function shoot() {
     const p = trawl.pose;
     await play((tl) => tl.to(p, { tilt: 0.45, duration: 1.5, ease: "power2.inOut" }));
-    // Paid out until the beam is on the water under the block.
-    const block = trawl.mouth(scratch).y + (0.3 + p.drop) * crew.size;
-    const water = crew.water(scratch.x, scratch.z);
-    const drop = (block - water) / crew.size - 0.3;
+    const block = trawl.block(new Vector3());
+    const water = crew.water(block.x, block.z);
+    const drop = (block.y - water) / crew.size - 0.3;
     await play((tl) =>
       tl
         .to(p, { drop, duration: 1.3, ease: "power1.in" })
         .call(() => {
-          trawl.mouth(scratch);
-          bursts.fire(scratch.setY(water + 0.1), now(), SPRAY);
-          ripples.spawn(scratch.x, scratch.z, now(), SURFACE);
+          bursts.fire(scratch.set(block.x, water + 0.1, block.z), now(), SPRAY);
+          ripples.spawn(block.x, block.z, now(), SURFACE);
+          p.warp = block.y - water;
         })
-        // Streamed: the net lies back on the water, ready to be towed.
-        .to(p, { hang: 0, duration: 1.4, ease: "power1.inOut" }),
+        .to(p, { hang: 0, duration: 0.6, ease: "power1.inOut" }),
     );
   }
 
-  /** Ahead to x with the net streaming astern, a shoal rising in its path. */
+  /**
+   * Ahead to x, paying out warp as it goes: the net lies where it was shot
+   * until the warps come taut, then is dragged astern; a shoal comes up in the
+   * water it will sweep, and goes in at the mouth and down to the cod-end.
+   */
   async function run(x: number, room: number) {
     const caught: Note[] = [];
     const shoal: Note[] = [];
-    const start = travel.x;
-    // The net trails this far astern of the boat's middle: the shoal is strung across its path.
-    const astern = 10 * crew.size + 6;
-    for (let i = 0; i < room + 1 && room > 0; i++) {
-      const f = (i + 0.7) / (room + 1.4);
-      const nx = start + (x - start) * f + astern;
-      const nz = (Math.random() - 0.35) * 0.8;
-      ctx.add(() => gsap.delayedCall(0.4 + i * 0.5, () => void shoal.push(swarm.summon(nx, nz))));
+    const block = trawl.block(new Vector3());
+    const lying = trawl.mouth(new Vector3());
+    // Enough warp that the net is dragged about half the run: the rest is slack taken up.
+    const depth = block.y - crew.water(lying.x, lying.z);
+    const reach = Math.min(WARP, Math.abs(x - travel.x) * 0.45);
+    const warp = Math.hypot(depth, reach);
+    // The water the mouth will sweep: from where it lies to where it ends up, astern of the block.
+    const end = block.x + (x - travel.x) + reach;
+    const from = lying.x - 0.5;
+    for (let i = 0; i < room && from - end > 0.6; i++) {
+      const nx = end + 0.3 + (from - end - 0.3) * ((i + 0.5) / room);
+      const nz = lying.z + (Math.random() - 0.5) * 1.4;
+      ctx.add(() => gsap.delayedCall(0.6 + i * 0.45, () => void shoal.push(swarm.summon(nx, nz))));
     }
+    ctx.add(() => gsap.to(trawl.pose, { warp, duration: 3, ease: "power1.inOut" }));
     const mouth = new Vector3();
     await steam(x, AHEAD, () => {
-      if (trawl.pose.hang > 0.3) return;
       trawl.mouth(mouth);
+      const spread = trawl.spread();
       for (const n of shoal) {
-        if (caught.length >= room || caught.includes(n) || n.state !== "afloat") continue;
-        if (Math.hypot(n.pos.x - mouth.x, n.pos.z - mouth.z) > 1.4) continue;
+        if (caught.includes(n) || n.state !== "afloat") continue;
+        if (Math.abs(n.pos.x - mouth.x) > 0.7 || Math.abs(n.pos.z - mouth.z) > spread) continue;
         caught.push(n);
         swarm.grip(n, trawl.holder);
+        // In at the mouth, and down the length of the net to the cod-end.
         const pocket = trawl.pocket(caught.length - 1);
-        ctx.add(() => gsap.to(n.local, { x: pocket.x, y: pocket.y, z: pocket.z, duration: 0.4, ease: "power2.out" }));
+        ctx.add(() => gsap.to(n.local, { x: pocket.x, y: pocket.y, z: pocket.z, duration: 1.4, ease: "power1.inOut" }));
         bursts.fire(mouth, now(), SPRAY);
       }
     });
+    await wait(0.8);
     // Any it missed are the sea's again.
     shoal.filter((n) => !caught.includes(n)).forEach((n) => (n.claimed = false));
     return caught;
   }
 
-  /** In, up, inboard over the box, and the cod-end untied over its hatch. */
-  async function haul(box: Container, caught: Note[]) {
+  /** Somewhere in the pound the catch has not already covered, in the boat's frame. */
+  function spot(taken: Vector3[]): Vector3 {
+    let best = new Vector3();
+    let room = -1;
+    for (let k = 0; k < 14; k++) {
+      const c = new Vector3(
+        POUND.from + 0.45 + Math.random() * (POUND.to - POUND.from - 0.9),
+        HULL.deck + 0.14,
+        POUND.back + 0.45 + Math.random() * (POUND.front - POUND.back - 0.8),
+      );
+      const d = Math.min(9, ...taken.map((t) => t.distanceTo(c)));
+      if (d > room) {
+        room = d;
+        best = c;
+      }
+    }
+    taken.push(best);
+    return best;
+  }
+
+  /** Winched in, hoisted, swung inboard over the pound, and emptied onto the deck. */
+  async function haul(caught: Note[]) {
     const p = trawl.pose;
-    const mouth = new Vector3();
+    const block = new Vector3();
     await play((tl) =>
       tl
-        .to(p, { hang: 1, fill: caught.length ? 1 : 0.2, duration: 1.8, ease: "power2.inOut" })
-        .call(() => {
-          trawl.mouth(mouth);
-          bursts.fire(mouth, now(), SPRAY);
+        // The warps come in and drag the net up to the stern.
+        .to(p, {
+          warp: 0,
+          duration: 3,
+          ease: "power1.inOut",
+          onUpdate: () => {
+            trawl.block(block);
+            p.warp = Math.max(p.warp, block.y - crew.water(block.x, block.z) + 0.2);
+          },
         })
-        .to(p, { drop: TRAWL_REST.drop, duration: 1.6, ease: "power2.inOut" })
-        .call(() => bursts.fire(trawl.mouth(mouth), now(), DRIP), [], "<0.4")
-        .call(() => bursts.fire(trawl.mouth(mouth), now(), DRIP), [], "<0.5"),
+        .call(() => {
+          trawl.block(block);
+          p.drop = (block.y - crew.water(block.x, block.z)) / crew.size - 0.3;
+          bursts.fire(trawl.mouth(scratch), now(), SPRAY);
+        })
+        // Out of the water, and up under the block, dripping.
+        .to(p, { hang: 1, fill: caught.length ? 1 : 0, duration: 0.8, ease: "power2.out" })
+        .to(p, { drop: TRAWL_REST.drop, duration: 1.8, ease: "power2.inOut" })
+        .call(() => bursts.fire(trawl.mouth(scratch), now(), DRIP), [], "<0.3")
+        .call(() => bursts.fire(trawl.mouth(scratch), now(), DRIP), [], "<0.6"),
     );
     if (!caught.length) {
-      await play((tl) => tl.to(p, { ...TRAWL_REST, duration: 1.6, ease: "power2.inOut" }));
-      box.busy = false;
+      await play((tl) => tl.to(p, { ...TRAWL_REST, duration: 1.4, ease: "power2.inOut" }));
       return;
     }
 
+    const taken = landed.map((n) => n.local);
     await play((tl) => {
-      tl.to(p, { tilt: tiltOver(box.spec.x), duration: 2, ease: "power2.inOut" })
-        .to(box.hatch, { open: 1, duration: 0.6, ease: "back.out(1.6)" }, "<1.2")
-        .to({}, { duration: 0.35 })
-        .to(p, { open: 1, fill: 0.2, duration: 0.4, ease: "power2.out" });
+      tl.to(p, { tilt: tiltOver((POUND.from + POUND.to) / 2 + 0.3), duration: 2, ease: "power2.inOut" })
+        .to({}, { duration: 0.3 })
+        // The cod-end untied: the catch spills out onto the deck.
+        .to(p, { open: 1, duration: 0.3, ease: "power2.out" });
       caught.forEach((n, i) => {
         tl.call(
           () => {
-            const slot = box.held.length;
-            box.held.push(n);
-            const rest = box.slot(slot);
+            const at = spot(taken);
             swarm
-              .toss(n, new Vector3(rest.x, rest.y + swarm.top(n), rest.z), {
-                holder: box.group,
-                arc: 0.05,
+              .toss(n, at.clone().setY(at.y + swarm.top(n) * 0.35), {
+                holder: body,
+                arc: 0.35,
                 duration: 0.5,
-                tumble: 4 + i,
+                tumble: 5 + i,
+                spin: 2,
               })
               .then(() => {
-                n.pitch = 0;
-                n.localRoll = 0;
-                n.localYaw = 0;
-                n.shine = 0.6;
-                box.bump(0.7);
+                // Lying where it fell, on its side, the way a catch lands.
+                n.pitch = 0.45 + Math.random() * 0.3;
+                n.localRoll = (Math.random() < 0.5 ? -1 : 1) * (1.25 + Math.random() * 0.3);
+                n.localYaw = Math.random() - 0.5;
+                bursts.fire(body.localToWorld(at.clone()), now(), DUST);
+                landed.push(n);
               });
           },
           [],
-          `<${0.1 + i * 0.2}`,
+          `<${0.05 + i * 0.16}`,
         );
       });
-      tl.to({}, { duration: 0.8 }).to(p, { open: 0, duration: 0.3 });
-      shut(tl, box, "<");
-      tl.to(p, { ...TRAWL_REST, duration: 1.8, ease: "power2.inOut" }, ">0.1");
+      tl.to(p, { fill: 0, duration: 0.6 }, "<")
+        .to({}, { duration: 0.6 })
+        .to(p, { open: 0, duration: 0.3 })
+        .to(p, { ...TRAWL_REST, duration: 1.8, ease: "power2.inOut" });
     });
-    box.busy = false;
   }
 
   async function voyage() {
@@ -366,15 +415,16 @@ export function createVoyage(crew: Crew) {
       // Astern across the frame, stowing on the way, to the start of a run.
       await steam(r, ASTERN);
       await stern;
-      const net = cargo.pick("trawl");
-      if (net) {
-        net.busy = true;
+      // The pound is not full: shoot, and trawl a run ahead.
+      const room = Math.max(0, Math.min(5, POUND_ROOM - landed.length));
+      if (room > 1) {
         await shoot();
+        const caught = await run(-r, room);
+        stern = haul(caught);
+      } else {
+        await steam(-r, AHEAD);
       }
-      // Ahead, trawling.
-      const caught = await run(-r, net ? net.spec.slots - net.held.length : 0);
       // Stopped: the trawl comes in while the crane fishes.
-      stern = net ? haul(net, caught) : Promise.resolve();
       await bow;
       const box = cargo.pick("crane");
       if (box) {

@@ -17,7 +17,9 @@ import type { Note, createSwarm } from "./notes";
  *
  * When a box on its side is full, a deckhand walks to it along the rail,
  * swings its doors open, takes a note out, hoists it over its head and
- * carries it to the head amidships. There it waits its turn at the
+ * carries it to the head amidships. The one astern also clears the trawl's
+ * catch off the deck, a note at a time, most of it to the head, some into
+ * its box to be carried along later. There it waits its turn at the
  * letterbox, bends, and posts the note through, flat; the flap snaps, the head
  * gulps and reads it, and the funnel sings. Back for the next one, until the
  * box is empty and its lights are all out; then it goes back to standing
@@ -36,6 +38,8 @@ type CrewOptions = {
   swarm: ReturnType<typeof createSwarm>;
   bursts: ReturnType<typeof createBursts>;
   now: () => number;
+  /** The trawl's catch, lying on the deck for the aft deckhand to take. */
+  landed: Note[];
   /** What each deckhand watches while it has nothing to carry. */
   watch: Record<Side, () => Vector3>;
 };
@@ -43,9 +47,9 @@ type CrewOptions = {
 /** The walkway along the rail, on the camera's side, narrowing with the hull towards the ends. */
 const walkZ = (x: number) => Math.min(2.02, sideAt(x, 0).z - 0.55);
 const SPEED = 1.35;
-const HOME: Record<Side, number> = { crane: -3.35, trawl: 3.2 };
+const HOME: Record<Side, number> = { crane: -3.35, trawl: 4.7 };
 
-export function createCrew({ kit, body, cabin, cargo, funnel, swarm, bursts, now, watch }: CrewOptions) {
+export function createCrew({ kit, body, cabin, cargo, funnel, swarm, bursts, now, landed, watch }: CrewOptions) {
   const ctx = gsap.context(() => {});
   let running = true;
 
@@ -109,67 +113,121 @@ export function createCrew({ kit, body, cabin, cargo, funnel, swarm, bursts, now
       );
     }
 
-    async function unload(box: Container) {
+    /** Takes the last note out of a box, through its doors, and hoists it. */
+    async function takeFrom(box: Container): Promise<Note> {
+      await walk(box.landing.x, box.landing.z);
+      const centre = box.toBoat.elements;
+      await face(centre[12], centre[14]);
+      d.state.stance = "reach";
+      await play((tl) => tl.to(box.doors, { open: 1, duration: 0.45, ease: "back.out(1.6)" }));
+      // The last one in comes out first: slid to the threshold, then up into its arms.
+      const i = box.held.length - 1;
+      const note = box.held.pop()!;
+      box.light(i, false);
+      note.shine = 0;
+      await swarm.toss(note, box.threshold, { holder: box.group, arc: 0.12, duration: 0.45 });
+      await hoist(note);
+      ctx.add(() =>
+        gsap
+          .timeline()
+          .to(box.doors, { open: 0, duration: 0.4, ease: "power2.in" }, 0.2)
+          .call(() => box.bump(0.4)),
+      );
+      return note;
+    }
+
+    /** Picks a note up off the deck where the trawl dropped it. */
+    async function pickUp(note: Note) {
+      const { x, z } = note.local;
+      await walk(x, Math.min(walkZ(x), z + 0.6));
+      await face(x, z);
+      d.state.stance = "reach";
+      await wait(0.2);
+      await hoist(note);
+    }
+
+    async function hoist(note: Note) {
+      d.state.stance = "carry";
+      note.pitch = 0;
+      await swarm.toss(note, at.set(0, swarm.top(note), 0), { holder: d.load, arc: 0.45, duration: 0.4 });
+      note.localRoll = 0;
+      carrying = note;
+    }
+
+    /** Puts the note in its arms into a box, through its doors. */
+    async function stowIn(box: Container, note: Note) {
       box.busy = true;
-      while (running && box.held.length) {
-        await walk(box.landing.x, box.landing.z);
-        const centre = box.toBoat.elements;
-        await face(centre[12], centre[14]);
-        d.state.stance = "reach";
-        await play((tl) => tl.to(box.doors, { open: 1, duration: 0.45, ease: "back.out(1.6)" }));
-
-        // The last one in comes out first: slid to the threshold, then up into its arms.
-        const i = box.held.length - 1;
-        const note = box.held.pop()!;
-        box.light(i, false);
-        note.shine = 0;
-        await swarm.toss(note, box.threshold, { holder: box.group, arc: 0.12, duration: 0.45 });
-        d.state.stance = "carry";
-        await swarm.toss(note, at.set(0, swarm.top(note), 0), { holder: d.load, arc: 0.45, duration: 0.4 });
-        note.localRoll = 0;
-        carrying = note;
-        ctx.add(() =>
-          gsap
-            .timeline()
-            .to(box.doors, { open: 0, duration: 0.4, ease: "power2.in" }, 0.2)
-            .call(() => box.bump(0.4)),
-        );
-
-        // To the letterbox, and wait for a turn at it.
-        const sign = Math.sign(d.group.position.x - LETTERBOX.x) || 1;
-        await walk(LETTERBOX.x + sign * 1.3);
-        const done = await turn();
-        await walk(LETTERBOX.x + sign * 0.02, LETTERBOX.z + 0.62);
-        await face(LETTERBOX.x, LETTERBOX.z - 1);
-        cabin.open();
-        carrying = null;
-        note.localYaw = 0;
-        d.state.stance = "post";
-        await play((tl) =>
-          tl.to(note, { pitch: Math.PI / 2, duration: 0.35, ease: "power2.inOut" }, 0).to({}, { duration: 0.25 }),
-        );
-        // Posted: through the slot and out of sight.
-        await swarm.toss(note, at.set(LETTERBOX.x, HULL.deck + LETTERBOX.y, LETTERBOX.z - 0.5), {
-          holder: body,
-          arc: 0.04,
-          duration: 0.4,
-        });
-        swarm.retire(note);
-        bursts.fire(toBoat(at.set(LETTERBOX.x, HULL.deck + LETTERBOX.y, LETTERBOX.z + 0.1)), now(), SPARK);
-        cabin.swallow(() => funnel.toot());
-        d.state.stance = "idle";
-        await step(d.group.position.x + sign * 1.1, walkZ(d.group.position.x + sign * 1.1));
-        done();
-      }
+      await walk(box.landing.x, box.landing.z);
+      const centre = box.toBoat.elements;
+      await face(centre[12], centre[14]);
+      await play((tl) => tl.to(box.doors, { open: 1, duration: 0.45, ease: "back.out(1.6)" }));
+      d.state.stance = "reach";
+      carrying = null;
+      const slot = box.held.length;
+      const rest = box.slot(slot);
+      await swarm.toss(note, box.threshold, { holder: box.group, arc: 0.2, duration: 0.35 });
+      await swarm.toss(note, at.set(rest.x, rest.y + swarm.top(note), rest.z), {
+        holder: box.group,
+        arc: 0.1,
+        duration: 0.45,
+      });
+      note.localYaw = 0;
+      box.held.push(note);
+      box.light(slot, true);
+      bursts.fire(toBoat(box.lamp(slot)), now(), SPARK);
+      d.state.stance = "idle";
+      await play((tl) => tl.to(box.doors, { open: 0, duration: 0.4, ease: "power2.in" }).call(() => box.bump(0.4)));
       box.busy = false;
+    }
+
+    /** To the letterbox, a turn at it, and the note posted. */
+    async function post(note: Note) {
+      const sign = Math.sign(d.group.position.x - LETTERBOX.x) || 1;
+      await walk(LETTERBOX.x + sign * 1.3);
+      const done = await turn();
+      await walk(LETTERBOX.x + sign * 0.02, LETTERBOX.z + 0.62);
+      await face(LETTERBOX.x, LETTERBOX.z - 1);
+      cabin.open();
+      carrying = null;
+      note.localYaw = 0;
+      d.state.stance = "post";
+      await play((tl) =>
+        tl.to(note, { pitch: Math.PI / 2, duration: 0.35, ease: "power2.inOut" }, 0).to({}, { duration: 0.25 }),
+      );
+      // Posted: through the slot and out of sight.
+      await swarm.toss(note, at.set(LETTERBOX.x, HULL.deck + LETTERBOX.y, LETTERBOX.z - 0.5), {
+        holder: body,
+        arc: 0.04,
+        duration: 0.4,
+      });
+      swarm.retire(note);
+      bursts.fire(toBoat(at.set(LETTERBOX.x, HULL.deck + LETTERBOX.y, LETTERBOX.z + 0.1)), now(), SPARK);
+      cabin.swallow(() => funnel.toot());
+      d.state.stance = "idle";
+      await step(d.group.position.x + sign * 1.1, walkZ(d.group.position.x + sign * 1.1));
+      done();
     }
 
     async function shift() {
       await wait(Math.random() * 2);
       while (running) {
-        const box = cargo.full(side);
+        // The trawl's catch first, off the deck: mostly to the head, some into the box.
+        if (side === "trawl" && landed.length) {
+          const note = landed.shift()!;
+          await pickUp(note);
+          const box = Math.random() < 0.35 ? cargo.pick(side) : undefined;
+          if (box) await stowIn(box, note);
+          else await post(note);
+          continue;
+        }
+        // A full box: emptied to the head, one note at a time.
+        const box =
+          cargo.full(side) ??
+          (side === "trawl" ? cargo.working.find((c) => c.spec.side === side && !c.busy && c.held.length) : undefined);
         if (box) {
-          await unload(box);
+          box.busy = true;
+          while (running && box.held.length) await post(await takeFrom(box));
+          box.busy = false;
           continue;
         }
         if (Math.abs(d.group.position.x - HOME[side]) > 0.1) await walk(HOME[side]);

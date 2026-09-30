@@ -34,9 +34,9 @@ export const HULL = {
   halfLength: 10,
   halfBeam: 2.7,
   /** Deck height above the water. */
-  deck: 1.85,
+  deck: 2.25,
   /** Keel depth, below the water. */
-  keel: -1.4,
+  keel: -1.5,
 };
 
 const BOTTOM_HALF_LENGTH = 7.35;

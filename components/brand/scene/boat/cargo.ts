@@ -9,9 +9,9 @@ import { INK, type Kit } from "./materials";
  * picture.
  *
  * In front, where the camera and the deckhands can get at them, the working
- * boxes: two by the crane that it fills, two at the foot of the trawl's
- * gantry that the trawl is emptied into, their doors facing the walkway
- * along the rail. Behind them, cargo already carried
+ * boxes: two by the crane that it fills, and one astern of the head where
+ * the deckhand stows some of what the trawl lands on the deck, their doors
+ * facing the walkway along the rail. Behind them, cargo already carried
  * home: sealed boxes stacked two and three high and knocked askew, in every
  * colour the mark has, so the deck reads as a lifetime's haul and not as a
  * product shot.
@@ -36,8 +36,7 @@ export type Side = "crane" | "trawl";
 const WORKING: ContainerSpec[] = [
   { x: -6.95, z: 0.2, yaw: 0, size: BIG, palette: amber, slots: 3, side: "crane" },
   { x: -5.45, z: 0.72, yaw: 0.03, size: SHORT, palette: strake, slots: 2, side: "crane" },
-  { x: 7.0, z: 0.1, yaw: -0.03, size: SHORT, palette: lavender, slots: 2, side: "trawl" },
-  { x: 8.35, z: 0.1, yaw: 0.02, size: SHORT, palette: cream, slots: 2, side: "trawl" },
+  { x: 3.35, z: 0.72, yaw: -0.03, size: SHORT, palette: lavender, slots: 2, side: "trawl" },
 ];
 
 const CARGO: ContainerSpec[] = [
@@ -46,9 +45,7 @@ const CARGO: ContainerSpec[] = [
   { x: -6.95, z: -1.45, y: SHORT[2], yaw: 0.3, size: SHORT, palette: banded, slots: 0 },
   { x: -5.5, z: -1.1, yaw: TURN - 0.04, size: SHORT, palette: indigo, slots: 0 },
   { x: -5.45, z: -1.2, y: SHORT[2], yaw: -0.42, size: SHORT, palette: pale, slots: 0 },
-  // Astern of the head: two in front, a tower of three and a pair behind them.
-  { x: 3.35, z: 0.72, yaw: -0.03, size: SHORT, palette: lavender, slots: 0 },
-  { x: 5.0, z: 0.2, yaw: 0, size: BIG, palette: cream, slots: 0 },
+  // Astern of the head: a tower of three and a pair, behind the deck the trawl is emptied on.
   { x: 3.4, z: -1.1, yaw: TURN, size: SHORT, palette: amber, slots: 0 },
   { x: 3.45, z: -1.2, y: SHORT[2], yaw: 0.35, size: SHORT, palette: indigo, slots: 0 },
   { x: 3.3, z: -1.05, y: SHORT[2] * 2, yaw: -0.2, size: [1.05, 1.25, 1.1], palette: lavender, slots: 0 },

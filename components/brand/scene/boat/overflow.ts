@@ -59,6 +59,9 @@ const HEAPS: [number, number, number][] = [
   [-2.3, 1.75, 4],
   [2.45, 1.7, 3],
   [-8.1, 1.2, 3],
+  // The last haul, still lying in the pound.
+  [6.4, 0.2, 4],
+  [7.7, -0.2, 3],
 ];
 
 export function stow({ kit, body, cargo, swarm, bursts, now, claw, trawl, grasp }: OverflowOptions) {
@@ -76,11 +79,11 @@ export function stow({ kit, body, cargo, swarm, bursts, now, claw, trawl, grasp 
       box.light(i, true);
     }
   }
-  const [aftBig, aftShort, foreShort, foreBig] = cargo.working;
+  const [bigBox, shortBox, storeBox] = cargo.working;
   // Hatches that will not close on what is poking out of them.
   for (const [box, open] of [
-    [aftBig, 0.32],
-    [foreShort, 0.26],
+    [bigBox, 0.32],
+    [storeBox, 0.26],
   ] as const) {
     box.hatch.open = open;
     const [, , h] = box.spec.size;
@@ -94,7 +97,7 @@ export function stow({ kit, body, cargo, swarm, bursts, now, claw, trawl, grasp 
     }
   }
   // Doors held ajar by the one leaning out.
-  for (const box of [aftShort, foreBig]) {
+  for (const box of [shortBox, storeBox]) {
     box.doors.open = 0.28;
     const n = swarm.place(box.group, box.threshold.clone().setZ(box.threshold.z + 0.3), 0.3, 0.5);
     n.local.y += top(n) * 0.8;
