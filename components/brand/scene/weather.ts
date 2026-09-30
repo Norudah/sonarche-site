@@ -33,6 +33,8 @@ export type Weather = {
   fishing: boolean;
   /** Half the width of the patrol, world units. */
   patrol: number;
+  /** How many notes the sea keeps afloat. */
+  shoal: number;
   /** Seconds between the ark's echoes, and how loud they are. */
   echoEvery: number;
   echo: RingSpec;
@@ -55,7 +57,8 @@ export const STORM: Weather = {
   rain: true,
   stream: true,
   fishing: true,
-  patrol: 3.2,
+  patrol: 1.4,
+  shoal: 18,
   echoEvery: 7.5,
   echo: { strength: 0.75, speed: 24, width: 2.6 },
   settlesOnScroll: true,
@@ -80,6 +83,7 @@ export const CALM: Weather = {
   stream: false,
   fishing: false,
   patrol: 0,
+  shoal: 7,
   echoEvery: 13,
   echo: { strength: 0.45, speed: 16, width: 2.4 },
   settlesOnScroll: false,

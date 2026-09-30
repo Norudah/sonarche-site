@@ -14,7 +14,7 @@ import { cardGeometry } from "./card";
  * is drawn soft and drifts downwind). A new burst takes the oldest slot.
  */
 
-const SLOTS = 14;
+const SLOTS = 24;
 const PER_SLOT = 30;
 
 export type BurstKind = {
@@ -58,18 +58,32 @@ export const BITE: BurstKind = { color: new Color("#e4e7ff"), speed: 2.6, size: 
 /** A funnel puff, idle. */
 export const PUFF: BurstKind = {
   color: new Color("#eceeff"),
-  speed: 0.7,
-  size: 11,
-  life: 1.9,
+  speed: 0.8,
+  size: 16,
+  life: 2.1,
   lift: 1,
   gravity: 0.35,
   drag: 1.2,
   grow: 2.2,
-  count: 3,
-  opacity: 0.55,
+  count: 4,
+  opacity: 0.5,
 };
-/** The funnel's cough when a note escapes it. */
-export const COUGH: BurstKind = { ...PUFF, speed: 1.8, size: 13, life: 1.6, count: 9, opacity: 0.8 };
+/** The funnel's cough when it sings a note. */
+export const COUGH: BurstKind = { ...PUFF, speed: 2, size: 19, life: 1.7, count: 12, opacity: 0.8 };
+/** The whistle blowing: a thin jet of steam. */
+export const STEAM: BurstKind = {
+  ...PUFF,
+  speed: 1.6,
+  size: 7,
+  life: 0.9,
+  gravity: 0.9,
+  drag: 2.2,
+  grow: 1.6,
+  count: 9,
+  opacity: 0.85,
+};
+/** Crumbs of light as the head bites down on a note. */
+export const CRUMB: BurstKind = { color: new Color("#f7c25c"), speed: 2.2, size: 3.5, life: 0.5, lift: 0.4, count: 12 };
 
 const vertex = /* glsl */ `
 #define SLOTS ${SLOTS}

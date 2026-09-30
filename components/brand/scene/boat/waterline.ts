@@ -17,8 +17,11 @@ import type { Kit } from "./materials";
 
 export const SURFACE = new Plane(new Vector3(0, 1, 0), 0);
 
-/** @param freeboard how high the hull rides: the water meets it at -freeboard in its own frame. */
-export function createWaterline(kit: Kit, freeboard: number) {
+/**
+ * @param freeboard how high the hull rides: the water meets it at -freeboard in its own frame.
+ * @param size the vessel's scale, which the foam (riding outside it) is given.
+ */
+export function createWaterline(kit: Kit, freeboard: number, size = 1) {
   const ink = new MeshBasicMaterial({ color: "#eef0ff", transparent: true, opacity: 0.85, side: DoubleSide });
   const foam = new Mesh(
     kit.keep(
@@ -35,7 +38,7 @@ export function createWaterline(kit: Kit, freeboard: number) {
     /** The foam breathes against the hull as it heaves. */
     update(t: number) {
       const s = 1 + Math.sin(t * 1.9) * 0.012;
-      foam.scale.set(s, 0.3, s);
+      foam.scale.set(s * size, 0.3, s * size);
       ink.opacity = 0.7 + Math.sin(t * 2.3) * 0.15;
     },
     dispose() {

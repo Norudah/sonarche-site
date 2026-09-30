@@ -78,7 +78,8 @@ attribute vec4 aBar; // x, z, seed, column spacing
 uniform float uTime;
 uniform float uStorm;
 uniform vec2 uArk;
-uniform vec4 uCatch; // the note in the water: x, z, the height to keep in sight, on
+#define CATCHES 10
+uniform vec4 uCatch[CATCHES]; // notes in the water: x, z, the height to keep in sight, on
 uniform vec3 uEye;
 uniform vec2 uFade;
 uniform vec3 uReveal; // radius, soft edge, strength of the front
@@ -166,13 +167,15 @@ void main() {
     float cap = uEye.y * (p.y - bow) / max(1.0, uEye.z - bow) - 0.1;
     h = mix(h, clamp(cap - surface, 0.12, h), inFront);
   }
-  // Likewise in front of a note in the water, and the claw going down for it:
-  // the crests on the line of sight to it stay under it.
-  if (uCatch.w > 0.0 && p.y > uCatch.y) {
-    float along = (p.y - uCatch.y) / max(1.0, uEye.z - uCatch.y);
-    float sight = mix(uCatch.x, uEye.x, along);
-    float onLine = (1.0 - smoothstep(0.8, 1.5, abs(p.x - sight))) * uCatch.w;
-    float cap = mix(uCatch.z, uEye.y, along) - 0.05;
+  // Likewise in front of the notes in the water nearest the camera: the
+  // crests on the line of sight to each stay under it.
+  for (int i = 0; i < CATCHES; i++) {
+    vec4 c = uCatch[i];
+    if (c.w <= 0.0 || p.y <= c.y) continue;
+    float along = (p.y - c.y) / max(1.0, uEye.z - c.y);
+    float sight = mix(c.x, uEye.x, along);
+    float onLine = (1.0 - smoothstep(0.8, 1.5, abs(p.x - sight))) * c.w;
+    float cap = mix(c.z, uEye.y, along) - 0.05;
     h = mix(h, clamp(cap - surface, 0.12, h), onLine);
   }
   float top = surface + h;
@@ -280,7 +283,7 @@ export function createSea(ripples: ReturnType<typeof createRipples>, density: nu
       uTime: { value: 0 },
       uStorm: { value: 1 },
       uArk: { value: new Vector2() },
-      uCatch: { value: new Vector4() },
+      uCatch: { value: Array.from({ length: 10 }, () => new Vector4()) },
       uEye: { value: new Vector3() },
       uFade: { value: new Vector2(60, 180) },
       uShore: { value: new Vector2(60, 0) },

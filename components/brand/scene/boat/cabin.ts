@@ -1,24 +1,21 @@
-import {
-  CircleGeometry,
-  CylinderGeometry,
-  ExtrudeGeometry,
-  Group,
-  Mesh,
-  Shape,
-  SphereGeometry,
-  TorusGeometry,
-  type MeshStandardMaterial,
-} from "three";
+import gsap from "gsap";
+import { CircleGeometry, ExtrudeGeometry, Group, Mesh, Shape, TorusGeometry, type MeshStandardMaterial } from "three";
+import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry.js";
 
 import { HULL, sideAt } from "./hull";
 import { INK, type Kit } from "./materials";
 
 /*
  * The face of the thing — the mark's basket-handle cabin with its two eyes,
- * now a rounded body with screens for eyes, a row of portholes each side and a
- * lamp at the bow. The mark's wave has gone from its roof: in three
- * dimensions the sound is the notes it fishes, and the roof carries the funnel
- * they come out of (funnel.ts).
+ * now a rounded body with screens for eyes, in the middle of the deck, and a
+ * row of portholes each side of the hull. The mark's wave has gone from its
+ * roof: in three dimensions the sound is the notes it fishes.
+ *
+ * It is where the music goes. In the brow under its eyes there is a slot,
+ * brass-framed like a letterbox; the deckhands post the notes through it.
+ * The head gulps, its eyes run a scan down their screens while it works out
+ * what it has been given, and then it is pleased: the portholes light up one
+ * after another from the middle out, and it smiles with its eyes.
  *
  * The cabin's outline is the mark's HEAD path, taller in proportion: this is a
  * mascot's head now, and it carries the vessel's expression. The eyes are dark
@@ -77,17 +74,23 @@ const DEPTH = 3;
 const BEVEL = 0.18;
 /** The cabin's face plane, where the eyes sit. */
 const FACE = DEPTH / 2 + BEVEL;
-/** Where the cabin stands on the deck: forward of amidships, to leave the crane a hold. */
-export const CABIN_X = 1;
+/** Where the cabin stands on the deck: amidships, the middle of the picture. */
+export const CABIN_X = 0;
 /** The roof's crown, over the deck. */
 export const ROOF = (12 - 7.88) * 0.625 + BEVEL;
-/** The bow lamp's mast, in the hull's frame. */
-const MAST_X = 6.9;
+/** The letterbox in the brow, over the deck, and how far forward its face is. */
+const SLOT = { y: 0.2, z: DEPTH / 2 + 0.25, w: 1.15, h: 0.2 };
+/** The slot's mouth, in the boat's frame: where a note is posted. */
+export const LETTERBOX = { x: CABIN_X, y: SLOT.y, z: SLOT.z };
+const PORTHOLES = [-7.2, -4.3, -1.45, 1.45, 4.3, 7.2];
 const TAU = Math.PI * 2;
 
 export function createCabin(kit: Kit) {
   const group = new Group();
   group.position.set(CABIN_X, HULL.deck, 0);
+  // The head proper, on its own pivot at its foot, so it can gulp.
+  const face = new Group();
+  group.add(face);
 
   const head = new Mesh(
     kit.smooth(
@@ -102,7 +105,7 @@ export function createCabin(kit: Kit) {
     ),
     kit.paint(INK.cabin, 0.42),
   );
-  group.add(head);
+  face.add(head);
 
   // The brow the mark draws under the eyes, as a moulded band round the base.
   const band = new Mesh(
@@ -115,7 +118,36 @@ export function createCabin(kit: Kit) {
     ),
     kit.paint(INK.brow, 0.5),
   );
-  group.add(band);
+  face.add(band);
+
+  // The letterbox: a dark slot in a brass frame, and a flap hinged at its top
+  // that swings in when something is posted.
+  const frame = new Mesh(
+    kit.smooth(
+      new ExtrudeGeometry(roundRect(0, 0, SLOT.w + 0.14, SLOT.h + 0.12, 0.08), {
+        depth: 0.03,
+        bevelEnabled: true,
+        bevelThickness: 0.015,
+        bevelSize: 0.015,
+        bevelSegments: 2,
+        curveSegments: 12,
+      }),
+    ),
+    kit.metal(INK.amber, 0.3),
+  );
+  frame.position.set(0, SLOT.y, SLOT.z);
+  const hole = new Mesh(kit.keep(new CircleGeometry(1, 32)), kit.paint(INK.eye, 0.9));
+  hole.scale.set(SLOT.w / 2, SLOT.h / 2, 1);
+  hole.position.set(0, SLOT.y, SLOT.z + 0.05);
+  const hinge = new Group();
+  hinge.position.set(0, SLOT.y + SLOT.h / 2, SLOT.z + 0.07);
+  const flap = new Mesh(
+    kit.keep(new RoundedBoxGeometry(SLOT.w, SLOT.h + 0.02, 0.03, 3, 0.012)),
+    kit.metal(INK.amber, 0.28),
+  );
+  flap.position.y = -(SLOT.h + 0.02) / 2;
+  hinge.add(flap);
+  face.add(frame, hole, hinge);
 
   // The eyes: dark glass screens, a hair proud of the face.
   const eyeY = Y(10.05);
@@ -128,6 +160,7 @@ export function createCabin(kit: Kit) {
   const glints: Mesh[] = [];
   const smiles: Mesh[] = [];
   const cheeks: Mesh[] = [];
+  const scans: Mesh[] = [];
   const eyeGeometry = kit.smooth(
     new ExtrudeGeometry(roundRect(0, 0, 1.08, 1.2, 0.42), {
       depth: 0.08,
@@ -150,6 +183,8 @@ export function createCabin(kit: Kit) {
     }).translate(0, -0.2, 0),
   );
   const cheekGeometry = kit.keep(new CircleGeometry(0.2, 32));
+  const scanGeometry = kit.keep(new RoundedBoxGeometry(0.86, 0.07, 0.02, 2, 0.02));
+  const scanInk = kit.glow(INK.glint, INK.rail, 2.2);
   const blush = kit.glow("#f7c25c", "#efa831", 0.25);
   blush.transparent = true;
   blush.opacity = 0;
@@ -165,23 +200,28 @@ export function createCabin(kit: Kit) {
     const cheek = new Mesh(cheekGeometry, blush);
     cheek.position.set(Math.sign(x) * 0.28, -0.68, 0.012);
     cheek.scale.set(1.35, 0.7, 1);
-    socket.add(pupil, glint, smile, cheek);
+    // The scan line that runs down the screen while it reads a note.
+    const scan = new Mesh(scanGeometry, scanInk);
+    scan.position.z = 0.15;
+    scan.visible = false;
+    socket.add(pupil, glint, smile, cheek, scan);
     eyes.add(socket);
+    scans.push(scan);
     pupils.push(pupil);
     glints.push(glint);
     smiles.push(smile);
     cheeks.push(cheek);
   }
-  group.add(eyes);
+  face.add(eyes);
 
-  // Portholes, four a side along the strake: a lavender ring round a lit pane.
+  // Portholes, six a side along the strake: a lavender ring round a lit pane.
   const ringGeometry = kit.keep(new TorusGeometry(0.3, 0.075, 16, 64));
   const paneGeometry = kit.keep(new CircleGeometry(0.27, 48));
   const ringInk = kit.paint(INK.cabin, 0.35);
   const panes: MeshStandardMaterial[] = [];
   const portholes = new Group();
   for (const side of [1, -1]) {
-    [-5.1, -1.7, 1.7, 5.1].forEach((x, i) => {
+    PORTHOLES.forEach((x, i) => {
       const { y, z } = sideAt(x, 0.34);
       // Both sides share a pane material, so the pair pulses as one.
       panes[i] ??= kit.glow(INK.rail, INK.rail, 0.6);
@@ -194,28 +234,54 @@ export function createCabin(kit: Kit) {
   }
   group.add(portholes);
 
-  // The bow lamp, amber, on a short mast: it blinks, so the vessel is manned.
-  const mast = new Mesh(kit.keep(new CylinderGeometry(0.06, 0.07, 1.3, 20)), kit.paint(INK.hull, 0.4));
-  mast.position.set(MAST_X - CABIN_X, 0.65, 0);
-  const lampInk = kit.glow(INK.amber, INK.amber, 1.2);
-  const lamp = new Mesh(kit.keep(new SphereGeometry(0.17, 32, 20)), lampInk);
-  lamp.position.set(MAST_X - CABIN_X, 1.38, 0);
-  group.add(mast, lamp);
-
   let kick = 0;
+  // Tweened by `post`, read every frame.
+  const mouth = { open: 0 };
+  const gulp = { y: 1 };
+  const reading = { v: -1 };
+  // A light running out along the portholes from the middle: the library taking it in.
+  let wave = -1;
+  const ctx = gsap.context(() => {});
   // The ^^: how long it has left, and the spring the arcs pop on.
   let pleased = 0;
   const joy = { v: 0, speed: 0 };
 
   return {
     group,
+    dispose() {
+      ctx.revert();
+    },
     /** A ping, or a note stowed: the portholes flare. */
     kick() {
       kick = 1;
     },
-    /** A note stowed: ^^ for a moment. */
+    /** Pleased: ^^ for a moment. */
     happy() {
       pleased = 1.5;
+    },
+    /** Something is coming to the letterbox: the flap swings in. */
+    open() {
+      ctx.add(() => gsap.to(mouth, { open: 1, duration: 0.25, ease: "back.out(2)" }));
+    },
+    /**
+     * It has been posted: the flap snaps shut, the head gulps, reads it, and
+     * is pleased. `then` when it is done reading.
+     */
+    swallow(then: () => void) {
+      ctx.add(() =>
+        gsap
+          .timeline()
+          .to(mouth, { open: 0, duration: 0.3, ease: "bounce.out" })
+          .to(gulp, { y: 0.9, duration: 0.12, ease: "power2.in" }, 0.05)
+          .to(gulp, { y: 1, duration: 0.6, ease: "elastic.out(1.2, 0.35)" })
+          .fromTo(reading, { v: 0 }, { v: 1, duration: 0.5, ease: "none", repeat: 1 }, 0.3)
+          .call(() => {
+            reading.v = -1;
+            pleased = 1.6;
+            wave = 0;
+            then();
+          }),
+      );
     },
     /**
      * @param look the visitor's cursor, -1..1 each way, y up. At rest the eyes
@@ -248,8 +314,20 @@ export function createCabin(kit: Kit) {
       cheeks.forEach((c) => (c.visible = joy.v > 0.02));
       blush.opacity = Math.min(1, Math.max(0, joy.v)) * 0.75;
 
-      panes.forEach((m, i) => (m.emissiveIntensity = 0.35 + 0.5 * ease(2.8, -i * 0.7) + kick * 1.6));
-      lampInk.emissiveIntensity = (t % 2.4) / 2.4 < 0.12 ? 2.4 : 0.35;
+      hinge.rotation.x = -mouth.open * 1.35;
+      face.scale.set(1 / Math.sqrt(gulp.y), gulp.y, 1 / Math.sqrt(gulp.y));
+      scans.forEach((sc) => {
+        sc.visible = reading.v >= 0 && shut < 0.5;
+        sc.position.y = 0.5 - reading.v;
+      });
+
+      if (wave >= 0) wave += dt;
+      const middle = (PORTHOLES.length - 1) / 2;
+      panes.forEach((m, i) => {
+        const lit = wave >= 0 ? Math.max(0, 1 - Math.abs(wave * 5 - Math.abs(i - middle)) * 0.8) : 0;
+        m.emissiveIntensity = 0.35 + 0.5 * ease(2.8, -i * 0.7) + kick * 1.6 + lit * 2.4;
+      });
+      if (wave > 1.5) wave = -1;
 
       kick = Math.max(0, kick - dt * 1.4);
     },

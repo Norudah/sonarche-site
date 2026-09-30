@@ -117,7 +117,14 @@ export function createScene({ canvas, host, weather: name, tier, onLive, onSettl
   const rain = weather.rain ? createRain(tier.rain) : undefined;
   const stream = weather.stream ? createStream(tier.pixels) : undefined;
   const bursts = createBursts();
-  const boat = createBoat({ ripples, bursts, now: () => clock, patrol: weather.patrol, laden: !weather.fishing });
+  const boat = createBoat({
+    ripples,
+    bursts,
+    now: () => clock,
+    patrol: weather.patrol,
+    laden: !weather.fishing,
+    shoal: weather.shoal,
+  });
   // The storm's vessel arrives by falling into the sea (see intro).
   if (weather.fishing) boat.hide();
   const lighting = createLighting(renderer, scene);

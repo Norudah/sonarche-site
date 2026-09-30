@@ -5,85 +5,83 @@ import { INK, type Kit } from "./materials";
 
 /*
  * The hold, above deck — loaded the way a working boat is, not the way a
- * diagram is: a stack at the stern with the top box knocked askew, a short one
- * wedged in front of it at an angle, a long one laid fore and aft, and at the
- * bow the archive, sealed, a smaller box dropped crosswise on top of it.
+ * diagram is, on either side of the head so the head stays the middle of the
+ * picture.
  *
- * The mark stows amber crates aft and indigo ones forward, and so does this:
- * the amber ones (and a cream one, the mark's amber band) are the working
- * hold the crane fills; the indigo ones at the bow are cargo already carried
- * home. Only a box with nothing on top of it can open, so the one under the
- * stack is full and stays shut. The crane does not always pick the same one.
+ * In front, where the camera and the deckhands can get at them, the working
+ * boxes: two aft that the crane fills, two forward that the net fills, their
+ * doors facing the walkway along the rail. Behind them, cargo already carried
+ * home: sealed boxes stacked two and three high and knocked askew, in every
+ * colour the mark has, so the deck reads as a lifetime's haul and not as a
+ * product shot.
  */
 
-const amber: Palette = { shell: INK.amber, ribs: "#e0961f", bars: INK.cabin };
-const cream: Palette = { shell: INK.amberBand, ribs: INK.amber, bars: INK.hull };
-const indigo: Palette = { shell: INK.hull, ribs: INK.strake, bars: INK.rail };
-const lavender: Palette = { shell: INK.rail, ribs: INK.strake, bars: INK.cabin };
+const P = (shell: string, ribs: string, bars: string): Palette => ({ shell, ribs, bars });
+const amber = P(INK.amber, "#e0961f", INK.cabin);
+const cream = P(INK.amberBand, INK.amber, INK.hull);
+const indigo = P(INK.hull, INK.strake, INK.rail);
+const lavender = P(INK.rail, INK.strake, INK.cabin);
+const strake = P(INK.strake, INK.rail, INK.amberBand);
+const pale = P(INK.cabin, INK.brow, INK.hull);
+const night = P(INK.keel, INK.strake, INK.amber);
+const banded = P(INK.amber, INK.hull, INK.cabin);
 
 const BIG: [number, number, number] = [1.45, 2.4, 1.4];
 const SHORT: [number, number, number] = [1.15, 1.35, 1.25];
+const TURN = Math.PI / 2;
 
-const STERN: ContainerSpec[] = [
-  { x: -4.95, z: -0.95, yaw: 0, size: BIG, palette: amber, slots: 3, lamps: "doors", full: true },
-  { x: -4.88, z: -1.1, y: BIG[2], yaw: 0.12, size: BIG, palette: cream, slots: 2, lamps: "doors" },
-  { x: -5.0, z: 1.4, yaw: -0.4, size: SHORT, palette: amber, slots: 1, lamps: "doors" },
-  { x: -2.85, z: 0.62, yaw: -Math.PI / 2 + 0.04, size: BIG, palette: amber, slots: 3, lamps: "side" },
+const WORKING: ContainerSpec[] = [
+  { x: -6.95, z: 0.2, yaw: 0, size: BIG, palette: amber, slots: 3, side: "crane" },
+  { x: -5.45, z: 0.72, yaw: 0.03, size: SHORT, palette: strake, slots: 2, side: "crane" },
+  { x: 3.35, z: 0.72, yaw: -0.03, size: SHORT, palette: lavender, slots: 2, side: "net" },
+  { x: 5.0, z: 0.2, yaw: 0, size: BIG, palette: cream, slots: 3, side: "net" },
 ];
 
-const BOW: ContainerSpec[] = [
-  { x: 4.85, z: 0, yaw: 0, size: [1.35, 2.3, 1.25], palette: indigo, slots: 3, lamps: "doors", full: true },
-  {
-    x: 4.72,
-    z: -0.3,
-    y: 1.25,
-    yaw: 1.25,
-    size: [1.1, 1.4, 1.05],
-    palette: lavender,
-    slots: 2,
-    lamps: "side",
-    full: true,
-  },
+const CARGO: ContainerSpec[] = [
+  // Aft: two stacks behind the working pair.
+  { x: -7.0, z: -1.63, yaw: TURN + 0.05, size: SHORT, palette: night, slots: 0 },
+  { x: -6.95, z: -1.45, y: SHORT[2], yaw: 0.3, size: SHORT, palette: banded, slots: 0 },
+  { x: -5.5, z: -1.1, yaw: TURN - 0.04, size: SHORT, palette: indigo, slots: 0 },
+  { x: -5.45, z: -1.2, y: SHORT[2], yaw: -0.42, size: SHORT, palette: pale, slots: 0 },
+  // Forward: a tower of three behind the first box, a pair behind the second, one at the bow.
+  { x: 3.4, z: -1.1, yaw: TURN, size: SHORT, palette: amber, slots: 0 },
+  { x: 3.45, z: -1.2, y: SHORT[2], yaw: 0.35, size: SHORT, palette: indigo, slots: 0 },
+  { x: 3.3, z: -1.05, y: SHORT[2] * 2, yaw: -0.2, size: [1.05, 1.25, 1.1], palette: lavender, slots: 0 },
+  { x: 5.1, z: -1.63, yaw: TURN - 0.06, size: SHORT, palette: strake, slots: 0 },
+  { x: 5.05, z: -1.5, y: SHORT[2], yaw: 0.25, size: SHORT, palette: cream, slots: 0 },
+  { x: 6.6, z: 0.35, yaw: 0.08, size: SHORT, palette: banded, slots: 0 },
 ];
 
 export function createCargo(kit: Kit) {
   const group = new Group();
   const container = containerFactory(kit, kit.keep(new SphereGeometry(0.1, 24, 16)));
-  const stern = STERN.map(container);
-  const bow = BOW.map(container);
-  const all = [...stern, ...bow];
+  const working = WORKING.map(container);
+  const all = [...working, ...CARGO.map(container)];
   all.forEach((c) => group.add(c.group));
-
-  /** The ones the crane can fill: amber, and nothing stacked on them. */
-  const hold = stern.filter((c) => !c.spec.full);
-  let last: Container | undefined;
+  const last = new Map<string, Container>();
 
   return {
     group,
-    hold,
-    /** Where the archive's lights gather. */
-    archive: bow[0],
+    working,
     /** Footprints on the deck for the contact shadows: x, z, half-width, half-length, yaw. */
     footprints: all
       .filter((c) => !c.spec.y)
       .map(({ spec }) => [spec.x, spec.z, spec.size[0] / 2, spec.size[1] / 2, spec.yaw] as const),
     /**
-     * A container with room, never the one just filled if another will do.
-     * Undefined once the whole hold is full.
+     * A box on this side with room that nobody is working, never the one just
+     * filled if another will do.
      */
-    pick(): Container | undefined {
-      const open = hold.filter((c) => c.stored < c.spec.slots);
-      const fresh = open.filter((c) => c !== last);
+    pick(side: "crane" | "net", room = 1): Container | undefined {
+      const open = working.filter((c) => c.spec.side === side && !c.busy && c.spec.slots - c.held.length >= room);
+      const fresh = open.filter((c) => c !== last.get(side));
       const from = fresh.length ? fresh : open;
-      last = from[Math.floor(Math.random() * from.length)];
-      return last;
+      const chosen = from[Math.floor(Math.random() * from.length)];
+      if (chosen) last.set(side, chosen);
+      return chosen;
     },
-    /** Every light on and every box full: home from the voyage. */
-    fill() {
-      for (const c of hold) {
-        c.stored = c.spec.slots;
-        c.lights.forEach((_, i) => c.light(i, true));
-      }
+    /** A full box on this side, for a deckhand to empty. */
+    full(side: "crane" | "net"): Container | undefined {
+      return working.find((c) => c.spec.side === side && !c.busy && c.held.length >= c.spec.slots);
     },
     update(dt: number) {
       all.forEach((c) => c.update(dt));

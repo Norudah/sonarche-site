@@ -25,19 +25,21 @@ import { SURFACE } from "./waterline";
  * the light reads across them without a seam.
  *
  * Seen from the side, as the camera sees it, the silhouette is the mark's,
- * stretched a little: a working deck needs the room the logo never did.
+ * stretched: a working deck, with a crane aft, a net forward and a hold on
+ * either side of the head, needs the room the logo never did; and a higher
+ * freeboard, so it sits in the storm like a vessel and not a raft.
  */
 
 export const HULL = {
-  halfLength: 8,
+  halfLength: 10,
   halfBeam: 2.7,
   /** Deck height above the water. */
-  deck: 1.5,
+  deck: 1.85,
   /** Keel depth, below the water. */
-  keel: -1.3,
+  keel: -1.4,
 };
 
-const BOTTOM_HALF_LENGTH = 5.85;
+const BOTTOM_HALF_LENGTH = 7.35;
 const BOTTOM_HALF_BEAM = 1.55;
 const SEGMENTS = 160;
 /** Down the side, 0 at the deck and 1 at the keel; doubled up at the band edges. */

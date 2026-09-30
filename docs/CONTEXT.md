@@ -207,24 +207,26 @@ ringed portholes that glow; the mark's basket-handle cabin as its head, with
 dark glass eyes whose glints follow the cursor (or the note it is fishing)
 and a raked funnel on its roof; satin paint, a room environment for sheen (built in a startup slice of its own: its shaders are the one expensive compile), a warm key, a lavender rim, and painted contact shadows rather than a shadow map. The hull is clipped at the sea's surface
 and a line of foam hugs the cut, so it sits in the bars rather than behind
-them. It works (reworked 2026-09-30, the hull lengthened to make room): its
-sonar pings, a note surfaces where the ring passes, the vessel looks at it,
-sails over and fishes it with a knuckle-boom deck crane that is a machine,
-not a prop: a slewing ring and a pinion that walks round it, two hydraulic
-rams whose rods slide, a winch on the main boom whose drum and gears turn by
-the cable paid out, sheaves at the knuckle and the head, a beacon that turns
-over while it works, and a three-fingered claw worked by a collar and links.
-The note (sized to go in below a container's rim) is lowered into one of
-three amber boxes in a deliberately untidy hold (a knocked stack, a short box
-askew, a long one fore and aft; the crane never picks the same one twice
-running), the hatch slams in a puff of dust, a light comes on, the boat
-shuts its eyes into a happy ^^ and blushes, and the funnel coughs a small
-note into the air. When the hold is full its lights travel along the deck
-into the sealed indigo archive at the bow. The mark's wave no longer sits on
-the roof: in 3D the sound is the notes. Nothing appears or vanishes without a
-visible cause: notes surface in a spray, stretch when yanked, go in through
-the hatch; the sea keeps its crests under the line of sight to a note in the
-water, as it does in front of the hull.
+them. It works (reworked twice on 2026-09-30; hull lengthened and raised,
+the head back in the middle). The sea is full of notes of every glyph and
+colour, rising, drifting and sinking back all the way to the horizon
+(boat/notes.ts). Aft, a knuckle-boom crane that is a machine, not a prop
+(slewing ring and pinion, two rams, a geared winch, sheaves, a beacon, a
+three-fingered claw on links), driven by where the load should be: it lifts
+clear of the deck, crosses at that height, stops while the swing dies out,
+and lowers straight in through a hatch. Forward, a landing net on a
+telescopic pole drags through a shoal and pours it into a box. Two deckhands
+(little automata with the vessel's eyes) empty the full boxes through their
+doors and post each note through a letterbox in the head's brow: the head
+gulps, scans it, smiles ^^, the portholes light up from the middle out, and
+the big funnel on the deck behind it sings the note into the air. Boxes are
+stacked, knocked askew and mixed in colour; only the four working ones open.
+The mark's wave no longer sits on the roof: in 3D the sound is the notes. In
+the footer the ark overflows: boxes that will not shut, heaps on the deck,
+the crew dancing, a note now and then sliding off into the harbour. Nothing
+appears or vanishes without a visible cause, and the sea keeps its crests
+under the line of sight to the notes in the water, as it does in front of
+the hull.
 Quality notes from the 2026-09-29 pass: extruded shapes get creased normals
 (flat-shaded extrusions read as polygons), everything is tessellated for a
 2x screen, the pixel swarm stays local to the note (a lone square over the
