@@ -4,6 +4,7 @@ import { cardGeometry } from "./card";
 import { OKLCH_GLSL } from "./color";
 import { PITCH, type Framing } from "./framing";
 import { RIPPLE_GLSL, type createRipples } from "./ripples";
+import { SHELTER } from "./swell";
 
 /*
  * The sea, as the poster draws it — a field of equalizer bars — but seen in
@@ -78,6 +79,7 @@ attribute vec4 aBar; // x, z, seed, column spacing
 uniform float uTime;
 uniform float uStorm;
 uniform vec2 uArk;
+uniform float uArkLift; // the water's height under the hull: its waterline, as it rides the swell
 #define CATCHES 10
 uniform vec4 uCatch[CATCHES]; // notes in the water: x, z, the height to keep in sight, on
 uniform vec3 uEye;
@@ -156,15 +158,18 @@ void main() {
 
 
   h *= mix(0.05, 1.0, grow);
-  float surface = heave(p, t) * shelter * uStorm * grow;
+  // The water itself heaves even in the berth (the vessel rides it, see
+  // swell.ts); only the crests are calmed there.
+  float lee = mix(${SHELTER.floor.toFixed(2)}, 1.0, smoothstep(${SHELTER.from.toFixed(1)}, ${SHELTER.to.toFixed(1)}, berth));
+  float surface = heave(p, t) * lee * uStorm * grow;
   // Between the hull and the camera, no crest may rise into the vessel's
   // outline: each is capped where, seen from the eye, it would cross the
   // hull's waterline. Waves still run in front of the boat; they just pass
   // under its silhouette instead of combing across it.
-  float bow = uArk.y + 2.6;
+  float bow = uArk.y + 3.0;
   if (p.y > bow) {
-    float inFront = 1.0 - smoothstep(8.5, 10.5, abs(p.x - uArk.x));
-    float cap = uEye.y * (p.y - bow) / max(1.0, uEye.z - bow) - 0.1;
+    float inFront = 1.0 - smoothstep(10.5, 12.5, abs(p.x - uArk.x));
+    float cap = mix(uArkLift, uEye.y, (p.y - bow) / max(1.0, uEye.z - bow)) - 0.1;
     h = mix(h, clamp(cap - surface, 0.12, h), inFront);
   }
   // Likewise in front of the notes in the water nearest the camera: the
@@ -283,6 +288,7 @@ export function createSea(ripples: ReturnType<typeof createRipples>, density: nu
       uTime: { value: 0 },
       uStorm: { value: 1 },
       uArk: { value: new Vector2() },
+      uArkLift: { value: 0 },
       uCatch: { value: Array.from({ length: 10 }, () => new Vector4()) },
       uEye: { value: new Vector3() },
       uFade: { value: new Vector2(60, 180) },

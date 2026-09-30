@@ -91,6 +91,8 @@ type SwarmOptions = {
   bursts: ReturnType<typeof createBursts>;
   ripples: ReturnType<typeof createRipples>;
   now: () => number;
+  /** The sea's height at a point: what floats, floats on it. */
+  water: (x: number, z: number) => number;
   /** How many the sea keeps afloat at once, and how far out they go. */
   population: number;
   reach: number;
@@ -165,7 +167,7 @@ void main() {
 }
 `;
 
-export function createSwarm({ glyphs, bursts, ripples, now, population, reach }: SwarmOptions) {
+export function createSwarm({ glyphs, bursts, ripples, now, water, population, reach }: SwarmOptions) {
   // --- Drawing -----------------------------------------------------------------
   const ink = new MeshStandardMaterial({
     color: "#ffffff",
@@ -304,10 +306,11 @@ export function createSwarm({ glyphs, bursts, ripples, now, population, reach }:
         n.timer += dt;
         const p = Math.min(1, n.timer / RISE);
         const k = 1 + 2.4 * Math.pow(p - 1, 3) + 1.4 * Math.pow(p - 1, 2);
-        const wasUnder = n.pos.y < 0;
-        n.pos.y = DEEP + (FLOAT_Y - DEEP) * k;
+        const level = water(n.pos.x, n.pos.z);
+        const wasUnder = n.pos.y < level;
+        n.pos.y = level + DEEP + (FLOAT_Y - DEEP) * k;
         n.pop = Math.min(1, 0.3 + p * 1.4);
-        if (wasUnder && n.pos.y >= 0) surface(n);
+        if (wasUnder && n.pos.y >= level) surface(n);
         if (p >= 1) {
           n.state = "afloat";
           n.timer = rand(7, 16);
@@ -316,6 +319,7 @@ export function createSwarm({ glyphs, bursts, ripples, now, population, reach }:
       }
       case "afloat":
         n.pos.x += WIND * dt * (n.claimed ? 0 : 1);
+        n.pos.y = water(n.pos.x, n.pos.z) + FLOAT_Y;
         n.timer -= dt;
         if (!n.claimed && n.timer <= 0) {
           n.state = "sinking";
@@ -325,7 +329,7 @@ export function createSwarm({ glyphs, bursts, ripples, now, population, reach }:
       case "sinking": {
         n.timer += dt;
         const p = Math.min(1, n.timer / SINK);
-        n.pos.y = FLOAT_Y + (DEEP - FLOAT_Y) * p * p;
+        n.pos.y = water(n.pos.x, n.pos.z) + FLOAT_Y + (DEEP - FLOAT_Y) * p * p;
         n.roll = p * 0.9;
         if (p >= 1) rest(n);
         return;
@@ -349,7 +353,7 @@ export function createSwarm({ glyphs, bursts, ripples, now, population, reach }:
           n.localRoll = 0;
           n.state = "held";
         } else {
-          n.pos.y = FLOAT_Y;
+          n.pos.y = water(n.pos.x, n.pos.z) + FLOAT_Y;
           n.roll = 0;
           splash(n);
           n.state = toss.land === "sink" ? "sinking" : "afloat";

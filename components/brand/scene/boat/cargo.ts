@@ -9,8 +9,9 @@ import { INK, type Kit } from "./materials";
  * picture.
  *
  * In front, where the camera and the deckhands can get at them, the working
- * boxes: two aft that the crane fills, two forward that the net fills, their
- * doors facing the walkway along the rail. Behind them, cargo already carried
+ * boxes: two by the crane that it fills, two at the foot of the trawl's
+ * gantry that the trawl is emptied into, their doors facing the walkway
+ * along the rail. Behind them, cargo already carried
  * home: sealed boxes stacked two and three high and knocked askew, in every
  * colour the mark has, so the deck reads as a lifetime's haul and not as a
  * product shot.
@@ -30,11 +31,13 @@ const BIG: [number, number, number] = [1.45, 2.4, 1.4];
 const SHORT: [number, number, number] = [1.15, 1.35, 1.25];
 const TURN = Math.PI / 2;
 
+export type Side = "crane" | "trawl";
+
 const WORKING: ContainerSpec[] = [
   { x: -6.95, z: 0.2, yaw: 0, size: BIG, palette: amber, slots: 3, side: "crane" },
   { x: -5.45, z: 0.72, yaw: 0.03, size: SHORT, palette: strake, slots: 2, side: "crane" },
-  { x: 3.35, z: 0.72, yaw: -0.03, size: SHORT, palette: lavender, slots: 2, side: "net" },
-  { x: 5.0, z: 0.2, yaw: 0, size: BIG, palette: cream, slots: 3, side: "net" },
+  { x: 7.0, z: 0.1, yaw: -0.03, size: SHORT, palette: lavender, slots: 2, side: "trawl" },
+  { x: 8.35, z: 0.1, yaw: 0.02, size: SHORT, palette: cream, slots: 2, side: "trawl" },
 ];
 
 const CARGO: ContainerSpec[] = [
@@ -43,13 +46,14 @@ const CARGO: ContainerSpec[] = [
   { x: -6.95, z: -1.45, y: SHORT[2], yaw: 0.3, size: SHORT, palette: banded, slots: 0 },
   { x: -5.5, z: -1.1, yaw: TURN - 0.04, size: SHORT, palette: indigo, slots: 0 },
   { x: -5.45, z: -1.2, y: SHORT[2], yaw: -0.42, size: SHORT, palette: pale, slots: 0 },
-  // Forward: a tower of three behind the first box, a pair behind the second, one at the bow.
+  // Astern of the head: two in front, a tower of three and a pair behind them.
+  { x: 3.35, z: 0.72, yaw: -0.03, size: SHORT, palette: lavender, slots: 0 },
+  { x: 5.0, z: 0.2, yaw: 0, size: BIG, palette: cream, slots: 0 },
   { x: 3.4, z: -1.1, yaw: TURN, size: SHORT, palette: amber, slots: 0 },
   { x: 3.45, z: -1.2, y: SHORT[2], yaw: 0.35, size: SHORT, palette: indigo, slots: 0 },
   { x: 3.3, z: -1.05, y: SHORT[2] * 2, yaw: -0.2, size: [1.05, 1.25, 1.1], palette: lavender, slots: 0 },
   { x: 5.1, z: -1.63, yaw: TURN - 0.06, size: SHORT, palette: strake, slots: 0 },
   { x: 5.05, z: -1.5, y: SHORT[2], yaw: 0.25, size: SHORT, palette: cream, slots: 0 },
-  { x: 6.6, z: 0.35, yaw: 0.08, size: SHORT, palette: banded, slots: 0 },
 ];
 
 export function createCargo(kit: Kit) {
@@ -71,7 +75,7 @@ export function createCargo(kit: Kit) {
      * A box on this side with room that nobody is working, never the one just
      * filled if another will do.
      */
-    pick(side: "crane" | "net", room = 1): Container | undefined {
+    pick(side: Side, room = 1): Container | undefined {
       const open = working.filter((c) => c.spec.side === side && !c.busy && c.spec.slots - c.held.length >= room);
       const fresh = open.filter((c) => c !== last.get(side));
       const from = fresh.length ? fresh : open;
@@ -80,7 +84,7 @@ export function createCargo(kit: Kit) {
       return chosen;
     },
     /** A full box on this side, for a deckhand to empty. */
-    full(side: "crane" | "net"): Container | undefined {
+    full(side: Side): Container | undefined {
       return working.find((c) => c.spec.side === side && !c.busy && c.held.length >= c.spec.slots);
     },
     update(dt: number) {

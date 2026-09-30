@@ -15,7 +15,7 @@ import type { Note, createSwarm } from "./notes";
  * Every working box is full and then some: hatches that will not shut on the
  * notes poking out of them, doors held ajar by one leaning out, notes on the
  * deck, on the stacks, on the roof of the head and the funnel's casing; one
- * still hanging in the crane's claw, the net's bag full. The crew have
+ * still hanging in the crane's claw, the trawl's bag full. The crew have
  * stopped work and are dancing.
  *
  * And it does not stay put: every so often a loose note wobbles, slides off
@@ -31,9 +31,9 @@ type OverflowOptions = {
   swarm: ReturnType<typeof createSwarm>;
   bursts: ReturnType<typeof createBursts>;
   now: () => number;
-  /** The gear's own holders: the claw, and the net's hoop with its pockets. */
+  /** The gear's own holders: the claw, and the trawl's bag with its pockets. */
   claw: Object3D;
-  net: { holder: Object3D; pocket: (i: number, n: number) => Vector3; pose: { fill: number } };
+  trawl: { holder: Object3D; pocket: (i: number) => Vector3; pose: { fill: number } };
   grasp: number;
 };
 
@@ -61,7 +61,7 @@ const HEAPS: [number, number, number][] = [
   [-8.1, 1.2, 3],
 ];
 
-export function stow({ kit, body, cargo, swarm, bursts, now, claw, net, grasp }: OverflowOptions) {
+export function stow({ kit, body, cargo, swarm, bursts, now, claw, trawl, grasp }: OverflowOptions) {
   const ctx = gsap.context(() => {});
   let running = true;
   const top = (n: Note) => swarm.top(n);
@@ -122,11 +122,11 @@ export function stow({ kit, body, cargo, swarm, bursts, now, claw, net, grasp }:
     }
   }
 
-  // One still in the claw, the net's bag full.
+  // One still in the claw, the trawl's bag full.
   const hung = swarm.place(claw, new Vector3(0, 0, 0));
   hung.local.y = -(grasp + top(hung));
-  for (let i = 0; i < 3; i++) swarm.place(net.holder, net.pocket(i, 3));
-  net.pose.fill = 1;
+  for (let i = 0; i < 3; i++) swarm.place(trawl.holder, trawl.pocket(i));
+  trawl.pose.fill = 1;
 
   // The crew, off duty.
   const dancers = [-2.9, 2.75].map((x, i) => {

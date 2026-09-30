@@ -173,6 +173,7 @@ export function createScene({ canvas, host, weather: name, tier, onLive, onSettl
     camera.updateProjectionMatrix();
 
     sea.relayout(framing);
+    boat.roam((width / 2) * (framing.distance / framing.focal));
     sea.uniforms.uShore.value.set(weather.shore.fade * pixelRatio, weather.shore.floor);
     rain?.relayout(framing);
     stream?.relayout(framing);
@@ -188,7 +189,7 @@ export function createScene({ canvas, host, weather: name, tier, onLive, onSettl
     lean.y += (lean.toY - lean.y) * follow;
     place();
 
-    boat.update(clock, dt, lean);
+    boat.update(clock, dt, lean, { time: clock, storm: weather.swell * (1 - 0.6 * state.calm) });
     lighting.follow(boat.group);
     const storm = weather.swell * (1 - 0.6 * state.calm);
 
@@ -196,6 +197,7 @@ export function createScene({ canvas, host, weather: name, tier, onLive, onSettl
     s.uTime.value = clock;
     s.uStorm.value = storm;
     s.uArk.value.set(boat.x(), 0);
+    s.uArkLift.value = boat.level();
     boat.sight(s.uCatch.value);
     s.uEye.value.copy(camera.position);
 

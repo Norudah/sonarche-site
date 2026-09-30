@@ -10,8 +10,8 @@ import { INK, type Kit } from "./materials";
  * The funnel — the vessel's engine, stood on the deck behind the head, not on
  * it: the head is a face, and a face with a chimney on it stops being one.
  *
- * A tug's stack, and a proper one: taller than the head, raked aft, oval,
- * hooped, with the cargo's amber band and a sooty cap, on an engine casing
+ * A tug's stack, and a proper one: taller than the head, dead upright, a
+ * straight cylinder, hooped, with the cargo's amber band and a sooty cap, on an engine casing
  * with louvres and a door. A brass whistle and a ladder up its flank say how
  * big it is. It breathes a puff every couple of seconds while the engine
  * runs. When the head has digested a note, the funnel sings it: the stack
@@ -29,8 +29,8 @@ type FunnelOptions = {
 
 const CASING = { w: 1.75, h: 0.85, d: 1.75 };
 const HEIGHT = 3.1;
-const BOTTOM = 0.8;
-const TOP = 0.68;
+const BOTTOM = 0.74;
+const TOP = 0.74;
 /** The puff every couple of seconds; the storm's wind takes it aft. */
 const BREATH = [1.8, 2.8];
 
@@ -69,10 +69,8 @@ export function createFunnel({ kit, bursts, now, sing }: FunnelOptions) {
   // --- The stack, on its own pivot so it can squash and swell about its foot ---
   const stack = new Group();
   stack.position.y = CASING.h;
-  stack.rotation.z = 0.08;
   group.add(stack);
   const oval = new Group();
-  oval.scale.z = 0.86;
   stack.add(oval);
 
   const body = new Mesh(kit.keep(new CylinderGeometry(TOP, BOTTOM, HEIGHT, 72)), kit.paint(INK.strake, 0.42));
@@ -114,7 +112,7 @@ export function createFunnel({ kit, bursts, now, sing }: FunnelOptions) {
   // The whistle: a brass bell on a pipe, on the side facing the camera.
   const brass = kit.metal(INK.amber, 0.3);
   const whistle = new Group();
-  whistle.position.set(0.18, 2.0, radius(2.0) * 0.86 + 0.08);
+  whistle.position.set(0.18, 2.0, radius(2.0) + 0.08);
   const bell = new Mesh(kit.keep(new CylinderGeometry(0.07, 0.09, 0.32, 24)), brass);
   bell.position.y = 0.2;
   const pipe = new Mesh(kit.keep(new CylinderGeometry(0.03, 0.03, 0.4, 12)), brass);

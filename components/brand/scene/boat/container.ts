@@ -53,7 +53,7 @@ export type ContainerSpec = {
   /** Where its lights are: over the doors, or down the long side. */
   lamps?: "doors" | "side";
   /** Which of the boat's gear fills it. */
-  side?: "crane" | "net";
+  side?: "crane" | "trawl";
 };
 
 export type Container = {

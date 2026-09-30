@@ -210,16 +210,23 @@ and a line of foam hugs the cut, so it sits in the bars rather than behind
 them. It works (reworked twice on 2026-09-30; hull lengthened and raised,
 the head back in the middle). The sea is full of notes of every glyph and
 colour, rising, drifting and sinking back all the way to the horizon
-(boat/notes.ts). Aft, a knuckle-boom crane that is a machine, not a prop
+(boat/notes.ts). The vessel is never still: it rides that swell (the sea's
+heave, computed on the CPU in swell.ts, lifts, pitches and rolls it, and
+moves its waterline) and steams across the frame and back, only ever
+bouncing once, when it drops in. At the bow, a knuckle-boom crane that is a machine, not a prop
 (slewing ring and pinion, two rams, a geared winch, sheaves, a beacon, a
 three-fingered claw on links), driven by where the load should be: it lifts
 clear of the deck, crosses at that height, stops while the swing dies out,
-and lowers straight in through a hatch. Forward, a landing net on a
-telescopic pole drags through a shoal and pours it into a box. Two deckhands
+and lowers straight in through a hatch; it fishes while the vessel lies
+stopped. Off the stern, a beam trawl on an A-frame gantry: shot as a run
+begins, it streams astern on its warps and sweeps up a shoal, then is hauled
+and tipped inboard over one of the two boxes at the gantry's foot. Two deckhands
 (little automata with the vessel's eyes) empty the full boxes through their
-doors and post each note through a letterbox in the head's brow: the head
+doors and post each note through a letterbox in the head's brow (a flap
+in the brow's own colour, only seen when it opens): the head
 gulps, scans it, smiles ^^, the portholes light up from the middle out, and
-the big funnel on the deck behind it sings the note into the air. Boxes are
+the big funnel on the deck behind it (upright, a plain cylinder) sings the
+note into the air. Boxes are
 stacked, knocked askew and mixed in colour; only the four working ones open.
 The mark's wave no longer sits on the roof: in 3D the sound is the notes. In
 the footer the ark overflows: boxes that will not shut, heaps on the deck,

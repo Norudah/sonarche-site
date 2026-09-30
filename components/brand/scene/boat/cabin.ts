@@ -11,8 +11,9 @@ import { INK, type Kit } from "./materials";
  * row of portholes each side of the hull. The mark's wave has gone from its
  * roof: in three dimensions the sound is the notes it fishes.
  *
- * It is where the music goes. In the brow under its eyes there is a slot,
- * brass-framed like a letterbox; the deckhands post the notes through it.
+ * It is where the music goes. In the brow under its eyes there is a slot, a
+ * letterbox with a flap you only notice when it opens; the deckhands post the
+ * notes through it.
  * The head gulps, its eyes run a scan down their screens while it works out
  * what it has been given, and then it is pleased: the portholes light up one
  * after another from the middle out, and it smiles with its eyes.
@@ -79,7 +80,7 @@ export const CABIN_X = 0;
 /** The roof's crown, over the deck. */
 export const ROOF = (12 - 7.88) * 0.625 + BEVEL;
 /** The letterbox in the brow, over the deck, and how far forward its face is. */
-const SLOT = { y: 0.2, z: DEPTH / 2 + 0.25, w: 1.15, h: 0.2 };
+const SLOT = { y: 0.2, z: DEPTH / 2 + 0.25, w: 0.95, h: 0.16 };
 /** The slot's mouth, in the boat's frame: where a note is posted. */
 export const LETTERBOX = { x: CABIN_X, y: SLOT.y, z: SLOT.z };
 const PORTHOLES = [-7.2, -4.3, -1.45, 1.45, 4.3, 7.2];
@@ -120,34 +121,20 @@ export function createCabin(kit: Kit) {
   );
   face.add(band);
 
-  // The letterbox: a dark slot in a brass frame, and a flap hinged at its top
-  // that swings in when something is posted.
-  const frame = new Mesh(
-    kit.smooth(
-      new ExtrudeGeometry(roundRect(0, 0, SLOT.w + 0.14, SLOT.h + 0.12, 0.08), {
-        depth: 0.03,
-        bevelEnabled: true,
-        bevelThickness: 0.015,
-        bevelSize: 0.015,
-        bevelSegments: 2,
-        curveSegments: 12,
-      }),
-    ),
-    kit.metal(INK.amber, 0.3),
-  );
-  frame.position.set(0, SLOT.y, SLOT.z);
+  // The letterbox: a slot in the brow, closed by a flap in the brow's own
+  // colour, so at rest it is a hairline; it only shows when it opens.
   const hole = new Mesh(kit.keep(new CircleGeometry(1, 32)), kit.paint(INK.eye, 0.9));
   hole.scale.set(SLOT.w / 2, SLOT.h / 2, 1);
-  hole.position.set(0, SLOT.y, SLOT.z + 0.05);
+  hole.position.set(0, SLOT.y, SLOT.z + 0.004);
   const hinge = new Group();
-  hinge.position.set(0, SLOT.y + SLOT.h / 2, SLOT.z + 0.07);
+  hinge.position.set(0, SLOT.y + SLOT.h / 2, SLOT.z + 0.012);
   const flap = new Mesh(
-    kit.keep(new RoundedBoxGeometry(SLOT.w, SLOT.h + 0.02, 0.03, 3, 0.012)),
-    kit.metal(INK.amber, 0.28),
+    kit.keep(new RoundedBoxGeometry(SLOT.w + 0.06, SLOT.h + 0.05, 0.02, 3, 0.01)),
+    kit.paint(INK.brow, 0.46),
   );
-  flap.position.y = -(SLOT.h + 0.02) / 2;
+  flap.position.y = -(SLOT.h + 0.05) / 2;
   hinge.add(flap);
-  face.add(frame, hole, hinge);
+  face.add(hole, hinge);
 
   // The eyes: dark glass screens, a hair proud of the face.
   const eyeY = Y(10.05);
@@ -272,7 +259,7 @@ export function createCabin(kit: Kit) {
         gsap
           .timeline()
           .to(mouth, { open: 0, duration: 0.3, ease: "bounce.out" })
-          .to(gulp, { y: 0.9, duration: 0.12, ease: "power2.in" }, 0.05)
+          .to(gulp, { y: 0.96, duration: 0.12, ease: "power2.in" }, 0.05)
           .to(gulp, { y: 1, duration: 0.6, ease: "elastic.out(1.2, 0.35)" })
           .fromTo(reading, { v: 0 }, { v: 1, duration: 0.5, ease: "none", repeat: 1 }, 0.3)
           .call(() => {

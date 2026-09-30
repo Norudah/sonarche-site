@@ -31,7 +31,7 @@ export type Weather = {
   stream: boolean;
   /** The vessel patrols and fishes notes into its crates. */
   fishing: boolean;
-  /** Half the width of the patrol, world units. */
+  /** How far either side of the middle the vessel steams, world units, at most. */
   patrol: number;
   /** How many notes the sea keeps afloat. */
   shoal: number;
@@ -57,7 +57,7 @@ export const STORM: Weather = {
   rain: true,
   stream: true,
   fishing: true,
-  patrol: 1.4,
+  patrol: 5,
   shoal: 18,
   echoEvery: 7.5,
   echo: { strength: 0.75, speed: 24, width: 2.6 },

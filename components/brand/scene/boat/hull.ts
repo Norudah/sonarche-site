@@ -1,5 +1,6 @@
 import {
   BufferAttribute,
+  type Plane,
   BufferGeometry,
   CatmullRomCurve3,
   Color,
@@ -11,7 +12,6 @@ import {
 } from "three";
 
 import { INK, type Kit } from "./materials";
-import { SURFACE } from "./waterline";
 
 /*
  * The hull, lofted.
@@ -136,11 +136,12 @@ function outline(inset: number, plan: Plan = planAt(0)): Vector3[] {
   });
 }
 
-export function createHull(kit: Kit) {
+/** @param surface the water's surface, where the hull is cut (waterline.ts). */
+export function createHull(kit: Kit, surface: Plane) {
   const paint = kit.paint("#ffffff", 0.5);
   paint.vertexColors = true;
   // Cut at the surface: below it, the sea (see waterline.ts).
-  paint.clippingPlanes = [SURFACE];
+  paint.clippingPlanes = [surface];
   const hull = new Mesh(kit.keep(hullGeometry()), paint);
 
   // The deck: the top ring, filled, a step lighter than the hull so the
