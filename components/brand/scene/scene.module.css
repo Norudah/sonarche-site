@@ -7,10 +7,14 @@
  * first frame the host is flagged `live`, the loader bows out, and the first
  * real ping deploys the sea from exactly where the rings were drawn.
  *
+ * While the scene loads, JavaScript flags the host `loading` and the loader
+ * holds for as long as that takes: a machine that can run the scene never
+ * sees the poster first, however slowly it gets there.
+ *
  * Three ways out, all without the scene's help:
- *   - `off`: the scene is not for this visitor (or gave up) — the poster, now.
- *   - no JavaScript, or a chunk that never lands: after 3.6s the loader fades
- *     and the poster fades in on a plain CSS delay.
+ *   - `off`: the scene is not for this visitor (or cannot run) — the poster, now.
+ *   - no JavaScript at all: after 3.6s the loader fades and the poster fades
+ *     in on a plain CSS delay.
  *   - narrow screens and reduced motion never see the loader at all.
  *
  * The host is whatever element the canvas sits in: the hero section, the
@@ -41,6 +45,15 @@
     height: 0;
     animation: fallbackOut 0.4s ease 3.6s forwards;
   }
+}
+
+[data-scene="loading"] .poster {
+  animation: none;
+  opacity: 0;
+}
+
+[data-scene="loading"] .loader {
+  animation: none;
 }
 
 [data-scene="off"] .poster {

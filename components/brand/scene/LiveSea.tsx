@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import type { Tier } from "./createScene";
 import styles from "./scene.module.css";
@@ -16,9 +16,13 @@ import type { WeatherName } from "./weather";
  * loaded and gone idle, fetches the WebGL chunk. When the scene has its first
  * frame it flags its host: the loader drawn in the poster's place (sonar rings
  * on flat water) bows out and the sea deploys from where it pinged
- * (scene.module.css). Any failure on the way — no WebGL, a chunk that never
- * lands, a device the watchdog finds too slow — flags the host `off`, and the
- * poster is shown.
+ * (scene.module.css). While it loads, the host is flagged `loading`, which
+ * holds the loader in place however long that takes: a visitor whose machine
+ * can run the scene never sees the poster first. Only a scene that cannot run
+ * at all (no WebGL, a chunk that never lands, a shader that does not compile)
+ * flags the host `off` and shows the poster. A slow machine keeps the scene at
+ * a lower resolution (createScene.ts), and a GPU that takes its context back
+ * gets the scene rebuilt on a fresh canvas.
  *
  * The host is the canvas's parent: the element the poster fills. The harbour,
  * at the foot of the page, is only built once the visitor is on their way to
@@ -32,7 +36,7 @@ import type { WeatherName } from "./weather";
 const HIGH: Tier = { pixelRatio: 2, antialias: true, density: 1, rain: 520, pixels: 60 };
 const LOW: Tier = { pixelRatio: 1.5, antialias: true, density: 0.7, rain: 320, pixels: 40 };
 
-type NavigatorHints = Navigator & { deviceMemory?: number; connection?: { saveData?: boolean } };
+type NavigatorHints = Navigator & { deviceMemory?: number };
 
 /*
  * Who gets the scene.
@@ -44,11 +48,13 @@ type NavigatorHints = Navigator & { deviceMemory?: number; connection?: { saveDa
  * a sea that fills the bottom fifth of a narrow screen; the poster is the
  * better page there, and costs nothing.
  *
- * Reduced motion never gets it: the poster already settles for them. Data
- * savers keep the poster too — this is 150KB of decoration. Everyone else gets
- * a tier from what the browser says about the machine, and the watchdog in
- * createScene.ts corrects a tier that turns out to be optimistic. The rain
- * and pixel counts only mean anything to the storm.
+ * Reduced motion never gets it: the poster already settles for them.
+ * Everyone else on a wide screen does, whatever the power state or the data
+ * saver says (decided 2026-09-30: the scene is the page's arrival, and a
+ * visitor on battery is still the visitor it is for). What the browser says
+ * about the machine only picks the tier, and the watchdog in createScene.ts
+ * lowers the resolution of a tier that turns out to be optimistic rather than
+ * giving up. The rain and pixel counts only mean anything to the storm.
  */
 const WIDE = "(min-width: 64rem)";
 
@@ -56,8 +62,6 @@ function pickTier(): Tier | null {
   if (!window.matchMedia(WIDE).matches) return null;
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return null;
   const nav = navigator as NavigatorHints;
-  if (nav.connection?.saveData) return null;
-
   const memory = nav.deviceMemory ?? 8;
   const cores = nav.hardwareConcurrency ?? 8;
   return cores >= 8 && memory >= 8 ? HIGH : LOW;
@@ -104,11 +108,17 @@ type LiveSeaProps = {
   className?: string;
 };
 
+/** Context losses the scene is rebuilt after before the poster takes over. */
+const REBUILDS = 3;
+
 /** The loader's equalizer: the Onde's delays, so it plays the same tune. */
 const BARS = ["-0.1s", "-0.35s", "-0.6s", "-0.2s", "-0.5s"];
 
 export function LiveSea({ weather, waterline, className = "" }: LiveSeaProps) {
   const ref = useRef<HTMLCanvasElement>(null);
+  // Bumped when the GPU drops the context: a new key is a new canvas, and a
+  // lost context cannot be taken back on the old one.
+  const [generation, setGeneration] = useState(0);
 
   useEffect(() => {
     const canvas = ref.current;
@@ -124,6 +134,9 @@ export function LiveSea({ weather, waterline, className = "" }: LiveSeaProps) {
     let scene: { dispose(): void } | undefined;
     let cancelled = false;
     let cancelNear = () => {};
+    // From here on JavaScript owns the handover: the loader stays until the
+    // scene is live, and the CSS timer that would bring the poster in is off.
+    if (host.dataset.scene !== "live" && host.dataset.scene !== "settled") host.dataset.scene = "loading";
 
     const load = () =>
       import("./createScene").then(
@@ -138,6 +151,10 @@ export function LiveSea({ weather, waterline, className = "" }: LiveSeaProps) {
               onLive: () => (host.dataset.scene = "live"),
               onSettled: () => (host.dataset.scene = "settled"),
               onFail: () => (host.dataset.scene = "off"),
+              onLost: () => {
+                if (generation >= REBUILDS) host.dataset.scene = "off";
+                else setGeneration((g) => g + 1);
+              },
             });
           } catch {
             // A scene that throws on the way up is a scene that gave up: the poster, now.
@@ -148,10 +165,14 @@ export function LiveSea({ weather, waterline, className = "" }: LiveSeaProps) {
         () => (host.dataset.scene = "off"),
       );
 
-    const cancel = whenSettled(() => {
-      if (weather === "calm") cancelNear = whenNear(host, load);
-      else load();
-    });
+    // A rebuild after a lost context loads straight away: the page is settled.
+    let cancel = () => {};
+    if (generation) load();
+    else
+      cancel = whenSettled(() => {
+        if (weather === "calm") cancelNear = whenNear(host, load);
+        else load();
+      });
 
     return () => {
       cancelled = true;
@@ -160,11 +181,12 @@ export function LiveSea({ weather, waterline, className = "" }: LiveSeaProps) {
       scene?.dispose();
       delete host.dataset.scene;
     };
-  }, [weather]);
+  }, [weather, generation]);
 
   return (
     <>
       <canvas
+        key={generation}
         ref={ref}
         aria-hidden
         className={`${styles.canvas} pointer-events-none absolute inset-0 h-full w-full ${className}`}

@@ -275,20 +275,26 @@ the footer the water thins to a wash under the colophon that sits in it.
 **The poster is the fallback, not the opening.** The CSS drawings (Storm.tsx,
 the footer's harbour) are always server-rendered. On narrow screens and under
 reduced motion they are what shows. On wide screens they are held back and
-the loader shows instead (scene.module.css): the scene flags its host `live`
-when it has a frame, `off` when it is not for this visitor or gives up (no
-WebGL, a failed chunk, a shader that does not compile, the watchdog), which
-brings the poster straight in; and with no JavaScript at all, a plain CSS
-delay swaps the loader for the poster at 3.6s. The scene is fetched after
-load and idle (the harbour's only once the visitor is within a screen of it).
+the loader shows instead (scene.module.css): JavaScript flags the host
+`loading` and the loader holds for as long as the scene takes, then `live`
+when it has a frame; `off` only when the scene cannot run at all (no WebGL, a
+failed chunk, a shader that does not compile, a GPU that keeps dropping its
+context), which brings the poster straight in. With no JavaScript at all, a
+plain CSS delay swaps the loader for the poster at 3.6s. The scene is fetched
+after load and idle (the harbour's only once the visitor is within a screen
+of it).
 
-**Who gets it** (LiveSea.tsx): `min-width: 64rem`, no reduced motion, no
-Save-Data, a hardware GL context (software rasterisers are refused). Two
-tiers from core count and device memory. A watchdog drops the resolution once
-if the median frame runs over 26ms, and hands back to the poster if that is
-not enough. Phones keep the poster: measured under Lighthouse's throttling the
-scene was a 5.6s main-thread block for a sea filling the bottom fifth of the
-screen.
+**Who gets it** (LiveSea.tsx): `min-width: 64rem`, no reduced motion, a
+hardware GL context (software rasterisers are refused: they spend seconds on
+a frame and block the page doing it). Two tiers from core count and device
+memory. Since 2026-09-30, at Romain's call, nothing else holds the scene back:
+not Save-Data, not the power state. A machine that can run it keeps it. The
+watchdog lowers the resolution (down to 0.75 device pixels per CSS pixel) when
+the median frame runs over 26ms, ignores a steady ~33ms (the browser capping
+frames at 30fps on battery), and never hands back to the poster; a lost
+context rebuilds the scene on a fresh canvas. Phones keep the poster: measured
+under Lighthouse's throttling the scene was a 5.6s main-thread block for a sea
+filling the bottom fifth of the screen.
 
 **Measured** (2026-09-28, static export, Lighthouse 12):
 

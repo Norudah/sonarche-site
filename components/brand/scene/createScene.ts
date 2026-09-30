@@ -41,8 +41,10 @@ gsap.registerPlugin(ScrollTrigger);
  * Frame budget, in the order it is defended: no lighting, no shadows, no
  * post-processing; one draw call each for the sea, the rain and the pixels,
  * however many thousand cards they hold; a pixel-ratio ceiling set by the gate;
- * the clock stops whenever the host is off-screen; and a watchdog that drops
- * the resolution once, and hands back to the poster if that is not enough.
+ * the clock stops whenever the host is off-screen; and a watchdog that trades
+ * resolution for frame rate when the machine is struggling. It never hands the
+ * page back to the poster: a sea at a lower resolution is still the sea, and a
+ * visitor who can run WebGL keeps it (see LiveSea.tsx).
  */
 
 export type Tier = {
@@ -65,13 +67,17 @@ type SceneOptions = {
   onLive: () => void;
   /** The reveal has covered the frame: the poster can sleep. */
   onSettled: () => void;
-  /** The scene gave up (no WebGL, context lost, too slow): the poster stays. */
+  /** The scene cannot run at all (no WebGL, a shader that does not compile): the poster stays. */
   onFail: () => void;
+  /** The GPU took the context back (a GPU switch, a driver reset): build the scene again. */
+  onLost: () => void;
 };
 
 const DEG = Math.PI / 180;
 /** Median frame time, ms, above which the watchdog steps in. ~38fps. */
 const SLOW_FRAME = 26;
+/** The lowest resolution the watchdog will step down to, in device pixels per CSS pixel. */
+const FLOOR_RATIO = 0.75;
 /** Half-width of the rain's clearing round the vessel, world units. */
 const BOAT_CLEAR = 10;
 /** The first ping starts just clear of the hull… */
@@ -79,7 +85,7 @@ const REVEAL_FROM = 6.5;
 /** …and once it has swept the frame, the sea is simply there. */
 const REVEALED = Number.POSITIVE_INFINITY;
 
-export function createScene({ canvas, host, weather: name, tier, onLive, onSettled, onFail }: SceneOptions) {
+export function createScene({ canvas, host, weather: name, tier, onLive, onSettled, onFail, onLost }: SceneOptions) {
   const weather = WEATHER[name];
   let renderer: WebGLRenderer;
   try {
@@ -238,7 +244,6 @@ export function createScene({ canvas, host, weather: name, tier, onLive, onSettl
 
   const samples: number[] = [];
   let warmup = 1.5;
-  let stepped = false;
 
   function watch(deltaMs: number) {
     if (warmup > 0) {
@@ -249,17 +254,19 @@ export function createScene({ canvas, host, weather: name, tier, onLive, onSettl
     if (deltaMs > 200) return;
     samples.push(deltaMs);
     if (samples.length < 90) return;
-    const median = samples.sort((a, b) => a - b)[45];
+    samples.sort((a, b) => a - b);
+    const median = samples[45];
+    const spread = samples[80] - samples[10];
     samples.length = 0;
     if (median <= SLOW_FRAME) return;
-    if (!stepped && pixelRatio > 1) {
-      stepped = true;
-      pixelRatio = Math.max(1, pixelRatio * 0.66);
-      warmup = 1;
-      resize();
-      return;
-    }
-    fail();
+    // A steady ~33ms is the browser capping frames at 30fps (battery saver, a
+    // background-throttled window), not the scene running late: lowering the
+    // resolution would buy nothing but blur.
+    if (median > 30 && median < 36 && spread < 4) return;
+    if (pixelRatio <= FLOOR_RATIO) return;
+    pixelRatio = Math.max(FLOOR_RATIO, pixelRatio * 0.75);
+    warmup = 1;
+    resize();
   }
 
   function tick(_time: number, deltaMs: number) {
@@ -329,7 +336,9 @@ export function createScene({ canvas, host, weather: name, tier, onLive, onSettl
 
   function onContextLost(e: Event) {
     e.preventDefault();
-    fail();
+    if (disposed) return;
+    dispose();
+    onLost();
   }
 
   const ctx = gsap.context(() => {});
