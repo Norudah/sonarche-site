@@ -36,7 +36,9 @@ export const ACCENT = oklch(0.505, 0.185, 277);
 export type Kit = {
   /** Satin paint: the hull, the cabin, the crates. */
   paint(hex: string | Color, roughness?: number): MeshStandardMaterial;
-  /** Something that glows: portholes, glints, notes, the equalizer. */
+  /** Machined metal: pins, gears, the rams' rods. Takes the environment's sheen. */
+  metal(hex: string | Color, roughness?: number): MeshStandardMaterial;
+  /** Something that glows: portholes, glints, notes, the beacon. */
   glow(hex: string | Color, emissive: string | Color, intensity: number): MeshStandardMaterial;
   keep<T extends BufferGeometry>(geometry: T): T;
   /**
@@ -56,6 +58,11 @@ export function createKit(): Kit {
   return {
     paint(hex, roughness = 0.52) {
       const m = new MeshStandardMaterial({ color: hex, roughness, metalness: 0 });
+      materials.push(m);
+      return m;
+    },
+    metal(hex, roughness = 0.3) {
+      const m = new MeshStandardMaterial({ color: hex, roughness, metalness: 0.65 });
       materials.push(m);
       return m;
     },

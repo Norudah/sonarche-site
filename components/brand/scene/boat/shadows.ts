@@ -23,21 +23,17 @@ function pool(): CanvasTexture {
   return new CanvasTexture(canvas);
 }
 
-/** Footprints on the deck: x, z, half-length, half-beam. */
-const FOOTPRINTS = [
-  [0, 0, 2.9, 1.95], // the cabin
-  [-4.07, 0, 1.55, 1.35], // the stern containers
-  [3.45, 0, 0.75, 1.15], // the archive at the bow
-  [-6, 0, 0.85, 0.85], // the crane
-];
+/** A footprint on the deck: x, z, half-length along its own x, half-width, yaw. */
+export type Footprint = readonly [number, number, number, number, number];
 
-export function createShadows(kit: Kit, deck: Object3D) {
+export function createShadows(kit: Kit, deck: Object3D, footprints: readonly Footprint[]) {
   const texture = pool();
   const ink = new MeshBasicMaterial({ map: texture, transparent: true, depthWrite: false });
   const quad = kit.keep(new PlaneGeometry(2, 2)).rotateX(-Math.PI / 2);
-  for (const [x, z, a, b] of FOOTPRINTS) {
+  for (const [x, z, a, b, yaw] of footprints) {
     const shadow = new Mesh(quad, ink);
     shadow.position.set(x + 0.25, HULL.deck + 0.01, z + 0.2);
+    shadow.rotation.y = yaw;
     shadow.scale.set(a * 1.25, 1, b * 1.25);
     shadow.renderOrder = 1;
     deck.add(shadow);

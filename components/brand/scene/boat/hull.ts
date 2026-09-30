@@ -24,11 +24,12 @@ import { SURFACE } from "./waterline";
  * bands are painted on as vertex colours, with a hair of blend at each edge so
  * the light reads across them without a seam.
  *
- * Seen from the side, as the camera sees it, the silhouette is the mark's.
+ * Seen from the side, as the camera sees it, the silhouette is the mark's,
+ * stretched a little: a working deck needs the room the logo never did.
  */
 
 export const HULL = {
-  halfLength: 7,
+  halfLength: 8,
   halfBeam: 2.7,
   /** Deck height above the water. */
   deck: 1.5,
@@ -36,7 +37,7 @@ export const HULL = {
   keel: -1.3,
 };
 
-const BOTTOM_HALF_LENGTH = 5.1;
+const BOTTOM_HALF_LENGTH = 5.85;
 const BOTTOM_HALF_BEAM = 1.55;
 const SEGMENTS = 160;
 /** Down the side, 0 at the deck and 1 at the keel; doubled up at the band edges. */

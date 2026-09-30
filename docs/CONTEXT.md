@@ -204,15 +204,27 @@ now a toy tug in the mark's colours, lit like a studio product shot
 (components/brand/scene/boat, lighting.ts): a lofted hull that falls straight
 and curls under, the logo's three bands painted on, a tubular lavender rail,
 ringed portholes that glow; the mark's basket-handle cabin as its head, with
-dark glass eyes whose glints follow the cursor and the equalizer on its
-roof; satin paint, a room environment for sheen (built in a startup slice of its own: its shaders are the one expensive compile), a warm key, a lavender rim, and painted contact shadows rather than a shadow map. The hull is clipped at the sea's surface
+dark glass eyes whose glints follow the cursor (or the note it is fishing)
+and a raked funnel on its roof; satin paint, a room environment for sheen (built in a startup slice of its own: its shaders are the one expensive compile), a warm key, a lavender rim, and painted contact shadows rather than a shadow map. The hull is clipped at the sea's surface
 and a line of foam hugs the cut, so it sits in the bars rather than behind
-them. It works: a stern crane, amber, fishes notes out of the sea and stows them in
-two real shipping containers (corrugated sides, corner castings, locking
-bars, a butterfly hatch) whose door lights count the notes inside; when both
-are full the lights travel along the deck into the sealed indigo container at
-the bow, the archive. Nothing appears or vanishes without a visible cause:
-notes surface in a spray, stretch when yanked, go in through the hatch.
+them. It works (reworked 2026-09-30, the hull lengthened to make room): its
+sonar pings, a note surfaces where the ring passes, the vessel looks at it,
+sails over and fishes it with a knuckle-boom deck crane that is a machine,
+not a prop: a slewing ring and a pinion that walks round it, two hydraulic
+rams whose rods slide, a winch on the main boom whose drum and gears turn by
+the cable paid out, sheaves at the knuckle and the head, a beacon that turns
+over while it works, and a three-fingered claw worked by a collar and links.
+The note (sized to go in below a container's rim) is lowered into one of
+three amber boxes in a deliberately untidy hold (a knocked stack, a short box
+askew, a long one fore and aft; the crane never picks the same one twice
+running), the hatch slams in a puff of dust, a light comes on, the boat
+shuts its eyes into a happy ^^ and blushes, and the funnel coughs a small
+note into the air. When the hold is full its lights travel along the deck
+into the sealed indigo archive at the bow. The mark's wave no longer sits on
+the roof: in 3D the sound is the notes. Nothing appears or vanishes without a
+visible cause: notes surface in a spray, stretch when yanked, go in through
+the hatch; the sea keeps its crests under the line of sight to a note in the
+water, as it does in front of the hull.
 Quality notes from the 2026-09-29 pass: extruded shapes get creased normals
 (flat-shaded extrusions read as polygons), everything is tessellated for a
 2x screen, the pixel swarm stays local to the note (a lone square over the

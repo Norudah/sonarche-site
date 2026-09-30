@@ -28,8 +28,9 @@ gsap.registerPlugin(ScrollTrigger);
  *      where it has reached. The ring sweeps out from the hull, wiping the
  *      CSS poster away and finding the 3D water behind it, the bars flashing
  *      and leaping at its front. It echoes, smaller, every few seconds.
- *   2. The rescue. The vessel patrols and fishes: a note forms out of the
- *      sea's pixels, the crane hooks it and stows it in a crate (boat/).
+ *   2. The rescue. The vessel pings, a note forms out of the sea's pixels
+ *      where the ring passes, and the vessel sails over, fishes it with its
+ *      crane and stows it in the hold (boat/fishing.ts).
  *   3. The calm. Scrolling out of the hero settles the storm — the rain thins,
  *      the swell drops, the camera lifts — the footer's home water, previewed.
  *
@@ -188,6 +189,7 @@ export function createScene({ canvas, host, weather: name, tier, onLive, onSettl
     s.uTime.value = clock;
     s.uStorm.value = storm;
     s.uArk.value.set(boat.x(), 0);
+    boat.sight(s.uCatch.value);
     s.uEye.value.copy(camera.position);
 
     const revealing = state.reveal < REVEALED;
@@ -395,7 +397,12 @@ export function createScene({ canvas, host, weather: name, tier, onLive, onSettl
 
   if (process.env.NODE_ENV !== "production") {
     // Dev only: a handle for tuning the scene from the console.
-    (window as unknown as Record<string, object>)[`__scene_${name}`] = { ping, state, ripples };
+    (window as unknown as Record<string, object>)[`__scene_${name}`] = {
+      ping,
+      state,
+      ripples,
+      info: () => renderer.info.render,
+    };
   }
 
   // Startup in slices, each its own task, so none of it is one long block on
