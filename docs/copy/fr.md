@@ -83,6 +83,8 @@ l'écosystème Sonarche.
 
 Note : Dans les fichiers eux-mêmes, pas dans une base que seul Sonarche
 saurait lire.
+Étiquettes de la scène (celles qui volent jusqu'au fichier dans le dessin de
+l'étape) : `Titre` · `Artiste` · `Album` · `Genre` · `Piste` · `Année`
 
 ## L'ancienne méthode
 

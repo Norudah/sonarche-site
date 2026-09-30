@@ -55,6 +55,8 @@ Title, artist, album, genre, track, year. And the real cover. All of it
 written into the file's own tags, and into the folder it now lives in.
 Chips: `MusicBrainz` · `cover art` · `genre family`
 Note: Into the files themselves, not into a database only Sonarche can read.
+Scene tags (the labels flying into the file in the step's drawing): `Title` ·
+`Artist` · `Album` · `Genre` · `Track` · `Year`
 
 ## The old way
 
