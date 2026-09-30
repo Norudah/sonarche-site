@@ -19,6 +19,9 @@ export type FlowStep = {
   note: string;
 };
 
+/** The six tag labels step 04's drawing files into the track, in that order. */
+export type SceneTags = readonly [string, string, string, string, string, string];
+
 export type FlowCopy = {
   kicker: string;
   /** The heading is split so the middle fragment can take the italic serif. */
@@ -29,6 +32,7 @@ export type FlowCopy = {
   /** "STEP" / "ÉTAPE" — prefixed to each step's number. */
   stepLabel: string;
   steps: FlowStep[];
+  sceneTags: SceneTags;
 };
 
 export const flowCopy: Record<Locale, FlowCopy> = {
@@ -39,6 +43,7 @@ export const flowCopy: Record<Locale, FlowCopy> = {
     headingAfter: "comes out.",
     sub: "Four moves, one uninterrupted pipeline, and nothing to click after the first paste.",
     stepLabel: "STEP",
+    sceneTags: ["Title", "Artist", "Album", "Genre", "Track", "Year"],
     steps: [
       {
         number: "01",
@@ -81,6 +86,7 @@ export const flowCopy: Record<Locale, FlowCopy> = {
     headingAfter: "naît.",
     sub: "Un processus en 4 étapes simples : tu n'as presque rien à faire à part regarder Sonarche travailler pour toi.",
     stepLabel: "ÉTAPE",
+    sceneTags: ["Titre", "Artiste", "Album", "Genre", "Piste", "Année"],
     steps: [
       {
         number: "01",

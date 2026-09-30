@@ -1,6 +1,6 @@
 import type { Locale } from "@/lib/site";
 
-import { flowCopy, type FlowStep } from "./copy";
+import { flowCopy, type FlowStep, type SceneTags } from "./copy";
 import { FlowCascade } from "./FlowCascade";
 import { IsoScene } from "./IsoScene";
 
@@ -48,7 +48,7 @@ export function Flow({ locale }: { locale: Locale }) {
 
       <FlowCascade>
         {copy.steps.map((step, i) => (
-          <Row key={step.number} step={step} stepLabel={copy.stepLabel} index={i} />
+          <Row key={step.number} step={step} stepLabel={copy.stepLabel} tags={copy.sceneTags} index={i} />
         ))}
       </FlowCascade>
     </section>
@@ -58,10 +58,11 @@ export function Flow({ locale }: { locale: Locale }) {
 type RowProps = {
   step: FlowStep;
   stepLabel: string;
+  tags: SceneTags;
   index: number;
 };
 
-function Row({ step, stepLabel, index }: RowProps) {
+function Row({ step, stepLabel, tags, index }: RowProps) {
   // Odd steps put the scene on the right and set their text flush right, so the
   // two columns mirror each other down the page.
   const mirrored = index % 2 === 1;
@@ -73,7 +74,7 @@ function Row({ step, stepLabel, index }: RowProps) {
         mirrored ? "sm:flex-row-reverse" : "sm:flex-row"
       } ${INDENT[index]}`}
     >
-      <IsoScene step={index} className="w-full max-w-[28rem] shrink-0 sm:w-112" />
+      <IsoScene step={index} tags={tags} className="w-full max-w-[28rem] shrink-0 sm:w-112" />
 
       <div className="flex max-w-[28.75rem] flex-1 flex-col gap-3.5">
         <div className="flex w-full items-center gap-3">

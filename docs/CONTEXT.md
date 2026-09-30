@@ -299,6 +299,30 @@ screen.
 | three.js chunk                          | —    | 145KB gzip, lazy, never on the critical path |
 | Frame time (M1 Pro, 1280×860, DPR 1.75) | —    | 8.3ms median                                 |
 
+## The flow's dioramas (reworked 2026-09-30)
+
+The four isometric scenes beside the flow's steps were the mockup's drawings,
+ported verbatim with CSS loops. They are now small models on a plinth, built
+in world coordinates (components/sections/flow/iso) and directed by GSAP, and
+they tell one track's voyage, in the page's own imagery:
+
+1. **Paste**: a patch of the hero's equalizer sea heaves on the plinth; a link
+   is fished out of it, arcs into the composer, the queue lines up and the
+   row already in the hold folds away.
+2. **Aboard**: three crates lowered on slings into an open hold; a status lamp
+   per berth fills while its crate is hauled and turns green when it lands.
+3. **Fingerprint**: a spectrogram of bars that a scan beam collapses, column by
+   column, into a grid of bits; the grid asks AcoustID, which answers by ping.
+4. **Named**: six tags fly into the blank file, the cover drops into its frame,
+   and the file is filed into a bin of sleeves.
+
+Rules they keep: SVG, transform and opacity only (a bar's height is its side
+faces scaled on their own planes, see iso/Bar.tsx); each scene is
+server-rendered on its last frame, which is what reduced motion and
+no-JavaScript readers see; the loops pause off-screen; a fine pointer leans the
+floating props by depth. The tag labels in scene 4 are copy (`Scene tags` in
+the decks), not literals: the ported drawing had them in French on both pages.
+
 ## The journal (added 2026-08-11)
 
 A blog at `/blog/` (FR) and `/en/blog/` (EN), for organic search traffic. Decided

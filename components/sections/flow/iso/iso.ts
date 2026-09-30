@@ -1,0 +1,115 @@
+/*
+ * The flow's isometric projection — 2:1 dimetric, the pixel-art convention, on
+ * a 560×420 stage.
+ *
+ * World axes: +x runs to the lower right, +y to the lower left, +z straight up.
+ * One world unit along x or y is one screen unit across and half a unit down,
+ * which keeps every edge on a clean 26.57° slope and every face shade readable.
+ *
+ * Everything in the dioramas is placed in world units through these helpers, so
+ * a prop can be moved without redrawing a single path by hand.
+ */
+
+export const STAGE = { width: 560, height: 420 } as const;
+
+/** Screen position of the world origin: the centre of the plinth's top face. */
+const OX = 280;
+const OY = 250;
+
+export type Vec3 = readonly [x: number, y: number, z: number];
+
+export function project(x: number, y: number, z = 0): [number, number] {
+  return [OX + (x - y), OY + (x + y) / 2 - z];
+}
+
+export function polygon(points: readonly Vec3[]): string {
+  return polyline(points) + " Z";
+}
+
+/** An open run of segments, for rims and wires. */
+export function polyline(points: readonly Vec3[]): string {
+  return points
+    .map(([x, y, z], i) => {
+      const [sx, sy] = project(x, y, z);
+      return `${i ? "L" : "M"}${round(sx)},${round(sy)}`;
+    })
+    .join(" ");
+}
+
+export type BoxFaces = { top: string; left: string; right: string };
+
+/**
+ * The three faces of an axis-aligned box that the camera sees: the top, the
+ * face at y + d (lower left on screen) and the face at x + w (lower right).
+ */
+export function box(x: number, y: number, z: number, w: number, d: number, h: number): BoxFaces {
+  const x1 = x + w;
+  const y1 = y + d;
+  const z1 = z + h;
+  return {
+    top: polygon([
+      [x, y, z1],
+      [x1, y, z1],
+      [x1, y1, z1],
+      [x, y1, z1],
+    ]),
+    left: polygon([
+      [x, y1, z1],
+      [x1, y1, z1],
+      [x1, y1, z],
+      [x, y1, z],
+    ]),
+    right: polygon([
+      [x1, y, z1],
+      [x1, y1, z1],
+      [x1, y1, z],
+      [x1, y, z],
+    ]),
+  };
+}
+
+/*
+ * Affine maps from a flat 2D drawing onto one of the three planes, so a panel's
+ * contents (a UI row, a label, a checkmark) are drawn as plain rects in local
+ * units and then laid on the surface. `u` runs along the plane's reading
+ * direction, `v` runs down it.
+ */
+
+/** Lying on the floor at height z: u along +x, v along +y. */
+export function onFloor(x: number, y: number, z = 0): string {
+  const [sx, sy] = project(x, y, z);
+  return `matrix(1 0.5 -1 0.5 ${round(sx)} ${round(sy)})`;
+}
+
+/** Standing, facing lower left (the plane y = const): u along +x, v down. */
+export function onFront(x: number, y: number, z: number): string {
+  const [sx, sy] = project(x, y, z);
+  return `matrix(1 0.5 0 1 ${round(sx)} ${round(sy)})`;
+}
+
+/** Standing, facing lower right (the plane x = const): u along −y, v down. */
+export function onSide(x: number, y: number, z: number): string {
+  const [sx, sy] = project(x, y, z);
+  return `matrix(1 -0.5 0 1 ${round(sx)} ${round(sy)})`;
+}
+
+/** A circle of radius r lying on the floor at height z, as ellipse attributes. */
+export function floorEllipse(x: number, y: number, z: number, r: number) {
+  const [cx, cy] = project(x, y, z);
+  return { cx: round(cx), cy: round(cy), rx: round(r * Math.SQRT2), ry: round(r * Math.SQRT1_2) };
+}
+
+/** "x y" in screen units, for GSAP's `svgOrigin`. */
+export function origin(x: number, y: number, z = 0): string {
+  const [sx, sy] = project(x, y, z);
+  return `${round(sx)} ${round(sy)}`;
+}
+
+/** A world-space offset as a screen-space {x, y} tween target. */
+export function shift(dx: number, dy: number, dz = 0): { x: number; y: number } {
+  return { x: dx - dy, y: (dx + dy) / 2 - dz };
+}
+
+function round(n: number): number {
+  return Math.round(n * 100) / 100;
+}
