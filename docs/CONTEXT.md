@@ -299,29 +299,43 @@ screen.
 | three.js chunk                          | —    | 145KB gzip, lazy, never on the critical path |
 | Frame time (M1 Pro, 1280×860, DPR 1.75) | —    | 8.3ms median                                 |
 
-## The flow's dioramas (reworked 2026-09-30)
+## The flow's dioramas (reworked 2026-09-30, twice)
 
 The four isometric scenes beside the flow's steps were the mockup's drawings,
-ported verbatim with CSS loops. They are now small models on a plinth, built
-in world coordinates (components/sections/flow/iso) and directed by GSAP, and
-they tell one track's voyage, in the page's own imagery:
+ported verbatim with CSS loops. They are now models built in world coordinates
+(components/sections/flow/iso) and directed by GSAP, each on a base of its own
+rather than a shared table, and together they tell one track's voyage in the
+page's own imagery, the stream, the Ark, the sonar, the library:
 
-1. **Paste**: a patch of the hero's equalizer sea heaves on the plinth; a link
-   is fished out of it, arcs into the composer, the queue lines up and the
-   row already in the hold folds away.
-2. **Aboard**: three crates lowered on slings into an open hold; a status lamp
-   per berth fills while its crate is hauled and turns green when it lands.
-3. **Fingerprint**: a spectrogram of bars that a scan beam collapses, column by
-   column, into a grid of bits; the grid asks AcoustID, which answers by ping.
-4. **Named**: six tags fly into the blank file, the cover drops into its frame,
-   and the file is filed into a bin of sleeves.
+1. **The stream**: a round patch of the hero's equalizer sea, dissolving at
+   its rim, with the web's flotsam riding it. The composer floats over it,
+   locks on to one link and draws it up a beam (the water rings where it
+   leaves); the queue lines up, the row already in the hold folds away, and
+   the link is let go back into the sea.
+2. **The Ark**: the ship in that sea. A tower crane at the bow slews out, pays
+   its cable into the water and hauls a crate up out of the stream, swings it
+   inboard, lets the swing die and lowers it into its berth; the head watches,
+   and one porthole per track fills and turns green. Then the berths are
+   struck below.
+3. **The sonar** (sonar + arche): a round station with the crate on its hub
+   and the track around it as a turning ring spectrum. A sweep goes round and
+   reads it, bar by bar, into a ring of bits; the print lifts off, goes up to
+   AcoustID (an orb with two orbits), which weighs three candidates: the two
+   guesses, in the page's rust, fall away, the match comes down sealed.
+4. **The library**: the file hangs blank over a pedestal with its six tags in
+   orbit; they spiral in one by one, the cover drops and catches the light,
+   then the file flies to a cabinet of cubbies, slides into the empty one, and
+   a wave of light runs through every shelf.
 
 Rules they keep: SVG, transform and opacity only (a bar's height is its side
-faces scaled on their own planes, see iso/Bar.tsx); each scene is
-server-rendered on its last frame, which is what reduced motion and
-no-JavaScript readers see; the loops pause off-screen; a fine pointer leans the
-floating props by depth. The tag labels in scene 4 are copy (`Scene tags` in
-the decks), not literals: the ported drawing had them in French on both pages.
+faces scaled on their own planes, iso/Bar.tsx; the crane's jib is one affine
+matrix per frame, scenes/ark/Crane.tsx); each scene is server-rendered on its
+last frame, which is what reduced motion and no-JavaScript readers see; the
+timelines and the per-frame water pause off-screen, the drifting pixels are
+CSS and ride the AnimationGate; the sea is written at most 30 times a second.
+A fine pointer leans the floating props by depth. Measured in a headless
+Chrome, the scenes' script is 2 to 4% of the main thread while on screen. The
+tag labels in scene 4 are copy (`Scene tags` in the decks), not literals.
 
 ## The journal (added 2026-08-11)
 

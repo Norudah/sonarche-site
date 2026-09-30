@@ -5,9 +5,9 @@ import { NamedScene } from "./iso/scenes/NamedScene";
 import { PasteScene } from "./iso/scenes/PasteScene";
 
 /*
- * The flow's four dioramas, one per step: small isometric models on a plinth,
- * built from world coordinates (iso/iso.ts) and directed by GSAP
- * (iso/useDiorama.ts). Each is server-rendered on its last frame, which is the
+ * The flow's four dioramas, one per step, one track's voyage: the stream, the
+ * Ark, the sonar, the library. Isometric models built from world coordinates
+ * (iso/iso.ts) and directed by GSAP (iso/useDiorama.ts). Each is server-rendered on its last frame, which is the
  * still that reduced motion and no-JavaScript readers get.
  *
  * Drawn on a 560×420 stage and scaled to whatever slot they are given.

@@ -1,0 +1,27 @@
+.mote {
+  opacity: 0;
+  animation: rise linear infinite;
+}
+
+@keyframes rise {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  18% {
+    opacity: var(--o);
+  }
+  75% {
+    opacity: var(--o);
+  }
+  100% {
+    transform: translateY(var(--rise));
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mote {
+    animation: none;
+  }
+}

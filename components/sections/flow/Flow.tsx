@@ -15,7 +15,7 @@ import { IsoScene } from "./IsoScene";
  * climbs back to paper. Without it the two meet on a cut.
  */
 
-const INDENT = ["", "sm:pl-[4.375rem]", "sm:pl-9", "sm:pl-[6.625rem]"];
+const INDENT = ["", "lg:pl-[4.375rem]", "lg:pl-9", "lg:pl-[6.625rem]"];
 
 export function Flow({ locale }: { locale: Locale }) {
   const copy = flowCopy[locale];
@@ -71,10 +71,10 @@ function Row({ step, stepLabel, tags, index }: RowProps) {
     <div
       data-flow-row
       className={`flex flex-col items-center gap-8 px-8 sm:gap-12 sm:px-15 ${
-        mirrored ? "sm:flex-row-reverse" : "sm:flex-row"
+        mirrored ? "lg:flex-row-reverse" : "lg:flex-row"
       } ${INDENT[index]}`}
     >
-      <IsoScene step={index} tags={tags} className="w-full max-w-[28rem] shrink-0 sm:w-112" />
+      <IsoScene step={index} tags={tags} className="w-full max-w-[34rem] shrink-0 lg:w-[26rem] xl:w-[32rem]" />
 
       <div className="flex max-w-[28.75rem] flex-1 flex-col gap-3.5">
         <div className="flex w-full items-center gap-3">

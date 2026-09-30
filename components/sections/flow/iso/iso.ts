@@ -12,7 +12,7 @@
 
 export const STAGE = { width: 560, height: 420 } as const;
 
-/** Screen position of the world origin: the centre of the plinth's top face. */
+/** Screen position of the world origin: the middle of the stage, at sea level. */
 const OX = 280;
 const OY = 250;
 
@@ -97,12 +97,6 @@ export function onSide(x: number, y: number, z: number): string {
 export function floorEllipse(x: number, y: number, z: number, r: number) {
   const [cx, cy] = project(x, y, z);
   return { cx: round(cx), cy: round(cy), rx: round(r * Math.SQRT2), ry: round(r * Math.SQRT1_2) };
-}
-
-/** "x y" in screen units, for GSAP's `svgOrigin`. */
-export function origin(x: number, y: number, z = 0): string {
-  const [sx, sy] = project(x, y, z);
-  return `${round(sx)} ${round(sy)}`;
 }
 
 /** A world-space offset as a screen-space {x, y} tween target. */

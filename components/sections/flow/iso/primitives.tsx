@@ -1,12 +1,13 @@
-import type { ReactNode, Ref, SVGProps } from "react";
+import { useId, type ReactNode, type Ref, type SVGProps } from "react";
 
-import { box, floorEllipse, onFloor, polyline, project, STAGE, type Vec3 } from "./iso";
-import { INK, PLINTH, type Tone } from "./tones";
+import { box, floorEllipse, polygon, polyline, STAGE, type Vec3 } from "./iso";
+import { INK, type Tone } from "./tones";
 
 /*
- * The dioramas' shared vocabulary: a lit box, a soft contact shadow, and the
- * stage every scene is built on. Nothing here animates by itself — the scenes
- * tag the groups they move and their director does the rest.
+ * The dioramas' shared vocabulary: a lit box, an extruded outline (a hull, a
+ * disc), a cylinder, and the stage they stand in.
+ * Nothing here animates by itself — the scenes tag the groups they move and
+ * their director does the rest.
  */
 
 type BoxProps = {
@@ -46,33 +47,140 @@ export function Box({ at, size, tone, rim = true, ...rest }: BoxProps) {
   );
 }
 
-type ShadowProps = {
-  scene: string;
-  /** Centre on the floor, in world units. */
-  at: readonly [number, number];
-  /** Radius in world units; the ellipse follows the floor's 2:1. */
-  r: number;
-  z?: number;
-} & Omit<SVGProps<SVGEllipseElement>, "children">;
+type PrismProps = {
+  /** The outline on the floor, in world units, convex, in either winding. */
+  outline: readonly (readonly [number, number])[];
+  z: number;
+  h: number;
+  tone: Tone;
+  rim?: boolean;
+  /** false for a band wrapped round something taller: sides only. */
+  lid?: boolean;
+} & Omit<SVGProps<SVGGElement>, "children">;
 
-export function Shadow({ scene, at, r, z = 0, ...rest }: ShadowProps) {
-  return <ellipse {...floorEllipse(at[0], at[1], z, r)} fill={`url(#${scene}-shade)`} {...rest} />;
+/**
+ * An outline extruded upward. Each side the camera can see is shaded by where
+ * it faces, blended from the lit left tone to the shaded right one, so a
+ * many-sided outline reads as a smooth curve.
+ */
+export function Prism({ outline: points, z, h, tone, rim = true, lid = true, ...rest }: PrismProps) {
+  const cx = points.reduce((s, p) => s + p[0], 0) / points.length;
+  const cy = points.reduce((s, p) => s + p[1], 0) / points.length;
+
+  const sides = points.flatMap((a, i) => {
+    const b = points[(i + 1) % points.length];
+    let nx = b[1] - a[1];
+    let ny = -(b[0] - a[0]);
+    if (nx * ((a[0] + b[0]) / 2 - cx) + ny * ((a[1] + b[1]) / 2 - cy) < 0) {
+      nx = -nx;
+      ny = -ny;
+    }
+    const len = Math.hypot(nx, ny) || 1;
+    nx /= len;
+    ny /= len;
+    if (nx + ny <= 0.001) return [];
+    const t = Math.round(Math.min(1, Math.max(0, (nx - ny + 1) / 2)) * 100);
+    return [{ a, b, t }];
+  });
+
+  return (
+    <g {...rest}>
+      {sides.map(({ a, b, t }, i) => {
+        const fill = `color-mix(in oklch, ${tone.right} ${t}%, ${tone.left})`;
+        return (
+          <path
+            key={i}
+            d={polygon([
+              [a[0], a[1], z],
+              [b[0], b[1], z],
+              [b[0], b[1], z + h],
+              [a[0], a[1], z + h],
+            ])}
+            style={{ fill, stroke: fill }}
+            strokeWidth={0.6}
+            strokeLinejoin="round"
+          />
+        );
+      })}
+      {lid && (
+        <path
+          d={polygon(points.map(([x, y]) => [x, y, z + h] as const))}
+          fill={tone.top}
+          stroke={tone.top}
+          strokeWidth={0.6}
+          strokeLinejoin="round"
+        />
+      )}
+      {rim && (
+        <path
+          d={sides
+            .map(({ a, b }) =>
+              polyline([
+                [a[0], a[1], z + h],
+                [b[0], b[1], z + h],
+              ]),
+            )
+            .join(" ")}
+          stroke="white"
+          strokeOpacity={0.7}
+          strokeWidth={1}
+          strokeLinecap="round"
+        />
+      )}
+    </g>
+  );
 }
 
-/** The plinth's footprint, shared so scenes can lay props out against it. */
-export const PLINTH_BOUNDS = { x: -120, y: -75, w: 240, d: 150, h: 16 } as const;
+/** A regular outline of `n` corners around (x, y), for discs and pads. */
+export function circle(x: number, y: number, r: number, n = 48): [number, number][] {
+  return Array.from({ length: n }, (_, i) => {
+    const a = (i / n) * Math.PI * 2;
+    return [Math.round((x + r * Math.cos(a)) * 100) / 100, Math.round((y + r * Math.sin(a)) * 100) / 100];
+  });
+}
+
+type CylinderProps = {
+  at: Vec3;
+  r: number;
+  h: number;
+  tone: Tone;
+  /** Replaces the lid's fill, for a lid that is a face of its own. */
+  lid?: string;
+} & Omit<SVGProps<SVGGElement>, "children">;
+
+/** An upright cylinder: a side shaded across its width and a lit lid. */
+export function Cylinder({ at, r, h, tone, lid, ...rest }: CylinderProps) {
+  const id = `cyl${useId().replace(/[^a-zA-Z0-9]/g, "")}`;
+  const top = floorEllipse(at[0], at[1], at[2] + h, r);
+  const base = top.cy + h;
+
+  return (
+    <g {...rest}>
+      <defs>
+        <linearGradient id={id} x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor={tone.left} />
+          <stop offset="45%" stopColor={tone.left} />
+          <stop offset="100%" stopColor={tone.right} />
+        </linearGradient>
+      </defs>
+      <path
+        d={`M${top.cx - top.rx},${top.cy} L${top.cx - top.rx},${base} A${top.rx},${top.ry} 0 0 0 ${top.cx + top.rx},${base} L${top.cx + top.rx},${top.cy} Z`}
+        fill={`url(#${id})`}
+      />
+      <ellipse {...top} fill={lid ?? tone.top} stroke="white" strokeOpacity={0.6} strokeWidth={0.9} />
+    </g>
+  );
+}
 
 type StageProps = {
-  /** Unique per page: prefixes the gradient and pattern ids. */
+  /** Unique per page: prefixes the shared gradient ids. */
   scene: string;
   svgRef?: Ref<SVGSVGElement>;
   children: ReactNode;
 };
 
+/** The 560×420 stage and the gradients every scene shares. */
 export function Stage({ scene, svgRef, children }: StageProps) {
-  const { x, y, w, d, h } = PLINTH_BOUNDS;
-  const [gx, gy] = project(0, 0, -h);
-
   return (
     <svg
       ref={svgRef}
@@ -87,28 +195,10 @@ export function Stage({ scene, svgRef, children }: StageProps) {
           <stop offset="100%" stopColor={INK.shadow} stopOpacity={0} />
         </radialGradient>
         <radialGradient id={`${scene}-glow`}>
-          <stop offset="0%" stopColor="oklch(0.62 0.2 277)" stopOpacity={0.35} />
+          <stop offset="0%" stopColor="oklch(0.62 0.2 277)" stopOpacity={0.4} />
           <stop offset="100%" stopColor="oklch(0.62 0.2 277)" stopOpacity={0} />
         </radialGradient>
-        <pattern id={`${scene}-dots`} width={20} height={20} patternUnits="userSpaceOnUse">
-          <circle cx={10} cy={10} r={1.3} fill="oklch(0.84 0.03 279)" />
-        </pattern>
       </defs>
-
-      <g data-stage>
-        <ellipse cx={gx} cy={gy + 18} rx={250} ry={96} fill={`url(#${scene}-shade)`} opacity={0.8} />
-        <Box at={[x, y, -h]} size={[w, d, h]} tone={PLINTH} />
-        {/* The survey grid, drawn in floor units so the dots sit on the iso lattice. */}
-        <rect
-          x={x + 10}
-          y={y + 10}
-          width={w - 20}
-          height={d - 20}
-          fill={`url(#${scene}-dots)`}
-          transform={onFloor(0, 0)}
-        />
-      </g>
-
       {children}
     </svg>
   );

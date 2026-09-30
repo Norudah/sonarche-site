@@ -10,7 +10,7 @@ import type { Tone } from "./tones";
  * the iso slope. Here each side face is a plain rect laid on its plane by a
  * matrix, so scaling the rect along its own v axis stays on the plane, and the
  * cap simply rides up or down by the difference. The server renders the bar at
- * its drawn height; `barTo` moves it from there.
+ * its drawn height; `barSetter` moves it from there.
  */
 
 type BarProps = {
@@ -55,29 +55,4 @@ export function barSetter(bar: Element): (height: number) => void {
     scale(safe / drawn);
     lift(drawn - safe);
   };
-}
-
-/**
- * Tween every bar in `bars` to `height(i)` on `tl`, the i-th starting
- * `each * i` after `at` (a time or a label, never a relative "<").
- */
-export function barTo(
-  tl: gsap.core.Timeline,
-  bars: Element[],
-  height: (index: number) => number,
-  vars: gsap.TweenVars & { each?: number },
-  at: number | string,
-) {
-  const { each = 0, ...rest } = vars;
-  bars.forEach((bar, i) => {
-    const drawn = Number((bar as SVGGElement).dataset.barH);
-    const h = Math.max(0.001, height(i));
-    const position = typeof at === "number" ? at + each * i : `${at}+=${each * i}`;
-    tl.to(
-      bar.querySelectorAll("[data-bar-face]"),
-      { ...rest, scaleY: h / drawn, transformOrigin: "50% 100%" },
-      position,
-    );
-    tl.to(bar.querySelector("[data-bar-cap]"), { ...rest, y: drawn - h }, position);
-  });
 }

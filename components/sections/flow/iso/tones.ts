@@ -15,12 +15,6 @@ export const PAPER: Tone = {
   right: "oklch(0.905 0.018 279)",
 };
 
-export const PLINTH: Tone = {
-  top: "oklch(0.972 0.01 279)",
-  left: "oklch(0.915 0.024 279)",
-  right: "oklch(0.855 0.036 279)",
-};
-
 export const LAVENDER: Tone = {
   top: "oklch(0.915 0.045 277)",
   left: "oklch(0.845 0.07 277)",
@@ -37,12 +31,6 @@ export const DEEP: Tone = {
   top: "oklch(0.4 0.12 277)",
   left: "oklch(0.32 0.1 277)",
   right: "oklch(0.26 0.08 277)",
-};
-
-export const GREEN: Tone = {
-  top: "oklch(0.64 0.12 158)",
-  left: "oklch(0.52 0.115 158)",
-  right: "oklch(0.44 0.1 158)",
 };
 
 /** Flat inks for marks drawn on faces. */

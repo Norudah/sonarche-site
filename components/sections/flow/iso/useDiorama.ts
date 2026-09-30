@@ -41,6 +41,8 @@ type Cast = {
    * back while nothing is on show.
    */
   start: (targets: gsap.TweenTarget, vars: gsap.TweenVars) => void;
+  /** A callback for every frame the scene is live (started and on screen). */
+  onFrame: (fn: () => void) => void;
 };
 
 export function useDiorama(direct: (cast: Cast) => void) {
@@ -76,7 +78,10 @@ export function useDiorama(direct: (cast: Cast) => void) {
           loop.set(targets, vars, 0);
         };
 
-        direct({ q, intro, loop, idle, start });
+        const frames: (() => void)[] = [];
+        const onFrame = (fn: () => void) => frames.push(fn);
+
+        direct({ q, intro, loop, idle, start, onFrame });
 
         let current = intro;
         let started = false;
@@ -115,7 +120,12 @@ export function useDiorama(direct: (cast: Cast) => void) {
           },
         });
 
-        const cleanups = [() => reveal.kill(), () => presence.kill()];
+        const tick = () => {
+          if (started && visible) for (const fn of frames) fn();
+        };
+        gsap.ticker.add(tick);
+
+        const cleanups = [() => reveal.kill(), () => presence.kill(), () => gsap.ticker.remove(tick)];
 
         if (window.matchMedia("(pointer: fine)").matches) {
           cleanups.push(lean(svg, Array.from(svg.querySelectorAll<SVGGElement>("[data-depth]"))));
