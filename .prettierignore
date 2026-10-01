@@ -8,3 +8,6 @@ public/**/*.webm
 # Vendored Claude Design exports and font licenses — leave them byte-identical.
 docs/designs/
 public/fonts/
+
+# Agent worktrees.
+.claude/

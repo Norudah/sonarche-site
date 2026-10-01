@@ -66,7 +66,10 @@ export function GuideIndex({ locale }: { locale: Locale }) {
                       href={guidePath(guide, locale)}
                       meta={
                         <MetaLine
-                          items={[readingCopy[locale].readingTime(guide.minutes), copy.checkedAgainst(guide.appVersion)]}
+                          items={[
+                            readingCopy[locale].readingTime(guide.minutes),
+                            copy.checkedAgainst(guide.appVersion),
+                          ]}
                         >
                           {guide.draft && <DraftBadge label={copy.draft} />}
                         </MetaLine>
