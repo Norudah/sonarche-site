@@ -22,7 +22,7 @@ const MAP = {
   "metadata-dashboard": "upkeep",
 };
 
-// The intrinsic size RealThing declares; keep the two in sync.
+// SHOT_SIZE in components/sections/real-thing/shots.ts; keep the two in sync.
 const WIDTH = 1600;
 const HEIGHT = 1040;
 

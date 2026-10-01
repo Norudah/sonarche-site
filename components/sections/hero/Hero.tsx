@@ -11,36 +11,10 @@ import styles from "./hero.module.css";
 import { Storm, WATERLINE } from "./Storm";
 
 /*
- * The hero — the LCP of the whole site, so nothing it paints waits on
- * JavaScript.
- *
- * No entrance animation on the text, deliberately: revealing an h1 from
- * opacity 0 hands the LCP to whenever the bundle lands, and leaves the page
- * blank if it never does. The sea is not the LCP either way: on narrow screens
- * and under reduced motion the CSS storm (Storm, Ark, Onde) paints first and
- * stays; on wide screens the sea's place holds a sonar loader until the WebGL
- * storm (LiveSea) is ready, deploys from it, and drops the vessel in — with the
- * CSS storm as the fallback if it never comes. The first impression is the
- * scene's, the first paint never is.
- *
- * The h1 carries both the wordmark and the tagline, so the page has one heading
- * that reads as a sentence — "Sonarche. From the stream into the Ark." — rather
- * than a lone brand word.
- *
- * Geometry is the mockup's, with the sea taken down 50px from it: the waterline
- * sits 110px above the stage's bottom edge, the ark is berthed on it, and the
- * gradient darkens into the water. The mockup's higher horizon left the vessel
- * crowding the buttons — it needs sky over it to read as sailing rather than as
- * parked. Fixed rather than viewport-height because the composition is a
- * drawing: the ark, the swell and the horizon have to keep their proportions to
- * each other, not to the window.
- *
- * The stage is the one it always was, and the download cluster was built to fit
- * it rather than the other way round: the platform marks let the "Download for
- * macOS" heading go, and the note shares a line with the disclosure. Growing
- * this instead pushes the waterline down and takes the scroll hint under the
- * fold on a laptop — which is the whole bottom of the composition. Anything
- * added to the cluster is paid for inside it.
+ * The LCP: no entrance animation on the text, so first paint never waits on JavaScript. The CSS
+ * storm paints first; on wide screens the WebGL sea (LiveSea) takes over once ready. The stage has
+ * a fixed height because the ark, swell and horizon keep proportions to each other, not to the
+ * window; the download cluster is built to fit it.
  */
 
 export function Hero({ locale }: { locale: Locale }) {
@@ -58,9 +32,7 @@ export function Hero({ locale }: { locale: Locale }) {
       <div className={`${scene.poster} absolute inset-0`}>
         <Storm>
           <div className="absolute inset-0 z-[2]">
-            {/* Narrower and lower on a phone: the text block above it is twice as
-              tall there, and a 320px ark in a 375px viewport is a bath toy.
-              Both offsets put the hull bottom 4px under the waterline. */}
+            {/* Both offsets put the hull bottom 4px under the waterline. */}
             <Ark
               className="absolute top-[571px] left-1/2 -ml-24 h-48 w-48 sm:top-[496px] sm:-ml-40 sm:h-80 sm:w-80"
               shadow="0 7px 13px oklch(0.4 0.1 277 / 0.16)"
@@ -90,15 +62,9 @@ export function Hero({ locale }: { locale: Locale }) {
           </span>
         </h1>
 
-        {/* 38rem, not the mockup's 34: the French subline is longer and a third
-            line pushed the buttons down onto the equalizer. */}
+        {/* 38rem: the French subline wraps to a third line at the mockup's 34. */}
         <p className="text-body mt-2.5 max-w-[38rem] text-base leading-relaxed sm:text-[1.09rem]">{copy.subline}</p>
 
-        {/* The one exception to this section's no-JavaScript rule, and it earns
-            it: the button has to read the machine it is on. It renders its final
-            geometry on the server — a working link to the releases page — and
-            only its label and href change once mounted, so the LCP never waits
-            on the bundle and a hydration that never comes costs nothing. */}
         <div className="mt-6 w-full">
           <DownloadCta locale={locale}>
             <a
@@ -111,9 +77,6 @@ export function Hero({ locale }: { locale: Locale }) {
         </div>
       </div>
 
-      {/* Pinned to the very bottom edge, not floating in the band: the next
-          section adds its own 104px of air below, and anything higher than this
-          read as centred in that void rather than as the end of the hero. */}
       <div className="absolute bottom-3 left-1/2 z-[5] -translate-x-1/2">
         <p
           className={`${styles.scrollHint} text-accent-muted font-display text-[0.6875rem] font-semibold tracking-[0.24em]`}

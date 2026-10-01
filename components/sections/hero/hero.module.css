@@ -1,19 +1,4 @@
-/*
- * Hero idle loops — the rain, its rings, and the scroll hint.
- *
- * The water's own loops are not here: the sea is shared with the footer and
- * lives in components/brand/sea/sea.module.css.
- *
- * These are CSS keyframes, not GSAP, on purpose: they are endless ambient loops
- * with no scroll or event input, so paying for a JS ticker on ~200 elements buys
- * nothing. GSAP owns what CSS cannot do well — the scroll narrative, and the
- * WebGL scene that takes over from all of this once it is ready
- * (components/brand/scene).
- *
- * Everything below animates transform or opacity only. The reduced-motion block
- * at the end stops all of it at a settled state — suspended rain and a dimpled
- * surface, not a broken page.
- */
+/* Endless ambient loops with no input: CSS, not GSAP. Transform and opacity only. */
 
 @keyframes rainFall {
   from {
@@ -24,17 +9,8 @@
   }
 }
 
-/*
- * The impact.
- *
- * A ripple shares its drop's period and phase, so the only thing left to place
- * is *when* in that period the drop reaches the water. A drop travels from -90px
- * to 810px, and the surface is at 750px: it lands at (840 - its height) / 900 of
- * the cycle, which for heights of 26–78px is 85%–90%. The ring opens at 87%, the
- * middle of that band — the few pixels of error across the range are well under
- * one frame. (The fall was lengthened with the sea when the horizon came down:
- * the ratio, not the distance, is what these percentages encode.)
- */
+/* A drop falls from -90px to 810px and meets the surface at 750px, i.e. at 85–90% of its cycle
+   depending on its height. The ring opens in the middle of that band. */
 @keyframes waterRing {
   0%,
   85% {
@@ -51,7 +27,6 @@
   }
 }
 
-/* The scroll hint, pulled downward and let go — an invitation, not a marquee. */
 @keyframes scrollNudge {
   0%,
   100% {
@@ -64,8 +39,6 @@
   }
 }
 
-/* --- The classes ---------------------------------------------------------- */
-
 .rainDrop {
   position: absolute;
   top: 0;
@@ -75,7 +48,6 @@
   animation: rainFall linear infinite;
 }
 
-/* On the surface, three pixels under it — a ring is seen from above the water. */
 .ripple {
   position: absolute;
   bottom: calc(var(--sea-line) - 3px);
@@ -99,13 +71,11 @@
   }
 
   .rainDrop {
-    /* Suspended mid-fall rather than piled at the top of the section. */
     transform: translateY(320px);
     opacity: 0.18;
   }
 
   .ripple {
-    /* The surface keeps its dimples; they just stop opening. */
     opacity: 0.18;
   }
 

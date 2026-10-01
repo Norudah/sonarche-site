@@ -1,13 +1,7 @@
+import { Emphasis, Kicker } from "@/components/sections/SectionHeader";
 import type { Locale } from "@/lib/site";
 
 import { deckCopy, type DeckCopy } from "./copy";
-
-/*
- * The deck — the library, and the promise that every field in it is yours.
- *
- * The widget on the right is the app's metadata panel with all seven dots green:
- * the claim of the bullet list ("7/7 fields") shown rather than stated.
- */
 
 export function Deck({ locale }: { locale: Locale }) {
   const copy = deckCopy[locale];
@@ -16,11 +10,11 @@ export function Deck({ locale }: { locale: Locale }) {
     <section data-anim-gate className="relative isolate bg-[oklch(0.976_0.008_279/0.8)] py-24 sm:py-27">
       <div className="mx-auto flex max-w-[77.5rem] flex-col items-center gap-12 px-8 sm:px-15 lg:flex-row lg:gap-20">
         <div className="flex flex-1 flex-col gap-4.5">
-          <p className="text-accent font-sans text-xs font-semibold tracking-[0.3em]">{copy.kicker}</p>
+          <Kicker>{copy.kicker}</Kicker>
 
           <h2 className="text-foreground-strong font-display flex flex-col text-[clamp(1.75rem,3.4vw,3.125rem)] leading-[1.15] font-bold tracking-[-0.02em]">
             <span>{copy.headingBefore}</span>
-            <em className="text-accent font-serif text-[1.08em] leading-none italic">{copy.headingEmphasis}</em>
+            <Emphasis>{copy.headingEmphasis}</Emphasis>
           </h2>
 
           <p className="text-body max-w-[27.5rem] text-[1.0625rem] leading-[1.65]">{copy.body}</p>
@@ -48,7 +42,6 @@ function MetadataPanel({ widget }: { widget: DeckCopy["widget"] }) {
     <div className="w-full max-w-[28.125rem] rounded-[1.125rem] border border-[oklch(0.92_0.008_279)] bg-white p-6.5 shadow-[0_30px_70px_oklch(0.35_0.06_277/0.14)]">
       <div className="mb-4.5 flex items-center justify-between gap-4">
         <p className="text-sm font-semibold text-[oklch(0.2_0.01_279)]">{widget.title}</p>
-        {/* Seven dots, seven filled fields — the "7/7" of the bullet list. */}
         <div aria-hidden className="flex gap-1.25">
           {Array.from({ length: 7 }, (_, i) => (
             <span key={i} className="bg-success size-1.75 rounded-full" />

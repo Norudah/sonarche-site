@@ -1,5 +1,3 @@
-/* The panel arrives rather than appears. Opacity and transform only — the
-   height it takes is laid out instantly, so nothing below it animates. */
 @keyframes panelIn {
   from {
     opacity: 0;

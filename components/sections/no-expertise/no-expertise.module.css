@@ -1,10 +1,4 @@
-/*
- * The genre swap — the widget's whole argument, on a 5.2s loop.
- *
- * Two pills occupy the same spot; one leaves as the other arrives, and a cursor
- * nudges up to meet the moment. All three share the period, so the click and the
- * change are one event rather than three things that happen to move.
- */
+/* Pills and cursor share one 5.2s period, so the click and the change are one event. */
 
 @keyframes chipOut {
   0%,
@@ -66,11 +60,7 @@
   animation: cursorNudge 5.2s ease-in-out infinite;
 }
 
-/*
- * Reduced motion resolves the loop instead of freezing it mid-swap: the new
- * genre is shown, the old one is gone, the cursor rests. The widget still says
- * what it is there to say.
- */
+/* Reduced motion shows the resolved swap rather than freezing mid-way. */
 @media (prefers-reduced-motion: reduce) {
   .chipOut,
   .chipIn,

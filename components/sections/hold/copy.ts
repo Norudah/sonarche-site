@@ -11,11 +11,10 @@ export type HoldCopy = {
   kicker: string;
   headingBefore: string;
   headingEmphasis: string;
-  /** Split around the folder path, which is set in mono. */
+  /** Split around the folder path, set in mono. */
   bodyBefore: string;
   bodyPath: string;
   bodyAfter: string;
-  /** The one row of the tree that is not the same word in both languages. */
   otherApp: string;
   note: string;
   destinations: Destination[];

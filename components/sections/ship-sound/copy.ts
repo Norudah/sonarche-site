@@ -7,7 +7,7 @@ export type ShipSoundCopy = {
   headingBefore: string;
   headingEmphasis: string;
   body: string;
-  /** The player's labels. Track and artist are names, not copy — not translated. */
+  /** Track and artist are names, not translated. */
   track: string;
   artist: string;
   elapsed: string;

@@ -1,11 +1,4 @@
-/*
- * The diagram's two layouts.
- *
- * Below `lg` the nodes are a plain stacked list and everything here is inert.
- * From `lg` up the stage takes its mockup geometry — see STAGE — and is scaled
- * down as one piece by a container query, so between 1024px and 1180px the
- * proportions hold instead of the cards reflowing into a different diagram.
- */
+/* Below `lg` a plain list; from `lg` the pinned stage (see Diagram.tsx). */
 
 .stage {
   display: flex;
@@ -32,15 +25,10 @@
   background: oklch(0.988 0.004 279);
 }
 
-/* Stacked, the column is nothing: its cards are siblings of every other node. */
 .serviceColumn {
   display: contents;
 }
 
-/*
- * The footnote to the service column: no card, no border — a rule and a quieter
- * ink, so it reads as an aside to the three groups rather than a fourth one.
- */
 .servicesNote {
   border-left: 2px solid oklch(0.88 0.02 279);
   padding-left: 12px;
@@ -70,20 +58,7 @@
     display: block;
     width: var(--stage-w);
     height: var(--stage-h);
-    /*
-     * Scaled to whatever width the container has, where 100cqw is that width.
-     *
-     * The obvious `calc(100cqw / 1180)` is invalid and was being dropped whole:
-     * a length over a number is still a length, and scale() takes a number, so
-     * the browser threw the declaration away and the stage stood at its full
-     * 1180 inside a narrower column. That is where the page's 10px of sideways
-     * scroll at 1280 came from — silently, because an invalid declaration says
-     * nothing.
-     *
-     * calc() cannot divide a length by a length either. atan2 of the two gives
-     * the angle whose tangent is the ratio, and tan() hands it back as the
-     * plain number scale() wants.
-     */
+    /* scale() needs a number and calc() cannot divide lengths: tan(atan2()) yields 100cqw / 1180px. */
     transform: scale(tan(atan2(100cqw, 1180px)));
     transform-origin: top left;
   }
@@ -100,8 +75,6 @@
     padding: 16px;
   }
 
-  /* Pinned as one block, its cards evenly spaced whatever the copy does to
-     their heights — which is why they are not pinned one by one. */
   .serviceColumn {
     display: flex;
     flex-direction: column;

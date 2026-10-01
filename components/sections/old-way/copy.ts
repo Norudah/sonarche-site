@@ -3,11 +3,9 @@ import type { Locale } from "@/lib/site";
 /* Verbatim from docs/copy/en.md and fr.md § The old way / L'ancienne méthode. */
 
 type ChainLink = {
-  /** `TAB 1`, `APP 2`… — the tab or window you had to open. */
   step: string;
   tool: string;
   gripe: string;
-  /** What the step costs you. The line under the card. */
   cost: string;
 };
 

@@ -1,9 +1,4 @@
-/*
- * The six glyphs the player bar uses, traced from lucide-react v1.24.0 (ISC) —
- * the same icon set the app itself draws them with, so the two agree.
- *
- * Inlined rather than depended on: the landing needs six shapes, not a library.
- */
+/* Traced from lucide-react v1.24.0 (ISC), the set the app uses. */
 
 type IconProps = { className?: string };
 

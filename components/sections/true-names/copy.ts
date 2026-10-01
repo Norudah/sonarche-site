@@ -3,7 +3,6 @@ import type { Locale } from "@/lib/site";
 /* Verbatim from docs/copy/en.md and fr.md § True names / Les vrais noms. */
 
 type CompareRow = {
-  /** Field name — Title, Artist, … */
   key: string;
   /** What a downloader guessed. */
   scraped: string;
@@ -20,7 +19,6 @@ export type TrueNamesCopy = {
   scrapedBadge: string;
   identifiedLabel: string;
   identifiedBadge: string;
-  /** The three steps stacked between the two panels. */
   pipeline: string[];
   rows: CompareRow[];
   coverLine: string;

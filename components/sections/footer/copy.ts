@@ -6,22 +6,17 @@ export type FooterCopy = {
   headingBefore: string;
   headingEmphasis: string;
   body: string;
-  /** No `cta`: the last call is the download button, which builds its own
-   *  labels from the visitor's system. See components/download. */
+  /** No `cta`: the download button builds its own labels. */
   license: string;
   personalUse: string;
   wordmark: string;
   /** BRAND — English in every language. */
   tagline: string;
-  /** The attribution line. The name itself is the same in both languages. */
   signature: string;
-  /** The journal and the guide, entered from the waterline and nowhere else:
-   *  the landing is a scroll narrative that must not be interrupted by a list
-   *  of articles. The guide's link only renders once a guide is published. */
   journal: string;
   guide: string;
   github: string;
-  /** Label of the link to the other language, in that language. */
+  /** In the other language. */
   otherLanguage: string;
 };
 

@@ -2,18 +2,14 @@ import type { Locale } from "@/lib/site";
 
 import type { BuildId } from "./platform";
 
-/*
- * Verbatim from docs/copy/en.md § Download and docs/copy/fr.md § Téléchargement.
- * Never edited here — the decks are the source of truth (see CLAUDE.md).
- */
+/* Verbatim from docs/copy/en.md § Download and docs/copy/fr.md § Téléchargement. */
 
 export type DownloadCopy = {
-  /** Before the system is known, and forever if the bundle never lands. */
+  /** Before the platform is known, and forever without JavaScript. */
   neutral: string;
   windowsCta: string;
   buildLabel: Record<BuildId, string>;
-  /** Short forms for the two macOS buttons, where the Apple mark beside them
-   *  has already named the platform. */
+  /** The Apple mark already names the platform. */
   chip: { arm64: string; x64: string };
   whichMac: string;
   showAll: string;

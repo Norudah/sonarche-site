@@ -1,8 +1,4 @@
-/*
- * The now-playing equalizer, copied from the app's own token
- * (`--animate-equalizer` in src/app/theme.css): four bars, 0.9s, scaleY 0.3 → 1.
- * Keeping the timing identical is the point — this is meant to be recognised.
- */
+/* Same timing as the app's `--animate-equalizer`, so it is recognised. */
 
 @keyframes equalizer {
   0%,

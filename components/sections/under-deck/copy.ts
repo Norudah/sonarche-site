@@ -8,21 +8,19 @@ type TechCard = {
   text: string;
 };
 
-/** One outside service, named inside its group card. */
 type DiagramService = {
   name: string;
   text: string;
 };
 
-/** A node of the architecture diagram. Geometry lives in the component. */
+/** Geometry lives in Diagram.tsx. */
 export type DiagramNode = {
   id: "stream" | "folders" | "ytdlp" | "ffmpeg" | "beets" | "identify" | "dress" | "accompany" | "folder";
   title: string;
-  /** Absent on the three service groups, which say it through `services`. */
   text?: string;
-  /** The italic aside under `beets`, and the badge under the two entry cards. */
+  /** The italic aside under beets, or the entry cards' badge. */
   aside?: string;
-  /** The services a group card holds. Six of them, in three cards. */
+  /** Set on the three service groups. */
   services?: DiagramService[];
 };
 
@@ -35,7 +33,6 @@ export type UnderDeckCopy = {
   cards: TechCard[];
   sealed: string;
   nodes: DiagramNode[];
-  /** The quiet line under the service column. */
   servicesNote: string;
 };
 

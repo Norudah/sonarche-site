@@ -1,15 +1,8 @@
+import { Emphasis, Kicker } from "@/components/sections/SectionHeader";
 import type { Locale } from "@/lib/site";
 
 import { noExpertiseCopy, type NoExpertiseCopy } from "./copy";
 import styles from "./no-expertise.module.css";
-
-/*
- * No expertise needed — the first two-column section on the page.
- *
- * The argument is on the left and the proof is on the right, and the proof is a
- * small piece of the app playing one gesture on a loop: you disagree with it
- * about a genre, you win, and it tells you in plain words what it just wrote.
- */
 
 export function NoExpertise({ locale }: { locale: Locale }) {
   const copy = noExpertiseCopy[locale];
@@ -18,11 +11,10 @@ export function NoExpertise({ locale }: { locale: Locale }) {
     <section data-anim-gate className="relative isolate py-24 sm:py-27">
       <div className="mx-auto flex max-w-[77.5rem] flex-col items-center gap-12 px-8 sm:px-15 lg:flex-row lg:gap-20">
         <div className="flex flex-1 flex-col gap-4.5">
-          <p className="text-accent font-sans text-xs font-semibold tracking-[0.3em]">{copy.kicker}</p>
+          <Kicker>{copy.kicker}</Kicker>
 
           <h2 className="text-foreground-strong font-display text-[clamp(1.75rem,3.4vw,3.125rem)] leading-[1.15] font-bold tracking-[-0.02em]">
-            {copy.headingBefore}{" "}
-            <em className="text-accent font-serif text-[1.08em] leading-none italic">{copy.headingEmphasis}</em>
+            {copy.headingBefore} <Emphasis>{copy.headingEmphasis}</Emphasis>
             {copy.headingAfter}
           </h2>
 
@@ -55,8 +47,7 @@ function GenreWidget({ widget }: { widget: NoExpertiseCopy["widget"] }) {
     <div className="flex w-full max-w-[26.875rem] flex-col gap-4 rounded-[1.125rem] border border-[oklch(0.92_0.008_279)] bg-white p-6.5 shadow-[0_30px_70px_oklch(0.35_0.06_277/0.14)]">
       <p className="text-sm font-semibold text-[oklch(0.2_0.01_279)]">{widget.title}</p>
 
-      {/* The two pills share one spot — the swap has to happen in place or it
-          reads as two options rather than as a change. */}
+      {/* Both pills share one spot: the swap must read as a change, not two options. */}
       <div aria-hidden className="relative h-11.5">
         <span
           className={`${styles.chipOut} absolute top-0 left-0 inline-flex items-center gap-2.25 rounded-xl border border-[oklch(0.9_0.01_279)] bg-[oklch(0.968_0.006_279)] px-3.5 py-2.5 text-sm`}

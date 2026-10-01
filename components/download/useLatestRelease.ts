@@ -11,16 +11,7 @@ export type Release = {
   builds: Partial<Record<BuildId, Build>>;
 };
 
-/*
- * The newest release, asked once per visit.
- *
- * An effect is right here for the one reason effects are ever right: this
- * synchronises with something outside React that a static build cannot know.
- * It resolves to null on any refusal — offline, rate-limited, GitHub down, a
- * shape we do not recognise — and every caller is written to treat null as
- * "keep the releases page you already have". There is no error state to show
- * because there is nothing for the visitor to do about it.
- */
+/* Resolves to null on any failure; every caller treats null as "keep the releases page". */
 export function useLatestRelease(): Release | null {
   const [release, setRelease] = useState<Release | null>(null);
 
@@ -34,8 +25,7 @@ export function useLatestRelease(): Release | null {
         setRelease({ version: readVersion(data.tag_name), builds: pickBuilds(data.assets) });
       })
       .catch(() => {
-        /* Including the AbortError from the cleanup below. Silence is the
-           designed outcome: the buttons keep the fallback they rendered with. */
+        // Including the cleanup's AbortError: the buttons keep their fallback.
       });
 
     return () => controller.abort();
@@ -44,9 +34,6 @@ export function useLatestRelease(): Release | null {
   return release;
 }
 
-/** The build's own URL once we know it, the releases page until then. Every
- *  href on this page goes through here — it is the single place that decides
- *  what an unanswered question links to. */
 export function hrefFor(release: Release | null, id: BuildId, fallback: string): string {
   return release?.builds[id]?.url ?? fallback;
 }

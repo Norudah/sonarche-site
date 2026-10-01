@@ -1,10 +1,4 @@
-/*
- * The thirty bars of the fingerprint reading.
- *
- * Same generator as the hero's storm — a Lehmer LCG, so the reading is the same
- * on every build and there is no hydration drift. It is deliberately *not* the
- * same seed: two identical-looking waveforms on one page would read as a bug.
- */
+/* Seeded for identical builds; a different seed from the hero's so the two waveforms differ. */
 
 const SEED = 1103;
 const BAR_COUNT = 30;

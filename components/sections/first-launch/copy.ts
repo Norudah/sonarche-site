@@ -4,11 +4,9 @@ import type { Locale } from "@/lib/site";
 
 type PlatformNote = {
   label: string;
-  /** What the OS puts on screen, quoted. */
   says: string;
-  /** The way through, set in mono because it is a sequence of clicks. */
   fix: string;
-  /** The other way, for someone who already hit Cancel. */
+  /** For someone who already hit Cancel. */
   fallback: string;
 };
 

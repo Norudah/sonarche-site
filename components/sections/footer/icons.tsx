@@ -1,12 +1,4 @@
-/*
- * The GitHub mark, for the two links down here that lead there — the repository
- * and the author's profile.
- *
- * Drawn rather than imported, like the platform marks in components/download:
- * one glyph does not justify a dependency. Path from Simple Icons (CC0), set on
- * a 24 viewBox and painted with `currentColor` so it fades with the colophon
- * text it sits in rather than punching a hole in it.
- */
+/* Path from Simple Icons (CC0). */
 
 export function GitHubMark({ className }: { className?: string }) {
   return (

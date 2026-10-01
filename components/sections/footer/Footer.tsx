@@ -1,42 +1,13 @@
-import { Ark } from "@/components/brand/Ark";
-import { Onde } from "@/components/brand/Onde";
-import { LiveSea } from "@/components/brand/scene/LiveSea";
-import scene from "@/components/brand/scene/scene.module.css";
-import { SeaBody } from "@/components/brand/sea/SeaBody";
-import { SeaLayer } from "@/components/brand/sea/SeaLayer";
-import { buildSea, SEA_CALM } from "@/components/brand/sea/sea";
 import { DownloadCta } from "@/components/download/DownloadCta";
-import { BLOG_PATH } from "@/lib/blog";
-import { GUIDE_PATH, publishedGuides } from "@/lib/guide";
-import { AUTHOR, GITHUB_URL, LOCALE_PATH, OTHER_LOCALE, type Locale } from "@/lib/site";
+import { type Locale } from "@/lib/site";
 
+import { Colophon } from "./Colophon";
 import { footerCopy } from "./copy";
-import { GitHubMark } from "./icons";
+import { Harbour } from "./Harbour";
 
-/*
- * The last call, and the ark at rest.
- *
- * The page opened on a vessel in a storm and closes on the same vessel in home
- * water — same drawing, same sea, no rain and half the swell. That is the whole
- * narrative in two pictures, and it is why both the ark and the water are shared
- * components rather than the hero's.
- *
- * The language switch lives here rather than in a header: a static export cannot
- * redirect on Accept-Language, so the swap has to be visible somewhere, and the
- * foot of the page is where someone who has read it will look.
- */
-
-/*
- * The surface, in px above the harbour's bottom edge. The ark's hull bottoms out
- * 96px up, so the waterline is 4px into it — the same bite the hero takes out of
- * the hull, which is what makes the vessel float rather than sit on a line.
- */
-const WATERLINE = 92;
-
+/* The page opens on the ark in a storm and closes on the same ark in calm water. */
 export function Footer({ locale }: { locale: Locale }) {
   const copy = footerCopy[locale];
-  const other = OTHER_LOCALE[locale];
-  const sea = buildSea(SEA_CALM, WATERLINE);
 
   return (
     <footer
@@ -54,15 +25,10 @@ export function Footer({ locale }: { locale: Locale }) {
 
         <p className="text-body mt-4 max-w-[32.5rem] text-[1.09rem] leading-relaxed">{copy.body}</p>
 
-        {/* The same button as the hero's, at the other end of the argument. The
-            body just said the code is on GitHub — the colophon two lines down
-            keeps that link, so this one can be the download. */}
         <div className="mt-8 w-full">
           <DownloadCta locale={locale} stackedNote />
         </div>
 
-        {/* The legal whisper: one small-print block, licence over its caveat,
-            close enough to read as a single note. */}
         <p className="mt-8 text-[0.75rem] text-[oklch(0.58_0.02_279)]">{copy.license}</p>
 
         <p className="mt-1 max-w-[32.5rem] text-[0.71875rem] leading-[1.6] text-[oklch(0.58_0.02_279)]">
@@ -70,115 +36,9 @@ export function Footer({ locale }: { locale: Locale }) {
         </p>
       </div>
 
-      {/*
-       * The ark, home. The hero's sea, calmed: no rain, no crests, a swell that
-       * barely breathes.
-       *
-       * On wide screens the same water goes live (LiveSea, in its calm
-       * weather): the ark's ping finds the harbour when the visitor arrives
-       * there, and the drawing below stays as the poster it takes over from.
-       *
-       * The colophon sits down here, in the water, rather than on a rule above
-       * the harbour. It was taking a strip of paper the vessel needed — with it
-       * moved, the ark gets that air back and the page ends on one picture
-       * instead of a picture with a caption bar bolted over it.
-       */}
-      <div className="relative mt-10 h-[19.5rem]" style={sea.style}>
-        <div aria-hidden className={`${scene.poster} absolute inset-0`}>
-          {/* The water itself: the section's gradient stops at paper, so without
-              a body of its own the swell would stand on nothing. */}
-          <SeaBody body={sea.body} />
-
-          <SeaLayer bars={sea.deep} deep />
-          <SeaLayer bars={sea.back} />
-
-          <Ark
-            className="absolute bottom-[3.625rem] left-1/2 z-[2] h-[14.375rem] w-[14.375rem] -translate-x-1/2"
-            shadow="0 6px 12px oklch(0.38 0.1 277 / 0.16)"
-          >
-            <Onde />
-          </Ark>
-
-          <SeaLayer bars={sea.front} className="z-[3]" />
-        </div>
-        <LiveSea weather="calm" waterline={WATERLINE} className="z-[3]" />
-
-        {/* A waterline, not a footer bar: it is the last thing on the page and
-            the least important, so it is set a step below body scale and drained
-            of most of its contrast. The language switch keeps a hair more weight
-            than the rest of the line — it is the only control down here. */}
-        {/*
-         * Three equal columns, not a flex row spread apart.
-         *
-         * `justify-between` places the gaps, not the items, so the middle one
-         * only lands on the page's centre when the two flanking it happen to be
-         * the same width — and the signature made the left one twice the length
-         * of the right. The tagline is the axis of this line and it has to sit
-         * on the page's own axis; equal thirds put it there whatever grows
-         * either side of it.
-         */}
-        <div className="absolute inset-x-0 bottom-0 z-[4] mx-auto flex max-w-[80rem] flex-col items-center gap-2 px-8 pb-4 text-[0.6875rem] sm:px-15 md:grid md:grid-cols-3 md:items-center">
-          {/* The signature rides with the wordmark rather than standing on its
-              own: it is an attribution of the thing just named, not a fourth
-              item competing with the tagline and the two links. One line, the
-              colophon's own size, the name a link to the profile — the product
-              is the subject and the author is the signature. */}
-          <p className="flex items-baseline gap-2 text-[oklch(0.52_0.03_279)]">
-            <span className="font-display font-medium tracking-[0.12em] text-[oklch(0.42_0.03_279)]">
-              {copy.wordmark}
-            </span>
-            <span aria-hidden>·</span>
-            <a
-              href={AUTHOR.url}
-              rel="author"
-              className="hover:text-accent inline-flex items-baseline gap-1.5 transition-colors hover:underline hover:underline-offset-3"
-            >
-              <GitHubMark className="h-3 w-3 self-center opacity-70" />
-              {copy.signature}
-            </a>
-          </p>
-
-          <p className="font-serif text-[0.8125rem] text-[oklch(0.5_0.05_277)] italic md:justify-self-center">
-            {copy.tagline}
-          </p>
-
-          <div className="flex items-center gap-3.5 md:justify-self-end">
-            {/* The only way into the journal and the guide. Deliberately the
-                quietest links on the page: they are for the reader who has
-                finished, and for the crawler that reads every line of a footer.
-                The guide appears with its first published page — a link into an
-                empty section is worse than no link. */}
-            <a
-              href={BLOG_PATH[locale]}
-              className="hover:text-accent-strong text-[oklch(0.48_0.03_279)] transition-colors hover:underline hover:underline-offset-3"
-            >
-              {copy.journal}
-            </a>
-            {publishedGuides().length > 0 && (
-              <a
-                href={GUIDE_PATH[locale]}
-                className="hover:text-accent-strong text-[oklch(0.48_0.03_279)] transition-colors hover:underline hover:underline-offset-3"
-              >
-                {copy.guide}
-              </a>
-            )}
-            <a
-              href={LOCALE_PATH[other]}
-              hrefLang={other}
-              className="hover:text-accent font-medium text-[oklch(0.48_0.03_279)] underline decoration-[oklch(0.48_0.03_279/0.35)] underline-offset-3 transition-colors hover:decoration-current"
-            >
-              {copy.otherLanguage}
-            </a>
-            <a
-              href={GITHUB_URL}
-              className="hover:text-accent-strong inline-flex items-baseline gap-1.5 text-[oklch(0.48_0.03_279)] transition-colors hover:underline hover:underline-offset-3"
-            >
-              <GitHubMark className="h-3 w-3 self-center opacity-70" />
-              {copy.github}
-            </a>
-          </div>
-        </div>
-      </div>
+      <Harbour>
+        <Colophon locale={locale} />
+      </Harbour>
     </footer>
   );
 }

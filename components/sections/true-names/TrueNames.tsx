@@ -1,20 +1,11 @@
+import { Emphasis, SectionHeader } from "@/components/sections/SectionHeader";
 import type { Locale } from "@/lib/site";
 
 import { trueNamesCopy } from "./copy";
 import { fingerprintBars } from "./fingerprint";
 import styles from "./true-names.module.css";
 
-/*
- * True names — the page's one side-by-side.
- *
- * Left panel in rust and dashed-soft: what a downloader guessed. Right panel in
- * indigo, outlined and lifted: what the audio itself answered. The fingerprint
- * reading sits between them, and it is the argument — the guess does not become
- * the truth by being corrected, it becomes the truth by being *listened to*.
- *
- * The two panels are a comparison, so they carry no reveal: they have to be
- * readable at the same instant or the point is lost.
- */
+/* A comparison, so no reveal: both panels must be readable at the same instant. */
 
 export function TrueNames({ locale }: { locale: Locale }) {
   const copy = trueNamesCopy[locale];
@@ -22,16 +13,19 @@ export function TrueNames({ locale }: { locale: Locale }) {
 
   return (
     <section data-anim-gate className="relative isolate bg-[oklch(0.976_0.008_279/0.8)] py-24 sm:py-27">
-      <header className="flex flex-col items-center px-8 text-center sm:px-15">
-        <p className="text-accent font-sans text-xs font-semibold tracking-[0.3em]">{copy.kicker}</p>
-
-        <h2 className="text-foreground-strong font-display mt-4 flex max-w-[52.5rem] flex-col text-[clamp(1.875rem,3.6vw,3.25rem)] leading-[1.15] font-bold tracking-[-0.02em]">
-          <span>{copy.headingBefore}</span>
-          <em className="text-accent font-serif text-[1.08em] leading-none italic">{copy.headingEmphasis}</em>
-        </h2>
-
-        <p className="text-body mt-3.5 max-w-[41.25rem] text-[1.09rem] leading-relaxed">{copy.body}</p>
-      </header>
+      <SectionHeader
+        kicker={copy.kicker}
+        stacked
+        heading={
+          <>
+            <span>{copy.headingBefore}</span>
+            <Emphasis>{copy.headingEmphasis}</Emphasis>
+          </>
+        }
+        headingWidth="max-w-[52.5rem]"
+        body={copy.body}
+        bodyWidth="max-w-[41.25rem]"
+      />
 
       <div className="mx-auto mt-12 flex max-w-[76.25rem] flex-col items-stretch gap-7 px-8 sm:px-15 lg:flex-row lg:items-center">
         <Panel

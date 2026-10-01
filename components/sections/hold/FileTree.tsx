@@ -1,12 +1,4 @@
-/*
- * The hold, as a folder.
- *
- * The rows carry a depth and a kind rather than a font and a colour: the styling
- * is the component's business, and keeping it out of the data is what lets the
- * one localised row (the other app's folder) stay a plain string.
- *
- * File and album names are not translated — they are what is actually on disk.
- */
+/* File and album names are not translated: they are what is on disk. */
 
 type Row = {
   depth: number;
@@ -53,8 +45,6 @@ export function FileTree({ otherApp }: { otherApp: string }) {
   );
 }
 
-/* Sonarche's own folder is the only one picked out in indigo — it is the point
-   of the drawing: one folder among the others, not a container around them. */
 function rowTone(row: Row): string {
   if (row.name === "Sonarche") return "font-semibold text-accent";
   if (row.kind === "closed") return "text-[oklch(0.62_0.02_279)]";

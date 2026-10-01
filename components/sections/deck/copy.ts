@@ -10,7 +10,6 @@ export type DeckCopy = {
   bullets: string[];
   widget: {
     title: string;
-    /** Field label / value. `Genre` is the one picked out in indigo. */
     fields: { label: string; value: string; highlighted?: boolean }[];
     rematch: string;
     edit: string;
@@ -29,8 +28,6 @@ export const deckCopy: Record<Locale, DeckCopy> = {
       "Genres form families (Metal, Electronic, Jazz), each with its own tone.",
     ],
     widget: {
-      // The v7 mockup left this widget's labels in French; these are the EN
-      // equivalents, recorded in docs/copy/en.md § The deck for review.
       title: "Metadata — Oath",
       fields: [
         { label: "Title", value: "Oath" },

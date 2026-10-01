@@ -11,11 +11,10 @@ export type NoExpertiseCopy = {
   guides: string[];
   widget: {
     title: string;
-    /** The genre it had, and the one you insist on. */
     from: string;
     to: string;
     explainerLabel: string;
-    /** Split so the family name can be set in bold inside the sentence. */
+    /** Split so the family name can be bold. */
     explainerBefore: string;
     explainerFamily: string;
     explainerAfter: string;
@@ -30,8 +29,7 @@ export const noExpertiseCopy: Record<Locale, NoExpertiseCopy> = {
     kicker: "NO EXPERTISE NEEDED",
     headingBefore: "You don't need to know what",
     headingEmphasis: "a tag",
-    // Carries its own leading space: French closes straight onto the emphasis
-    // with a full stop, English needs a word after it.
+    // Carries its own leading space; French closes straight onto the emphasis.
     headingAfter: " is.",
     bodies: [
       "Everything that can be automated already is, so you get a tidy library without ever opening a metadata editor. What's left, the app explains in plain words instead of empty fields.",

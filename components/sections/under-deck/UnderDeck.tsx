@@ -1,32 +1,28 @@
+import { Emphasis, SectionHeader } from "@/components/sections/SectionHeader";
 import type { Locale } from "@/lib/site";
 
 import { underDeckCopy } from "./copy";
 import { Diagram } from "./Diagram";
 
-/*
- * Under the deck — the section that names names.
- *
- * It is the one place where yt-dlp, ffmpeg and beets are said out loud, and that
- * is deliberate (see docs/CONTEXT.md § Legal positioning): the page never names a
- * platform, and it always names its own tools.
- */
+/* The one place the page names its own tools; it never names a platform (docs/CONTEXT.md). */
 
 export function UnderDeck({ locale }: { locale: Locale }) {
   const copy = underDeckCopy[locale];
 
   return (
     <section data-anim-gate className="relative isolate py-24 sm:py-27">
-      <header className="flex flex-col items-center px-8 text-center sm:px-15">
-        <p className="text-accent font-sans text-xs font-semibold tracking-[0.3em]">{copy.kicker}</p>
-
-        <h2 className="text-foreground-strong font-display mt-4 max-w-[48.75rem] text-[clamp(1.875rem,3.6vw,3.25rem)] leading-[1.15] font-bold tracking-[-0.02em]">
-          {copy.headingBefore}{" "}
-          <em className="text-accent font-serif text-[1.08em] leading-none italic">{copy.headingEmphasis}</em>
-          {copy.headingAfter}
-        </h2>
-
-        <p className="text-body mt-3.5 max-w-[41.25rem] text-[1.09rem] leading-relaxed">{copy.body}</p>
-      </header>
+      <SectionHeader
+        kicker={copy.kicker}
+        heading={
+          <>
+            {copy.headingBefore} <Emphasis>{copy.headingEmphasis}</Emphasis>
+            {copy.headingAfter}
+          </>
+        }
+        headingWidth="max-w-[48.75rem]"
+        body={copy.body}
+        bodyWidth="max-w-[41.25rem]"
+      />
 
       <ul className="mx-auto mt-11 grid max-w-[72.5rem] gap-4.5 px-8 sm:px-15 md:grid-cols-3">
         {copy.cards.map((card) => (

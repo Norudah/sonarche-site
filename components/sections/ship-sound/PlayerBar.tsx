@@ -11,22 +11,9 @@ import {
 } from "./icons";
 import styles from "./ship-sound.module.css";
 
-/*
- * The app's own player bar, rebuilt.
- *
- * Not an illustration of a player — the same three-column arrangement Sonarche
- * ships (see src/shared/player/PlayerBar.tsx in the app): now-playing on the
- * left in a 14rem block, transport over seek bar in the middle, queue and
- * volume holding the right edge.
- *
- * The one moving part is the equalizer, and it is where the app puts it — inside
- * the artwork, over a dark veil, in the artwork's own foreground colour. Four
- * bars, 0.9s, the app's delays. That is the app's "this is playing" gesture and
- * it is the only thing this section has to prove.
- */
+/* The app's own player bar layout (src/shared/player/PlayerBar.tsx), with its equalizer timings. */
 
-/* 1:12 of 2:54. Held, not animated: the app's seek bar reports a position, it
-   does not sweep, and a looping progress bar would be a different claim. */
+/* 1:12 of 2:54, held: the app's seek bar reports a position, it does not sweep. */
 const PROGRESS = "41%";
 
 const EQ_DELAYS = ["-0.6s", "-0.3s", "0s", "-0.45s"];
@@ -35,9 +22,6 @@ export function PlayerBar({ copy }: { copy: ShipSoundCopy }) {
   return (
     <div className="border-separator bg-surface flex w-full items-center gap-4 rounded-2xl border px-4 py-4 shadow-[0_20px_50px_oklch(0.35_0.06_277/0.1)] sm:gap-6 sm:px-6">
       <div className="flex min-w-0 flex-1 items-center gap-3 lg:w-56 lg:flex-none">
-        {/* The app veils the *artwork* and lays the bars over it. With an empty
-            slot the veil would just make a grey square, so the cover here stands
-            in for a record — which is what the slot holds in practice. */}
         <div className="relative flex size-14 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-[linear-gradient(140deg,oklch(0.62_0.17_277),oklch(0.38_0.13_290))]">
           <MusicIcon className="size-5 text-white/45" />
           <div className="absolute inset-0 flex items-center justify-center bg-black/35">

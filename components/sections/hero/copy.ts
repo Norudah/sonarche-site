@@ -1,9 +1,6 @@
 import type { Locale } from "@/lib/site";
 
-/*
- * Verbatim from docs/copy/en.md § Hero and docs/copy/fr.md § Hero.
- * Never edited here — the decks are the source of truth (see CLAUDE.md).
- */
+/* Verbatim from docs/copy/en.md and fr.md § Hero. */
 
 export type HeroCopy = {
   badge: string;
@@ -11,8 +8,7 @@ export type HeroCopy = {
   /** BRAND — English in every language, never reworded. */
   tagline: string;
   subline: string;
-  /** No `ctaPrimary`: the primary call is the download button, which builds its
-   *  own labels from the visitor's system. See components/download. */
+  /** No `ctaPrimary`: the download button builds its own labels. */
   ctaSecondary: string;
   scrollHint: string;
 };

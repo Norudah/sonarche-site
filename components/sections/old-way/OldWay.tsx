@@ -1,34 +1,29 @@
+import { Emphasis, SectionHeader } from "@/components/sections/SectionHeader";
 import type { Locale } from "@/lib/site";
 
 import { oldWayCopy } from "./copy";
 import styles from "./old-way.module.css";
 
-/*
- * The old way — the only rust-coloured section on the page.
- *
- * Five dashed cards, then one solid indigo card that replaces all of them. The
- * dashes and the struck-through tool names do the argument before a word is
- * read: these are provisional things, and they are being crossed out.
- *
- * Deliberately no scroll animation. The five links have to be readable as one
- * row — revealing them in sequence would turn a comparison into a slideshow.
- */
+/* Dashed cards and struck-through names make the argument before the copy does. No scroll reveal:
+   the five have to read as one row. */
 
 export function OldWay({ locale }: { locale: Locale }) {
   const copy = oldWayCopy[locale];
 
   return (
     <section data-anim-gate className="relative isolate py-24 sm:py-27">
-      <header className="flex flex-col items-center px-8 text-center sm:px-15">
-        <p className="text-rust font-sans text-xs font-semibold tracking-[0.3em]">{copy.kicker}</p>
-
-        <h2 className="text-foreground-strong font-display mt-4 max-w-[51.25rem] text-[clamp(1.875rem,3.6vw,3.25rem)] leading-[1.15] font-bold tracking-[-0.02em]">
-          {copy.headingBefore}{" "}
-          <em className="text-rust font-serif text-[1.08em] leading-none italic">{copy.headingEmphasis}</em>
-        </h2>
-
-        <p className="text-body mt-3.5 max-w-[40rem] text-[1.09rem] leading-relaxed">{copy.sub}</p>
-      </header>
+      <SectionHeader
+        kicker={copy.kicker}
+        tone="rust"
+        heading={
+          <>
+            {copy.headingBefore} <Emphasis tone="rust">{copy.headingEmphasis}</Emphasis>
+          </>
+        }
+        headingWidth="max-w-[51.25rem]"
+        body={copy.sub}
+        bodyWidth="max-w-[40rem]"
+      />
 
       <ol className="mx-auto mt-12 grid max-w-[80rem] gap-3.5 px-8 sm:px-15 md:grid-cols-2 xl:grid-cols-5">
         {copy.chain.map((link) => (
@@ -37,8 +32,7 @@ export function OldWay({ locale }: { locale: Locale }) {
             className="border-rust-edge bg-rust-paper flex flex-col gap-2.5 rounded-2xl border border-dashed px-4.5 pt-5 pb-5.5"
           >
             <p className="text-rust font-mono text-[0.625rem] font-semibold tracking-[0.1em] opacity-80">{link.step}</p>
-            {/* Struck through, not greyed: these tools work, they are simply
-                being replaced — and the line says so before the copy does. */}
+            {/* Struck through, not greyed: these tools work, they are being replaced. */}
             <p className="font-display text-[0.9375rem] leading-tight font-semibold text-[oklch(0.3_0.03_279)] line-through decoration-[oklch(0.72_0.16_30/0.6)] decoration-2">
               {link.tool}
             </p>

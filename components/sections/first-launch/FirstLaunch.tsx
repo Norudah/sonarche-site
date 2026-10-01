@@ -1,15 +1,9 @@
+import { Emphasis, Kicker } from "@/components/sections/SectionHeader";
 import type { Locale } from "@/lib/site";
 
 import { firstLaunchCopy } from "./copy";
 
-/*
- * First launch — the section that costs nothing to leave out and everything to
- * leave out.
- *
- * An unsigned app makes both operating systems put up a wall, and a visitor who
- * meets that wall unwarned concludes the download was a mistake. Saying it here,
- * plainly, with the exact clicks, is what turns a scare into a formality.
- */
+/* An unsigned app hits an OS warning; naming the exact clicks turns a scare into a formality. */
 
 export function FirstLaunch({ locale }: { locale: Locale }) {
   const copy = firstLaunchCopy[locale];
@@ -17,11 +11,10 @@ export function FirstLaunch({ locale }: { locale: Locale }) {
   return (
     <section data-anim-gate className="relative isolate py-24 sm:py-26">
       <div className="mx-auto flex max-w-[57.5rem] flex-col items-center px-8 text-center sm:px-15">
-        <p className="text-accent font-sans text-xs font-semibold tracking-[0.3em]">{copy.kicker}</p>
+        <Kicker>{copy.kicker}</Kicker>
 
         <h2 className="text-foreground-strong font-display mt-3.5 max-w-[43.75rem] text-[clamp(1.625rem,2.8vw,2.375rem)] leading-[1.2] font-bold tracking-[-0.015em]">
-          {copy.headingBefore}{" "}
-          <em className="text-accent font-serif text-[1.08em] leading-none italic">{copy.headingEmphasis}</em>
+          {copy.headingBefore} <Emphasis>{copy.headingEmphasis}</Emphasis>
         </h2>
 
         <p className="text-body mt-3.25 max-w-[41.25rem] text-base leading-[1.65]">{copy.body}</p>

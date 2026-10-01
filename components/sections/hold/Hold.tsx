@@ -1,35 +1,35 @@
+import { Emphasis, SectionHeader } from "@/components/sections/SectionHeader";
 import type { Locale } from "@/lib/site";
 
 import { holdCopy } from "./copy";
 import { FileTree } from "./FileTree";
 
-/*
- * The hold is yours — the section that has to be believed rather than admired.
- *
- * So it shows a folder. Not a diagram of a folder, not an abstraction: the
- * actual path, the actual file names, sitting next to the folder your other app
- * already uses. Everything else in this section is a caption to that drawing.
- */
+/* Shows the actual folder and file names, next to the folder the visitor's other app uses. */
 
 export function Hold({ locale }: { locale: Locale }) {
   const copy = holdCopy[locale];
 
   return (
     <section data-anim-gate className="relative isolate bg-[oklch(0.976_0.008_279/0.8)] py-24 sm:py-27">
-      <header className="flex flex-col items-center px-8 text-center sm:px-15">
-        <p className="text-accent font-sans text-xs font-semibold tracking-[0.3em]">{copy.kicker}</p>
-
-        <h2 className="text-foreground-strong font-display mt-4 flex max-w-[50rem] flex-col text-[clamp(1.875rem,3.6vw,3.25rem)] leading-[1.15] font-bold tracking-[-0.02em]">
-          <span>{copy.headingBefore}</span>
-          <em className="text-accent font-serif text-[1.08em] leading-none italic">{copy.headingEmphasis}</em>
-        </h2>
-
-        <p className="text-body mt-3.5 max-w-[42.5rem] text-[1.09rem] leading-relaxed">
-          {copy.bodyBefore}{" "}
-          <code className="font-mono text-base font-medium text-[oklch(0.35_0.06_277)]">{copy.bodyPath}</code>
-          {copy.bodyAfter}
-        </p>
-      </header>
+      <SectionHeader
+        kicker={copy.kicker}
+        stacked
+        heading={
+          <>
+            <span>{copy.headingBefore}</span>
+            <Emphasis>{copy.headingEmphasis}</Emphasis>
+          </>
+        }
+        headingWidth="max-w-[50rem]"
+        body={
+          <>
+            {copy.bodyBefore}{" "}
+            <code className="font-mono text-base font-medium text-[oklch(0.35_0.06_277)]">{copy.bodyPath}</code>
+            {copy.bodyAfter}
+          </>
+        }
+        bodyWidth="max-w-[42.5rem]"
+      />
 
       <div className="mx-auto mt-12 flex max-w-[72.5rem] flex-col items-center gap-10 px-8 sm:px-15 lg:flex-row lg:gap-14">
         <FileTree otherApp={copy.otherApp} />

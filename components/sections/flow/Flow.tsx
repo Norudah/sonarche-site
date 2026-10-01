@@ -1,19 +1,12 @@
+import { Emphasis, SectionHeader } from "@/components/sections/SectionHeader";
 import type { Locale } from "@/lib/site";
 
 import { flowCopy, type FlowStep, type SceneTags } from "./copy";
 import { FlowCascade } from "./FlowCascade";
 import { IsoScene } from "./IsoScene";
 
-/*
- * The flow — four steps, alternating sides, each stepping a little further right
- * than the last. The indents are the mockup's and they are not decoration: they
- * pull the eye down and to the right, so the section reads as a descent rather
- * than as a list.
- *
- * This is also the section the hero hands over to, so it carries the dissolve
- * out of the water: the band at its top starts on the hero's last colour and
- * climbs back to paper. Without it the two meet on a cut.
- */
+/* The growing indents pull the eye down and right, so the steps read as a descent. The top band
+   starts on the hero's last colour, so the two sections dissolve rather than cut. */
 
 const INDENT = ["", "lg:pl-[4.375rem]", "lg:pl-9", "lg:pl-[6.625rem]"];
 
@@ -30,21 +23,22 @@ export function Flow({ locale }: { locale: Locale }) {
             "linear-gradient(180deg, oklch(0.931 0.036 279), oklch(0.963 0.018 279) 52%, oklch(0.982 0.006 279))",
         }}
       />
-      <header className="flex flex-col items-center px-8 text-center sm:px-15">
-        <p className="text-accent font-sans text-xs font-semibold tracking-[0.3em]">{copy.kicker}</p>
-
-        {/* Broken between the two sentences rather than wherever the column
-            runs out — left to wrap, it stranded "out." on a line of its own. */}
-        <h2 className="text-foreground-strong font-display mt-4 flex max-w-[47.5rem] flex-col text-[clamp(1.875rem,3.6vw,3.25rem)] leading-[1.15] font-bold tracking-[-0.02em]">
-          <span>{copy.headingBefore}</span>
-          <span>
-            <em className="text-accent font-serif text-[1.08em] leading-none italic">{copy.headingEmphasis}</em>{" "}
-            {copy.headingAfter}
-          </span>
-        </h2>
-
-        <p className="text-body mt-3.5 max-w-[36.25rem] text-[1.09rem] leading-relaxed">{copy.sub}</p>
-      </header>
+      {/* Broken between the two sentences: left to wrap, it stranded "out." on its own line. */}
+      <SectionHeader
+        kicker={copy.kicker}
+        stacked
+        heading={
+          <>
+            <span>{copy.headingBefore}</span>
+            <span>
+              <Emphasis>{copy.headingEmphasis}</Emphasis> {copy.headingAfter}
+            </span>
+          </>
+        }
+        headingWidth="max-w-[47.5rem]"
+        body={copy.sub}
+        bodyWidth="max-w-[36.25rem]"
+      />
 
       <FlowCascade>
         {copy.steps.map((step, i) => (
@@ -63,8 +57,6 @@ type RowProps = {
 };
 
 function Row({ step, stepLabel, tags, index }: RowProps) {
-  // Odd steps put the scene on the right and set their text flush right, so the
-  // two columns mirror each other down the page.
   const mirrored = index % 2 === 1;
 
   return (
