@@ -3,19 +3,8 @@ import { Group, SphereGeometry } from "three";
 import { containerFactory, type Container, type ContainerSpec, type Palette } from "./container";
 import { INK, type Kit } from "./materials";
 
-/*
- * The hold, above deck — loaded the way a working boat is, not the way a
- * diagram is, on either side of the head so the head stays the middle of the
- * picture.
- *
- * In front, where the camera and the deckhands can get at them, the working
- * boxes: two by the crane that it fills, and one astern of the head where
- * the deckhand stows some of what the trawl lands on the deck, their doors
- * facing the walkway along the rail. Behind them, cargo already carried
- * home: sealed boxes stacked two and three high and knocked askew, in every
- * colour the mark has, so the deck reads as a lifetime's haul and not as a
- * product shot.
- */
+/* Working boxes in front, where the camera and the crew reach them; sealed cargo stacked askew
+   behind, so the deck reads as a lifetime's haul. */
 
 const P = (shell: string, ribs: string, bars: string): Palette => ({ shell, ribs, bars });
 const amber = P(INK.amber, "#e0961f", INK.cabin);
@@ -68,10 +57,7 @@ export function createCargo(kit: Kit) {
     footprints: all
       .filter((c) => !c.spec.y)
       .map(({ spec }) => [spec.x, spec.z, spec.size[0] / 2, spec.size[1] / 2, spec.yaw] as const),
-    /**
-     * A box on this side with room that nobody is working, never the one just
-     * filled if another will do.
-     */
+    /** A free box on this side with room, preferring one other than the box just filled. */
     pick(side: Side, room = 1): Container | undefined {
       const open = working.filter((c) => c.spec.side === side && !c.busy && c.spec.slots - c.held.length >= room);
       const fresh = open.filter((c) => c !== last.get(side));

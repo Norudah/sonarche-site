@@ -1,14 +1,4 @@
-/*
- * The sea's idle loops.
- *
- * CSS keyframes, not GSAP: these are endless ambient loops with no scroll or
- * event input, so paying for a JS ticker on ~500 elements buys nothing.
- *
- * Storm and calm share every rule here — the weather arrives as custom
- * properties set by buildSea(), so how rough the water is stays a decision made
- * in one place (sea.ts) rather than split between a profile and a stylesheet.
- * Only transform and opacity are animated.
- */
+/* Ambient loops in CSS. The weather arrives as custom properties from buildSea(). */
 
 @keyframes waterBar {
   0%,
@@ -44,11 +34,7 @@
   animation: seaDriftA var(--sea-drift-time) ease-in-out infinite alternate;
 }
 
-/*
- * The mass of water travels with the rows standing in it — and, since the ark
- * reads the same two properties, with the ark too. Overhung either side by more
- * than the drift so the ends never slide into view.
- */
+/* Overhung by more than the drift so the ends never slide into view. */
 .body {
   position: absolute;
   bottom: 0;
@@ -84,19 +70,7 @@
   border-radius: 3.5px;
 }
 
-/*
- * Below the wide layout the individual bars stop breathing.
- *
- * There are ~700 of them across the two seas, each running its own keyframe
- * loop, and on a phone each one is barely a pixel and a half wide — nobody has
- * ever seen one of them swell by four percent. The layers and the body keep
- * drifting, so the water is still one mass moving; what goes is the texture on
- * top of it, which was costing seven hundred animations to render at a scale
- * where it is invisible.
- *
- * Nothing is hidden and no geometry moves: the drawing at 390px is the same
- * drawing, held still. Same `lg` where the page's own layouts go wide.
- */
+/* Below `lg` the ~700 bars stop breathing: a 4% swell on a 1.5px bar is invisible. The layers still drift. */
 @media (max-width: 63.999rem) {
   .bar {
     animation: none;

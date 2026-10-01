@@ -1,7 +1,7 @@
 import gsap from "gsap";
 import { Vector3, type Group, type Object3D } from "three";
 
-import { DUST, SPARK, type createBursts } from "../bursts";
+import { DUST, SPARK, type createBursts } from "@/components/brand/scene/bursts";
 import { ROOF } from "./cabin";
 import type { createCargo } from "./cargo";
 import { createDeckhand } from "./deckhand";
@@ -9,20 +9,8 @@ import { HULL } from "./hull";
 import type { Kit } from "./materials";
 import type { Note, createSwarm } from "./notes";
 
-/*
- * Home from the voyage (the footer): the ark overflows with music.
- *
- * Every working box is full and then some: hatches that will not shut on the
- * notes poking out of them, doors held ajar by one leaning out, notes on the
- * deck, on the stacks, on the roof of the head and the funnel's casing; one
- * still hanging in the crane's claw, the trawl's bag full. The crew have
- * stopped work and are dancing.
- *
- * And it does not stay put: every so often a loose note wobbles, slides off
- * whatever it was on, lands on the deck, and goes over the rail into the
- * harbour, where it floats a while and sinks; and a box, under the pressure,
- * jolts its hatch and pops another one out to take its place.
- */
+/* The footer's moored ark, overflowing: notes everywhere, the crew dancing, and every so often one
+   slides off the deck into the harbour while a box pops another out. */
 
 type OverflowOptions = {
   kit: Kit;

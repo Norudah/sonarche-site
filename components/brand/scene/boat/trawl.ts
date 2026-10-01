@@ -21,26 +21,10 @@ import { HULL } from "./hull";
 import { INK, type Kit } from "./materials";
 
 /*
- * The trawl, off the stern (the right-hand end; the crane is at the bow).
- *
- * A real one, in toy form: a long cone of net, its mouth held open by a
- * headline of amber floats on the surface, a ground-rope of bobbins below and
- * two otter boards spreading it, tapering back to the cod-end where the catch
- * collects. It is worked from an A-frame gantry on the transom, tipped by two
- * rams, with a block at its head the warps run through; and forward of the
- * gantry, a pound of low boards on the deck where the catch is emptied.
- *
- * It obeys its warps, not a script. Shot, it is lowered to the water where
- * the gantry holds it and stays there, lying in the sea, while the winch pays
- * warp out; only when the boat has steamed far enough for the warps to come
- * taut does it get dragged along after it, streaming astern, and anything in
- * its path goes in at the mouth and down to the cod-end. Hauled, the winch
- * takes the warps in and the net is pulled up to the stern, hoisted, and
- * swung inboard over the pound, where the cod-end is untied.
- *
- * `pose`: the gantry's tilt, the warp paid out, how far the net hangs below
- * the block when hoisted, whether it is in the water or hoisted (`hang`), the
- * cod-end, and how full it is.
+ * Worked from an A-frame gantry on the transom, with a pound on deck for the catch. It obeys its
+ * warps: shot, it lies where it lands until the boat steams far enough for them to come taut, then
+ * streams astern. `pose`: gantry tilt, warp paid out, hang below the block, in water or hoisted,
+ * cod-end open, fill.
  */
 
 /** The gantry's pivot on the transom, in the boat's frame, its height and where its legs stand. */

@@ -1,23 +1,7 @@
 import type { CSSProperties } from "react";
 
-/*
- * The sea, generated rather than hand-placed.
- *
- * One body of water, two weathers: the storm the page opens on and the calm it
- * closes on. Same generator, same swell formula — the footer is literally the
- * hero's sea with the amplitude taken out of it, which is the narrative in two
- * pictures and the reason this is one module rather than two lookalikes.
- *
- * The formula is the mockup's: a Lehmer LCG for the noise and two beating sines
- * for the swell, so the crest line reads as one body of water travelling rather
- * than as a row of random sticks. Deterministic, and this runs on the server
- * only — the markup is byte-identical on every build, so there is no hydration
- * drift and no JavaScript shipped for any of it.
- *
- * A profile carries both the drawing and the motion: everything that says "how
- * rough is this water" is here, and the stylesheet only reads it out of custom
- * properties.
- */
+/* One generator, two weathers: the footer is the hero's sea with the amplitude taken out. Seeded and
+   server-only, so the markup is identical on every build and ships no JavaScript. */
 
 const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
 
@@ -26,19 +10,8 @@ function lehmer(seed: number): () => number {
   return () => (s = (s * 16807) % 2147483647) / 2147483647;
 }
 
-/*
- * The swell: 0 in a trough, 1 on a crest, at u across the width.
- *
- * Three signed sines rather than two multiplied ones. The old pair beat against
- * each other into an even chop — busy, but with no wave in it: the surface read
- * as a level meter, a horizontal band of equal noise. What makes water look like
- * water is one long body of it rising and falling across the whole frame, so the
- * long term is given more than half the amplitude and the shorter two only ride
- * on top of it.
- *
- * Written against a normalised u, not the bar index, so the drawing is the same
- * shape whatever a profile sets for `count`.
- */
+/* The swell, 0 in a trough to 1 on a crest, at u across the width. One long wave carries most of the
+   amplitude; two shorter ones ride on it. */
 const TURN = Math.PI * 2;
 
 function swellAt(u: number): number {
@@ -56,56 +29,23 @@ const smooth = (n: number) => {
 /** How tall a crest stands over a trough, before a profile's amplitude. */
 const REACH = 44;
 
-/*
- * The waterline itself, in px above and below its nominal height.
- *
- * This is the thing that was missing. Every bar used to stand on the same
- * `bottom`, so however much the crests varied, the surface they grew out of was
- * a ruled line across the page and the sea read as a graph. Water does not have
- * a flat base: the whole body of it heaves. So the line the bars stand on gets
- * its own wave — longer and slower than the crests, because it is the mass
- * moving and not its texture.
- *
- * Phased so it crosses zero near the middle of the frame: the ark is berthed
- * there and it sits at a fixed height, so the sea has to arrive at its hull at
- * the height the hull expects. Either side of it, the surface is free to heave.
- */
+/* The waterline's own heave in px, slower than the crests: water has no flat base. It crosses zero
+   mid-frame, where the ark is berthed at a fixed height. */
 const LIFT = 20;
 
 function surfaceAt(u: number): number {
   return LIFT * (0.62 * Math.sin(u * TURN * 0.85 + 0.47) + 0.38 * Math.sin(u * TURN * 2.1 + 2.4));
 }
 
-/*
- * The heave, damped inside the berth exactly as the crests are.
- *
- * The berth is where the ark is moored, and the ark is a rigid horizontal
- * drawing at a fixed height. Letting the surface tilt across its beam put the
- * hull under water at one end and in mid-air at the other — the thing that made
- * the vessel look pasted onto the sea instead of sitting in it. Sheltered water
- * is flat water; the swell can do what it likes once it is clear of the hull.
- */
+/* Flat inside the berth: a surface tilting across the beam put one end of the hull underwater. */
 function heaveAt(u: number, profile: SeaProfile): number {
   const fromCentre = Math.abs(u * 100 - 50);
   const shelter = 0.08 + 0.92 * smooth(fromCentre / (profile.berth * 1.6));
   return surfaceAt(u) * profile.amplitude * shelter;
 }
 
-/*
- * The water's colour.
- *
- * Not two tints on a threshold — that is what made the old sea read as one
- * saturated block in the middle and a pale rail either side. Every bar picks its
- * own place on a continuum instead: deep, saturated indigo at the foot of a
- * trough, and a paler, bluer, lower-chroma crest as it rises into the light.
- * Where a bar lands is a mix of the swell it belongs to, how far it stands from
- * the berth, and a little noise, so neighbours differ without the surface
- * breaking into confetti.
- *
- * The continuum is quantised: with seven steps the eye reads a gradient, and the
- * markup still has seven repeated strings for brotli to eat rather than three
- * hundred unique ones.
- */
+/* Each bar picks a place on a deep-trough to pale-crest continuum, from its swell, its distance to
+   the berth and some noise. Quantised to seven steps so the markup compresses well. */
 const TINTS = 7;
 
 function seaTint(t: number): string {
@@ -189,10 +129,7 @@ export const SEA_STORM: SeaProfile = {
   tempo: 1,
   presence: 1,
   pallor: 0,
-  // Dense right under the surface and gone by the bottom of the frame: the
-  // hero's own gradient already darkens into the water, and the section below it
-  // picks up from that colour. Water that stayed opaque all the way down would
-  // put a step across the page at the hero's edge.
+  // Fades out by the frame's bottom, where the hero's own gradient takes over.
   bodyTint:
     "linear-gradient(180deg, oklch(0.83 0.07 277 / 0.62), oklch(0.82 0.08 277 / 0.5) 45%, oklch(0.86 0.05 277 / 0))",
   breath: 0.2,
@@ -201,13 +138,7 @@ export const SEA_STORM: SeaProfile = {
   deepDriftTime: "38s",
 };
 
-/*
- * The footer: home water. Under two thirds of the swell over a lower floor — the
- * shape of the sea survives, its violence does not: the long wave still crosses
- * the frame, it just no longer throws anything. Breathing near enough twice as
- * slow, drifting half as far, and pushed towards the pale end of the water's own
- * range — nothing here is catching a hard light any more.
- */
+/* Home water: the long wave survives, its violence does not. Slower, shorter drift, paler. */
 export const SEA_CALM: SeaProfile = {
   seed: 1104,
   count: 240,
@@ -229,12 +160,6 @@ export const SEA_CALM: SeaProfile = {
 /** Samples along the surface. Seventy-odd is ~20px a facet at 1440 — smooth. */
 const SURFACE_STEPS = 72;
 
-/*
- * The water as one shape: a box the height of the waterline plus the heave,
- * clipped to the surface. Without it the bars would stand on nothing at their
- * high points and be buried at their low ones — the body is what makes the
- * heaving line read as the top of something rather than as a wobble.
- */
 function buildBody(profile: SeaProfile, line: number): SeaBody {
   const crest = Math.ceil(LIFT * profile.amplitude);
   const points: string[] = [];
@@ -275,10 +200,7 @@ export function buildSea(profile: SeaProfile, line: number): Sea {
     // Where the water's own surface is here, which is what this bar stands on.
     const lift = Math.round(heaveAt(u, profile));
 
-    // Amplitude scales the swell, not the whole bar: calm water is still water,
-    // and a row of 4px stubs reads as dust rather than as a surface.
-    // Only a little white noise on top: neighbours have to stay related or the
-    // crest line turns into grass. The shape is the swell's job.
+    // Amplitude scales the swell, not the bar: calm water of 4px stubs would read as dust.
     let height = floor + amplitude * (2 + REACH * swell * (0.55 + rise * 0.55) + rnd() * 3.5);
     // The lee of the berth, ramped smoothly out past its own edge. A hard step
     // back to full height right where the berth ends is a visible notch in the

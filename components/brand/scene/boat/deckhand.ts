@@ -3,17 +3,8 @@ import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeom
 
 import { INK, type Kit } from "./materials";
 
-/*
- * A deckhand: a little automaton, the vessel's crew, in its colours — a
- * lavender capsule of a body, a round head with a dark visor and two lit eyes
- * like the vessel's own, an antenna with an amber bulb, amber boots. Small
- * enough that a note is a load, big enough to read as someone.
- *
- * It only knows how to hold itself: walking (legs and arms swinging, a bob in
- * its step), carrying (arms up, the load over its head), posting (bent over,
- * arms forward), and standing about (breathing, looking round). Where it goes
- * and what it does is crew.ts's business. Its local +z is the way it faces.
- */
+/* Only knows how to hold itself (walking, carrying, posting, idling); where it goes is crew.ts's
+   business. Local +z is the way it faces. */
 
 type Stance = "idle" | "carry" | "post" | "reach";
 

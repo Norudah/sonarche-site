@@ -1,24 +1,8 @@
 /*
- * The handover from a CSS poster to the live scene over it (see LiveSea.tsx).
- *
- * Where the scene is likely to run — wide screens, motion welcome — the poster
- * is not shown first. The sea's place holds a loader instead: the ark's sonar,
- * pinging on flat water, with its equalizer over it. When the scene has its
- * first frame the host is flagged `live`, the loader bows out, and the first
- * real ping deploys the sea from exactly where the rings were drawn.
- *
- * While the scene loads, JavaScript flags the host `loading` and the loader
- * holds for as long as that takes: a machine that can run the scene never
- * sees the poster first, however slowly it gets there.
- *
- * Three ways out, all without the scene's help:
- *   - `off`: the scene is not for this visitor (or cannot run) — the poster, now.
- *   - no JavaScript at all: after 3.6s the loader fades and the poster fades
- *     in on a plain CSS delay.
- *   - narrow screens and reduced motion never see the loader at all.
- *
- * The host is whatever element the canvas sits in: the hero section, the
- * footer's harbour.
+ * Poster to live-scene handover (see LiveSea.tsx). Where the scene is likely to run, a sonar loader
+ * holds the sea's place until the host is flagged `live`. Ways out without the scene: `off` shows
+ * the poster now; without JavaScript the poster fades in after 3.6s; narrow screens and reduced
+ * motion never see the loader.
  */
 
 .canvas {

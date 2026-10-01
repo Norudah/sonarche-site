@@ -17,19 +17,9 @@ import { INK, type Kit } from "./materials";
 import type { Note } from "./notes";
 
 /*
- * A shipping container, for real: corrugated long walls, corner castings, a
- * dark hold inside, two doors on hinges with their locking bars, and a roof
- * that opens as a butterfly hatch, two halves hinged along the long sides, so
- * it opens in a low V rather than standing up in front of everything. A row
- * of lights, one per note it holds, over the doors or down the long side.
- *
- * The crane and the net put notes in through the roof; the deckhands take
- * them out through the doors. A box that is only ever cargo (`sealed`) is
- * built with its doors and roof merged into its walls: fewer draw calls for
- * something that never opens.
- *
- * It has a spring in it: a note set down or a hatch slammed makes the whole
- * box squash and bounce on its base, which is most of what makes stowing land.
+ * Filled through a butterfly roof hatch, emptied through its doors, one light per note held. A
+ * `sealed` box merges its doors and roof into the walls to save draw calls. It squashes and bounces
+ * on its base when loaded or slammed.
  */
 
 const WALL = 0.07;

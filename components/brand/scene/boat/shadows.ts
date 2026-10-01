@@ -3,11 +3,7 @@ import { CanvasTexture, Mesh, MeshBasicMaterial, PlaneGeometry, type Object3D } 
 import { HULL } from "./hull";
 import type { Kit } from "./materials";
 
-/*
- * Contact shadows, painted: a soft indigo pool under whatever stands on the
- * deck. A real shadow map would cost a second pass of the boat every frame for
- * the same few pools; this is one small gradient texture and a quad per item.
- */
+/* Painted contact shadows: one gradient quad per item instead of a shadow map's second pass. */
 
 function pool(): CanvasTexture {
   const size = 64;

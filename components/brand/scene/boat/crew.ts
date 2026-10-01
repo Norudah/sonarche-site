@@ -1,7 +1,7 @@
 import gsap from "gsap";
 import { Vector3, type Group } from "three";
 
-import { SPARK, type createBursts } from "../bursts";
+import { SPARK, type createBursts } from "@/components/brand/scene/bursts";
 import { LETTERBOX, type createCabin } from "./cabin";
 import type { Side, createCargo } from "./cargo";
 import type { Container } from "./container";
@@ -11,23 +11,8 @@ import { HULL, sideAt } from "./hull";
 import type { Kit } from "./materials";
 import type { Note, createSwarm } from "./notes";
 
-/*
- * The crew: two deckhands, one for the crane's boxes, one for the trawl's —
- * the part of the vessel that is not machinery.
- *
- * When a box on its side is full, a deckhand walks to it along the rail,
- * swings its doors open, takes a note out, hoists it over its head and
- * carries it to the head amidships. The one astern also clears the trawl's
- * catch off the deck, a note at a time, most of it to the head, some into
- * its box to be carried along later. There it waits its turn at the
- * letterbox, bends, and posts the note through, flat; the flap snaps, the head
- * gulps and reads it, and the funnel sings. Back for the next one, until the
- * box is empty and its lights are all out; then it goes back to standing
- * about, watching the gear work.
- *
- * This is what the fishing is for: the notes come in from the sea (the
- * internet, if you like), and the head is where they are sorted and kept.
- */
+/* Two deckhands empty the full boxes (and the trawl's catch on deck), carry each note to the head
+   and post it through the letterbox; the head reads it and the funnel sings. */
 
 type CrewOptions = {
   kit: Kit;

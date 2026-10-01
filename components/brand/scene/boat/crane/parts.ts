@@ -10,24 +10,13 @@ import {
   type Material,
 } from "three";
 
-import type { Kit } from "../materials";
+import type { Kit } from "@/components/brand/scene/boat/materials";
 
-/*
- * The crane's machine parts, as geometry: toothed gears, the boom's plate
- * sections pierced with lightening holes, and a hydraulic ram that can be set
- * between two points every frame.
- *
- * Everything is chunkier than the real thing. At the size the vessel is drawn
- * a true gear tooth is a pixel; these are drawn to be read as gears from
- * across the room, the way a toy's are.
- */
+/* Chunkier than real parts: at the vessel's size a true gear tooth would be a pixel. */
 
 const TAU = Math.PI * 2;
 
-/**
- * A spur gear in the xy plane, extruded along z and centred on it. Its first
- * tooth is centred at 0.325 of a pitch past the +x axis (see `meshing`).
- */
+/** A spur gear in the xy plane, its first tooth 0.325 of a pitch past +x (see `meshing`). */
 export function gear(kit: Kit, teeth: number, radius: number, width: number, bore = 0.3): BufferGeometry {
   const depth = Math.min(0.1, radius * 0.22);
   const inner = radius - depth;
@@ -78,10 +67,7 @@ export function meshing(teethA: number, teethB: number, towardB: number): [numbe
   return [towardB - 0.325 * sa, towardB + Math.PI - 0.325 * sb - sb / 2];
 }
 
-/**
- * A boom section, side on: a tapered stadium from its pin at the origin to its
- * head at `length` along x, pierced along its length, extruded `width` deep.
- */
+/** A tapered, pierced boom section from its pin at the origin to its head at `length` along x. */
 export function beam(kit: Kit, length: number, root: number, head: number, width: number): BufferGeometry {
   const s = new Shape();
   s.moveTo(0, -root);
@@ -127,11 +113,7 @@ const along = new Vector3();
 const back = new Vector3();
 const at = new Vector3();
 
-/**
- * A hydraulic ram: a barrel on one pivot, a polished rod out of it to the
- * other. `set` places it between two points in its parent's frame; the barrel
- * keeps its length and the rod slides, so the stroke shows.
- */
+/** `set` places it between two points; the barrel keeps its length and the rod slides. */
 export function ram(kit: Kit, barrelInk: Material, rodInk: Material, radius: number, barrel: number) {
   const cylinder = kit.keep(new CylinderGeometry(1, 1, 1, 24));
   const body = new Mesh(cylinder, barrelInk);
@@ -159,4 +141,27 @@ export function ram(kit: Kit, barrelInk: Material, rodInk: Material, radius: num
       place(rod, end, back.copy(along).negate(), Math.min(length, length - b + 0.3), radius * 0.52);
     },
   };
+}
+
+/** A sheave: a disc with four windows in it, so it can be seen to turn. */
+export function sheave(kit: Kit, r: number, width: number) {
+  const s = new Shape();
+  s.absarc(0, 0, r, 0, TAU, false);
+  for (let i = 0; i < 4; i++) {
+    const a = (i / 4) * TAU;
+    const h = new Path();
+    h.absarc(Math.cos(a) * r * 0.55, Math.sin(a) * r * 0.55, r * 0.22, 0, TAU, true);
+    s.holes.push(h);
+  }
+  return kit
+    .smooth(
+      new ExtrudeGeometry(s, {
+        depth: width,
+        bevelEnabled: true,
+        bevelThickness: 0.015,
+        bevelSize: 0.02,
+        curveSegments: 24,
+      }),
+    )
+    .translate(0, 0, -width / 2);
 }

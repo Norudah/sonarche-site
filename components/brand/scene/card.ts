@@ -1,9 +1,6 @@
 import { BufferAttribute, InstancedBufferGeometry } from "three";
 
-/*
- * The one shape every instanced layer draws: a unit card, x across -0.5..0.5,
- * y up 0..1. The shaders stretch it into a bar, a drop or a pixel.
- */
+/* A unit card, x -0.5..0.5, y 0..1, stretched by each instanced layer's shader. */
 export function cardGeometry(centered = false): InstancedBufferGeometry {
   const y0 = centered ? -0.5 : 0;
   const y1 = centered ? 0.5 : 1;

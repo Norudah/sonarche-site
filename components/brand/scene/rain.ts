@@ -4,17 +4,8 @@ import { cardGeometry } from "./card";
 import { OKLCH_GLSL } from "./color";
 import type { Framing } from "./framing";
 
-/*
- * The storm's rain, in depth.
- *
- * The poster's drops are one plane of 1px lines. Here they fall at every
- * distance from just past the lens to far out over the water, and that parallax
- * — thick, fast, soft streaks up close against fine ones behind the ark — is
- * most of what makes the scene read as a volume in the first second.
- *
- * Width is set in pixels, not world units: a drop is a hair on screen at any
- * distance, and only the closest few are allowed to swell into a blur.
- */
+/* Drops at every depth: that parallax is most of what makes the scene read as a volume. Width is in
+   pixels, so a drop is a hair at any distance. */
 
 /** Top of the fall, world units above the water. */
 const CEILING = 34;

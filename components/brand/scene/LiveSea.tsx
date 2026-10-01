@@ -7,30 +7,10 @@ import styles from "./scene.module.css";
 import type { WeatherName } from "./weather";
 
 /*
- * The live sea's front door — and the reason the posters still cost nothing
- * before they are read.
- *
- * Each sea on the page has a CSS poster (the hero's Storm, the footer's
- * harbour): server-rendered, painted first, and what every visitor the scene is
- * not for keeps. This mounts an empty canvas over it and, once the page has
- * loaded and gone idle, fetches the WebGL chunk. When the scene has its first
- * frame it flags its host: the loader drawn in the poster's place (sonar rings
- * on flat water) bows out and the sea deploys from where it pinged
- * (scene.module.css). While it loads, the host is flagged `loading`, which
- * holds the loader in place however long that takes: a visitor whose machine
- * can run the scene never sees the poster first. Only a scene that cannot run
- * at all (no WebGL, a chunk that never lands, a shader that does not compile)
- * flags the host `off` and shows the poster. A slow machine keeps the scene at
- * a lower resolution (createScene.ts), and a GPU that takes its context back
- * gets the scene rebuilt on a fresh canvas.
- *
- * The host is the canvas's parent: the element the poster fills. The harbour,
- * at the foot of the page, is only built once the visitor is on their way to
- * it — a scene nobody scrolls to is GPU memory held for nothing. Both share
- * one chunk, so the second costs no download.
- *
- * The effect is here because the scene is an external system with a lifetime
- * of its own: it is created once, and disposed of on unmount and on HMR.
+ * Mounts a canvas over a CSS poster and, once the page is idle, loads the WebGL chunk. The host is
+ * flagged `loading` (a sonar loader holds), then `live` on the first frame, or `off` when the scene
+ * cannot run, which reveals the poster. A lost GPU context rebuilds the scene; the footer's sea is
+ * only built once the visitor heads there.
  */
 
 const HIGH: Tier = { pixelRatio: 2, antialias: true, density: 1, rain: 520, pixels: 60 };
@@ -39,22 +19,9 @@ const LOW: Tier = { pixelRatio: 1.5, antialias: true, density: 0.7, rain: 320, p
 type NavigatorHints = Navigator & { deviceMemory?: number };
 
 /*
- * Who gets the scene.
- *
- * Wide screens only — the `lg` where the page's own layouts go wide. Sonarche
- * is a desktop app: the visitor who can act on this page is at a computer, and
- * a computer has a GPU with frame budget to spare. On a phone the same scene
- * measured as a 5s block of the main thread under Lighthouse's throttling, for
- * a sea that fills the bottom fifth of a narrow screen; the poster is the
- * better page there, and costs nothing.
- *
- * Reduced motion never gets it: the poster already settles for them.
- * Everyone else on a wide screen does, whatever the power state or the data
- * saver says (decided 2026-09-30: the scene is the page's arrival, and a
- * visitor on battery is still the visitor it is for). What the browser says
- * about the machine only picks the tier, and the watchdog in createScene.ts
- * lowers the resolution of a tier that turns out to be optimistic rather than
- * giving up. The rain and pixel counts only mean anything to the storm.
+ * Wide screens only: on a phone the scene cost a 5s main-thread block under Lighthouse for a sea
+ * filling a fifth of the screen. Never under reduced motion. Power state and data saver only pick
+ * the tier (decided 2026-09-30); the watchdog lowers resolution rather than giving up.
  */
 const WIDE = "(min-width: 64rem)";
 

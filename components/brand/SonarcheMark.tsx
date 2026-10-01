@@ -1,15 +1,5 @@
-/*
- * The brand mark, grid 24 — a straight port of docs/brand/sonarche-mark.svg in
- * the app repo, which is itself the mirror of the app's SonarcheMark.tsx. The
- * three must stay identical; the app's docs/brand/README.md holds the rules.
- *
- * The colours are the mark's own and are NOT theme tokens: this drawing keeps
- * its palette wherever it is placed. The wave is the one element off the grid —
- * the vessel is built, the sound is alive.
- *
- * Below 32px use `variant="small"`… once that twin is ported. For now the full
- * mark only, which is all the landing needs (footer, wordmark lockup).
- */
+/* A straight port of the app's docs/brand/sonarche-mark.svg; the three copies must stay identical.
+   Its colours are its own, not theme tokens. */
 
 type SonarcheMarkProps = {
   className?: string;

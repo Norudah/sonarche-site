@@ -3,19 +3,8 @@ import { InstancedBufferAttribute, Mesh, ShaderMaterial, Vector3 } from "three";
 import { cardGeometry } from "./card";
 import { OKLCH_GLSL } from "./color";
 
-/*
- * A note condensing out of the sea of pixels.
- *
- * When a note surfaces (boat/boat.ts), a swarm of pixels spirals in on it
- * from the water around it and is absorbed: the music is made of the stream,
- * and this is the moment it is picked out. The swarm stays local — a few
- * world units round the note — so nothing ever drifts across the vessel: an
- * isolated square floating in front of the hull reads as a rendering fault,
- * not as a pixel.
- *
- * `uStream` wakes the pixels one seed at a time, so a burst starts as a
- * trickle and becomes a swirl.
- */
+/* Pixels spiral in on a surfacing note. The swarm stays within a few units of it: a stray square in
+   front of the hull reads as a rendering fault. `uStream` wakes them one seed at a time. */
 
 function lehmer(seed: number): () => number {
   let s = seed;

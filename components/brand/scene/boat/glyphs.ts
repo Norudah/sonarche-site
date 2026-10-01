@@ -2,12 +2,7 @@ import { ExtrudeGeometry, Shape, type BufferGeometry } from "three";
 
 import type { Kit } from "./materials";
 
-/*
- * The music, as shapes: four note glyphs, chunky and bevelled like sweets —
- * the single ♪, the beamed pair ♫, the plain crotchet ♩ and the double-beamed
- * ♬. Built once, centred on their bounding box, and shared by every note in
- * the scene.
- */
+/* Four bevelled note glyphs, centred on their bounding box and shared by every note. */
 
 function stem(x: number, from: number, to: number, w = 0.18): Shape {
   const s = new Shape();

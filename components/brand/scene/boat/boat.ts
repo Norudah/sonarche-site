@@ -1,16 +1,16 @@
 import gsap from "gsap";
 import { Group, Vector3, type Vector4 } from "three";
 
-import { SPRAY, type BurstKind, type createBursts } from "../bursts";
-import type { createRipples, RingSpec } from "../ripples";
-import { WAKE } from "../ripples";
-import { surfaceAt, type Sea } from "../swell";
+import { SPRAY, type BurstKind, type createBursts } from "@/components/brand/scene/bursts";
+import type { createRipples, RingSpec } from "@/components/brand/scene/ripples";
+import { WAKE } from "@/components/brand/scene/ripples";
+import { surfaceAt, type Sea } from "@/components/brand/scene/swell";
 import { CABIN_X, createCabin } from "./cabin";
 import { createCargo } from "./cargo";
 import { GRASP } from "./crane/claw";
 import { CRANE_BASE, createCrane } from "./crane/crane";
 import { createCrew } from "./crew";
-import { createVoyage } from "./fishing";
+import { createVoyage } from "./voyage/voyage";
 import { createFunnel } from "./funnel";
 import { createGlyphs } from "./glyphs";
 import { createHull, HULL } from "./hull";
@@ -22,28 +22,11 @@ import { createTrawl, GANTRY } from "./trawl";
 import { createWaterline } from "./waterline";
 
 /*
- * Sonarche, the vessel — the mascot, and how it carries itself.
- *
- * It arrives by dropping out of the sky into the sea it was drawn in: a fall,
- * a splash, a dip under its own waterline and a few damped bobs back up, the
- * hull squashing on impact like the toy it is. That is the only time it
- * bounces. From then on it is a boat: it rides the swell the sea is drawn
- * with (swell.ts), lifting and falling with it, pitching and rolling to its
- * slopes, and it is always under way, steaming across the frame and back
- * with a wake astern and spray at the bow, fishing as it goes (fishing.ts):
- * a crane at the bow, a trawl off the stern. Two deckhands carry the catch to
- * the head (crew.ts); the funnel sings each note the head takes in. It looks
- * at what it is fishing, and heels a little to the load on its crane.
- *
- * Home from the voyage (the footer) it lies moored and full: every box
- * stuffed, notes on the deck, the odd one sliding off into the harbour
- * (overflow.ts).
- *
- * Frames, outermost first: `sail` carries the passage, the heading, the
- * water's height where it is and the foam; `float` the drop and the vessel's
- * size; `body` the roll, the pitch, the squash and everything bolted on. The
- * crane's last run of cable, its claw, the trawl and every note that is not
- * aboard live in world space (`world`), outside all three.
+ * The vessel: it drops into the sea once, then rides the drawn swell (swell.ts), steaming back and
+ * forth and fishing (voyage/). Moored at home (the footer) it lies full and overflowing
+ * (overflow.ts). Frames, outermost first: `sail` (passage, heading, water height), `float` (drop,
+ * size), `body` (roll, pitch, squash, everything bolted on). Cable, claw, trawl and loose notes
+ * live in world space (`world`).
  */
 
 type BoatOptions = {

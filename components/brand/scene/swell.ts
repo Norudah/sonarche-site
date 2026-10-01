@@ -1,11 +1,4 @@
-/*
- * The sea's surface, on the CPU: the same heave the sea's vertex shader
- * lifts its bars by (sea.ts), so what floats on it — the vessel, the notes,
- * the trawl — rides the water that is drawn, not a flat plane under it.
- *
- * Keep the two in step: the numbers here are the shader's `heave` and its
- * berth's shelter, one for one.
- */
+/* The sea shader's `heave` on the CPU, so floating things ride the drawn water. Keep the two in step. */
 
 /** How much of the swell reaches the water right round the vessel, and the berth's reach. */
 export const SHELTER = { floor: 0.45, from: 5, to: 17 };

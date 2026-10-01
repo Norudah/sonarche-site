@@ -6,24 +6,8 @@ import { HULL, sideAt } from "./hull";
 import { INK, type Kit } from "./materials";
 
 /*
- * The face of the thing — the mark's basket-handle cabin with its two eyes,
- * now a rounded body with screens for eyes, in the middle of the deck, and a
- * row of portholes each side of the hull. The mark's wave has gone from its
- * roof: in three dimensions the sound is the notes it fishes.
- *
- * It is where the music goes. In the brow under its eyes there is a slot, a
- * letterbox with a flap you only notice when it opens; the deckhands post the
- * notes through it.
- * The head gulps, its eyes run a scan down their screens while it works out
- * what it has been given, and then it is pleased: the portholes light up one
- * after another from the middle out, and it smiles with its eyes.
- *
- * The cabin's outline is the mark's HEAD path, taller in proportion: this is a
- * mascot's head now, and it carries the vessel's expression. The eyes are dark
- * glass with a glint that follows whatever it is looking at (the visitor's
- * cursor, or a note); they blink on the mark's own 6.8s. When a note is
- * stowed it is pleased with itself: the screens shut into two happy arcs,
- * ^^, and it blushes.
+ * The mark's cabin as a mascot's head: screen eyes whose glints follow the cursor or a note, a
+ * letterbox the deckhands post notes through, and portholes that light up when it is pleased.
  */
 
 const W = 0.511;
@@ -250,10 +234,7 @@ export function createCabin(kit: Kit) {
     open() {
       ctx.add(() => gsap.to(mouth, { open: 1, duration: 0.25, ease: "back.out(2)" }));
     },
-    /**
-     * It has been posted: the flap snaps shut, the head gulps, reads it, and
-     * is pleased. `then` when it is done reading.
-     */
+    /** A note was posted: the flap snaps, the head gulps and reads it; `then` when done. */
     swallow(then: () => void) {
       ctx.add(() =>
         gsap
@@ -270,10 +251,7 @@ export function createCabin(kit: Kit) {
           }),
       );
     },
-    /**
-     * @param look the visitor's cursor, -1..1 each way, y up. At rest the eyes
-     * are the logo's; the glints and, a little, the screens slide towards it.
-     */
+    /** @param look the cursor, -1..1 each way, y up; the glints and screens slide towards it. */
     update(t: number, dt: number, look: { x: number; y: number }) {
       const ease = (period: number, phase = 0) => 0.5 - 0.5 * Math.cos(((t + phase) / period) * TAU);
 

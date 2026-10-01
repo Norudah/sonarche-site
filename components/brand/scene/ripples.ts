@@ -1,15 +1,7 @@
 import { Vector4 } from "three";
 
-/*
- * Rings travelling across the water: the sonar ping the ark sends out, its
- * echoes (their loudness is the weather's, see weather.ts), the wake a pointer
- * leaves when it drags across the sea and the ping a click sends.
- *
- * A fixed pool of uniforms rather than anything clever: the sea's vertex shader
- * loops over every slot for every bar, so the pool size is the frame budget's
- * dial. A new ring takes the oldest slot — by the time the pool wraps, that ring
- * has long since died out.
- */
+/* Pings, echoes, pointer wakes and click pings. The sea's shader loops over every slot for every
+   bar, so the pool size is the frame-budget dial; a new ring takes the oldest slot. */
 
 const RIPPLE_SLOTS = 12;
 

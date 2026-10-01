@@ -1,20 +1,9 @@
 import { Color, MeshStandardMaterial, type BufferGeometry, type Material } from "three";
 import { toCreasedNormals } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 
-import { oklch } from "../color";
+import { oklch } from "@/components/brand/scene/color";
 
-/*
- * The vessel's paint box — the mark's colours, as materials that take light.
- *
- * The first ark was unlit, flat faces and darkened sides, and it read as what it
- * was: a paper cut-out. This one is a toy: soft satin plastic under a studio
- * light, a little sheen from the environment, glass where there is glass. The
- * hues are still the logo's hex values, one for one, so from across the room it
- * is the same vessel; up close it has a body.
- *
- * Everything the boat builds goes through a Kit so it can be disposed of in one
- * call — geometries and materials both.
- */
+/* The logo's hex values as lit satin materials. A Kit tracks every geometry and material for one-call disposal. */
 
 export const INK = {
   hull: "#3d4097",
@@ -41,12 +30,7 @@ export type Kit = {
   /** Something that glows: portholes, glints, notes, the beacon. */
   glow(hex: string | Color, emissive: string | Color, intensity: number): MeshStandardMaterial;
   keep<T extends BufferGeometry>(geometry: T): T;
-  /**
-   * Kept, with its normals smoothed across every edge under 50°. Extruded
-   * shapes come out flat-shaded, face by face, which is what made the
-   * cabin's arch read as a polygon; this lets a curve be a curve and keeps
-   * the crisp edges crisp.
-   */
+  /** Kept, with normals smoothed across edges under 50° so extruded curves don't read as polygons. */
   smooth(geometry: BufferGeometry): BufferGeometry;
   dispose(): void;
 };

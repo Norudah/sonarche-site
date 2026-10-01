@@ -1,18 +1,8 @@
 import type { SeaBar } from "./sea";
 import styles from "./sea.module.css";
 
-/*
- * One row of water.
- *
- * A row is a component rather than a slot inside a `<Sea>` wrapper because the
- * ark has to be *inside* the sea, not on top of it: the call site interleaves
- * the rows and the vessel itself, and owns the stacking that puts the near row
- * in front of the hull. That ordering is the only thing that makes the ark
- * float rather than sit.
- *
- * The weather comes from custom properties inherited from the container (see
- * buildSea), so a row takes no styling decisions of its own.
- */
+/* A row, not a slot in a `<Sea>` wrapper: the call site interleaves rows and the ark so the near row
+   sits in front of the hull. Styling comes from buildSea's custom properties. */
 
 type SeaLayerProps = {
   bars: SeaBar[];

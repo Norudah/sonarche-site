@@ -1,60 +1,23 @@
-import {
-  CylinderGeometry,
-  ExtrudeGeometry,
-  Group,
-  Mesh,
-  Path,
-  Quaternion,
-  Shape,
-  SphereGeometry,
-  Vector3,
-  type Object3D,
-} from "three";
+import { CylinderGeometry, Group, Mesh, Quaternion, SphereGeometry, Vector3, type Object3D } from "three";
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry.js";
 
-import { HULL } from "../hull";
-import { INK, type Kit } from "../materials";
+import { HULL } from "@/components/brand/scene/boat/hull";
+import { INK, type Kit } from "@/components/brand/scene/boat/materials";
 import { createClaw } from "./claw";
-import { beam, gear, meshing, ram } from "./parts";
+import { DECK, DROP, DRUM, JIB, JIB_Z, MAIN, PIN, solve } from "./geometry";
+import { beam, gear, meshing, ram, sheave } from "./parts";
+import { createPendulum } from "./pendulum";
 
 /*
- * The crane: a knuckle-boom deck crane, the kind working boats carry, and the
- * vessel's arm.
- *
- * On a pedestal at the stern, a slewing platform turns on a toothed ring, driven
- * by a pinion that visibly walks round it. The platform carries the operator's
- * cab, the power pack and a counterweight, and a post whose cheeks hold the
- * main boom's pin. The main boom is lifted by a ram from the platform; the jib,
- * pinned at the knuckle beside it, is folded and unfolded by a second ram
- * riding on the main boom. The winch rides the main boom too: a drum between
- * two geared flanges, turned by a motor through a pinion, paying cable out over
- * a sheave at the knuckle and another at the jib's head. Every one of those
- * turns or slides by exactly what the pose says, which is what makes it read
- * as a machine: nothing moves unless something drives it.
- *
- * It is driven the way an operator thinks, not joint by joint (`pose`): which
- * way it faces, how far out and how high the jib's head is, how much cable is
- * paid out, the claw's grip, and how steady to hold the load. A two-bone solve
- * turns reach and height into the two joint angles every frame, so a load
- * moved "up, across, then down" travels up, across, then down, and never
- * sweeps through whatever is in between. The cable's last run and the claw
- * hang in world space (`rigging`), on a damped pendulum, because gravity does
- * not roll with the hull; `steady` damps it hard, the way a careful operator
- * waits out the swing before setting a load down.
+ * A knuckle-boom deck crane. Every gear, sheave and ram turns or slides by exactly what the pose
+ * says, so nothing moves unless something drives it. It is posed the way an operator thinks
+ * (facing, reach, height, cable, grip); a two-bone solve turns reach and height into joint angles,
+ * so a load moved up, across, then down never sweeps through what lies between. The last run of
+ * cable and the claw hang in world space (`rigging`), since gravity does not roll with the hull.
  */
 
 /** Where the pedestal stands, in the boat's frame. */
 export const CRANE_BASE = new Vector3(-9.3, HULL.deck, 0);
-const DECK = 0.42;
-/** The main boom's pin, in the slewing frame (x out along the boom, y up from the platform). */
-const PIN = { x: 0.18, y: 1.2 };
-const MAIN = 3.0;
-const JIB = 2.8;
-/** The jib sits beside the main boom, not in line with it: they fold past each other. */
-const JIB_Z = 0.33;
-/** Where the cable leaves the jib's head sheave, beyond its pin. */
-const DROP = 0.2;
-const DRUM = { x: 0.8, y: 0.4, r: 0.13 };
 const TAU = Math.PI * 2;
 
 export type Pose = {
@@ -74,43 +37,6 @@ export const REST: Pose = { slew: -2.55, reach: 2.5, lift: 1.4, cable: 0.35, gri
 export const CLEAR = 4;
 
 const UP = new Vector3(0, 1, 0);
-
-/** A two-bone solve: the joint angles that put the drop point at (h, y), elbow up. */
-function solve(h: number, y: number): { shoulder: number; elbow: number } {
-  const l1 = MAIN;
-  const l2 = JIB + DROP;
-  const dx = h - PIN.x;
-  const dy = y - PIN.y;
-  const d = Math.min(l1 + l2 - 0.05, Math.max(0.8, Math.hypot(dx, dy)));
-  const clamp = (v: number) => Math.min(1, Math.max(-1, v));
-  const toward = Math.atan2(dy, dx);
-  const shoulder = toward + Math.acos(clamp((l1 * l1 + d * d - l2 * l2) / (2 * l1 * d)));
-  const elbow = -(Math.PI - Math.acos(clamp((l1 * l1 + l2 * l2 - d * d) / (2 * l1 * l2))));
-  return { shoulder: Math.min(1.5, shoulder), elbow: Math.max(-2.75, elbow) };
-}
-
-/** A sheave: a disc with four windows in it, so it can be seen to turn. */
-function sheave(kit: Kit, r: number, width: number) {
-  const s = new Shape();
-  s.absarc(0, 0, r, 0, TAU, false);
-  for (let i = 0; i < 4; i++) {
-    const a = (i / 4) * TAU;
-    const h = new Path();
-    h.absarc(Math.cos(a) * r * 0.55, Math.sin(a) * r * 0.55, r * 0.22, 0, TAU, true);
-    s.holes.push(h);
-  }
-  return kit
-    .smooth(
-      new ExtrudeGeometry(s, {
-        depth: width,
-        bevelEnabled: true,
-        bevelThickness: 0.015,
-        bevelSize: 0.02,
-        curveSegments: 24,
-      }),
-    )
-    .translate(0, 0, -width / 2);
-}
 
 /** @param size the boat's scale, which the claw, hanging free of it, has to be given. */
 export function createCrane(kit: Kit, size = 1) {
@@ -304,14 +230,12 @@ export function createCrane(kit: Kit, size = 1) {
   claw.group.scale.setScalar(size);
   rigging.add(fall, claw.group);
 
+  const pendulum = createPendulum();
   const pose: Pose = { ...REST };
   const last = { ...REST };
   // The joints, solved from the pose every frame.
   let joints = solve(pose.reach, pose.lift);
   const dropAt = new Vector3();
-  const hanging = new Vector3();
-  const swing = new Vector3();
-  const velocity = new Vector3();
   const axis = new Vector3();
   const turn = new Quaternion();
   const twist = new Quaternion();
@@ -319,7 +243,6 @@ export function createCrane(kit: Kit, size = 1) {
   const b = new Vector3();
   const c = new Vector3();
   const e = new Vector3();
-  let settled = false;
   let busy = 0;
   let spin = 0;
   let spinV = 0;
@@ -382,11 +305,7 @@ export function createCrane(kit: Kit, size = 1) {
     run(runs[2], j, onJib(JIB, 0.2, e));
   }
 
-  /**
-   * A pose that hangs the cable's end `hook` world units over the point with
-   * `cable` paid out, given where the boat is now. `frame` is the group the
-   * crane is mounted in.
-   */
+  /** A pose hanging the cable's end `hook` units over the target with `cable` paid out. */
   function reach(target: Vector3, frame: Object3D, hook: number, cable: number): Pose {
     const local = frame.worldToLocal(target.clone()).sub(CRANE_BASE);
     const h = Math.hypot(local.x, local.z);
@@ -400,11 +319,7 @@ export function createCrane(kit: Kit, size = 1) {
     };
   }
 
-  /**
-   * A pose that carries a load at `lift` (clear of the deck by default) with
-   * the cable's end `hook` world units over the point: the cable is whatever
-   * makes up the difference, so lowering it in is paying out cable, straight down.
-   */
+  /** A pose carrying a load at `lift` over the target: lowering it is paying out cable, straight down. */
   function hang(target: Vector3, frame: Object3D, hook: number, lift = CLEAR): Pose {
     const local = frame.worldToLocal(target.clone()).sub(CRANE_BASE);
     return {
@@ -436,34 +351,8 @@ export function createCrane(kit: Kit, size = 1) {
       onJib(JIB + DROP, 0, dropAt).z = 0;
       slew.localToWorld(dropAt);
 
-      // The hook hangs straight below the jib's head, and swings towards that
-      // point on a lightly damped spring: a slew leaves it lagging, then rocking.
-      hanging.set(dropAt.x, dropAt.y - pose.cable, dropAt.z);
-      if (!settled) {
-        swing.copy(hanging);
-        settled = true;
-      }
-      // A pendulum, not a spring: the shorter the cable the quicker it swings,
-      // it can only swing so far out, and it rises as it does.
-      const cable = Math.max(0.25, pose.cable);
-      const k = 9.8 / (cable + 0.5) + pose.steady * 14;
-      const damp = 1.6 + pose.steady * 9;
-      velocity.x += ((hanging.x - swing.x) * k - velocity.x * damp) * dt;
-      velocity.z += ((hanging.z - swing.z) * k - velocity.z * damp) * dt;
-      swing.x += velocity.x * dt;
-      swing.z += velocity.z * dt;
-      let dx = swing.x - hanging.x;
-      let dz = swing.z - hanging.z;
-      const out = Math.hypot(dx, dz);
-      const most = cable * 0.6;
-      if (out > most) {
-        dx *= most / out;
-        dz *= most / out;
-        swing.x = hanging.x + dx;
-        swing.z = hanging.z + dz;
-        velocity.multiplyScalar(0.8);
-      }
-      swing.y = dropAt.y - Math.sqrt(Math.max(0, cable * cable - dx * dx - dz * dz));
+      // The hook swings under the jib's head: a slew leaves it lagging, then rocking.
+      const swing = pendulum.step(dropAt, pose.cable, pose.steady, dt);
       claw.group.position.copy(swing);
       run(fall, dropAt, swing);
 

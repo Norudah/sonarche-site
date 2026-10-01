@@ -3,21 +3,11 @@ import { CircleGeometry, CylinderGeometry, Group, Mesh, TorusGeometry, Vector3, 
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry.js";
 import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 
-import { COUGH, PUFF, STEAM, type createBursts } from "../bursts";
+import { COUGH, PUFF, STEAM, type createBursts } from "@/components/brand/scene/bursts";
 import { INK, type Kit } from "./materials";
 
-/*
- * The funnel — the vessel's engine, stood on the deck behind the head, not on
- * it: the head is a face, and a face with a chimney on it stops being one.
- *
- * A tug's stack, and a proper one: taller than the head, dead upright, a
- * straight cylinder, hooped, with the cargo's amber band and a sooty cap, on an engine casing
- * with louvres and a door. A brass whistle and a ladder up its flank say how
- * big it is. It breathes a puff every couple of seconds while the engine
- * runs. When the head has digested a note, the funnel sings it: the stack
- * sucks in, swells, the whistle blows, and the note pops out of the mouth in
- * a cloud, floats up and bursts into sparks.
- */
+/* Behind the head, not on it: a face with a chimney stops being a face. It puffs while the engine
+   runs, and sings each digested note out as a bursting cloud. */
 
 type FunnelOptions = {
   kit: Kit;

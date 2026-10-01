@@ -2,17 +2,8 @@ import { Color, InstancedBufferAttribute, Mesh, ShaderMaterial, Vector3, Vector4
 
 import { cardGeometry } from "./card";
 
-/*
- * Small ballistic bursts: spray when something hits the water, sparks when a
- * note is stowed, dust when a hatch slams, smoke from the funnel. Nothing in
- * the scene should appear or vanish without a cause the eye can see, and these
- * are the cause.
- *
- * A fixed pool of slots, each up to a few dozen round droplets thrown up and
- * out from an origin; the vertex shader does all of it from the slot's origin,
- * start time and kind. Droplets fall (spray) or rise and swell (smoke, which
- * is drawn soft and drifts downwind). A new burst takes the oldest slot.
- */
+/* Spray, sparks, dust and smoke, so nothing appears or vanishes without a visible cause. A fixed
+   pool of slots driven entirely by the vertex shader; a new burst takes the oldest slot. */
 
 const SLOTS = 24;
 const PER_SLOT = 30;

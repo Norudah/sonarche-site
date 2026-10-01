@@ -1,22 +1,11 @@
 import { CylinderGeometry, Group, Mesh, SphereGeometry, TorusGeometry, Vector3 } from "three";
 import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeometry.js";
 
-import { INK, type Kit } from "../materials";
+import { INK, type Kit } from "@/components/brand/scene/boat/materials";
 
-/*
- * The grab: a three-fingered claw on a swivel, the arcade kind, because what
- * it picks up is a prize.
- *
- * Each finger is two phalanges on a hinge at the hub and a knuckle halfway
- * down, with a pad at the tip. A collar sliding on the centre shaft works them:
- * a link from the collar to each upper phalanx, of fixed length, so as the
- * collar is drawn down the links pull the fingers in and the knuckles curl.
- * `grip` (0 open, 1 shut) is the only input; the collar's travel is solved
- * from it every frame, so the linkage is a mechanism and not three rotations
- * that happen to agree.
- *
- * Its origin is where the cable ends; it hangs down from there.
- */
+/* A collar sliding on the shaft pulls fixed-length links that curl the fingers: `grip` (0 open, 1
+   shut) solves the collar's travel each frame, so it is a linkage, not three agreeing rotations.
+   Its origin is the cable's end. */
 
 const FINGERS = 3;
 const HUB_Y = -0.5;

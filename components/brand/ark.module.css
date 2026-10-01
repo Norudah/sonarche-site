@@ -1,14 +1,4 @@
-/*
- * The ark's idle loops, and the equalizer that rides above it.
- *
- * Shared because the vessel appears twice: it sails in the hero's storm and it
- * comes to rest in the footer's calm. Same drawing, same loops, different sea.
- *
- * CSS rather than GSAP — these are endless ambient loops with no scroll or event
- * input, so a JS ticker would buy nothing. Everything animates transform or
- * opacity; the block at the end stops all of it under reduced motion, at a
- * settled state rather than a broken one.
- */
+/* Shared by the hero and the footer. Endless ambient loops: CSS, transform and opacity only. */
 
 @keyframes arkFloat {
   0%,
@@ -30,16 +20,8 @@
   }
 }
 
-/*
- * The long cross-berth drift, and the one loop here that is not the ark's own.
- *
- * It reads `--sea-drift` and `--sea-drift-time` from the water the vessel is
- * placed in, so hull and surface travel as one body. On its own timing the ark
- * slid sideways against a sea moving at a different rate, and every few seconds
- * the waterline crossed the hull at a different height — the single thing that
- * made the whole picture read as two drawings laid over each other rather than
- * as something afloat. The fallbacks are for an ark drawn outside any sea.
- */
+/* Reads the surrounding sea's `--sea-drift` and `--sea-drift-time` so hull and water travel as one
+   body; on its own timing the waterline crossed the hull at a different height every few seconds. */
 @keyframes arkSail {
   from {
     transform: translateX(calc(var(--sea-drift, 42px) * -1));
@@ -102,13 +84,7 @@
   }
 }
 
-/*
- * The equalizer's own drift, on top of the hull's sail and float it already
- * inherits. Two axes and four stops rather than a straight bob: against a
- * 4.7s float and a 24s sail, a 5.9s wander never lands on the same compound
- * position twice, so the sound reads as hanging over the vessel rather than
- * bolted to its roof.
- */
+/* A 5.9s wander against the 4.7s float and 24s sail never repeats the same compound position. */
 @keyframes eqFloat {
   0%,
   100% {

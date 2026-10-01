@@ -13,22 +13,8 @@ import {
 
 import { INK, type Kit } from "./materials";
 
-/*
- * The hull, lofted.
- *
- * The mark's hull is a side view: a long rounded trapezoid, a light strake
- * under the rail, a dark boot-top at the waterline. Here it is a body — a
- * stack of rings from the deck down to a flat keel, each a superellipse in
- * plan (boxy up top, rounder towards the bottom), easing inwards so the sides
- * fall straight and then curl under, the way a toy tug's do. The logo's three
- * bands are painted on as vertex colours, with a hair of blend at each edge so
- * the light reads across them without a seam.
- *
- * Seen from the side, as the camera sees it, the silhouette is the mark's,
- * stretched: a working deck, with a crane aft, a net forward and a hold on
- * either side of the head, needs the room the logo never did; and a higher
- * freeboard, so it sits in the storm like a vessel and not a raft.
- */
+/* Lofted from superellipse rings, deck to keel; the mark's three bands are vertex colours. Longer and
+   higher than the logo's silhouette to make room for the deck's gear. */
 
 export const HULL = {
   halfLength: 10,

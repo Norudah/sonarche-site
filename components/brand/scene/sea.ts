@@ -7,24 +7,9 @@ import { RIPPLE_GLSL, type createRipples } from "./ripples";
 import { SHELTER } from "./swell";
 
 /*
- * The sea, as the poster draws it — a field of equalizer bars — but seen in
- * depth: rows of them running from under the camera out to a horizon that
- * dissolves into the sky.
- *
- * The bars stay flat cards facing the camera, rounded at the top, exactly the
- * 4px sticks of the CSS sea. That is the whole art direction of the scene: it
- * does not re-imagine the brand in 3D, it puts the drawing the site already has
- * into perspective. Water here is sound; it has no specular, no normals, no
- * foam — it has bars that rise and fall.
- *
- * Columns are laid out in screen space rather than on a world grid: each row is
- * spaced so its bars land a constant few pixels apart, whatever their depth. A
- * world grid seen at this angle packs the far rows into a moiré band a pixel
- * high; this keeps the texture of the poster all the way to the horizon, and
- * lets the row count, not the width of the screen, set the cost.
- *
- * Everything moves in the vertex shader. The CPU writes a dozen uniforms a frame
- * and never touches a bar.
+ * The poster's equalizer bars, put into perspective rather than reimagined: flat camera-facing
+ * cards, no specular or normals. Columns are spaced in screen space so far rows keep the poster's
+ * texture instead of a moiré band. Everything moves in the vertex shader.
  */
 
 /** Rows, nearest first, grow apart by this fraction of their distance. */
@@ -162,10 +147,7 @@ void main() {
   // swell.ts); only the crests are calmed there.
   float lee = mix(${SHELTER.floor.toFixed(2)}, 1.0, smoothstep(${SHELTER.from.toFixed(1)}, ${SHELTER.to.toFixed(1)}, berth));
   float surface = heave(p, t) * lee * uStorm * grow;
-  // Between the hull and the camera, no crest may rise into the vessel's
-  // outline: each is capped where, seen from the eye, it would cross the
-  // hull's waterline. Waves still run in front of the boat; they just pass
-  // under its silhouette instead of combing across it.
+  // Crests between the hull and the camera are capped at the hull's waterline as seen from the eye.
   float bow = uArk.y + 3.0;
   if (p.y > bow) {
     float inFront = 1.0 - smoothstep(10.5, 12.5, abs(p.x - uArk.x));

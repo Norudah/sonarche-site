@@ -10,24 +10,9 @@ import {
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 
 /*
- * The studio the vessel is shot in.
- *
- * A soft warm key from above-left and in front, a cool lavender rim from
- * behind to lift the silhouette off the pale sky, a hemisphere fill that is
- * paper above and indigo below (the sea's own colour bounced back up), and a
- * room environment for the sheen on the glass eyes and the satin paint.
- *
- * No shadow maps: they cost a compile and a second pass of the whole boat
- * every frame, for crates sitting on a deck. The boat paints its own contact
- * shadows instead (boat/shadows.ts).
- *
- * The environment is the one expensive thing here — its blur shaders compile
- * synchronously — so it is not built with the rest: `environment()` is called
- * in a startup slice of its own, after the first frame, while the reveal is
- * still sweeping and a little extra sheen arriving goes unnoticed.
- *
- * The sea's shaders are their own light (they compute oklch directly and skip
- * tone mapping); this lighting is for the meshes.
+ * For the meshes only; the sea's shaders compute their own colour. No shadow maps (the boat paints
+ * contact shadows). The room environment's blur compiles synchronously, so `environment()` runs in
+ * its own startup slice after the first frame.
  */
 
 export function createLighting(renderer: WebGLRenderer, scene: Scene) {

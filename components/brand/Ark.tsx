@@ -3,23 +3,9 @@ import type { CSSProperties, ReactNode } from "react";
 import styles from "./ark.module.css";
 
 /*
- * The ark, alive.
- *
- * The same vessel as components/brand/SonarcheMark.tsx, minus its wave — do not
- * let the two diverge in hull geometry. The mark's frozen six-bar wave is gone
- * on purpose: here it becomes the live equalizer of Onde.tsx, docked above the
- * hull rather than drawn into it.
- *
- * Five nested loops, all CSS (see hero.module.css for why): a long sail across
- * the berth, a float, a roll about the waterline, the wake breathing under the
- * hull, the cargo settling, the portholes pulsing out of phase. No JavaScript.
- *
- * `children` is the equalizer, and where it goes is the point: inside the sail
- * and the float, outside the roll. Sound docked above a hull has to travel with
- * that hull — an equalizer holding still while the vessel moves under it reads
- * as two drawings, not one — but it must not heel with it either, or it tips
- * over. The drop shadow rides on the roll for the same reason: it belongs to the
- * vessel, and the equalizer casts its own.
+ * The same hull as SonarcheMark.tsx (keep the geometry in sync), with the frozen wave replaced by
+ * the live Onde. CSS loops only. `children` sits inside the sail and float but outside the roll:
+ * the sound travels with the hull without heeling with it.
  */
 
 const PORTHOLES = [

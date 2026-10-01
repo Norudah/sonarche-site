@@ -1,41 +1,26 @@
 import {
-  CanvasTexture,
   Color,
   Euler,
-  InstancedBufferAttribute,
   InstancedMesh,
   Matrix4,
-  Mesh,
   MeshStandardMaterial,
   Quaternion,
-  ShaderMaterial,
   Vector3,
   type Object3D,
   type Vector4,
 } from "three";
 
-import { SPARK, SPRAY, type BurstKind, type createBursts } from "../bursts";
-import { cardGeometry } from "../card";
-import type { createRipples, RingSpec } from "../ripples";
+import { SPARK, SPRAY, type BurstKind, type createBursts } from "@/components/brand/scene/bursts";
+import type { createRipples, RingSpec } from "@/components/brand/scene/ripples";
 import type { Glyphs } from "./glyphs";
+import { createHalos } from "./halos";
 import { ACCENT, INK } from "./materials";
 
 /*
- * The music in the sea — every note in the scene, in one place.
- *
- * The sea is alive with them: notes of every shape and colour rise out of it,
- * bob and drift a while on the wind, and sink back to come up somewhere else,
- * near the boat and all the way out to the horizon, whether or not anyone
- * fishes them. The vessel's gear takes some: the sonar calls one up off the
- * stern for the crane, a shoal off the bow for the net. From then on a note is
- * always somewhere definite: in the water, in the claw, in the net, in a box,
- * in a deckhand's arms, in flight between two of those, or on its way down
- * the head's hatch. Whatever holds it (`holder`) carries it; nothing teleports.
- *
- * All of them are drawn in five calls however many there are: one instanced
- * mesh per glyph, tinted per note (the glow too), and one instanced layer of
- * halos that keeps a note readable against the water and shows through an
- * open hatch.
+ * Every note in the scene. Wild ones rise, drift and sink back all over the sea; the gear claims
+ * some. A note is always somewhere definite (water, claw, net, box, arms, mid-toss, the hatch) and
+ * whatever holds it (`holder`) carries it: nothing teleports. Drawn in one instanced mesh per glyph,
+ * tinted per note, plus one halo layer.
  */
 
 type NoteState = "deep" | "rising" | "afloat" | "sinking" | "held" | "tossed" | "flying";
@@ -45,28 +30,28 @@ export type Note = {
   tint: Color;
   size: number;
   state: NoteState;
-  /** Where it is, in the world, when nothing holds it. */
+  /** World position when nothing holds it. */
   pos: Vector3;
   yaw: number;
   roll: number;
-  /** Tipped forward: π/2 lies it flat, the way it goes through a slot. */
+  /** π/2 lies it flat, the way it goes through a slot. */
   pitch: number;
   holder: Object3D | null;
-  /** Where it sits in its holder's frame. */
+  /** Position in its holder's frame. */
   local: Vector3;
   localYaw: number;
   localRoll: number;
-  /** Stretch along its height: yanked, dropped, squeezed. */
+  /** Stretch along its height. */
   squash: number;
-  /** 0..1: its scale as it appears or goes. */
+  /** 0..1 scale as it appears or goes. */
   pop: number;
-  /** 0..1: extra light, set down in the dark of a hold. */
+  /** 0..1 extra light in the dark of a hold. */
   shine: number;
   timer: number;
-  /** Someone is coming for it: it will not sink. */
+  /** Someone is coming for it, so it will not sink. */
   claimed: boolean;
   phase: number;
-  /** One of the sea's own: when it is done with, it comes back up somewhere else. */
+  /** One of the sea's own: it resurfaces elsewhere once done with. */
   wild: boolean;
   toss?: Toss;
 };
@@ -79,9 +64,8 @@ type Toss = {
   duration: number;
   age: number;
   spin: number;
-  /** Tumbling: the note turns end over end on the way. */
+  /** End-over-end turn rate. */
   tumble: number;
-  /** What it does on arrival: stay put in its holder, float, or go under. */
   land: "hold" | "float" | "sink";
   done: () => void;
 };
@@ -91,15 +75,13 @@ type SwarmOptions = {
   bursts: ReturnType<typeof createBursts>;
   ripples: ReturnType<typeof createRipples>;
   now: () => number;
-  /** The sea's height at a point: what floats, floats on it. */
   water: (x: number, z: number) => number;
-  /** How many the sea keeps afloat at once, and how far out they go. */
+  /** How many the sea keeps afloat, and how far out. */
   population: number;
   reach: number;
 };
 
 const MAX = 64;
-/** A note's size: all much the same, small, with a little give either way. */
 const NOTE_SIZE = 0.46;
 const FLOAT_Y = 0.25;
 const DEEP = -1.6;
@@ -108,10 +90,7 @@ const SINK = 1.9;
 const WIND = -0.22;
 const FLICK: RingSpec = { strength: 0.6, speed: 9, width: 1.3 };
 
-/**
- * The brand's colours, weighted towards the warm ones: against an indigo sea
- * the ambers and the cream read at any distance, the blues only close to.
- */
+/** Weighted warm: against an indigo sea the ambers read at any distance, the blues only close up. */
 const TINTS = [
   [INK.amber, 5],
   ["#f7c25c", 3],
@@ -125,50 +104,7 @@ const PALETTE = TINTS.flatMap(([c, w]) => Array.from({ length: w }, () => new Co
 const TAU = Math.PI * 2;
 const rand = (a: number, b: number) => a + Math.random() * (b - a);
 
-function halo(): CanvasTexture {
-  const size = 64;
-  const canvas = document.createElement("canvas");
-  canvas.width = canvas.height = size;
-  const ctx = canvas.getContext("2d")!;
-  const g = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
-  g.addColorStop(0, "rgba(255, 255, 255, 0.9)");
-  g.addColorStop(0.45, "rgba(255, 255, 255, 0.33)");
-  g.addColorStop(1, "rgba(255, 255, 255, 0)");
-  ctx.fillStyle = g;
-  ctx.fillRect(0, 0, size, size);
-  return new CanvasTexture(canvas);
-}
-
-const haloVertex = /* glsl */ `
-attribute vec4 aHalo; // centre, size
-attribute vec4 aTint; // rgb, alpha
-varying vec2 vUv;
-varying vec4 vTint;
-void main() {
-  vec4 mv = viewMatrix * vec4(aHalo.xyz, 1.0);
-  mv.xy += position.xy * aHalo.w;
-  // Behind the note, not over it: a glow round it rather than a veil across it.
-  mv.z -= aHalo.w * 0.35;
-  vUv = position.xy + 0.5;
-  vTint = aTint;
-  gl_Position = projectionMatrix * mv;
-}
-`;
-
-const haloFragment = /* glsl */ `
-uniform sampler2D uMap;
-varying vec2 vUv;
-varying vec4 vTint;
-void main() {
-  float a = texture2D(uMap, vUv).a * vTint.a;
-  if (a <= 0.003) discard;
-  gl_FragColor = vec4(vTint.rgb, a);
-  #include <colorspace_fragment>
-}
-`;
-
 export function createSwarm({ glyphs, bursts, ripples, now, water, population, reach }: SwarmOptions) {
-  // --- Drawing -----------------------------------------------------------------
   const ink = new MeshStandardMaterial({
     color: "#ffffff",
     emissive: "#ffffff",
@@ -190,27 +126,8 @@ export function createSwarm({ glyphs, bursts, ripples, now, water, population, r
     return m;
   });
 
-  const haloMap = halo();
-  const haloGeometry = cardGeometry(true);
-  const haloCentre = new Float32Array(MAX * 4);
-  const haloTint = new Float32Array(MAX * 4);
-  const centreAttribute = new InstancedBufferAttribute(haloCentre, 4);
-  const tintAttribute = new InstancedBufferAttribute(haloTint, 4);
-  haloGeometry.setAttribute("aHalo", centreAttribute);
-  haloGeometry.setAttribute("aTint", tintAttribute);
-  haloGeometry.instanceCount = 0;
-  const haloInk = new ShaderMaterial({
-    vertexShader: haloVertex,
-    fragmentShader: haloFragment,
-    uniforms: { uMap: { value: haloMap } },
-    transparent: true,
-    depthWrite: false,
-  });
-  const halos = new Mesh(haloGeometry, haloInk);
-  halos.frustumCulled = false;
-  halos.renderOrder = 1;
+  const halos = createHalos(MAX);
 
-  // --- The notes -----------------------------------------------------------------
   const notes: Note[] = Array.from({ length: MAX }, (_, i) => ({
     glyph: 0,
     tint: PALETTE[0],
@@ -227,7 +144,7 @@ export function createSwarm({ glyphs, bursts, ripples, now, water, population, r
     squash: 1,
     pop: 0,
     shine: 0,
-    // Staggered, so the sea fills in over the first seconds rather than all at once.
+    // Staggered so the sea fills in over the first seconds.
     timer: i < population ? rand(0.2, 6) : Infinity,
     claimed: false,
     phase: Math.random() * TAU,
@@ -271,7 +188,7 @@ export function createSwarm({ glyphs, bursts, ripples, now, water, population, r
 
   const top = (n: Note) => glyphs.halfHeight[n.glyph] * n.size;
 
-  /** Under, out of sight: the sea's own come back up in a while, the rest wait to be called. */
+  /** Under, out of sight: wild notes come back up in a while, the rest wait to be called. */
   function rest(n: Note, wait = rand(0.5, 3.5)) {
     n.state = "deep";
     n.holder = null;
@@ -279,7 +196,6 @@ export function createSwarm({ glyphs, bursts, ripples, now, water, population, r
     n.timer = n.wild ? wait : Infinity;
   }
 
-  // --- Moving them --------------------------------------------------------------
   const m = new Matrix4();
   const local = new Matrix4();
   const q = new Quaternion();
@@ -428,19 +344,20 @@ export function createSwarm({ glyphs, bursts, ripples, now, water, population, r
       mesh.setColorAt(i, n.tint);
 
       at.setFromMatrixPosition(m);
-      haloCentre.set([at.x, at.y, at.z, scale * (2.8 + n.shine * 1.4)], h * 4);
-      const a = (0.5 + Math.sin(t * 3 + n.phase) * 0.1 + n.shine * 0.4) * Math.min(1, n.pop);
-      haloTint.set([0.85 + n.tint.r * 0.15, 0.85 + n.tint.g * 0.15, 0.85 + n.tint.b * 0.15, a], h * 4);
-      h++;
+      halos.set(
+        h++,
+        at,
+        scale * (2.8 + n.shine * 1.4),
+        n.tint,
+        (0.5 + Math.sin(t * 3 + n.phase) * 0.1 + n.shine * 0.4) * Math.min(1, n.pop),
+      );
     }
     meshes.forEach((mesh, g) => {
       mesh.count = counts[g];
       mesh.instanceMatrix.needsUpdate = true;
       if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
     });
-    haloGeometry.instanceCount = h;
-    centreAttribute.needsUpdate = true;
-    tintAttribute.needsUpdate = true;
+    halos.commit(h);
   }
 
   /** A note to use: one in reserve if there is one, else one of the sea's own. */
@@ -450,7 +367,7 @@ export function createSwarm({ glyphs, bursts, ripples, now, water, population, r
 
   return {
     meshes,
-    halos,
+    halos: halos.mesh,
     notes,
     top,
     where,
@@ -539,9 +456,7 @@ export function createSwarm({ glyphs, bursts, ripples, now, water, population, r
     dispose() {
       meshes.forEach((mesh) => mesh.dispose());
       ink.dispose();
-      haloGeometry.dispose();
-      haloInk.dispose();
-      haloMap.dispose();
+      halos.dispose();
     },
   };
 }

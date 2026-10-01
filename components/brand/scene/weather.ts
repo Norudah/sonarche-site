@@ -1,15 +1,7 @@
 import type { RingSpec } from "./ripples";
 
-/*
- * The two weathers the page is told in: the storm it opens on and the home
- * water it closes on. Same sea, same ark, same code — what changes is how rough
- * the water is and what happens on it, which is the whole narrative in two
- * pictures, exactly as components/brand/sea/sea.ts tells it for the posters.
- *
- * `stage` is the poster each scene takes over from: how wide its ark is drawn
- * and where its waterline sits. The camera is solved from those two numbers
- * (framing.ts), which is what lets the 3D ark land on the drawn one.
- */
+/* The storm the page opens on and the calm it closes on. `stage` is the poster each scene takes over
+   from; the camera is solved from it (framing.ts). */
 
 export type Stage = {
   /** Width of the poster's ark box, px. */
@@ -67,13 +59,7 @@ const STORM: Weather = {
   shore: { fade: 70, floor: 0 },
 };
 
-/*
- * Home water: under half the swell, paler, no rain and nothing left to rescue.
- * The echoes come half as often and half as loud — the ark is still listening,
- * not searching. The page ends on the sea rather than fading back to paper, but
- * the colophon sits in it, so the water thins to a wash under that line: the
- * signature and the links are read against paper, the sea is seen above them.
- */
+/* Home water. The sea thins to a wash under the colophon so its text reads against paper. */
 const CALM: Weather = {
   stage: () => ({ arkPx: 230, waterline: 92 }),
   swell: 0.42,

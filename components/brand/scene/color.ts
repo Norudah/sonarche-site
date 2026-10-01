@@ -1,14 +1,7 @@
 import { Color, LinearSRGBColorSpace } from "three";
 
-/*
- * The palette is written in oklch everywhere else on the site, so it is written
- * in oklch here too — converting by eye to hex is how a scene drifts off-brand.
- *
- * Two halves of one conversion: `oklch()` for the colours set once from
- * JavaScript, and OKLCH_GLSL for the ones the sea computes per bar, where the
- * tint is a continuum and not a handful of constants. Both land in linear sRGB,
- * which is what three works in; the renderer encodes to sRGB on output.
- */
+/* oklch here too, since hand-converting to hex is how a scene drifts off-brand. Both halves land in
+   linear sRGB; the renderer encodes on output. */
 
 export function oklch(l: number, c: number, h: number): Color {
   const rad = (h * Math.PI) / 180;

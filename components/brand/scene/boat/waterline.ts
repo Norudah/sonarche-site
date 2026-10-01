@@ -3,17 +3,8 @@ import { CatmullRomCurve3, DoubleSide, Mesh, MeshBasicMaterial, Plane, TubeGeome
 import { waterline } from "./hull";
 import type { Kit } from "./materials";
 
-/*
- * Where the vessel meets the sea.
- *
- * The sea is a field of bars, and a hull drawn whole behind the rows in front
- * of it reads as a comb laid over the boat, not as water it sits in. So the
- * hull is cut at the surface: `surface` clips it at the water's height, and
- * below that line the bars behind show through, which is what water does. The
- * cut moves on the hull as it heaves and rolls — a real waterline — and a line
- * of foam hugs it, riding the patrol and the heading but not the swell: the
- * water stays level and the hull moves in it.
- */
+/* The hull is clipped at the water's height so the bars behind show through, like water; drawn
+   whole it read as a comb laid over the boat. A foam line rides the heading but not the swell. */
 
 /**
  * @param freeboard how high the hull rides: the water meets it at -freeboard in its own frame.
