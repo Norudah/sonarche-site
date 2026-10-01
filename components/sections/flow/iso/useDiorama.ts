@@ -46,12 +46,15 @@ export function useDiorama(direct: (cast: Cast) => void) {
           { y: 40, opacity: 0 },
           { y: 0, opacity: 1, duration: 1.1, ease: "expo.out" },
         );
-        intro.fromTo(
-          q("[data-drop]"),
-          { y: -46, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.9, ease: "back.out(1.9)", stagger: 0.09 },
-          0.25,
-        );
+        const drops = q("[data-drop]");
+        if (drops.length) {
+          intro.fromTo(
+            drops,
+            { y: -46, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.9, ease: "back.out(1.9)", stagger: 0.09 },
+            0.25,
+          );
+        }
 
         const start = (targets: gsap.TweenTarget, vars: gsap.TweenVars) => {
           gsap.set(targets, vars);
