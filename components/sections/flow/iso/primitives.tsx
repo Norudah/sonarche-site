@@ -3,13 +3,6 @@ import { useId, type ReactNode, type Ref, type SVGProps } from "react";
 import { box, floorEllipse, polygon, polyline, STAGE, type Vec3 } from "./iso";
 import { INK, type Tone } from "./tones";
 
-/*
- * The dioramas' shared vocabulary: a lit box, an extruded outline (a hull, a
- * disc), a cylinder, and the stage they stand in.
- * Nothing here animates by itself — the scenes tag the groups they move and
- * their director does the rest.
- */
-
 type BoxProps = {
   at: Vec3;
   size: Vec3;
@@ -25,8 +18,7 @@ export function Box({ at, size, tone, rim = true, ...rest }: BoxProps) {
 
   return (
     <g {...rest}>
-      {/* Each face is stroked in its own colour so neighbours meet without an
-          anti-aliased hairline of background between them. */}
+      {/* Stroked in its own colour so neighbours meet without an anti-aliased seam. */}
       <path d={faces.left} fill={tone.left} stroke={tone.left} strokeWidth={0.6} strokeLinejoin="round" />
       <path d={faces.right} fill={tone.right} stroke={tone.right} strokeWidth={0.6} strokeLinejoin="round" />
       <path d={faces.top} fill={tone.top} stroke={tone.top} strokeWidth={0.6} strokeLinejoin="round" />
@@ -58,11 +50,7 @@ type PrismProps = {
   lid?: boolean;
 } & Omit<SVGProps<SVGGElement>, "children">;
 
-/**
- * An outline extruded upward. Each side the camera can see is shaded by where
- * it faces, blended from the lit left tone to the shaded right one, so a
- * many-sided outline reads as a smooth curve.
- */
+/** An outline extruded upward, each visible side shaded by where it faces so curves read smooth. */
 export function Prism({ outline: points, z, h, tone, rim = true, lid = true, ...rest }: PrismProps) {
   const cx = points.reduce((s, p) => s + p[0], 0) / points.length;
   const cy = points.reduce((s, p) => s + p[1], 0) / points.length;

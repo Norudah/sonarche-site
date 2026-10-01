@@ -1,10 +1,6 @@
-import { INDIGO, INK, LAVENDER } from "../../tones";
+import { INDIGO, INK, LAVENDER } from "@/components/sections/flow/iso/tones";
 
-/*
- * AcoustID, drawn as what it is to the station below: a body in the sky that
- * answers when pinged. A lit sphere, two tilted orbits with a satellite each,
- * a halo, and its name. A sphere is the one shape that needs no projection.
- */
+/* AcoustID as a body in the sky: a sphere is the one shape that needs no projection. */
 
 export const ORB = { x: 452, y: 70, r: 21 } as const;
 

@@ -2,15 +2,7 @@ import gsap from "gsap";
 
 import { barSetter } from "./Bar";
 
-/*
- * The water the first two dioramas stand in: a field of the brand's bars whose
- * heights follow a swell, plus any shock rings a scene sets off (something
- * leaving the water, something landing in it).
- *
- * Heights are computed on the CPU from the ticker's clock and written with
- * quickSetters, at most thirty times a second: the swell is slow enough that
- * the other half of the frames would buy nothing but paint.
- */
+/* Bar heights follow a swell plus shock rings, written at most 30 times a second: the swell is slow. */
 
 type SeaCell = { x: number; y: number };
 
@@ -23,7 +15,7 @@ type SeaOptions = {
   swell: (x: number, y: number, t: number) => number;
   intro: gsap.core.Timeline;
   onFrame: (fn: () => void) => void;
-  /** Things riding the water: their y follows the surface under them. */
+  /** Their y follows the surface under them. */
   floaters?: { el: Element; x: number; y: number; lift?: number }[];
 };
 

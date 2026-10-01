@@ -1,18 +1,11 @@
 /*
- * The flow's isometric projection — 2:1 dimetric, the pixel-art convention, on
- * a 560×420 stage.
- *
- * World axes: +x runs to the lower right, +y to the lower left, +z straight up.
- * One world unit along x or y is one screen unit across and half a unit down,
- * which keeps every edge on a clean 26.57° slope and every face shade readable.
- *
- * Everything in the dioramas is placed in world units through these helpers, so
- * a prop can be moved without redrawing a single path by hand.
+ * 2:1 dimetric projection on a 560×420 stage. World axes: +x lower right, +y lower left, +z up.
+ * Everything is placed in world units through these helpers, never as hand-drawn paths.
  */
 
 export const STAGE = { width: 560, height: 420 } as const;
 
-/** Screen position of the world origin: the middle of the stage, at sea level. */
+/** The world origin on screen: mid-stage, at sea level. */
 const OX = 280;
 const OY = 250;
 
@@ -68,12 +61,7 @@ export function box(x: number, y: number, z: number, w: number, d: number, h: nu
   };
 }
 
-/*
- * Affine maps from a flat 2D drawing onto one of the three planes, so a panel's
- * contents (a UI row, a label, a checkmark) are drawn as plain rects in local
- * units and then laid on the surface. `u` runs along the plane's reading
- * direction, `v` runs down it.
- */
+/* Affine maps laying a flat 2D drawing on a plane: `u` along its reading direction, `v` down it. */
 
 /** Lying on the floor at height z: u along +x, v along +y. */
 export function onFloor(x: number, y: number, z = 0): string {

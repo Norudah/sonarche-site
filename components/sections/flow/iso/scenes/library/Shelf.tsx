@@ -1,16 +1,10 @@
 import type { ReactNode } from "react";
 
-import { onFront, polygon, project } from "../../iso";
-import { Box } from "../../primitives";
-import { continuum, DEEP, INDIGO, INK, LAVENDER, PAPER, type Tone } from "../../tones";
+import { onFront, polygon, project } from "@/components/sections/flow/iso/iso";
+import { Box } from "@/components/sections/flow/iso/primitives";
+import { continuum, DEEP, INDIGO, INK, LAVENDER, PAPER, type Tone } from "@/components/sections/flow/iso/tones";
 
-/*
- * The library the track is filed into: a cabinet of cubbies, open toward the
- * reader, every one holding sleeves but the one waiting for this track.
- *
- * Painted the way it is built, bottom row first and left to right, so each
- * shelf's front edge and each divider covers the cubby behind it.
- */
+/* Painted bottom row first, left to right, so each shelf edge and divider covers the cubby behind. */
 
 const SHELF = { x: 4, y: -86, cols: 3, rows: 3, cw: 38, ch: 36, d: 34, t: 3 } as const;
 const FRONT = SHELF.y + SHELF.d;

@@ -3,22 +3,14 @@ import type { CSSProperties } from "react";
 import { project } from "./iso";
 import styles from "./motes.module.css";
 
-/*
- * Pixels coming off the water and drifting up: the stream's dust, and the
- * page's reminder that the sea is made of the web.
- *
- * Plain CSS loops, so the flow's AnimationGate pauses them off-screen and
- * reduced motion simply never shows them. Positions come from a seeded
- * generator and are rounded: the server and the browser must draw the same
- * specks.
- */
+/* CSS loops, paused off-screen by AnimationGate. Seeded and rounded so server and client agree. */
 
 type MotesProps = {
-  /** The floor area they rise from, in world units. */
+  /** In world units. */
   area: { x: number; y: number; w: number; d: number; z?: number };
   count: number;
   seed: number;
-  /** How far up they drift, in screen units. */
+  /** In screen units. */
   rise?: number;
   colors?: readonly string[];
 };

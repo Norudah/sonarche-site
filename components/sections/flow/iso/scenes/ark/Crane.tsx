@@ -1,19 +1,10 @@
-import { project } from "../../iso";
-import { Box, Cylinder } from "../../primitives";
-import { DEEP, PAPER } from "../../tones";
+import { project } from "@/components/sections/flow/iso/iso";
+import { Box, Cylinder } from "@/components/sections/flow/iso/primitives";
+import { DEEP, PAPER } from "@/components/sections/flow/iso/tones";
 import { DECK } from "./hull";
 
-/*
- * The Ark's tower crane: a mast at the bow, a jib that slews all the way
- * round, a trolley that runs along it, and a cable that pays out.
- *
- * A jib turning about a vertical axis cannot be a rotation on screen: its
- * projection changes length and slope as it turns. It is drawn once in its own
- * units (along the jib in world units, across it in screen units) and laid
- * down each frame by one affine matrix, which maps the jib's axis onto its
- * projected direction and keeps its depth vertical. Everything here moves by
- * transform alone.
- */
+/* A slewing jib changes length and slope on screen, so it cannot be a rotation: it is drawn once in
+   its own units and laid down each frame by one affine matrix. Everything moves by transform. */
 
 export const CRANE = { x: 70, y: 0, top: 140, jib: 124, counter: 30 } as const;
 

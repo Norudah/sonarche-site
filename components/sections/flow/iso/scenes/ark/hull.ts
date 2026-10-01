@@ -1,12 +1,5 @@
-/*
- * The Ark's hull and the water around it.
- *
- * The hull is an outline on the waterline, extruded; the sea is a disc of bars
- * with the hull's footprint cut out of it. A bar is painted before the hull or
- * after it depending on which side of it the camera sees it from: walking away
- * from the camera along the floor (−x, −y), a bar that runs into the hull is
- * in front of it.
- */
+/* The sea is a disc of bars with the hull's footprint cut out. A bar that runs into the hull when
+   walking away from the camera (−x, −y) is in front of it, so it is painted after the hull. */
 
 export const HULL: readonly (readonly [number, number])[] = [
   [-105, -36],

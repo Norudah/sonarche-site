@@ -1,35 +1,24 @@
 import type { Locale } from "@/lib/site";
 
-/*
- * Verbatim from docs/copy/en.md and fr.md § The flow / La traversée.
- *
- * The per-step chips the decks list ("single track", "yt-dlp", …) are not here:
- * they belong to the mockup's `stage` variant of this section, and the build
- * follows `cascade`. Adding them would be inventing a layout the design does
- * not have.
- */
+/* Verbatim from docs/copy/en.md and fr.md § The flow. The decks' per-step chips belong to the
+   mockup's `stage` variant; the build follows `cascade`. */
 
 export type FlowStep = {
-  /** "01"–"04". The label around it is built from `stepLabel`. */
   number: string;
   title: string;
-  /** One or more paragraphs — split for breathing room, never a single dense block. */
   text: string[];
-  /** The italic aside — the reassurance, always one line. */
   note: string;
 };
 
-/** The six tag labels step 04's drawing files into the track, in that order. */
+/** The six tags step 04 files into the track, in drawing order. */
 export type SceneTags = readonly [string, string, string, string, string, string];
 
 export type FlowCopy = {
   kicker: string;
-  /** The heading is split so the middle fragment can take the italic serif. */
   headingBefore: string;
   headingEmphasis: string;
   headingAfter: string;
   sub: string;
-  /** "STEP" / "ÉTAPE" — prefixed to each step's number. */
   stepLabel: string;
   steps: FlowStep[];
   sceneTags: SceneTags;

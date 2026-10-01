@@ -3,22 +3,14 @@ import gsap from "gsap";
 import { box, onFront, onSide, type Vec3 } from "./iso";
 import type { Tone } from "./tones";
 
-/*
- * A box whose height can be tweened with transforms alone.
- *
- * Scaling a projected box vertically would shear its top and bottom edges off
- * the iso slope. Here each side face is a plain rect laid on its plane by a
- * matrix, so scaling the rect along its own v axis stays on the plane, and the
- * cap simply rides up or down by the difference. The server renders the bar at
- * its drawn height; `barSetter` moves it from there.
- */
+/* Scaling a projected box would shear its edges off the iso slope. Each side face is a rect laid on
+   its plane by a matrix, so scaling along its own axis stays on the plane and the cap rides along. */
 
 type BarProps = {
   at: Vec3;
-  /** [w, d, h]: h is the drawn height, the one the page shows without motion. */
+  /** [w, d, h]: h is the height drawn without motion. */
   size: Vec3;
   tone: Tone;
-  /** 0 for a bar the settled frame does not show; the director fades it in. */
   opacity?: number;
 };
 
@@ -39,10 +31,7 @@ export function Bar({ at, size, tone, opacity }: BarProps) {
   );
 }
 
-/**
- * A per-frame height setter for one bar, for loops driven by a formula rather
- * than a timeline. Built on quickSetter, so it allocates nothing per call.
- */
+/** A per-frame, allocation-free height setter for formula-driven loops. */
 export function barSetter(bar: Element): (height: number) => void {
   const drawn = Number((bar as SVGGElement).dataset.barH);
   const faces = bar.querySelectorAll("[data-bar-face]");

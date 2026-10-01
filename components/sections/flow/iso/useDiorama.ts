@@ -8,40 +8,20 @@ import { useRef } from "react";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 /*
- * The one director every diorama shares.
- *
- * A scene is server-rendered in its settled state — the story's last frame —
- * which is what a crawler, a reader without JavaScript and anyone asking for
- * reduced motion sees. Only under `no-preference` does a scene hand this hook
- * three timelines to fill:
- *
- * - `intro` plays once, when the diorama comes up the viewport: the stage (and
- *   anything built into it, `[data-rise]`) rises, and every `[data-drop]` prop
- *   lands on it, in document order.
- * - `loop` follows it for as long as the page is open, and is written so that
- *   its last frame is its first: a story told, held, and put away.
- * - `idle` starts with the intro and never syncs to either: the water's swell,
- *   a machine's hum.
- *
- * Both are paused while the diorama is off-screen (they are GSAP, so the page's
- * AnimationGate cannot see them), and a pointer over the row leans every
- * `[data-depth]` layer by its depth: the one cue a flat drawing needs to read
- * as a model on a table.
+ * Scenes are server-rendered settled; only under `no-preference` do they get three timelines:
+ * `intro` plays once on reveal (`[data-rise]` rises, `[data-drop]` lands), `loop` repeats after it
+ * and must end on its first frame, `idle` runs unsynced from the intro on. All pause off-screen,
+ * since AnimationGate cannot see GSAP. A fine pointer leans each `[data-depth]` layer.
  */
 
-type Cast = {
+export type Cast = {
   q: (selector: string) => Element[];
   intro: gsap.core.Timeline;
   loop: gsap.core.Timeline;
-  /** Ambient motion (a swell, a hum) that runs from the intro on, unsynced. */
   idle: gsap.core.Timeline;
-  /**
-   * The loop's first frame: applied now, so the intro opens on it, and again at
-   * the top of every lap, so a clear-out that lands slightly off is snapped
-   * back while nothing is on show.
-   */
+  /** The loop's first frame: applied now, and again at the top of every lap to snap any drift. */
   start: (targets: gsap.TweenTarget, vars: gsap.TweenVars) => void;
-  /** A callback for every frame the scene is live (started and on screen). */
+  /** Runs every frame while the scene is started and on screen. */
   onFrame: (fn: () => void) => void;
 };
 

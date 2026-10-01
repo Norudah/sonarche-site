@@ -1,11 +1,4 @@
-/*
- * Face shades for the dioramas: one light, from the upper left, so every
- * material is a top, a lit left face and a shaded right face.
- *
- * Every hue is the page's own — 279 for the paper greys, 277 for the indigo,
- * the success green for "done" — only stepped in lightness so a box reads as a
- * volume. Nothing here is a new colour; it is the tokens in globals.css, lit.
- */
+/* The page's own hues, stepped in lightness for a light from the upper left: top, lit left, shaded right. */
 
 export type Tone = { top: string; left: string; right: string };
 
@@ -43,11 +36,7 @@ export const INK = {
   shadow: "oklch(0.3 0.06 279)",
 } as const;
 
-/**
- * The poster's equalizer continuum (the sea's bar foot, brand/sea/sea.ts),
- * k = 0 the deep indigo, k = 1 the pale lavender, so a row of bars reads as the
- * brand's own waveform rather than a generic chart.
- */
+/** The sea's bar continuum (brand/sea/sea.ts): k = 0 deep indigo, k = 1 pale lavender. */
 export function continuum(k: number): Tone {
   const l = 0.545 + 0.135 * k;
   const c = 0.2 - 0.062 * k;
