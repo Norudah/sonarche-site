@@ -3,6 +3,10 @@ import type { ReactNode } from "react";
 import { headingId } from "./headingId";
 import styles from "./prose.module.css";
 
+/*
+ * Posts and guides are JSX typed as prose. Around an inline tag, write `&#32;` after it and
+ * `{" "}` before it: JSX trims the other forms at line ends, and the word silently glues to the tag.
+ */
 export function Prose({ children }: { children: ReactNode }) {
   return <div className={styles.prose}>{children}</div>;
 }

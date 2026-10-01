@@ -2,22 +2,7 @@ import { postById, postPath } from "@/lib/blog";
 
 import { H2, Lead } from "@/components/reading/Prose";
 
-/*
- * Première mise en route, en français. Son pendant anglais est dans ./en.tsx.
- *
- * Publié sans ses captures : le texte porte le pas-à-pas tout seul, et trois
- * captures lui sont encore dues.
- *   1. CAPTURE — l'avertissement macOS, tel qu'il apparaît vraiment (Romain en
- *      a pris une le 2026-07-28, dans le repo de l'app).
- *   2. CAPTURE — Réglages Système › Confidentialité et sécurité, la ligne
- *      Sonarche et le bouton « Ouvrir quand même ».
- *   3. CAPTURE — le panneau de premier lancement, une fois l'environnement
- *      construit.
- * Les emplacements sont marqués ci-dessous par des commentaires CAPTURE.
- *
- * Espaces autour des balises en ligne : voir le commentaire en tête de
- * components/blog/posts/wrong-tags/fr.tsx — les deux règles, et pourquoi.
- */
+/* Still owes three screenshots, marked SHOT below. */
 
 export function GettingStartedFr() {
   return (
@@ -61,7 +46,7 @@ export function GettingStartedFr() {
         <strong>Ne clique pas sur le bouton bleu</strong> : il propose de la mettre à la corbeille.
       </p>
 
-      {/* CAPTURE 1 — le dialogue macOS, en pleine largeur de colonne. */}
+      {/* SHOT 1 — the macOS dialog, full column width. */}
 
       <ol>
         <li>Ouvre Sonarche. Au dialogue qui s&apos;affiche, clique sur « Terminé ».</li>
@@ -72,7 +57,7 @@ export function GettingStartedFr() {
         <li>Clique sur « Ouvrir quand même », authentifie-toi, puis confirme avec « Ouvrir ».</li>
       </ol>
 
-      {/* CAPTURE 2 — Réglages Système, la ligne Sonarche et son bouton. */}
+      {/* SHOT 2 — System Settings, the Sonarche line and its button. */}
 
       <p>
         Cette ligne disparaît environ une heure après le lancement refusé. Si elle n&apos;est pas là, relance
@@ -103,7 +88,7 @@ export function GettingStartedFr() {
         l&apos;application.
       </p>
 
-      {/* CAPTURE 3 — le panneau de premier lancement, environnement construit. */}
+      {/* SHOT 3 — the first-run panel, environment built. */}
 
       <H2>La clé AcoustID, et pourquoi la prendre</H2>
 

@@ -2,18 +2,7 @@ import { guideById, guidePath } from "@/lib/guide";
 
 import { H2, Lead, Pull } from "@/components/reading/Prose";
 
-/*
- * Visite de l'interface, en français. Son pendant anglais est dans ./en.tsx —
- * les deux disent la même chose et ne sont pas la traduction mot à mot l'un de
- * l'autre.
- *
- * Pas de captures, c'est décidé. Les libellés cités sont ceux de Sonarche
- * 2.0.0 et sont à revérifier à chaque montée de version avant de remonter
- * `appVersion`.
- *
- * Espaces autour des balises en ligne : voir le commentaire en tête de
- * components/blog/posts/wrong-tags/fr.tsx — les deux règles, et pourquoi.
- */
+/* Labels quoted from Sonarche 2.0.0: re-check them before bumping `appVersion`. */
 
 export function InterfaceTourFr() {
   return (

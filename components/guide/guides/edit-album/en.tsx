@@ -2,18 +2,7 @@ import { guideById, guidePath } from "@/lib/guide";
 
 import { H2, Lead, Pull } from "@/components/reading/Prose";
 
-/*
- * Editing a whole album, in English. Its French counterpart is in ./fr.tsx —
- * the two say the same things and are not word-for-word translations of each
- * other.
- *
- * No screenshots, by decision. The quoted labels are those of Sonarche 2.0.0
- * and are to be re-checked against each new version before bumping
- * `appVersion`.
- *
- * Spaces around inline tags: see the comment at the top of
- * components/blog/posts/wrong-tags/fr.tsx — both rules, and why.
- */
+/* Labels quoted from Sonarche 2.0.0: re-check them before bumping `appVersion`. */
 
 export function EditAlbumEn() {
   return (

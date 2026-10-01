@@ -1,22 +1,5 @@
 import { H2, Lead, Pull } from "@/components/reading/Prose";
 
-/*
- * Le corps de l'article, en français. Son pendant anglais est dans ./en.tsx —
- * les deux disent la même chose et ne sont pas la traduction mot à mot l'un de
- * l'autre : ce sont deux textes écrits pour deux lecteurs.
- *
- * Deux règles pour les espaces autour d'une balise en ligne, et elles ne sont
- * pas symétriques :
- *   - APRÈS la balise, `&#32;` — JSX rogne l'espace en tête d'un texte qui court
- *     sur plusieurs lignes, et Prettier réécrit `{" "}` en espace littéral dès
- *     qu'il tient sur la ligne.
- *   - AVANT la balise, `{" "}` — là c'est l'inverse : une entité en fin de ligne
- *     est décodée puis rognée avec le retour à la ligne, alors que `{" "}` en
- *     fin de ligne est justement ce que Prettier pose et conserve.
- * Dans les deux cas la faute est silencieuse : le mot se recolle à la balise,
- * sans erreur de compilation. Le contrôle est dans docs/CONTEXT.md.
- */
-
 export function WrongTagsFr() {
   return (
     <>

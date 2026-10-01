@@ -2,21 +2,7 @@ import { postById, postPath } from "@/lib/blog";
 
 import { H2, Lead } from "@/components/reading/Prose";
 
-/*
- * Getting started, in English. Its French counterpart is ./fr.tsx.
- *
- * Published without its screenshots: the text carries the walkthrough on its
- * own, and three shots are still owed to it.
- *   1. SHOT — the macOS warning as it really appears (Romain took one on
- *      2026-07-28, in the app repo).
- *   2. SHOT — System Settings › Privacy & Security, the Sonarche line and its
- *      "Open Anyway" button.
- *   3. SHOT — the first-run panel, once the environment is built.
- * The places they go are marked SHOT below.
- *
- * Spaces around inline tags: see the comment at the head of
- * components/blog/posts/wrong-tags/en.tsx — both rules, and why.
- */
+/* Still owes three screenshots, marked SHOT below. */
 
 export function GettingStartedEn() {
   return (
