@@ -17,8 +17,7 @@
 }
 
 /* Clears the 44px sticky header when following an anchor. */
-.prose h2,
-.prose h3 {
+.prose h2 {
   scroll-margin-top: 5.5rem;
 }
 
@@ -32,16 +31,7 @@
   margin-top: 1.9em;
 }
 
-.prose h3 {
-  color: var(--foreground-strong);
-  font-family: var(--font-display);
-  font-size: 1.09rem;
-  font-weight: 600;
-  margin-top: 2.4em;
-}
-
-.prose h2 + *,
-.prose h3 + * {
+.prose h2 + * {
   margin-top: 0.8em;
 }
 

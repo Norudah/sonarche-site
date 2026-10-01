@@ -1,5 +1,5 @@
 import { pageMetadata } from "@/lib/metadata";
-import { LOCALES, type Locale } from "@/lib/site";
+import { byLocale, type Locale } from "@/lib/site";
 
 /*
  * Kept apart from lib/blog.ts on purpose: a guide is undated and filed by topic, and it carries
@@ -117,8 +117,7 @@ export const publishedGuides = () => GUIDES.filter((guide) => !guide.draft || pr
 
 export const guidePath = (guide: Guide, locale: Locale) => `${GUIDE_PATH[locale]}${guide.slug[locale]}/`;
 
-export const guidePaths = (guide: Guide) =>
-  Object.fromEntries(LOCALES.map((locale) => [locale, guidePath(guide, locale)])) as Record<Locale, string>;
+export const guidePaths = (guide: Guide) => byLocale((locale) => guidePath(guide, locale));
 
 /** Throws so a route pointing at a missing id fails the build. */
 export function guideById(id: string): Guide {

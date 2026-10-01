@@ -13,6 +13,10 @@ describe("isStruggling", () => {
     expect(isStruggling(frames(40, 3))).toBe(true);
   });
 
+  it("reads percentiles from whatever window it is given", () => {
+    expect(isStruggling(frames(16.7).slice(0, 30))).toBe(false);
+  });
+
   it("ignores a browser steadily capped at 30fps", () => {
     expect(isStruggling(frames(33.3, 0.2))).toBe(false);
   });

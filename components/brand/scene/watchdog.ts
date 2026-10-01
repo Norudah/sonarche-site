@@ -3,13 +3,14 @@ const SLOW_FRAME = 26;
 const WINDOW = 90;
 
 /**
- * Whether one full window of frame times calls for a lower resolution. A steady ~33ms is the
+ * Whether a window of frame times calls for a lower resolution. A steady ~33ms is the
  * browser capping at 30fps (battery saver, a throttled window), which a lower resolution won't fix.
  */
 export function isStruggling(samples: readonly number[]): boolean {
   const sorted = [...samples].sort((a, b) => a - b);
-  const median = sorted[45];
-  const spread = sorted[80] - sorted[10];
+  const at = (q: number) => sorted[Math.floor(q * sorted.length)];
+  const median = at(0.5);
+  const spread = at(0.89) - at(0.12);
   if (median <= SLOW_FRAME) return false;
   return !(median > 30 && median < 36 && spread < 4);
 }

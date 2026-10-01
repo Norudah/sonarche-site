@@ -14,7 +14,6 @@ import { readingCopy } from "./copy";
 type Heading = {
   id: string;
   text: string;
-  level: number;
 };
 
 /* From under the sticky header down to the top third of the viewport, where the eye is. */
@@ -27,10 +26,9 @@ function useHeadings() {
     // The headings only exist once the sibling article has rendered; this runs once, on mount.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setHeadings(
-      [...document.querySelectorAll<HTMLHeadingElement>("article h2[id], article h3[id]")].map((node) => ({
+      [...document.querySelectorAll<HTMLHeadingElement>("article h2[id]")].map((node) => ({
         id: node.id,
         text: node.textContent ?? "",
-        level: Number(node.tagName[1]),
       })),
     );
   }, []);
@@ -116,7 +114,7 @@ function TocList({ headings, active, onPick, label }: TocListProps) {
 
       <ul className="space-y-1.5">
         {headings.map((heading) => (
-          <li key={heading.id} className={heading.level === 3 ? "pl-3" : undefined}>
+          <li key={heading.id}>
             <a
               href={`#${heading.id}`}
               onClick={() => onPick?.(heading.id)}

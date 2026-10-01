@@ -1,5 +1,5 @@
 import { pageMetadata } from "@/lib/metadata";
-import { LOCALES, type Locale } from "@/lib/site";
+import { byLocale, type Locale } from "@/lib/site";
 
 /*
  * The journal's only index: no blog engine, every post is a hand-written component. Every field
@@ -48,8 +48,7 @@ export const POSTS: Post[] = [
 
 export const postPath = (post: Post, locale: Locale) => `${BLOG_PATH[locale]}${post.slug[locale]}/`;
 
-export const postPaths = (post: Post) =>
-  Object.fromEntries(LOCALES.map((locale) => [locale, postPath(post, locale)])) as Record<Locale, string>;
+export const postPaths = (post: Post) => byLocale((locale) => postPath(post, locale));
 
 /** Throws so a route pointing at a missing id fails the build. */
 export function postById(id: string): Post {

@@ -70,5 +70,8 @@ export const ogImage = (locale: Locale) => ({ ...OG_IMAGE, alt: OG_IMAGE_ALT[loc
 
 export const absoluteUrl = (path: string) => new URL(path, SITE_URL).href;
 
+export const byLocale = <T>(fn: (locale: Locale) => T) =>
+  Object.fromEntries(LOCALES.map((locale) => [locale, fn(locale)])) as Record<Locale, T>;
+
 /** hreflang alternates must be reciprocal; `x-default` serves the FR root. */
 export const withXDefault = (paths: Record<Locale, string>) => ({ ...paths, "x-default": paths.fr });

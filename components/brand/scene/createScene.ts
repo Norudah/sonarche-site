@@ -216,13 +216,18 @@ export function createScene({ canvas, host, weather: name, tier, onLive, onSettl
   let lastWake = -1;
   const lastHit = new Vector3(1e6, 0, 0);
 
-  function pointerAt(e: MouseEvent): [number, number] {
+  // The pointer, -1..1 across the host; reused so pointermove allocates nothing.
+  const pointer = { x: 0, y: 0 };
+
+  function pointerAt(e: MouseEvent) {
     const rect = host.getBoundingClientRect();
-    return [((e.clientX - rect.left) / rect.width) * 2 - 1, ((e.clientY - rect.top) / rect.height) * 2 - 1];
+    pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    pointer.y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+    return pointer;
   }
 
   /** Where a screen point meets the water, written into `ray`; false when it looks at the sky. */
-  function hitWater(nx: number, ny: number) {
+  function hitWater({ x: nx, y: ny }: { x: number; y: number }) {
     ray.set(nx, -ny, 0.5).unproject(camera).sub(camera.position).normalize();
     if (ray.y > -0.01) return false;
     ray.multiplyScalar(-camera.position.y / ray.y).add(camera.position);
@@ -231,10 +236,10 @@ export function createScene({ canvas, host, weather: name, tier, onLive, onSettl
 
   function onPointer(e: PointerEvent) {
     if (e.pointerType !== "mouse" || !framing) return;
-    const [nx, ny] = pointerAt(e);
-    lean.toX = nx;
-    lean.toY = -ny;
-    if (!hitWater(nx, ny)) return;
+    const at = pointerAt(e);
+    lean.toX = at.x;
+    lean.toY = -at.y;
+    if (!hitWater(at)) return;
     if (clock - lastWake < 0.07 || ray.distanceTo(lastHit) < 1.6) return;
     lastWake = clock;
     lastHit.copy(ray);
@@ -249,7 +254,7 @@ export function createScene({ canvas, host, weather: name, tier, onLive, onSettl
   // A click on open water — not on the copy or a button — pings from there.
   function onClick(e: MouseEvent) {
     if (!framing || (e.target as Element).closest("a, button, p, h1, h2, span")) return;
-    if (!hitWater(...pointerAt(e))) return;
+    if (!hitWater(pointerAt(e))) return;
     ripples.spawn(ray.x, ray.z, clock, CLICK);
   }
 
