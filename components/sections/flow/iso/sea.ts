@@ -12,7 +12,7 @@ import { barSetter } from "./Bar";
  * the other half of the frames would buy nothing but paint.
  */
 
-export type SeaCell = { x: number; y: number };
+type SeaCell = { x: number; y: number };
 
 type Ripple = { x: number; y: number; t0: number; a: number };
 

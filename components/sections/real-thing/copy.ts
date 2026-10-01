@@ -2,7 +2,7 @@ import type { Locale } from "@/lib/site";
 
 /* Verbatim from docs/copy/en.md and fr.md § The real thing / En vrai. */
 
-export type Shot = {
+type Shot = {
   /** Matches the file name in public/shots/<locale>/<theme>/. */
   id: "album" | "genres" | "metadata" | "inspector" | "upkeep";
   label: string;

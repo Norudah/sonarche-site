@@ -24,7 +24,7 @@ export const REST: Pose = { a: 2.55, r: 62, l: 26, sway: 0 };
 
 const [PX, PY] = project(CRANE.x, CRANE.y, CRANE.top);
 
-export function frame({ a, r, l, sway }: Pose) {
+function frame({ a, r, l, sway }: Pose) {
   const c = Math.cos(a);
   const s = Math.sin(a);
   const [tx, ty] = project(CRANE.x + r * c, CRANE.y + r * s, CRANE.top);

@@ -119,7 +119,7 @@ export const OG_IMAGE = { url: "/og.png", width: 1200, height: 630 };
  * falls into by forgetting, and there is nothing to forget if there is only
  * one place it can come from.
  */
-export const OG_IMAGE_ALT: Record<Locale, string> = {
+const OG_IMAGE_ALT: Record<Locale, string> = {
   fr: "Sonarche : l'arche flottant sur une mer dessinée en barres d'égaliseur, sous le mot SONARCHE et la devise « From the stream into the Ark. »",
   en: 'Sonarche: the ark afloat on a sea drawn as equalizer bars, under the word SONARCHE and the tagline "From the stream into the Ark."',
 };

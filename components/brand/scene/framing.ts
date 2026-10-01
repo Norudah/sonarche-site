@@ -20,7 +20,7 @@ export const PITCH = 10;
 /** Vertical field of view, degrees. Narrow, so the sea compresses like a long lens. */
 export const FOV = 30;
 /** World width of the mark's 24-unit viewBox — the ark's scale in the scene. */
-export const ARK_SPAN = 12;
+const ARK_SPAN = 12;
 
 export type Framing = {
   width: number;

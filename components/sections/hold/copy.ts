@@ -2,7 +2,7 @@ import type { Locale } from "@/lib/site";
 
 /* Verbatim from docs/copy/en.md and fr.md § The hold is yours / La cale est à toi. */
 
-export type Destination = {
+type Destination = {
   where: string;
   note: string;
 };

@@ -31,10 +31,6 @@ export function H2({ children }: { children: string }) {
   return <h2 id={headingId(children)}>{children}</h2>;
 }
 
-export function H3({ children }: { children: string }) {
-  return <h3 id={headingId(children)}>{children}</h3>;
-}
-
 /** The standfirst. One paragraph, directly under the title. */
 export function Lead({ children }: { children: ReactNode }) {
   return <p className={styles.lead}>{children}</p>;

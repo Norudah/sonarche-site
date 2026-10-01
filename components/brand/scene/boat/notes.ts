@@ -38,7 +38,7 @@ import { ACCENT, INK } from "./materials";
  * open hatch.
  */
 
-export type NoteState = "deep" | "rising" | "afloat" | "sinking" | "held" | "tossed" | "flying";
+type NoteState = "deep" | "rising" | "afloat" | "sinking" | "held" | "tossed" | "flying";
 
 export type Note = {
   glyph: number;
@@ -100,8 +100,8 @@ type SwarmOptions = {
 
 const MAX = 64;
 /** A note's size: all much the same, small, with a little give either way. */
-export const NOTE_SIZE = 0.46;
-export const FLOAT_Y = 0.25;
+const NOTE_SIZE = 0.46;
+const FLOAT_Y = 0.25;
 const DEEP = -1.6;
 const RISE = 1.3;
 const SINK = 1.9;

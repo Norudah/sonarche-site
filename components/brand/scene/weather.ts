@@ -18,7 +18,7 @@ export type Stage = {
   waterline: number;
 };
 
-export type Weather = {
+type Weather = {
   stage: (width: number) => Stage;
   /** Height of the swell, 1 being the storm. */
   swell: number;
@@ -49,7 +49,7 @@ export type Weather = {
 /** Tailwind's `sm`, where the hero's poster ark grows from 192px to 320px. */
 const SM = 640;
 
-export const STORM: Weather = {
+const STORM: Weather = {
   stage: (width) => ({ arkPx: width >= SM ? 320 : 192, waterline: 110 }),
   swell: 1,
   pallor: 0,
@@ -74,7 +74,7 @@ export const STORM: Weather = {
  * the colophon sits in it, so the water thins to a wash under that line: the
  * signature and the links are read against paper, the sea is seen above them.
  */
-export const CALM: Weather = {
+const CALM: Weather = {
   stage: () => ({ arkPx: 230, waterline: 92 }),
   swell: 0.42,
   pallor: 0.22,

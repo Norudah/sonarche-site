@@ -2,7 +2,7 @@ import type { Locale } from "@/lib/site";
 
 /* Verbatim from docs/copy/en.md and fr.md § First launch / Premier lancement. */
 
-export type PlatformNote = {
+type PlatformNote = {
   label: string;
   /** What the OS puts on screen, quoted. */
   says: string;

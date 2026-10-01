@@ -26,7 +26,7 @@ import { readingCopy } from "./copy";
  * belongs in it.
  */
 
-export type ReadingSection = "journal" | "guide";
+type ReadingSection = "journal" | "guide";
 
 type ReadingShellProps = {
   locale: Locale;

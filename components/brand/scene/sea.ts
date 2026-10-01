@@ -34,7 +34,7 @@ const COLUMN_PX = 9;
 /** How far past the frame's edges a row still gets bars, px. */
 const OVERSCAN = 80;
 /** How deep a bar's foot runs under the surface — the body of water. */
-export const DEPTH = 2.6;
+const DEPTH = 2.6;
 
 function lehmer(seed: number): () => number {
   let s = seed;

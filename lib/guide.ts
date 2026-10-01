@@ -62,7 +62,7 @@ export type Guide = {
 };
 
 /** Ordered inside each topic by what someone would read first. */
-export const GUIDES: Guide[] = [
+const GUIDES: Guide[] = [
   {
     id: "getting-started",
     slug: {

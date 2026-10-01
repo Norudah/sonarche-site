@@ -2,7 +2,7 @@ import type { Locale } from "@/lib/site";
 
 /* Verbatim from docs/copy/en.md and fr.md § The old way / L'ancienne méthode. */
 
-export type ChainLink = {
+type ChainLink = {
   /** `TAB 1`, `APP 2`… — the tab or window you had to open. */
   step: string;
   tool: string;

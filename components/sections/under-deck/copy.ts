@@ -2,14 +2,14 @@ import type { Locale } from "@/lib/site";
 
 /* Verbatim from docs/copy/en.md and fr.md § Under the deck / Sous le pont. */
 
-export type TechCard = {
+type TechCard = {
   tag: string;
   title: string;
   text: string;
 };
 
 /** One outside service, named inside its group card. */
-export type DiagramService = {
+type DiagramService = {
   name: string;
   text: string;
 };

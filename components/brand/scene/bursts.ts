@@ -82,8 +82,6 @@ export const STEAM: BurstKind = {
   count: 9,
   opacity: 0.85,
 };
-/** Crumbs of light as the head bites down on a note. */
-export const CRUMB: BurstKind = { color: new Color("#f7c25c"), speed: 2.2, size: 3.5, life: 0.5, lift: 0.4, count: 12 };
 
 const vertex = /* glsl */ `
 #define SLOTS ${SLOTS}

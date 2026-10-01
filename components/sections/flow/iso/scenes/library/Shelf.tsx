@@ -12,9 +12,9 @@ import { continuum, DEEP, INDIGO, INK, LAVENDER, PAPER, type Tone } from "../../
  * shelf's front edge and each divider covers the cubby behind it.
  */
 
-export const SHELF = { x: 4, y: -86, cols: 3, rows: 3, cw: 38, ch: 36, d: 34, t: 3 } as const;
-export const FRONT = SHELF.y + SHELF.d;
-export const TARGET = { c: 1, r: 1 } as const;
+const SHELF = { x: 4, y: -86, cols: 3, rows: 3, cw: 38, ch: 36, d: 34, t: 3 } as const;
+const FRONT = SHELF.y + SHELF.d;
+const TARGET = { c: 1, r: 1 } as const;
 
 /** The file's slot in the target cubby, at the front. */
 export const SLOT = (() => {

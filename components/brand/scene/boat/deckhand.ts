@@ -15,7 +15,7 @@ import { INK, type Kit } from "./materials";
  * and what it does is crew.ts's business. Its local +z is the way it faces.
  */
 
-export type Stance = "idle" | "carry" | "post" | "reach";
+type Stance = "idle" | "carry" | "post" | "reach";
 
 const ARMS: Record<Stance, number> = { idle: 0, carry: -2.85, post: -1.35, reach: -1.6 };
 

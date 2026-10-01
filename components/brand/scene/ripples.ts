@@ -11,7 +11,7 @@ import { Vector4 } from "three";
  * has long since died out.
  */
 
-export const RIPPLE_SLOTS = 12;
+const RIPPLE_SLOTS = 12;
 
 export type RingSpec = {
   /** Height the ring throws the bars to, and how bright they flash. */

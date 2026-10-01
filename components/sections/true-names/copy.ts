@@ -2,7 +2,7 @@ import type { Locale } from "@/lib/site";
 
 /* Verbatim from docs/copy/en.md and fr.md § True names / Les vrais noms. */
 
-export type CompareRow = {
+type CompareRow = {
   /** Field name — Title, Artist, … */
   key: string;
   /** What a downloader guessed. */

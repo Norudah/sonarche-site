@@ -25,7 +25,7 @@ export const HULL: readonly (readonly [number, number])[] = [
 export const DECK = 18;
 export const KEEL = -2;
 
-export function insideHull(x: number, y: number, margin = 0): boolean {
+function insideHull(x: number, y: number, margin = 0): boolean {
   let inside = false;
   for (let i = 0, j = HULL.length - 1; i < HULL.length; j = i++) {
     const [xi, yi] = HULL[i];
@@ -43,7 +43,7 @@ export function insideHull(x: number, y: number, margin = 0): boolean {
 
 const SEA = { x: 6, y: 2, r: 150, step: 16 } as const;
 
-export type SeaBar = { x: number; y: number; k: number };
+type SeaBar = { x: number; y: number; k: number };
 
 function build() {
   const back: SeaBar[] = [];

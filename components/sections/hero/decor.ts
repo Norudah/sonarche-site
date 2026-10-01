@@ -21,7 +21,7 @@ function lehmer(seed: number): () => number {
   return () => (s = (s * 16807) % 2147483647) / 2147483647;
 }
 
-export type RainDrop = {
+type RainDrop = {
   left: string;
   height: string;
   opacity: number;
@@ -30,7 +30,7 @@ export type RainDrop = {
 };
 
 /** A drop landing: a ring on the surface, phase-locked to the drop that makes it. */
-export type Ripple = {
+type Ripple = {
   left: string;
   width: string;
   /** Same period and phase as its drop, so the ring opens when the drop arrives. */
