@@ -3,19 +3,9 @@ import { LOCALE_PATH, type Locale } from "@/lib/site";
 
 import { blogCopy } from "./copy";
 
-/*
- * How a post ends, and the only place the journal sells anything.
- *
- * It links to the landing rather than downloading: someone who arrived on an
- * article searched for a problem, not for this app, and the page that makes the
- * case is the one that should make it. The download button also asks GitHub for
- * the latest release on mount — a cost a reading page has no business paying to
- * show a link.
- *
- * The still mark, not the living ark: the vessel's five CSS loops are the
- * landing's, where AnimationGate pauses them off-screen. A card sitting below
- * the fold of every article would run them the whole time someone reads.
- */
+/* Links to the landing rather than downloading: a reader who arrived on an article came for a
+   problem, not the app. The still mark, not the animated ark, whose CSS loops would run the whole
+   time someone reads. */
 
 export function PostCta({ locale }: { locale: Locale }) {
   const copy = blogCopy[locale];

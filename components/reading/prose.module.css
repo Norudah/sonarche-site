@@ -1,15 +1,4 @@
-/*
- * Reading styles for hand-written posts.
- *
- * Descendant selectors rather than a class on every tag: a post is prose typed
- * as JSX, and the moment writing a paragraph means remembering a class name,
- * the writing gets worse. No @tailwindcss/typography — it is a dependency whose
- * whole job is to undo preflight with values that are not ours, and this file
- * is forty lines of the site's own tokens.
- *
- * The measure is ~70 characters at the body size. Wider reads as documentation;
- * this is meant to be read the way the landing is read.
- */
+/* Descendant selectors, so a post stays plain JSX with no class names to remember. */
 
 .prose {
   color: var(--body);
@@ -21,22 +10,13 @@
   margin-top: 1.35em;
 }
 
-/* The standfirst: one paragraph, a step up, in the second voice. It carries the
-   promise of the piece, so it is set apart from the argument that follows. */
 .lead {
   color: var(--foreground);
   font-size: 1.22rem;
   line-height: 1.6;
 }
 
-/*
- * Headings, and the one rule that makes them read as headings: a title belongs
- * to what follows it, so the air above is large and the air below is small.
- * These come after the blanket `* + *` on purpose — same specificity, and the
- * later rule is the one that wins.
- */
-/* The sticky header is 44px tall: without this, following an anchor parks the
-   heading underneath it. The extra air is what the eye expects above a title. */
+/* Clears the 44px sticky header when following an anchor. */
 .prose h2,
 .prose h3 {
   scroll-margin-top: 5.5rem;
@@ -65,12 +45,7 @@
   margin-top: 0.8em;
 }
 
-/*
- * The aside in the second voice. Its spacing lives here rather than in Tailwind
- * utilities on the element: a css module is unlayered and this file's own
- * `* + *` would win over a `my-10` sitting in @layer utilities, leaving the
- * pull with air below and none above.
- */
+/* Spacing here, not in Tailwind: this unlayered module's `* + *` would beat a utility class. */
 .pull {
   border-left: 2px solid oklch(0.505 0.185 277 / 0.25);
   color: var(--accent-muted);
@@ -121,8 +96,6 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* The bullet is drawn rather than listed: a disc at this size sits too heavy
-   against the paper, and the accent is what ties the list to the page. */
 .prose ul > li {
   position: relative;
 }

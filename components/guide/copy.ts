@@ -1,32 +1,22 @@
 import type { Topic } from "@/lib/guide";
 import type { Locale } from "@/lib/site";
 
-/* Verbatim from docs/copy/en.md and fr.md § The guide / Le guide.
-   What the guide shares with the journal — wordmark, tagline, reading time —
-   lives in components/reading/copy.ts. Each guide's own text lives with it, in
-   components/guide/guides. */
+/* Verbatim from docs/copy/en.md and fr.md § The guide. */
 
 export type GuideCopy = {
-  /** The nav label, beside the wordmark. */
+  /** The nav label. */
   guide: string;
   indexTitle: string;
   indexDek: string;
-  /** The index's <title> — written to be matched against a query. */
+  /** The index's <title>, written to match a query. */
   indexSearchTitle: string;
-  /** Heading of each group on the index. */
   topics: Record<Topic, string>;
-  /** The button on a row of the index. */
   readGuide: string;
-  /** The version line under a guide's title. Takes the version because that is
-   *  data, not copy. */
   checkedAgainst: (version: string) => string;
-  /** The badge a draft carries. Never seen in production — a draft is not on
-   *  the index there — but seen at its own URL, which is where it is judged. */
   draft: string;
-  /** What the index says while nothing is published yet. */
+  /** Shown while nothing is published. */
   emptyTitle: string;
   emptyBody: string;
-  /** The card a guide ends on, back to the table of contents. */
   moreGuides: string;
 };
 

@@ -7,49 +7,24 @@ import type { Locale } from "@/lib/site";
 import { readingCopy } from "./copy";
 
 /*
- * The table of contents, read off the page it belongs to.
- *
- * A client component, and one of the few on this site, for a reason that is not
- * decoration: the headings live inside the prose, which is hand-written JSX, and
- * nothing on the server can see them without rendering it. Listing them a second
- * time in a registry would be a list that silently stops matching the text.
- * Reading the DOM once after mount is the only version of this that cannot go
- * stale.
- *
- * What it does NOT do is invent the anchors — those are in the static html,
- * written by the H2/H3 components in Prose.tsx, so a copied section link works
- * with or without javascript. This only reads them.
- *
- * Two forms, two places in the page, and that is why they are two components
- * rather than one that hides half of itself: on a wide screen the card lives in
- * the margin beside the text, and on a narrow one it belongs *after* the title,
- * folded — a summary of an article you have not been told the name of yet is a
- * strange first thing to meet.
+ * Read off the DOM after mount: the headings live in hand-written JSX, and a second registry would
+ * drift from the text. The anchors themselves are static (see Prose.tsx); this only lists them.
  */
 
 type Heading = {
   id: string;
   text: string;
-  /** 2 or 3 — a level 3 is indented under the level 2 above it. */
   level: number;
 };
 
-/* The band the current heading is chosen in: from just under the sticky header
-   down to a third of the viewport. A heading is current while it sits in the
-   top third of what is being read, which is where the eye actually is. */
+/* From under the sticky header down to the top third of the viewport, where the eye is. */
 const OBSERVED_BAND = "-72px 0px -67% 0px";
 
-/** The headings of the article on this page, in document order. */
 function useHeadings() {
   const [headings, setHeadings] = useState<Heading[]>([]);
 
   useEffect(() => {
-    /*
-     * The rule below guards against state that could have been derived during
-     * render. These headings cannot be: they only exist once the article has
-     * rendered, and this component sits beside it, not inside it. It runs once,
-     * on mount, with nothing that can fire it again.
-     */
+    // The headings only exist once the sibling article has rendered; this runs once, on mount.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setHeadings(
       [...document.querySelectorAll<HTMLHeadingElement>("article h2[id], article h3[id]")].map((node) => ({
@@ -63,11 +38,6 @@ function useHeadings() {
   return headings;
 }
 
-/**
- * Which heading the reader is in, tracked with an IntersectionObserver over a
- * band across the top of the viewport rather than a scroll handler: no listener
- * running on every frame, and the browser does the work.
- */
 function useCurrentHeading(headings: Heading[]) {
   const [active, setActive] = useState<string>();
 
@@ -76,15 +46,8 @@ function useCurrentHeading(headings: Heading[]) {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        /*
-         * Two headings can share the band when they sit close together. The one
-         * that counts is the lowest — the last one crossed on the way down —
-         * and that has to be decided by position, not by the order the entries
-         * arrive in: a callback's entries are not sorted by anything.
-         *
-         * When none are in the band, which is most of the time inside a long
-         * section, the last known heading stays current. That is the point.
-         */
+        // Entries arrive unsorted: the current heading is the lowest one in the band. With none
+        // in the band, the last one stays current.
         const visible = entries
           .filter((entry) => entry.isIntersecting)
           .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
@@ -105,14 +68,11 @@ function useCurrentHeading(headings: Heading[]) {
   return [active, setActive] as const;
 }
 
-/** The card in the margin. Wide screens only — its holder decides that. */
 export function Toc({ locale }: { locale: Locale }) {
   const copy = readingCopy[locale];
   const headings = useHeadings();
   const [active, setActive] = useCurrentHeading(headings);
 
-  // One heading summarises nothing. Render nothing rather than an empty box —
-  // the column holds its width either way, so the article does not move.
   if (headings.length < 2) return null;
 
   return (
@@ -122,11 +82,7 @@ export function Toc({ locale }: { locale: Locale }) {
   );
 }
 
-/**
- * The same list, folded, for narrow screens — sitting under the title and above
- * the text. No observer: it is closed while the reader scrolls, so there is
- * nothing to highlight and no reason to watch anything.
- */
+/** Narrow screens, under the title. Folded while reading, so nothing to observe. */
 export function TocFolded({ locale }: { locale: Locale }) {
   const copy = readingCopy[locale];
   const headings = useHeadings();
@@ -148,8 +104,7 @@ export function TocFolded({ locale }: { locale: Locale }) {
 type TocListProps = {
   headings: Heading[];
   active?: string;
-  /** Marks the picked entry at once, rather than waiting for the smooth scroll
-   *  to end and the observer to catch up. A click should answer immediately. */
+  /** Marks the pick at once instead of waiting for the smooth scroll and the observer. */
   onPick?: (id: string) => void;
   label?: string;
 };

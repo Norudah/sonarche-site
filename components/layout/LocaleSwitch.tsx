@@ -12,39 +12,14 @@ import { preferredLocale } from "./preferredLocale";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 /*
- * FR · EN, top right — but not on arrival.
- *
- * The hero is the one thing on this page that gets a clean screen, so nothing
- * is allowed to sit over it at first paint. The switch fades in when the flow
- * has climbed near the top of the viewport — by then the visitor is
- * reading rather than looking — and once in, it stays: scrolling back up to the
- * hero does not take it away, because a control that comes and goes with the
- * scroll is a control nobody trusts. A reload puts it back to hidden, which is
- * the whole of its memory. Nothing is stored.
- *
- * It is rendered from the start rather than mounted on the way in: a freshly
- * mounted element has no previous state to transition from, and the fade would
- * be a pop. Hidden it is `inert`, so it is out of the tab order and out of the
- * accessibility tree until it is really there.
- *
- * The static-export constraint is why this exists at all — no server, so no
- * redirect on Accept-Language, so the choice has to be visible. The footer keeps
- * its own link: this one needs JavaScript to ever appear, that one does not.
- *
- * One more thing it does: when the visitor's browser says they do not read this
- * page's language, the other one is inked in and given a dotted rule, so that a
- * reader who landed on the wrong side can see there is a right side. It is a
- * hint and never an action — nobody gets moved anywhere. Sending someone to a
- * page they did not ask for breaks the back button, overrides a choice they may
- * have made on purpose, and guesses on evidence that is often wrong.
+ * Hidden over the hero, revealed once the flow nears the top, then kept. Rendered from the start
+ * (inert while hidden) so the reveal fades instead of popping. When the browser prefers the other
+ * language, that link is highlighted: a hint, never a redirect.
  */
 
-/* The only string on the site that is not in docs/copy — it is never rendered,
-   only announced, and the deck has no entry for it. */
+/* Announced, never rendered, so it has no entry in docs/copy. */
 const NAV_LABEL: Record<Locale, string> = { en: "Language", fr: "Langue" };
 
-/* Where the first section under the hero has to reach, as a share of the
-   viewport height, for the switch to be earned. */
 const REVEAL_AT = "top 32%";
 
 export function LocaleSwitch({ locale }: { locale: Locale }) {
@@ -59,14 +34,10 @@ export function LocaleSwitch({ locale }: { locale: Locale }) {
       onEnter: () => setShown(true),
     });
 
-    // `once` only fires on a crossing, and a reload restores the scroll
-    // position — someone refreshing halfway down the page would never cross it.
+    // `once` fires on a crossing only; a reload restored past it never crosses.
     if (trigger.progress > 0) setShown(true);
 
-    // Read here rather than during render: `navigator` does not exist on the
-    // server, and a lazy initial state would resolve differently on the two
-    // sides of hydration. This hook already runs once, after mount, on the
-    // client only, which is exactly when the answer becomes knowable.
+    // `navigator` is client-only: reading it during render would mismatch hydration.
     setNudge(preferredLocale(navigator.languages) !== locale);
 
     return () => trigger.kill();
@@ -96,9 +67,7 @@ export function LocaleSwitch({ locale }: { locale: Locale }) {
               <a
                 href={LOCALE_PATH[code]}
                 hrefLang={code}
-                /* Ink and a dotted rule, not colour: the accent is spoken for
-                   by the current language a few pixels to the left, and two
-                   coloured items in a 75px pill is a pill with no hierarchy. */
+                /* Not the accent: it already marks the current language. */
                 className={`hover:text-foreground-strong transition-colors ${
                   nudge
                     ? "text-foreground decoration-accent/50 underline decoration-dotted underline-offset-3"

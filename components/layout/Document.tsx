@@ -4,13 +4,7 @@ import type { ReactNode } from "react";
 
 import type { Locale } from "@/lib/site";
 
-/*
- * The html/body shell, shared by the two root layouts.
- *
- * Two root layouts (app/(en) and app/(fr)) exist so each page can declare its
- * own `lang` — a single root layout would force one language onto both. They
- * both render this, so the shell itself is written once.
- */
+/* Shared by the two root layouts, which exist so each locale declares its own `lang`. */
 
 type DocumentProps = {
   lang: Locale;
@@ -20,9 +14,7 @@ type DocumentProps = {
 export function Document({ lang, children }: DocumentProps) {
   return (
     <html lang={lang} className="h-full">
-      {/* React hoists these into <head>. The Metadata API cannot express a
-          font preload, and the hero's wordmark and tagline are the LCP — both
-          latin subsets are needed on first paint in either language. */}
+      {/* The Metadata API cannot express a font preload; both latin subsets are the hero's LCP. */}
       <link
         rel="preload"
         href="/fonts/space-grotesk-latin-wght-normal.woff2"

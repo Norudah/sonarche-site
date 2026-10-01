@@ -1,20 +1,16 @@
 import type { Locale } from "@/lib/site";
 
-/* Verbatim from docs/copy/en.md and fr.md § Reading pages / Pages de lecture.
-   What the journal and the guide say identically, and nothing else — a string
-   that belongs to one of them lives in that section's own copy.ts. */
+/* Verbatim from docs/copy/en.md and fr.md § Reading pages: what the journal and the guide share. */
 
 export type ReadingCopy = {
   wordmark: string;
   /** BRAND — English in every language. */
   tagline: string;
   backToSite: string;
-  /** Written as a function because the number is data, not copy. */
   readingTime: (minutes: number) => string;
   updatedOn: string;
-  /** Heading of the table of contents, and its accessible name. */
   tableOfContents: string;
-  /** Accessible name of the header nav — never rendered, only announced. */
+  /** Accessible name of the header nav. */
   sections: string;
 };
 
