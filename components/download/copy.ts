@@ -7,11 +7,8 @@ import type { BuildId } from "./platform";
 export type DownloadCopy = {
   /** Before the platform is known, and forever without JavaScript. */
   neutral: string;
-  windowsCta: string;
+  cta: Record<BuildId, string>;
   buildLabel: Record<BuildId, string>;
-  /** The Apple mark already names the platform. */
-  chip: { arm64: string; x64: string };
-  whichMac: string;
   showAll: string;
   hideAll: string;
   megabytes: string;
@@ -22,14 +19,14 @@ export type DownloadCopy = {
 export const downloadCopy: Record<Locale, DownloadCopy> = {
   en: {
     neutral: "Download Sonarche ↓",
-    windowsCta: "Download for Windows ↓",
+    cta: {
+      "macos-universal": "Download for macOS ↓",
+      "windows-x64": "Download for Windows ↓",
+    },
     buildLabel: {
-      "macos-arm64": "macOS · Apple Silicon",
-      "macos-x64": "macOS · Intel",
+      "macos-universal": "macOS · Apple Silicon & Intel",
       "windows-x64": "Windows",
     },
-    chip: { arm64: "Apple Silicon", x64: "Intel" },
-    whichMac: "Not sure? Apple menu → About This Mac: Chip means Apple silicon.",
     showAll: "All versions",
     hideAll: "Hide versions",
     megabytes: "MB",
@@ -38,14 +35,14 @@ export const downloadCopy: Record<Locale, DownloadCopy> = {
   },
   fr: {
     neutral: "Télécharger Sonarche ↓",
-    windowsCta: "Télécharger pour Windows ↓",
+    cta: {
+      "macos-universal": "Télécharger pour macOS ↓",
+      "windows-x64": "Télécharger pour Windows ↓",
+    },
     buildLabel: {
-      "macos-arm64": "macOS · Apple Silicon",
-      "macos-x64": "macOS · Intel",
+      "macos-universal": "macOS · Apple Silicon et Intel",
       "windows-x64": "Windows",
     },
-    chip: { arm64: "Apple Silicon", x64: "Intel" },
-    whichMac: "Tu ne sais pas ? Menu Pomme → À propos de ce Mac : Puce veut dire Apple Silicon.",
     showAll: "Toutes les versions",
     hideAll: "Masquer les versions",
     megabytes: "Mo",

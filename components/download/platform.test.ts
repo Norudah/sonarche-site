@@ -27,21 +27,16 @@ describe("detectPlatform", () => {
 });
 
 describe("pickBuilds", () => {
-  it("maps installers by extension and architecture, whatever the version", () => {
-    const builds = pickBuilds([
-      asset("Sonarche_2.1.0_aarch64.dmg"),
-      asset("Sonarche_2.1.0_x64.dmg"),
-      asset("Sonarche_2.1.0_x64-setup.exe"),
-    ]);
-    expect(builds["macos-arm64"]?.url).toContain("aarch64.dmg");
-    expect(builds["macos-x64"]?.url).toContain("x64.dmg");
+  it("maps installers by extension, whatever the version", () => {
+    const builds = pickBuilds([asset("Sonarche_2.6.0_universal.dmg"), asset("Sonarche_2.6.0_x64-setup.exe")]);
+    expect(builds["macos-universal"]?.url).toContain("universal.dmg");
     expect(builds["windows-x64"]?.url).toContain("setup.exe");
   });
 
   it("ignores updater artifacts and keeps the first Windows installer", () => {
     const builds = pickBuilds([
-      asset("Sonarche.app.tar.gz"),
-      asset("Sonarche.app.tar.gz.sig"),
+      asset("Sonarche_universal.app.tar.gz"),
+      asset("Sonarche_universal.app.tar.gz.sig"),
       asset("latest.json"),
       asset("Sonarche_2.1.0_x64-setup.exe"),
       asset("Sonarche_2.1.0_x64_en-US.msi"),
@@ -51,7 +46,7 @@ describe("pickBuilds", () => {
   });
 
   it("rounds the size to whole megabytes", () => {
-    expect(pickBuilds([asset("a_aarch64.dmg", 41.6 * 1024 * 1024)])["macos-arm64"]?.sizeMb).toBe(42);
+    expect(pickBuilds([asset("a_universal.dmg", 241.4 * 1024 * 1024)])["macos-universal"]?.sizeMb).toBe(241);
   });
 });
 

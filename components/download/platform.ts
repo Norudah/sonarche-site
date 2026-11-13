@@ -1,7 +1,7 @@
 export type Platform = "macos" | "windows" | "unknown";
 
 /** The installers. The release also carries updater artifacts that must never surface here. */
-export type BuildId = "macos-arm64" | "macos-x64" | "windows-x64";
+export type BuildId = "macos-universal" | "windows-x64";
 
 export type ReleaseAsset = {
   name: string;
@@ -16,12 +16,12 @@ export type Build = {
 };
 
 export const BUILDS_FOR: Record<Platform, BuildId[]> = {
-  macos: ["macos-arm64", "macos-x64"],
+  macos: ["macos-universal"],
   windows: ["windows-x64"],
   unknown: [],
 };
 
-export const ALL_BUILDS: BuildId[] = ["macos-arm64", "macos-x64", "windows-x64"];
+export const ALL_BUILDS: BuildId[] = ["macos-universal", "windows-x64"];
 
 type DetectInput = {
   userAgent: string;
@@ -38,16 +38,11 @@ export function detectPlatform({ userAgent, maxTouchPoints = 0 }: DetectInput): 
   return "unknown";
 }
 
-/** By extension and architecture, never by full name: the version sits in the middle of it. */
+/** By extension, never by full name: the version sits in the middle of it. One dmg serves both Macs. */
 function identify(name: string): BuildId | null {
   const lower = name.toLowerCase();
 
-  if (lower.endsWith(".dmg")) {
-    if (lower.includes("aarch64") || lower.includes("arm64")) return "macos-arm64";
-    if (lower.includes("x64") || lower.includes("x86_64")) return "macos-x64";
-    return null;
-  }
-
+  if (lower.endsWith(".dmg")) return "macos-universal";
   if (lower.endsWith(".exe") || lower.endsWith(".msi")) return "windows-x64";
 
   return null;

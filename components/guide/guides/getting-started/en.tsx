@@ -22,10 +22,7 @@ export function GettingStartedEn() {
 
       <ul>
         <li>
-          <strong>Mac, Apple Silicon (M1–M4)</strong>: <code>Sonarche_x.y.z_aarch64.dmg</code>
-        </li>
-        <li>
-          <strong>Mac, Intel</strong>: <code>Sonarche_x.y.z_x64.dmg</code>
+          <strong>Mac, Apple Silicon or Intel</strong>: <code>Sonarche_x.y.z_universal.dmg</code>
         </li>
         <li>
           <strong>Windows 10 or 11, 64-bit</strong>: <code>Sonarche_x.y.z_x64-setup.exe</code>
@@ -33,9 +30,8 @@ export function GettingStartedEn() {
       </ul>
 
       <p>
-        Not sure which Mac you have? Apple menu → About This Mac: a line saying <em>Chip</em>&#32;means Apple Silicon.
-        From a terminal, <code>uname -m</code>&#32;answers <code>arm64</code>&#32;or <code>x86_64</code>. Windows on ARM
-        runs the x64 build under emulation.
+        The Mac file is universal: the same one runs on every Mac, whatever the chip. Windows on ARM runs the x64 build
+        under emulation.
       </p>
 
       <H2>Getting past the warning on macOS</H2>

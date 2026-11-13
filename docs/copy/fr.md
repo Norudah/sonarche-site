@@ -354,28 +354,22 @@ Ouvrir` — Ou si elle est déjà bloquée : Réglages Système → Confidential
 Un seul composant, rendu comme CTA principal dans le hero puis dans le CTA
 final. Il lit le système du visiteur et propose la version qui lui correspond.
 
-macOS affiche **les deux** puces côte à côte plutôt que d'en choisir une. Ce
-n'est pas de l'indécision : sur macOS, tous les navigateurs annoncent
-`Intel Mac OS X` quelle que soit la puce, et la seule API qui dit vrai n'existe
-que sur Chromium. Deviner, c'est offrir un échec silencieux et incompréhensible
-à celui qu'on se trompe — la page demande donc, et la note dit où regarder.
+macOS a un seul bouton, comme Windows. Le dmg est universel : le même fichier
+tourne sur Apple Silicon et sur Intel, il n'y a donc plus de puce à demander.
+(La page affichait les deux puces, parce que sur macOS tous les navigateurs
+annoncent `Intel Mac OS X` quelle que soit la puce ; la version universelle a
+supprimé la question.)
 
 Chaque bouton et chaque ligne du panneau porte la marque de sa plateforme — le
-logo Pomme, le drapeau Windows. C'est la marque qui nomme la plateforme, et
-c'est pourquoi la paire macOS n'a pas besoin d'intitulé au-dessus : le logo dit
-`macOS`, le libellé dit quelle puce. Cet intitulé a existé, il a été coupé pour
-cette raison.
+logo Pomme, le drapeau Windows.
 
 - CTA neutre, avant que le système soit connu et si le JavaScript n'arrive
   jamais : `Télécharger Sonarche ↓`
-- macOS, les deux boutons, chacun sous une Pomme : `Apple Silicon` · `Intel`
+- macOS, un seul bouton, sous la Pomme : `Télécharger pour macOS ↓`
 - Windows, un seul bouton, sous le drapeau : `Télécharger pour Windows ↓`
-- Ligne meta sous les boutons, sur une seule ligne, les deux moitiés séparées
-  par `·` :
-  - Quel Mac : Tu ne sais pas ? Menu Pomme → À propos de ce Mac : `Puce` veut
-    dire Apple Silicon.
-  - Bascule : `Toutes les versions` / `Masquer les versions`
-- Lignes du panneau : `macOS · Apple Silicon` · `macOS · Intel` · `Windows`
+- Ligne meta sous le bouton : la bascule, `Toutes les versions` /
+  `Masquer les versions`
+- Lignes du panneau : `macOS · Apple Silicon et Intel` · `Windows`
 - Détail par ligne, une fois la release connue : `{taille} Mo`
 - Ligne de version sous le panneau : `Version {n}` — absente tant que la
   release n'a pas répondu, jamais inventée.

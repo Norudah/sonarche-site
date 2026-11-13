@@ -307,25 +307,21 @@ Each card: step label — tool — gripe — cost.
 One component, rendered as the primary CTA in the hero and again in the final
 CTA. It reads the visitor's system and offers the matching build.
 
-macOS shows **both** chips side by side rather than picking one. That is not
-indecision: every browser on macOS reports `Intel Mac OS X` in its user agent
-whatever the chip, and the one API that tells the truth exists only on
-Chromium. Guessing would hand a silent, unexplained failure to whoever we get
-wrong, so the page asks instead — and the note below tells them where to look.
+macOS gets one button, like Windows. The dmg is universal: the same file runs
+on Apple Silicon and on Intel, so there is no chip to ask about. (The page used
+to show both chips, because every browser on macOS reports `Intel Mac OS X`
+whatever the chip; the universal build removed the question.)
 
 Every button and every panel row carries its platform's mark — the Apple logo,
-the Windows flag. The mark is what names the platform, which is why the macOS
-pair needs no heading over it: the logo says `macOS` and the label says which
-chip. That heading existed and was cut for exactly this reason.
+the Windows flag.
 
 - Neutral CTA, before the system is known and when JavaScript never lands:
   `Download Sonarche ↓`
-- macOS, the two buttons, each under an Apple mark: `Apple Silicon` · `Intel`
+- macOS, one button, under the Apple mark: `Download for macOS ↓`
 - Windows, one button, under the Windows mark: `Download for Windows ↓`
-- Meta line under the buttons, one line, the two halves separated by `·`:
-  - Which Mac: Not sure? Apple menu → About This Mac: `Chip` means Apple silicon.
-  - All-versions toggle: `All versions` / `Hide versions`
-- Panel rows: `macOS · Apple Silicon` · `macOS · Intel` · `Windows`
+- Meta line under the button: the all-versions toggle, `All versions` /
+  `Hide versions`
+- Panel rows: `macOS · Apple Silicon & Intel` · `Windows`
 - Per-row detail, once the release is known: `{size} MB`
 - Version line under the panel: `Version {n}` — omitted until the release
   answers, never invented.

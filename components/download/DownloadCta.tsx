@@ -13,8 +13,7 @@ import { usePlatform } from "./usePlatform";
 
 /*
  * Every stage is a working link: server-rendered it points at the releases page, once the platform
- * is known it shows the right buttons, and once the release answers they point at the file itself.
- * macOS gets both chips: every macOS browser reports "Intel", and guessing fails silently.
+ * is known it shows the right button, and once the release answers it points at the file itself.
  */
 
 const PILL =
@@ -22,29 +21,23 @@ const PILL =
 
 const PILL_WIDE = `${PILL} flex-1 px-7.5 py-4`;
 
-const PILL_PAIRED = `${PILL} flex-1 px-6 py-4 text-[0.9375rem] whitespace-nowrap`;
-
 type DownloadCtaProps = {
   locale: Locale;
-  /** Rendered on the buttons' line (the hero's "See how it works"). */
+  /** Rendered on the button's line (the hero's "See how it works"). */
   children?: ReactNode;
-  /** Stack the note and the toggle; the hero keeps them on one line to save height. */
-  stackedNote?: boolean;
 };
 
-export function DownloadCta({ locale, children, stackedNote }: DownloadCtaProps) {
+export function DownloadCta({ locale, children }: DownloadCtaProps) {
   const copy = downloadCopy[locale];
   const platform = usePlatform();
   const release = useLatestRelease();
   const [showAll, setShowAll] = useState(false);
 
   const builds = platform ? BUILDS_FOR[platform] : [];
-  const isMac = platform === "macos";
 
   return (
     <div className="relative flex w-full flex-col items-center">
       <div className="flex w-full max-w-xs flex-col items-stretch gap-3.5 sm:w-auto sm:max-w-none sm:flex-row sm:items-center sm:justify-center">
-        {/* The pair stays a row on a phone: stacking would cost the hero a button's height. */}
         <div className="flex items-stretch gap-3 sm:gap-3.5">
           {builds.length === 0 && (
             <a href={RELEASES_URL} className={PILL_WIDE}>
@@ -56,10 +49,13 @@ export function DownloadCta({ locale, children, stackedNote }: DownloadCtaProps)
             <a
               key={id}
               href={hrefFor(release, id, RELEASES_URL)}
-              className={`${isMac ? PILL_PAIRED : PILL_WIDE} inline-flex items-center justify-center gap-2.5`}
+              className={`${PILL_WIDE} inline-flex items-center justify-center gap-2.5`}
             >
-              <PlatformMark id={id} className={isMac ? "h-[1.15em] w-[1.15em] -translate-y-px" : "h-[1em] w-[1em]"} />
-              {isMac ? copy.chip[id === "macos-arm64" ? "arm64" : "x64"] : copy.windowsCta}
+              <PlatformMark
+                id={id}
+                className={id === "windows-x64" ? "h-[1em] w-[1em]" : "h-[1.15em] w-[1.15em] -translate-y-px"}
+              />
+              {copy.cta[id]}
             </a>
           ))}
         </div>
@@ -67,25 +63,7 @@ export function DownloadCta({ locale, children, stackedNote }: DownloadCtaProps)
         {children}
       </div>
 
-      <div
-        className={`mt-3.5 text-[0.78125rem] ${
-          stackedNote
-            ? "flex flex-col items-center gap-1.5"
-            : "flex flex-wrap items-baseline justify-center gap-x-2 gap-y-1"
-        }`}
-      >
-        {isMac && (
-          <>
-            <span className="text-muted">{copy.whichMac}</span>
-            {/* Only where they share a line; a wrapped separator reads as a bullet. */}
-            {!stackedNote && (
-              <span className="text-muted/45 hidden sm:inline" aria-hidden>
-                ·
-              </span>
-            )}
-          </>
-        )}
-
+      <div className="mt-3.5 flex justify-center text-[0.78125rem]">
         <button
           type="button"
           onClick={() => setShowAll((open) => !open)}

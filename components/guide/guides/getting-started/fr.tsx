@@ -23,10 +23,7 @@ export function GettingStartedFr() {
 
       <ul>
         <li>
-          <strong>Mac Apple Silicon (M1 à M4)</strong> : <code>Sonarche_x.y.z_aarch64.dmg</code>
-        </li>
-        <li>
-          <strong>Mac Intel</strong> : <code>Sonarche_x.y.z_x64.dmg</code>
+          <strong>Mac, Apple Silicon ou Intel</strong> : <code>Sonarche_x.y.z_universal.dmg</code>
         </li>
         <li>
           <strong>Windows 10 ou 11, 64 bits</strong> : <code>Sonarche_x.y.z_x64-setup.exe</code>
@@ -34,9 +31,8 @@ export function GettingStartedFr() {
       </ul>
 
       <p>
-        Tu ne sais pas quel Mac tu as ? Menu Pomme → À propos de ce Mac : si la ligne dit <em>Puce</em>, c&apos;est de
-        l&apos;Apple Silicon. En ligne de commande, <code>uname -m</code>&#32;répond <code>arm64</code>&#32;ou{" "}
-        <code>x86_64</code>. Windows sur ARM fait tourner la version x64 en émulation.
+        Le fichier Mac est universel : le même tourne sur tous les Mac, quelle que soit la puce. Windows sur ARM fait
+        tourner la version x64 en émulation.
       </p>
 
       <H2>Passer l&apos;avertissement, sur macOS</H2>

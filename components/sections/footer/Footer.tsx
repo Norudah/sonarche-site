@@ -26,7 +26,7 @@ export function Footer({ locale }: { locale: Locale }) {
         <p className="text-body mt-4 max-w-[32.5rem] text-[1.09rem] leading-relaxed">{copy.body}</p>
 
         <div className="mt-8 w-full">
-          <DownloadCta locale={locale} stackedNote />
+          <DownloadCta locale={locale} />
         </div>
 
         <p className="mt-8 text-[0.75rem] text-[oklch(0.58_0.02_279)]">{copy.license}</p>
