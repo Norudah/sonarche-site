@@ -1,4 +1,5 @@
 import { DownloadCta } from "@/components/download/DownloadCta";
+import { guideById, guidePath } from "@/lib/guide";
 import { type Locale } from "@/lib/site";
 
 import { Colophon } from "./Colophon";
@@ -29,7 +30,17 @@ export function Footer({ locale }: { locale: Locale }) {
           <DownloadCta locale={locale} />
         </div>
 
-        <p className="mt-8 text-[0.75rem] text-[oklch(0.58_0.02_279)]">{copy.license}</p>
+        <p className="border-separator bg-surface text-body mt-8 inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-1 rounded-full border px-4 py-2.5 text-sm">
+          {copy.help}
+          <a
+            href={guidePath(guideById("getting-started"), locale)}
+            className="text-accent hover:text-accent-strong font-semibold"
+          >
+            {copy.helpLink}
+          </a>
+        </p>
+
+        <p className="mt-7 text-[0.75rem] text-[oklch(0.58_0.02_279)]">{copy.license}</p>
 
         <p className="mt-1 max-w-[32.5rem] text-[0.71875rem] leading-[1.6] text-[oklch(0.58_0.02_279)]">
           {copy.personalUse}

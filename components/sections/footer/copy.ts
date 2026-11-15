@@ -7,6 +7,9 @@ export type FooterCopy = {
   headingEmphasis: string;
   body: string;
   /** No `cta`: the download button builds its own labels. */
+  /** Points at the getting-started guide, near the download button. */
+  help: string;
+  helpLink: string;
   license: string;
   personalUse: string;
   wordmark: string;
@@ -25,6 +28,8 @@ export const footerCopy: Record<Locale, FooterCopy> = {
     headingBefore: "Free. Open source.",
     headingEmphasis: "Yours.",
     body: "No subscription, no cloud, no lock-in. The code is on GitHub: read it, fork it, board it.",
+    help: "Need a hand with the first launch?",
+    helpLink: "Read the guide →",
     license: "License: MIT",
     personalUse: "For personal use. Respect the terms of the services you use, and your local law.",
     wordmark: "SONARCHE",
@@ -39,6 +44,8 @@ export const footerCopy: Record<Locale, FooterCopy> = {
     headingBefore: "Gratuit. Open source.",
     headingEmphasis: "À toi.",
     body: "Pas d'abonnement, pas de cloud, pas de verrou. Le code est sur GitHub : lis-le, forke-le, monte à bord.",
+    help: "Besoin d'aide pour le premier lancement ?",
+    helpLink: "Lire le guide →",
     license: "Licence : MIT",
     personalUse: "Usage personnel. Respecte les conditions des services que tu utilises et le droit de ton pays.",
     wordmark: "SONARCHE",
