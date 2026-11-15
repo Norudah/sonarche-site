@@ -4,6 +4,7 @@ import type { Locale } from "@/lib/site";
 import { flowCopy, type FlowStep, type SceneTags } from "./copy";
 import { FlowCascade } from "./FlowCascade";
 import { IsoScene } from "./IsoScene";
+import { Marks } from "./Marks";
 
 /* The growing indents pull the eye down and right, so the steps read as a descent. The top band
    starts on the hero's last colour, so the two sections dissolve rather than cut. */
@@ -66,29 +67,33 @@ function Row({ step, stepLabel, tags, index }: RowProps) {
         mirrored ? "lg:flex-row-reverse" : "lg:flex-row"
       } ${INDENT[index]}`}
     >
-      <IsoScene step={index} tags={tags} className="w-full max-w-[34rem] shrink-0 lg:w-[26rem] xl:w-[32rem]" />
+      <div className="relative w-full max-w-[36rem] shrink-0 lg:w-[30rem] xl:w-[40rem]">
+        <IsoScene step={index} tags={tags} />
+        <Marks step={index} marks={step.marks} tags={tags} />
+      </div>
 
-      <div className="flex max-w-[28.75rem] flex-1 flex-col gap-3.5">
-        <div className="flex w-full items-center gap-3">
-          <p className="text-accent font-mono text-xs font-semibold tracking-[0.1em]">
-            {stepLabel} {step.number}
-          </p>
-          <span aria-hidden className="bg-separator h-px flex-1" />
+      <div className="flex max-w-[28.75rem] flex-1 flex-col gap-4">
+        <div className="flex w-full items-baseline gap-3.5">
+          <span className="text-accent font-display text-5xl leading-none font-light tracking-[-0.04em] sm:text-6xl">
+            {step.number}
+          </span>
+          <span className="text-accent font-mono text-xs font-semibold tracking-[0.1em]">{stepLabel}</span>
+          <span aria-hidden className="bg-separator h-px flex-1 self-center" />
         </div>
 
-        <h3 className="text-foreground-strong font-display text-[clamp(1.5rem,2.2vw,2rem)] leading-[1.2] font-semibold tracking-[-0.01em]">
+        <h3 className="text-foreground-strong font-display text-[clamp(1.75rem,2.8vw,2.5rem)] leading-[1.1] font-semibold tracking-[-0.015em]">
           {step.title}
         </h3>
 
-        <div className="flex flex-col gap-2.5">
-          {step.text.map((paragraph, i) => (
-            <p key={i} className="text-body text-base leading-[1.65]">
-              {paragraph}
-            </p>
-          ))}
-        </div>
+        {step.text.map((paragraph, i) => (
+          <p key={i} className="text-foreground text-lg leading-[1.55] sm:text-xl">
+            {paragraph}
+          </p>
+        ))}
 
-        <p className="text-accent-muted mt-1 font-serif text-base leading-normal italic">{step.note}</p>
+        <p className="text-accent-muted mt-1 font-serif text-lg leading-[1.45] italic sm:text-[1.1875rem]">
+          {step.note}
+        </p>
       </div>
     </div>
   );
