@@ -4,7 +4,8 @@ import type { Locale } from "@/lib/site";
 import { trueNamesCopy, type TrueNamesCopy } from "./copy";
 
 /* The same track in the app's inspector, before and after. Static on purpose: both have to be
-   readable at the same instant, field against field. */
+   readable at the same instant, field against field. Side by side, each card spans the same four
+   subgrid rows, so a title that wraps on one side keeps every band level on both. */
 
 export function TrueNames({ locale }: { locale: Locale }) {
   const copy = trueNamesCopy[locale];
@@ -25,7 +26,7 @@ export function TrueNames({ locale }: { locale: Locale }) {
         bodyWidth="max-w-[41.25rem]"
       />
 
-      <div className="mx-auto mt-12 grid max-w-[78rem] items-start gap-7 px-8 sm:px-15 lg:grid-cols-2">
+      <div className="mx-auto mt-12 grid max-w-[78rem] gap-7 px-8 sm:px-15 lg:grid-cols-2 lg:gap-y-0">
         <Inspector copy={copy} side="scraped" />
         <Inspector copy={copy} side="identified" />
       </div>
@@ -44,7 +45,7 @@ function Inspector({ copy, side }: { copy: TrueNamesCopy; side: "scraped" | "ide
 
   return (
     <div
-      className={`bg-surface overflow-hidden rounded-[1.25rem] ${
+      className={`bg-surface flex flex-col overflow-hidden rounded-[1.25rem] lg:row-span-4 lg:grid lg:grid-rows-subgrid ${
         old ? "ring-rust-edge ring-1" : "ring-accent shadow-[0_40px_80px_-40px_oklch(0.505_0.185_277/0.5)] ring-2"
       }`}
     >
@@ -61,43 +62,45 @@ function Inspector({ copy, side }: { copy: TrueNamesCopy; side: "scraped" | "ide
         </p>
       </div>
 
-      <div className="flex flex-col gap-3.5 px-5 py-4.5">
-        <div className="flex items-center gap-3.5">
-          <Artwork letterboxed={old} />
-          <div className="min-w-0">
-            <p className="text-accent font-mono text-[0.625rem] font-semibold tracking-[0.1em]">{copy.trackLabel}</p>
-            <p
-              className={`font-display mt-0.5 text-[1.0625rem] leading-tight font-bold ${old ? "text-rust-ink" : "text-foreground-strong"}`}
-            >
-              {title}
-            </p>
-          </div>
+      <div className="flex items-center gap-3.5 px-5 pt-4.5">
+        <Artwork letterboxed={old} />
+        <div className="min-w-0">
+          <p className="text-accent font-mono text-[0.625rem] font-semibold tracking-[0.1em]">{copy.trackLabel}</p>
+          <p
+            className={`font-display mt-0.5 text-[1.0625rem] leading-tight font-bold ${old ? "text-rust-ink" : "text-foreground-strong"}`}
+          >
+            {title}
+          </p>
         </div>
+      </div>
 
+      <div className="px-5 pt-3.5">
         <p
-          className={`flex items-center gap-2 rounded-[0.625rem] px-3 py-2.25 text-[0.8125rem] font-semibold ${
-            old ? "bg-rust-soft text-rust" : "border-separator text-foreground border"
+          className={`flex items-center gap-2 rounded-[0.625rem] border px-3 py-2.25 text-[0.8125rem] font-semibold ${
+            old ? "bg-rust-soft text-rust border-transparent" : "border-separator text-foreground"
           }`}
         >
           <span aria-hidden className={`size-1.75 rounded-full ${old ? "bg-rust" : "bg-success"}`} />
           {meta.count}
         </p>
-
-        <dl className="grid grid-cols-2 gap-2.5">
-          {copy.fields.map((field) => (
-            <div key={field.key} className={`flex flex-col gap-1 ${field.wide ? "col-span-2" : ""}`}>
-              <dt className="text-muted text-[0.6875rem]">{field.key}</dt>
-              <dd
-                className={`rounded-lg px-2.75 py-2.25 text-[0.84375rem] leading-[1.35] ${
-                  old ? "bg-rust-soft text-rust-ink" : "border-border text-foreground-strong border font-medium"
-                }`}
-              >
-                {field[side]}
-              </dd>
-            </div>
-          ))}
-        </dl>
       </div>
+
+      <dl className="grid grid-cols-2 content-start gap-2.5 px-5 pt-3.5 pb-4.5">
+        {copy.fields.map((field) => (
+          <div key={field.key} className={`flex flex-col gap-1 ${field.wide ? "col-span-2" : ""}`}>
+            <dt className="text-muted text-[0.6875rem]">{field.key}</dt>
+            <dd
+              className={`rounded-lg border px-2.75 py-2.25 text-[0.84375rem] leading-[1.35] ${
+                old
+                  ? "bg-rust-soft text-rust-ink border-transparent"
+                  : "border-border text-foreground-strong font-medium"
+              }`}
+            >
+              {field[side]}
+            </dd>
+          </div>
+        ))}
+      </dl>
     </div>
   );
 }
