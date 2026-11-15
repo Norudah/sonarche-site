@@ -2,13 +2,16 @@ import { Emphasis, SectionHeader } from "@/components/sections/SectionHeader";
 import type { Locale } from "@/lib/site";
 
 import { shipSoundCopy } from "./copy";
-import { PlayerBar } from "./PlayerBar";
+import { Player } from "./Player";
 
 export function ShipSound({ locale }: { locale: Locale }) {
   const copy = shipSoundCopy[locale];
 
   return (
-    <section data-anim-gate className="relative isolate py-24 sm:py-27">
+    <section
+      data-anim-gate
+      className="from-background relative isolate bg-linear-to-b to-[oklch(0.95_0.028_279)] py-24 sm:py-27"
+    >
       <SectionHeader
         kicker={copy.kicker}
         stacked
@@ -20,12 +23,10 @@ export function ShipSound({ locale }: { locale: Locale }) {
         }
         headingWidth="max-w-[48.75rem]"
         body={copy.body}
-        bodyWidth="max-w-[41.25rem]"
+        bodyWidth="max-w-[37.5rem]"
       />
 
-      <div className="mx-auto mt-11 flex max-w-[64rem] px-8 sm:px-15">
-        <PlayerBar copy={copy} />
-      </div>
+      <Player copy={copy} />
     </section>
   );
 }

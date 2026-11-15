@@ -14,6 +14,10 @@
   animation: equalizer 0.9s ease-in-out infinite;
 }
 
+.paused {
+  animation-play-state: paused;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .eqBar {
     animation: none;
