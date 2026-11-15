@@ -1,8 +1,6 @@
 import { AnimationGate } from "@/components/layout/AnimationGate";
 import { LocaleSwitch } from "@/components/layout/LocaleSwitch";
 import { StructuredData } from "@/components/layout/StructuredData";
-import { Deck } from "@/components/sections/deck/Deck";
-import { FirstLaunch } from "@/components/sections/first-launch/FirstLaunch";
 import { Flow } from "@/components/sections/flow/Flow";
 import { Footer } from "@/components/sections/footer/Footer";
 import { Hero } from "@/components/sections/hero/Hero";
@@ -37,12 +35,10 @@ export function LandingPage({ locale }: { locale: Locale }) {
         <OldWay locale={locale} />
         <TrueNames locale={locale} />
         <NoExpertise locale={locale} />
+        <RealThing locale={locale} />
+        <ShipSound locale={locale} />
         <Hold locale={locale} />
         <UnderDeck locale={locale} />
-        <Deck locale={locale} />
-        <ShipSound locale={locale} />
-        <RealThing locale={locale} />
-        <FirstLaunch locale={locale} />
       </main>
       <Footer locale={locale} />
       <AnimationGate />
