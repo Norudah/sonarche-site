@@ -25,27 +25,43 @@ Keep it abstract and elegant: sea/stream/vessel/harbor imagery, geometric ark,
 converging particles or waveforms. Never literal (no boat with animals, no biblical
 kitsch).
 
-## Page structure (final — v7, 2026-07-30)
+## Page structure (v8, 2026-11-15)
 
-The v7 Claude Design mockup ("Sonarche Landing v7", in the app repo under
-`docs/designs/landing/`) superseded the earlier 6-section plan. Final order:
+Reworked on a design canvas in November 2026 ("show, don't tell": less prose,
+each section shows the app doing the thing). Order:
 
 1. **Hero** — badge, wordmark, tagline, subline, download CTA. The CSS storm
    paints first; on wide screens a three.js scene takes over from it (see
    § The live sea below).
-2. **The flow** — 4 numbered steps (paste / come aboard / fingerprint / named).
-3. **The old way** — 5-tools pain table, then "Sonarche does all five."
-4. **True names** — scraped-vs-identified compare, the fingerprint story.
-5. **No expertise needed** — automation + the genre-edit widget.
-6. **The hold is yours** — plain files, no lock-in.
-7. **Under the deck** — architecture diagram (yt-dlp, ffmpeg+Chromaprint,
-   beets, MusicBrainz, AcoustID, embedded Python).
-8. **The deck** — library views, editable fields.
-9. **The ship's sound** — the native Rust player.
-10. **The real thing** — real screenshots carousel.
-11. **First launch** — Gatekeeper (macOS) + SmartScreen (Windows) walkthrough.
-12. **Final CTA + footer** — "Free. Open source. Yours.", MIT, personal-use line.
-    The harbour's calm sea goes live too, on the same terms as the hero's.
+2. **The flow** — 4 numbered steps (paste / come aboard / fingerprint / named),
+   short texts, marks laid over each diorama.
+3. **The old way** — five aligned columns (tool struck through, a drawing of
+   what it leaves behind, cost), a tick under each, then a result band:
+   "Sonarche does all five." beside the clean file.
+4. **True names** — two static inspectors, scraped (1 of 7 fields) vs
+   identified (7 of 7).
+5. **No expertise needed** — a card grid: albums filling to 100 %, the
+   uncertain flag, the album editor playing one session (genre for the whole
+   album, one guest artist, save), the help "?" tour, a re-match fixing a
+   wrong track.
+6. **The real thing** — real screenshots. Unchanged and still in progress: it
+   gets its own design session.
+7. **The ship's sound** — the app's own player bar over an Album capture, with
+   queue and synced-lyrics panels; autoplays a public-domain demo queue.
+8. **The hold is yours** — the visitor's own file manager (Windows Explorer or
+   macOS Finder, detected), the folder flies to each destination.
+9. **Under the deck** — a simple pipeline (entries, sealed yt-dlp /
+   ffmpeg+Chromaprint / beets, service groups, /sonarche). A packet walks it;
+   at beets small dots go back and forth with the services before it lands in
+   /sonarche. Then the three tech cards.
+10. **Final CTA + footer** — "Free. Open source. Yours.", a help line to the
+    getting-started guide, MIT, personal-use line. The harbour's calm sea goes
+    live too, on the same terms as the hero's. A redesign of the CTA band is
+    paused.
+
+Removed in v8: **The deck** (library views; its editing story now lives in No
+expertise needed) and **First launch** (the Gatekeeper / SmartScreen
+walkthrough moved to the guide; the footer links to it).
 
 The v7 mockup opened on a "Why it exists" manifesto between the hero and the
 flow ("Your music should outlive every app.", four italic lines, four chips).

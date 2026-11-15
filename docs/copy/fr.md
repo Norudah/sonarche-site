@@ -33,22 +33,21 @@ la maquette avait laissées en anglais, sont traduites ici.
 - Titre : Un lien entre, et une bibliothèque naît.
 - Sous-titre : Un processus en 4 étapes simples : tu n'as presque rien à
   faire à part regarder Sonarche travailler pour toi.
+- Le dessin de chaque étape porte quelques repères, posés sur la scène
+  (l'étape 04 n'en a pas : sa carte de tags parle pour elle).
 
 ### Étape 01 — Colle un lien
 
 Un titre, un album, une playlist entière sur internet. Colle le lien dans
 l'application et le voyage commence.
+Repères : `Un titre` · `Un album` · `Une playlist entière`
 Note : Déjà dans la cale ? Il passe son tour. Pas de duplication.
 
 ### Étape 02 — Regarde la cargaison monter à bord
 
-L'interface te montre exactement ce qu'il se passe : la source a-t-elle été
-récupérée ? Check. Le fichier est-il présent physiquement sur ton
-ordinateur ? Check. A-t-on pu identifier le morceau correctement ? Check.
-
 Les pastilles passent au vert une à une, tu sais exactement où regarder si
 un problème est détecté.
-
+Repères : `Source` · `Fichier` · `Identification`
 Note : Si tu fermes la fenêtre pendant l'opération, la suite sera reprise
 automatiquement au prochain lancement : tu ne perds pas ta progression.
 
@@ -56,31 +55,14 @@ automatiquement au prochain lancement : tu ne perds pas ta progression.
 
 ffmpeg et Chromaprint analysent l'audio directement, et extraient une
 empreinte acoustique.
-
-Cette empreinte, si elle est identifiée, sert de carte d'identité au
-morceau associé. Elle peut alors être utilisée auprès d'AcoustID, qui va
-permettre de certifier avec certitude que le morceau est bien celui-ci, et
-non deviné par divers tags ou autre.
-
+Repères : `ffmpeg + Chromaprint` · `empreinte acoustique`
 Note : Pas de correspondance sûre ? Sonarche t'informe et te laisse trancher
 plutôt que d'inventer.
 
 ### Étape 04 — Informations et métadonnées
 
 Titre, artiste, album, genre, piste, année. Et la vraie pochette. Tout est
-écrit dans les tags et les métadonnées du fichier. Pas de nom bizarre ou de
-convention : la source de vérité est dans les tags, et Sonarche s'en occupe
-correctement.
-
-Et si tu n'es pas satisfait, ou que tu souhaites customiser à ta sauce,
-Sonarche met à disposition un système accessible pour modifier en quelques
-clics le genre d'une musique ou d'un artiste, pour que ta bibliothèque
-corresponde vraiment à tes goûts et à ta propre façon de t'organiser.
-
-Sonarche reste libre et open source. Tes fichiers, ta décision. Sonarche
-complète les fichiers au maximum : libre à toi de rester ou non dans
-l'écosystème Sonarche.
-
+écrit dans les tags et les métadonnées du fichier.
 Note : Dans les fichiers eux-mêmes, pas dans une base que seul Sonarche
 saurait lire.
 Étiquettes de la scène (celles qui volent jusqu'au fichier dans le dessin de
@@ -95,57 +77,49 @@ l'étape) : `Titre` · `Artiste` · `Album` · `Genre` · `Piste` · `Année`
 
 ### Les cinq maillons de la chaîne
 
-Chaque carte : libellé d'étape — outil — grief — coût.
+Cinq colonnes : libellé d'étape, outil (barré), un petit dessin de ce qu'il
+laisse derrière lui, coût. Une coche sous chacune, puis le bandeau résultat.
 
-1. `ONGLET 1` — **Un site de conversion** — Un lien à la fois, converti sur le
-   serveur de quelqu'un d'autre. Tu attends dans une file, puis le navigateur
-   dépose le fichier où bon lui semble. — _Lent et un seul morceau à la fois._
-2. `APP 1` — **Un téléchargeur en masse** — Il gère la playlist, au moins.
-   Mais il remplit les tags avec le nom du fichier : ton artiste s'appelle
-   « Unknown » et ton album est vide. — _Des tags devinés._
-3. `APP 2` — **Un éditeur de tags** — Ouvrir chaque fichier. Retaper le titre,
-   l'artiste, l'année, le numéro de piste. Multiplié par 80. — _Des heures de
-   saisies et de clics manuels._
-4. `ONGLET 2` — **Une recherche d'images** — Chercher une pochette carrée qui
-   ne soit pas une vignette filigranée, la recadrer, espérer qu'elle
-   corresponde au bon pressage. — _Des rectangles, des carrés : c'est pas
-   carré._
-5. `APP 3` — **Ton lecteur de musique** — Déplacer les fichiers, relancer
-   l'analyse du dossier, puis découvrir trois doublons et un album coupé en
-   deux. — _Résultat ? Une bibliothèque bancale._
+1. `ONGLET 1` · **Un site de conversion** · _Lent et un seul morceau à la fois._
+2. `APP 1` · **Un téléchargeur en masse** · _Des tags devinés._
+3. `APP 2` · **Un éditeur de tags** · _Des heures de saisies et de clics
+   manuels._
+4. `ONGLET 2` · **Une recherche d'images** · _Des rectangles, des carrés :
+   c'est pas carré._
+5. `APP 3` · **Ton lecteur de musique** · _Résultat ? Une bibliothèque
+   bancale._
+
+Dessins (contenu de démo, non traduit sauf les libellés) : le nom de fichier
+`Ghost - Mary On A Cross (Official Audio) [HQ].mp3` · tags devinés
+`Artiste : Unknown`, `Album :` (vide), `Année :` (vide) · `× 80` · doublons
+`Mary On A Cross`, `Mary On A Cross (1)`, `Mary On A Cross (2)`,
+`Mary On A Cross (Official Audio)`.
 
 ### La chute
 
 - Titre punch : Sonarche fait les cinq. Dans une seule application.
-- Corps punch : Colle un lien et fais ta vie à côté. Sonarche s'occupe du
-  reste : il télécharge ou importe tes musiques, les identifie, remplit les
-  tags, donne une pochette d'album. Le tout dans ton dossier, sur ta machine.
-  Rien n'est fermé, tu peux transférer ta bibliothèque ailleurs ou lire ta
-  musique ici, sur un vrai lecteur audio écrit en Rust.
+- Carte résultat : `Mary on a Cross` · `Ghost` ·
+  `Seven Inches of Satanic Panic · 2019`
 
 ## Les vrais noms
 
 - Kicker : `LES VRAIS NOMS`
 - Titre : Il ne lit pas le titre. Il écoute le morceau.
-- Corps : La plupart des outils recopient le texte qui traînait avec le
-  fichier. C'est comme ça qu'on se retrouve avec un artiste nommé « Official
-  Audio ». Sonarche, lui, ne devine jamais : ffmpeg et Chromaprint
-  transforment l'onde sonore elle-même en empreinte, AcoustID relie cette
-  empreinte à un enregistrement précis, et MusicBrainz rend son verdict à
-  partir de vingt ans de discographie vérifiée par la communauté : les faits,
-  les vrais.
-- Labels du comparatif : `GRATTÉ SUR LA PAGE` / _au jugé_ —
-  `EMPREINTE → ACOUSTID → MUSICBRAINZ` — `IDENTIFIÉ PAR L'AUDIO` / _vérifié_
+- Accroche : Sonarche, lui, ne devine jamais.
+- Deux inspecteurs côte à côte, statiques. Libellé du panneau `PISTE`.
+  - `GRATTÉ SUR LA PAGE` / _au jugé_ · `1 champ sur 7`
+  - `IDENTIFIÉ PAR L'AUDIO` / _vérifié_ · `7 champs sur 7`
 
-### Le comparatif, ligne par ligne
+### Les champs de l'inspecteur
 
-| Champ    | Gratté (au jugé)                                | Identifié (vérifié)            |
-| -------- | ----------------------------------------------- | ------------------------------ |
-| Titre    | `Ghost - Mary On A Cross (Official Audio) [HQ]` | Mary on a Cross                |
-| Artiste  | inconnu, lu dans le nom du fichier              | Ghost                          |
-| Album    | —                                               | Seven Inches of Satanic Panic  |
-| Année    | 2022 (date du fichier)                          | 2019                           |
-| Pochette | vignette intégrée, 16:9, bandes noires          | pochette officielle, 1400×1400 |
+| Champ    | Gratté (au jugé)                                | Identifié (vérifié)           |
+| -------- | ----------------------------------------------- | ----------------------------- |
+| N° piste | —                                               | 2                             |
+| Titre    | `Ghost - Mary On A Cross (Official Audio) [HQ]` | Mary on a Cross               |
+| Artiste  | inconnu, lu dans le nom du fichier              | Ghost                         |
+| Album    | —                                               | Seven Inches of Satanic Panic |
+| Année    | 2022 (date du fichier)                          | 2019                          |
+| Genre    | —                                               | Hard Rock                     |
 
 - Ligne pochette : Et la pochette arrive avec. La vraie, carrée, pas le
   quatrième résultat de Google Images.
@@ -154,49 +128,114 @@ Chaque carte : libellé d'étape — outil — grief — coût.
 
 - Kicker : `ZÉRO EXPERTISE REQUISE`
 - Titre : Tu n'as pas besoin de savoir ce qu'est un tag.
-- Corps 1 : Ou bien même les « métadonnées » ou tout autre nom technique.
-  Tout ce qui peut être automatisé l'est déjà : une bibliothèque impeccable
-  sans jamais ouvrir un éditeur de métadonnées ou de fichier. Pour le reste
-  tu n'es pas perdu, des aides sont disséminées un peu partout dans
-  l'application et t'expliquent les termes compliqués.
-- Corps 2 : Quand elle n'est pas d'accord avec toi, c'est toi qui gagnes. Ton
-  disque préféré, c'est du thrash et pas du heavy metal ? Change-le. Un clic,
-  zéro friction.
-- Repères (3 puces) :
-  - Des réglages intelligents à l'importation : la plupart des albums
-    n'attendent rien de toi.
-  - Tout ce qui est incertain est signalé clairement dans l'onglet
-    Métadonnées : tu as le choix de t'en occuper ou non.
-  - Chaque modification te dit quels fichiers elle a touchés, avant et après.
-- Widget : `Genre — Ride the Lightning` · Heavy Metal → Thrash Metal ·
-  « Ce qui vient de se passer » — Thrash Metal appartient à la famille Metal :
-  l'album ne bouge pas de ta bibliothèque. Le nouveau genre est écrit dans les
-  tags des 8 fichiers, et rien d'autre ne change. ·
-  `Famille de genre : Metal ↳ dérivé`
+- Accroche : Tout ce qui peut être automatisé l'est déjà. Le reste, c'est toi
+  qui décides.
+
+### Les cartes
+
+- Albums (se remplit jusqu'à `100 %`) : Des réglages intelligents à
+  l'importation : la plupart des albums n'attendent rien de toi.
+- Incertain (onglet `Métadonnées`, champs `Titre` · `Artiste` · `Année`,
+  drapeau `Incertain`) : Tout ce qui est incertain est signalé clairement dans
+  l'onglet Métadonnées : tu as le choix de t'en occuper ou non.
+- Aides : Des aides disséminées un peu partout t'expliquent les termes
+  compliqués.
+  - `Artiste de l'album` · _album rangé sous Daft Punk_ · bulle : Celui qui
+    signe l'album. Un invité sur un morceau ne le déplace pas.
+  - `Famille de genre · calculée, ne compte pas` · `Électro` · bulle : Le
+    grand genre du tien : French House range l'album sous Électro.
+  - `Catégorie · ne compte pas dans la complétion` · `Musique` ·
+    `Jeux vidéo` · `Films` · `Anime` · bulle : Musique, jeux vidéo, films…
+    pour trier, sans toucher à la complétion.
+- Re-match : Un clic relance l'empreinte si une correspondance est fausse.
+  `Track 07` · `Artiste inconnu` · `Erreur` → `Creeping Death` ·
+  `Metallica · Ride the Lightning` · `vérifié` · bouton `Re-matcher`.
+
+### L'éditeur
+
+- Kicker : `CUSTOMISE À TA SAUCE`
+- Titre : Quand elle n'est pas d'accord avec toi, c'est toi qui gagnes.
+- Fenêtre (libellés de l'app) : `ALBUM · MÉTADONNÉES` · `13 titres · 2013` ·
+  `14 modifications sur 13 morceaux` · `Les 13 morceaux sont complets` ·
+  `CE QUI VAUT POUR TOUT L'ALBUM` · `Album` · `Artiste de l'album` ·
+  `Année` · `Genre` · `Catégorie` · `Famille de genre · Électro`
+- Menu de genre : `ÉLECTRO` · `House` · `French House` · `Nu-Disco` ·
+  `Synthpop`
+- Catégories : `Musique` · `Jeux vidéo` · `Films` · `Séries`
+- Colonnes : `N°` · `TITRE` · `ARTISTE` · `GENRE` · `TAGS`
+- Popover : `ARTISTE · GET LUCKY` · Tu as changé « Daft Punk » en « Daft Punk
+  feat. Pharrell Williams ». Lesquels des autres morceaux doivent suivre ? ·
+  `Appliquer à 12 morceaux` · `Ne rien changer`
+- Actions : `Re-matcher` · `Annuler` · `Enregistrer`
+
+## En vrai (screenshots)
+
+- Kicker : `EN VRAI`
+- Titre : Voici à quoi ressemble le pont.
+- Compteur : `01 / 05`
+- Bascule de thème : `Clair` · `Sombre` — libellé du groupe : Thème des
+  captures
+
+### Les cinq captures
+
+1. `Album` — **Un album, entier** — Quatorze morceaux, quatorze jeux de tags
+   complets, la bonne pochette, et ça joue depuis la même fenêtre.
+2. `Genres` — **Les genres en arbre** — Metal contient Metalcore, Heavy Metal,
+   Progressive Metal, Power Metal, et sait qu'il représente 32 % de
+   l'étagère.
+3. `Métadonnées` — **Rien n'est écrit dans ton dos** — Renomme un artiste et
+   Sonarche demande lequel des treize autres morceaux doit suivre. Tu tranches
+   avant que quoi que ce soit ne touche un fichier.
+4. `Inspecteur` — **Sept champs sur sept** — L'inspecteur se glisse par-dessus
+   la liste, pour corriger un morceau sans jamais perdre ta place.
+5. `Entretien` — **Il tient sa propre liste de corrections** — Années
+   manquantes, genres hors arbre, tracklists à trous : vingt choses à
+   corriger, réunies sur un écran.
+
+## Hissez la grande voile
+
+- Kicker : `HISSEZ LA GRANDE VOILE` (exception volontaire au tutoiement :
+  c'est une formule de commandement marin figée, iconique du registre pirate,
+  pas une adresse au lecteur — voir CLAUDE.md § tutoiement)
+- Titre : Pas seulement le port : le son du navire lui-même.
+- Corps : Sonarche est aussi le lecteur. Un moteur natif en Rust : ça démarre
+  au quart de tour, un album s'enchaîne sans un blanc, et les paroles suivent
+  la musique.
+- Lecteur (la barre de l'app, sur une capture de la vue Album ; alt : L'app
+  derrière le lecteur : la vue Album.)
+  - Commandes : `Aléatoire` · `Précédent` · `Lecture` / `Pause` · `Suivant` ·
+    `Répéter` · `Paroles` · `File d'attente`
+  - Panneau file : `File d'attente` · `11 titres` · `EN LECTURE` · `À SUIVRE`
+  - Panneau paroles : `Paroles` · `SYNCHRONISÉES`
+  - Premier morceau : `Drunken Sailor` · `Traditionnel` (domaine public, d'où
+    les paroles), puis `Oath`, `Distant Memories`, `Erebus`,
+    `Sanctus Overdrive`, `All Hope Gone` de The Algorithm.
 
 ## Ton navire, ton équipage
 
 - Kicker : `TON NAVIRE, TON ÉQUIPAGE`
 - Titre : Rien n'est verrouillé ici. Ce ne sont que des fichiers.
-- Corps : Tout atterrit dans `Music/Sonarche/`, juste à côté du dossier que
-  ton app actuelle utilise déjà. Les noms vivent dans les fichiers eux-mêmes,
-  dans les standards de tags que tous les lecteurs lisent depuis vingt ans.
-  Sonarche range ta musique et te la rend aussitôt ; il ne la prend jamais en
-  otage.
+- Corps (sous le titre) : Tout atterrit dans `Music/Sonarche/`, à côté de ton
+  app actuelle. Les noms vivent dans les fichiers eux-mêmes : n'importe quel
+  lecteur les lit.
 
-### L'arborescence
+### Le gestionnaire de fichiers
 
-```
-▾ Music
-  ▾ Sonarche
-    ▾ Ghost
-      ▾ Seven Inches of Satanic Panic (2019)
-        ♫ 01 Kiss the Go-Goat.opus
-        ♫ 02 Mary on a Cross.opus
-        ▣ cover.jpg
-  ▸ TonAutreAppMusique
-```
+Le système du visiteur, dessiné de façon générique : un Explorateur
+Windows 11 ou un Finder macOS en vue colonnes. Chemin
+`Musique › Sonarche › Ghost › Prequelle (2018)`, morceaux `01 Ashes.opus` …
+`10 Life Eternal.opus` et `cover.jpg`, à côté de
+`Seven Inches of Satanic Panic (2019)` et `TonAutreAppMusique`.
 
+- Libellés Windows : `Ce PC` · `Musique` · `Accueil` · `Bureau` ·
+  `Téléchargements` · `Clé USB (E:)` · colonnes `Nom` · `#` · `Titre` ·
+  `Artistes ayant participé` · détails `Titre` · `Artistes ayant participé` ·
+  `Album` · `Année` · `Genre` · barre d'état `11 éléments` ·
+  `1 élément sélectionné` · barre d'outils `Nouveau` · `Trier` · `Afficher` ·
+  `Détails` · `Rechercher dans : Prequelle`
+- Libellés macOS : `Favoris` · `Emplacements` · `Récents` · `Applications` ·
+  `Bureau` · `Téléchargements` · `Musique` · `Clé USB` · détails `Titre` ·
+  `Artiste` · `Album` · `Année` · `Genre` · `Rechercher`
 - Note : Déplace le dossier où tu veux : tout marche encore.
 
 ### Où elle peut aller
@@ -260,76 +299,6 @@ Chaque carte : libellé d'étape — outil — grief — coût.
   obligatoires. Tu n'as aucun compte à créer, aucune clé à coller : l'app
   s'annonce poliment et espace ses appels.
 
-## Le pont
-
-- Kicker : `LE PONT`
-- Titre : Ta bibliothèque, tes règles.
-- Corps : Albums, artistes, familles de genres, organisés par des métadonnées
-  vérifiées et qui se parcourent comme une vraie collection. Chaque champ
-  reste modifiable, et un clic relance l'empreinte si une correspondance est
-  fausse.
-- Puces :
-  - Modifie une fois : écrit dans tous les fichiers.
-  - Tu vois d'un coup d'œil ce qui est complet : 7 champs sur 7, badges 100 %.
-  - Les genres forment des familles (Metal, Électro, Jazz), chacune avec sa
-    teinte.
-- Widget (`Métadonnées — Oath`) : Titre `Oath` · Artiste `The Algorithm` ·
-  Année `2021` · Genre `Progressive Metal` · Genre parent `Metal · dérivé` ·
-  boutons `✦ Re-matcher` et `Modifier`.
-
-## Hissez la grande voile
-
-- Kicker : `HISSEZ LA GRANDE VOILE` (exception volontaire au tutoiement :
-  c'est une formule de commandement marin figée, iconique du registre pirate,
-  pas une adresse au lecteur — voir CLAUDE.md § tutoiement)
-- Titre : Pas seulement le port : le son du navire lui-même.
-- Corps : La dernière étape de l'ancienne méthode, c'était de déplacer les
-  fichiers vers un autre lecteur. Sonarche est aussi le lecteur, un moteur
-  audio natif écrit en Rust : les morceaux démarrent au quart de tour, et
-  ceux d'un même album s'enchaînent sans le moindre blanc.
-- Lecteur : `Oath` · `The Algorithm` · `1:12` / `2:54`
-
-## En vrai (screenshots)
-
-- Kicker : `EN VRAI`
-- Titre : Voici à quoi ressemble le pont.
-- Compteur : `01 / 05`
-- Bascule de thème : `Clair` · `Sombre` — libellé du groupe : Thème des
-  captures
-
-### Les cinq captures
-
-1. `Album` — **Un album, entier** — Quatorze morceaux, quatorze jeux de tags
-   complets, la bonne pochette, et ça joue depuis la même fenêtre.
-2. `Genres` — **Les genres en arbre** — Metal contient Metalcore, Heavy Metal,
-   Progressive Metal, Power Metal, et sait qu'il représente 32 % de
-   l'étagère.
-3. `Métadonnées` — **Rien n'est écrit dans ton dos** — Renomme un artiste et
-   Sonarche demande lequel des treize autres morceaux doit suivre. Tu tranches
-   avant que quoi que ce soit ne touche un fichier.
-4. `Inspecteur` — **Sept champs sur sept** — L'inspecteur se glisse par-dessus
-   la liste, pour corriger un morceau sans jamais perdre ta place.
-5. `Entretien` — **Il tient sa propre liste de corrections** — Années
-   manquantes, genres hors arbre, tracklists à trous : vingt choses à
-   corriger, réunies sur un écran.
-
-## Premier lancement
-
-- Kicker : `PREMIER LANCEMENT`
-- Titre : Ton système va hésiter. Une fois.
-- Corps : Sonarche n'est signé ni par Apple ni par Microsoft. Ce sont des
-  certificats à l'année, pas des audits de sécurité, et ce projet a préféré la
-  voie du code public. Le tout premier lancement te coûte donc un clic de
-  plus, sur l'une comme sur l'autre plateforme.
-- macOS : Gatekeeper affiche « Apple n'a pas pu vérifier que cette app ne
-  contient pas de logiciel malveillant ». → `clic droit sur l'app → Ouvrir →
-Ouvrir` — Ou si elle est déjà bloquée : Réglages Système → Confidentialité
-  et sécurité → Ouvrir quand même.
-- Windows : SmartScreen affiche « Windows a protégé votre ordinateur » et
-  cache le bouton. → `Informations complémentaires → Exécuter quand même` —
-  Ou avant d'ouvrir : clic droit sur le fichier → Propriétés → Débloquer.
-- Chute : Ensuite, c'est ton app, tout simplement.
-
 ## CTA final & footer
 
 - Titre : Gratuit. Open source. À toi.
@@ -337,6 +306,8 @@ Ouvrir` — Ou si elle est déjà bloquée : Réglages Système → Confidential
   GitHub : lis-le, forke-le, monte à bord.
 - CTA : le bouton de téléchargement — voir § Téléchargement. Le `GitHub ↗` du
   colophon, juste en dessous, garde le dépôt à un clic : le corps reste vrai.
+- Ligne d'aide (sous le CTA, renvoie au guide de premier lancement) : Besoin
+  d'aide pour le premier lancement ? `Lire le guide →`
 - Footer : `Licence : MIT` · Usage personnel. Respecte les conditions des
   services que tu utilises et le droit de ton pays. · `SONARCHE` ·
   par Romain Pierucci (@Norudah) · _From the stream into the Ark._ (EN) ·

@@ -27,33 +27,34 @@ name platforms, and copy must never be read from them.
 - Heading: A link goes in. A library comes out.
 - Sub: Four moves, one uninterrupted pipeline, and nothing to click after the
   first paste.
+- Each step's drawing carries a few marks, laid over the scene (step 04 has
+  none: its tags card speaks for it).
 
 ### Step 01 — Paste a link
 
 A track, an album, a whole playlist. Drop it in the composer and the voyage
 lines up: one row per track, before anything is brought in.
-Chips: `single track` · `album` · `playlist`
+Marks: `single track` · `album` · `playlist`
 Note: Already in the hold? It's skipped, silently.
 
 ### Step 02 — Watch it come aboard
 
 Circles turn green one by one as the native audio is hauled in and lands in
-the hold, untouched and never re-encoded.
-Chips: `yt-dlp` · `native audio` · `no re-encode`
+the hold, untouched, never re-encoded.
+Marks: `Source` · `File` · `Identification`
 Note: Close the window mid-haul: the queue picks up where it stopped.
 
 ### Step 03 — Fingerprint & identify
 
 ffmpeg and Chromaprint distill the audio itself into an acoustic fingerprint.
 AcoustID answers with exactly which recording this is, with no title-guessing involved.
-Chips: `ffmpeg` · `Chromaprint` · `AcoustID`
+Marks: `ffmpeg + Chromaprint` · `acoustic fingerprint`
 Note: No confident match? It says so and asks, instead of inventing an artist.
 
 ### Step 04 — It gets its name
 
 Title, artist, album, genre, track, year. And the real cover. All of it
 written into the file's own tags, and into the folder it now lives in.
-Chips: `MusicBrainz` · `cover art` · `genre family`
 Note: Into the files themselves, not into a database only Sonarche can read.
 Scene tags (the labels flying into the file in the step's drawing): `Title` ·
 `Artist` · `Album` · `Genre` · `Track` · `Year`
@@ -67,53 +68,45 @@ Scene tags (the labels flying into the file in the step's drawing): `Title` ·
 
 ### The five links of the chain
 
-Each card: step label — tool — gripe — cost.
+Five columns: step label, tool (struck through), a small drawing of what it
+leaves behind, cost. A tick under each, then the result band.
 
-1. `TAB 1` — **A converter site** — One link at a time, converted on somebody
-   else's server. You wait in a queue, then the browser drops the file wherever
-   it feels like. — _Slow, one track, re-encoded._
-2. `APP 1` — **A bulk downloader** — Handles the playlist, at least. But it
-   fills the tags from the file name, so your artist is « Unknown » and your
-   album is blank. — _Tags are a guess._
-3. `APP 2` — **A tag editor** — Open every file. Retype the title, the artist,
-   the year, the track number. Multiply by 80. — _Hours of typing._
-4. `TAB 2` — **An image search** — Hunt for a square cover that isn't a
-   watermarked thumbnail, crop it, hope it matches the right pressing. —
-   _Wrong artwork forever._
-5. `APP 3` — **Your music player** — Move the files in, re-scan the folder,
-   then discover three duplicates and one album split in two. — _A messy
-   library anyway._
+1. `TAB 1` · **A converter site** · _Slow, one track, re-encoded._
+2. `APP 1` · **A bulk downloader** · _Tags are a guess._
+3. `APP 2` · **A tag editor** · _Hours of typing._
+4. `TAB 2` · **An image search** · _Wrong artwork forever._
+5. `APP 3` · **Your music player** · _A messy library anyway._
+
+Drawings (demo content, not claims): the file name
+`Ghost - Mary On A Cross (Official Audio) [HQ].mp3` · guessed tags
+`Artist: Unknown`, `Album:` (empty), `Year:` (empty) · `× 80` · duplicates
+`Mary On A Cross`, `Mary On A Cross (1)`, `Mary On A Cross (2)`,
+`Mary On A Cross (Official Audio)`.
 
 ### The punch
 
 - Punch heading: Sonarche does all five. In one window.
-- Punch body: Point it at a link and walk away. The audio lands in the hold,
-  gets listened to, identified, tagged, given its real cover, filed in the
-  right folder. Then it plays, on a native Rust audio engine. No hand-off,
-  no re-import, no second app.
+- Result card: `Mary on a Cross` · `Ghost` · `Seven Inches of Satanic Panic · 2019`
 
 ## True names
 
 - Kicker: `TRUE NAMES`
 - Heading: It doesn't read the title. It listens to the song.
-- Body: Most tools just copy whatever text happened to come with the file.
-  That's how you end up with an artist called « Official Audio ». Sonarche
-  never guesses: ffmpeg and Chromaprint turn the waveform itself into a
-  fingerprint, AcoustID matches that fingerprint to one exact recording, and
-  MusicBrainz hands back the real facts, out of twenty years of
-  community-verified discography.
-- Compare labels: `SCRAPED FROM THE PAGE` / _best guess_ —
-  `FINGERPRINT → ACOUSTID → MUSICBRAINZ` — `IDENTIFIED BY THE AUDIO` / _verified_
+- Lead: Sonarche never guesses.
+- Two inspectors side by side, static. Panel label `TRACK`.
+  - `SCRAPED FROM THE PAGE` / _best guess_ · `1 of 7 fields`
+  - `IDENTIFIED BY THE AUDIO` / _verified_ · `7 of 7 fields`
 
-### The comparison, row by row
+### The inspector fields
 
-| Field   | Scraped (best guess)                            | Identified (verified)           |
-| ------- | ----------------------------------------------- | ------------------------------- |
-| Title   | `Ghost - Mary On A Cross (Official Audio) [HQ]` | Mary on a Cross                 |
-| Artist  | unknown, read off the file name                 | Ghost                           |
-| Album   | —                                               | Seven Inches of Satanic Panic   |
-| Year    | 2022 (file date)                                | 2019                            |
-| Artwork | embedded thumbnail, 16:9, letterboxed           | official front cover, 1400×1400 |
+| Field     | Scraped (best guess)                            | Identified (verified)         |
+| --------- | ----------------------------------------------- | ----------------------------- |
+| Track no. | —                                               | 2                             |
+| Title     | `Ghost - Mary On A Cross (Official Audio) [HQ]` | Mary on a Cross               |
+| Artist    | unknown, read off the file name                 | Ghost                         |
+| Album     | —                                               | Seven Inches of Satanic Panic |
+| Year      | 2022 (file date)                                | 2019                          |
+| Genre     | —                                               | Hard Rock                     |
 
 - Cover line: And the cover comes with it. The real square artwork, not the
   fourth result on Google Images.
@@ -122,44 +115,103 @@ Each card: step label — tool — gripe — cost.
 
 - Kicker: `NO EXPERTISE NEEDED`
 - Heading: You don't need to know what a tag is.
-- Body 1: Everything that can be automated already is, so you get a tidy library
-  without ever opening a metadata editor. What's left, the app explains in
-  plain words instead of empty fields.
-- Body 2: And when it disagrees with you, you win. Convinced your favourite
-  record is Thrash, not Heavy Metal? Change it. One click, no friction, and
-  Sonarche tells you exactly what it wrote, into which files, in words you
-  don't need a wiki for.
-- Guides (3 bullets):
-  - Sensible defaults on import: most albums need nothing from you at all.
-  - Anything uncertain is flagged in plain language, with the choice spelled out.
-  - Every edit tells you which files it touched, before and after.
-- Widget: `Genre — Ride the Lightning` · Heavy Metal → Thrash Metal ·
-  "What just happened" — Thrash Metal sits under the Metal family, so the
-  album stays where it is in your library. The new genre is written into all 8
-  files' tags, and nothing else changes. · `Genre family: Metal ↳ derived`
+- Lead: Everything that can be automated already is. The rest is your call.
+
+### The cards
+
+- Albums (fills to `100%`): Sensible defaults on import: most albums need
+  nothing from you at all.
+- Uncertain (tab `Metadata`, fields `Title` · `Artist` · `Year`, flag
+  `Uncertain`): Anything uncertain is flagged in plain language, with the
+  choice spelled out.
+- Help: Little helpers all over the app explain the tricky words.
+  - `Album artist` · _album filed under Daft Punk_ · tip: The one who signs
+    the album. A guest on one track doesn't move it.
+  - `Genre family · computed, not counted` · `Electronic` · tip: The broad
+    genre yours belongs to: French House files the album under Electronic.
+  - `Category · not counted in completion` · `Music` · `Video games` ·
+    `Films` · `Anime` · tip: Music, video games, films… for sorting, without
+    touching completion.
+- Re-match: One click re-runs the fingerprint if a match was wrong.
+  `Track 07` · `Unknown artist` · `Error` → `Creeping Death` ·
+  `Metallica · Ride the Lightning` · `verified` · button `Re-match`.
+
+### The editor
+
+- Kicker: `MAKE IT YOUR OWN`
+- Heading: And when it disagrees with you, you win.
+- Window (app labels): `ALBUM · METADATA` · `13 tracks · 2013` ·
+  `14 changes across 13 tracks` · `All 13 tracks are complete` ·
+  `WHAT APPLIES TO THE WHOLE ALBUM` · `Album` · `Album artist` · `Year` ·
+  `Genre` · `Category` · `Genre family · Electronic`
+- Genre menu: `ELECTRONIC` · `House` · `French House` · `Nu-Disco` · `Synthpop`
+- Categories: `Music` · `Video games` · `Films` · `Series`
+- Columns: `NO.` · `TITLE` · `ARTIST` · `GENRE` · `TAGS`
+- Popover: `ARTIST · GET LUCKY` · You changed « Daft Punk » to « Daft Punk
+  feat. Pharrell Williams ». Which of the other tracks should follow? ·
+  `Apply to 12 tracks` · `Change nothing`
+- Actions: `Re-match` · `Cancel` · `Save`
+
+## The real thing (screenshots)
+
+- Kicker: `THE REAL THING`
+- Heading: This is what the deck looks like.
+- Counter: `01 / 05`
+- Theme toggle: `Light` · `Dark` — group label: Screenshot theme
+
+### The five shots
+
+1. `Album` — **An album, whole** — Fourteen tracks, fourteen complete tag
+   sets, the right cover, and it plays from the very same window.
+2. `Genres` — **Genres as a tree** — Metal holds Metalcore, Heavy Metal,
+   Progressive Metal, Power Metal, and knows it accounts for 32% of the shelf.
+3. `Metadata` — **Nothing written behind your back** — Rename one artist and
+   Sonarche asks which of the other thirteen tracks should follow. You decide
+   before anything touches a file.
+4. `Inspector` — **Seven fields out of seven** — The inspector slides in over
+   the list, so you can fix one track without ever losing your place.
+5. `Upkeep` — **It keeps its own to-do list** — Missing years, genres off the
+   tree, tracklists with holes: twenty things to correct, gathered in one
+   screen.
+
+## The ship's sound
+
+- Kicker: `THE SHIP'S SOUND`
+- Heading: Not just the harbor: the ship's own sound.
+- Body: Sonarche is the player too. A native Rust engine: tracks start on the
+  beat, albums play without a gap, and the lyrics follow the music.
+- Player (the app's own bar, over a capture of the Album view; alt: The app
+  behind the player: the Album view.)
+  - Controls: `Shuffle` · `Previous` · `Play` / `Pause` · `Next` · `Repeat` ·
+    `Lyrics` · `Queue`
+  - Queue panel: `Queue` · `11 tracks` · `NOW PLAYING` · `UP NEXT`
+  - Lyrics panel: `Lyrics` · `SYNCED`
+  - First track: `Drunken Sailor` · `Traditional` (public domain, so its
+    lyrics can show), then `Oath`, `Distant Memories`, `Erebus`,
+    `Sanctus Overdrive`, `All Hope Gone` by The Algorithm.
 
 ## The hold is yours
 
 - Kicker: `THE HOLD IS YOURS`
 - Heading: Nothing here is locked. It's only files.
-- Body: Everything lands in `Music/Sonarche/`, right beside the folder your
-  current app already uses. The names live in the files themselves, in the
-  same tag standards every player has read for twenty years. Sonarche
-  organises your music and hands it straight back; it never holds it hostage.
+- Body (under the heading): Everything lands in `Music/Sonarche/`, next to
+  your current app. The names live inside the files: any player can read them.
 
-### The file tree
+### The file manager
 
-```
-▾ Music
-  ▾ Sonarche
-    ▾ Ghost
-      ▾ Seven Inches of Satanic Panic (2019)
-        ♫ 01 Kiss the Go-Goat.opus
-        ♫ 02 Mary on a Cross.opus
-        ▣ cover.jpg
-  ▸ YourOtherMusicApp
-```
+The visitor's own system, drawn generically: a Windows 11 Explorer or a macOS
+Finder in column view. Path `Music › Sonarche › Ghost › Prequelle (2018)`,
+tracks `01 Ashes.opus` … `10 Life Eternal.opus` and `cover.jpg`, beside
+`Seven Inches of Satanic Panic (2019)` and `YourOtherMusicApp`.
 
+- Windows labels: `This PC` · `Music` · `Home` · `Desktop` · `Downloads` ·
+  `USB Drive (E:)` · columns `Name` · `#` · `Title` · `Contributing artists` ·
+  details `Title` · `Contributing artists` · `Album` · `Year` · `Genre` ·
+  status `11 items` · `1 item selected` · toolbar `New` · `Sort` · `View` ·
+  `Details` · `Search Prequelle`
+- macOS labels: `Favourites` · `Locations` · `Recents` · `Applications` ·
+  `Desktop` · `Downloads` · `Music` · `USB Drive` · details `Title` ·
+  `Artist` · `Album` · `Year` · `Genre` · `Search`
 - Note: Drag the folder anywhere and it still works.
 
 ### Where it goes
@@ -220,70 +272,6 @@ Each card: step label — tool — gripe — cost.
   You have no account to create and no key to paste: the app introduces itself
   politely and spaces out its calls.
 
-## The deck
-
-- Kicker: `THE DECK`
-- Heading: Your library, your rules.
-- Body: Albums, artists, genre families, organized by verified metadata and
-  browsable like a real collection. Every single field stays editable, and one
-  click re-runs the fingerprint if a match was wrong.
-- Bullets:
-  - Change once: written to every file.
-  - Completeness at a glance: 7/7 fields, 100% badges.
-  - Genres form families (Metal, Electronic, Jazz), each with its own tone.
-- Widget (`Metadata — Oath`): Title `Oath` · Artist `The Algorithm` ·
-  Year `2021` · Genre `Progressive Metal` · Genre family `Metal · derived` ·
-  buttons `✦ Re-match` and `Edit`.
-  (The v7 mockup left this widget's labels in French — these are the EN
-  equivalents, to be read over.)
-
-## The ship's sound
-
-- Kicker: `THE SHIP'S SOUND`
-- Heading: Not just the harbor: the ship's own sound.
-- Body: The last step of the old way was moving files into some other player.
-  Sonarche is the player too: a native Rust audio engine, so tracks start on
-  the beat and gapless albums stay gapless.
-- Player: `Oath` · `The Algorithm` · `1:12` / `2:54`
-
-## The real thing (screenshots)
-
-- Kicker: `THE REAL THING`
-- Heading: This is what the deck looks like.
-- Counter: `01 / 05`
-- Theme toggle: `Light` · `Dark` — group label: Screenshot theme
-
-### The five shots
-
-1. `Album` — **An album, whole** — Fourteen tracks, fourteen complete tag
-   sets, the right cover, and it plays from the very same window.
-2. `Genres` — **Genres as a tree** — Metal holds Metalcore, Heavy Metal,
-   Progressive Metal, Power Metal, and knows it accounts for 32% of the shelf.
-3. `Metadata` — **Nothing written behind your back** — Rename one artist and
-   Sonarche asks which of the other thirteen tracks should follow. You decide
-   before anything touches a file.
-4. `Inspector` — **Seven fields out of seven** — The inspector slides in over
-   the list, so you can fix one track without ever losing your place.
-5. `Upkeep` — **It keeps its own to-do list** — Missing years, genres off the
-   tree, tracklists with holes: twenty things to correct, gathered in one
-   screen.
-
-## First launch
-
-- Kicker: `FIRST LAUNCH`
-- Heading: Your system will hesitate. Once.
-- Body: Sonarche isn't signed by Apple or Microsoft. Those are yearly
-  certificate fees, not security audits, and this project chose the
-  code-is-public route instead. So the very first launch costs you one extra
-  click, on either platform.
-- macOS: Gatekeeper says « Apple could not verify that this app is free of
-  malware ». → `right-click the app → Open → Open` — Or once it's blocked:
-  System Settings → Privacy & Security → Open Anyway.
-- Windows: SmartScreen says « Windows protected your PC » and hides the
-  button. → `More info → Run anyway` — Or before opening: right-click the
-  file → Properties → Unblock.
-- Closer: After that, it's just your app.
-
 ## Final CTA & footer
 
 - Heading: Free. Open source. Yours.
@@ -291,6 +279,8 @@ Each card: step label — tool — gripe — cost.
   it, fork it, board it.
 - CTA: the download button — see § Download. The colophon's `GitHub ↗` below
   it keeps the repository one click away, so the body still lands.
+- Help line (under the CTA, links to the getting-started guide): Need a hand
+  with the first launch? `Read the guide →`
 - Footer: `License: MIT` · For personal use. Respect the terms of the services
   you use, and your local law. · `SONARCHE` · by Romain Pierucci (@Norudah) ·
   _From the stream into the Ark._ · `GitHub ↗`
