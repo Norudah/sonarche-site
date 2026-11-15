@@ -13,7 +13,7 @@ type DiagramService = {
   text: string;
 };
 
-/** Geometry lives in Diagram.tsx. */
+/** Geometry lives in Pipeline.tsx. */
 export type DiagramNode = {
   id: "stream" | "folders" | "ytdlp" | "ffmpeg" | "beets" | "identify" | "dress" | "accompany" | "folder";
   title: string;

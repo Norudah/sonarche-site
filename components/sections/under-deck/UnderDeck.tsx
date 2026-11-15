@@ -2,7 +2,7 @@ import { Emphasis, SectionHeader } from "@/components/sections/SectionHeader";
 import type { Locale } from "@/lib/site";
 
 import { underDeckCopy } from "./copy";
-import { Diagram } from "./Diagram";
+import { Pipeline } from "./Pipeline";
 
 /* The one place the page names its own tools; it never names a platform (docs/CONTEXT.md). */
 
@@ -24,11 +24,13 @@ export function UnderDeck({ locale }: { locale: Locale }) {
         bodyWidth="max-w-[41.25rem]"
       />
 
-      <ul className="mx-auto mt-11 grid max-w-[72.5rem] gap-4.5 px-8 sm:px-15 md:grid-cols-3">
+      <Pipeline nodes={copy.nodes} sealed={copy.sealed} note={copy.servicesNote} />
+
+      <ul className="border-border mx-auto mt-6 grid max-w-[70rem] px-8 sm:px-15 md:grid-cols-3 md:border-t">
         {copy.cards.map((card) => (
           <li
             key={card.tag}
-            className="flex flex-col gap-2.5 rounded-2xl border border-[oklch(0.9_0.014_279)] bg-white p-6"
+            className="border-separator flex flex-col gap-2 border-b py-6 md:border-b-0 md:px-7 md:pt-7 md:pb-0 md:first:pl-0 md:last:pr-0 md:[&+&]:border-l"
           >
             <p className="text-accent font-mono text-[0.6875rem] font-semibold tracking-[0.08em]">{card.tag}</p>
             <p className="text-foreground-strong font-display text-[1.1875rem] leading-[1.3] font-semibold">
@@ -38,8 +40,6 @@ export function UnderDeck({ locale }: { locale: Locale }) {
           </li>
         ))}
       </ul>
-
-      <Diagram nodes={copy.nodes} sealed={copy.sealed} note={copy.servicesNote} />
     </section>
   );
 }

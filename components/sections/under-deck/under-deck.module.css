@@ -1,4 +1,4 @@
-/* Below `lg` a plain list; from `lg` the pinned stage (see Diagram.tsx). */
+/* Below `lg` a plain list; from `lg` the pinned stage (see Pipeline.tsx). */
 
 .stage {
   display: flex;
@@ -11,45 +11,54 @@
   flex-direction: column;
   gap: 6px;
   border-radius: 14px;
-  border: 1px solid oklch(0.9 0.01 279);
-  background: white;
-  padding: 16px;
+  border: 1px solid var(--separator);
+  background: var(--surface);
+  padding: 14px;
 }
 
 .conductor {
   border: 2px solid var(--accent);
-  background: linear-gradient(160deg, oklch(0.97 0.02 277), white);
+  background: linear-gradient(160deg, oklch(0.97 0.02 277), var(--surface));
+}
+
+.end {
+  order: 9;
+  border: 2px solid var(--accent);
+}
+
+.entries {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.services {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .service {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-radius: 12px;
+  border: 1px solid var(--separator);
   background: oklch(0.988 0.004 279);
+  padding: 14px 16px;
 }
 
-.serviceColumn {
-  display: contents;
-}
-
-.servicesNote {
-  border-left: 2px solid oklch(0.88 0.02 279);
-  padding-left: 12px;
+.note {
   font-size: 0.75rem;
   line-height: 1.6;
   color: var(--muted);
 }
 
 .sealedBox,
-.sealedLabel {
+.sealedLabel,
+.packet,
+.exchange {
   display: none;
-}
-
-.flow {
-  animation: deckFlow 1.4s linear infinite;
-}
-
-@keyframes deckFlow {
-  to {
-    stroke-dashoffset: -26;
-  }
 }
 
 @media (min-width: 64rem) {
@@ -58,41 +67,51 @@
     display: block;
     width: var(--stage-w);
     height: var(--stage-h);
-    /* scale() needs a number and calc() cannot divide lengths: tan(atan2()) yields 100cqw / 1180px. */
-    transform: scale(tan(atan2(100cqw, 1180px)));
+    /* scale() needs a number and calc() cannot divide lengths: tan(atan2()) yields 100cqw / 1240px. */
+    transform: scale(tan(atan2(100cqw, 1240px)));
     transform-origin: top left;
   }
 
-  .node,
-  .serviceColumn {
+  .stage > .node {
     position: absolute;
     left: var(--x);
     top: var(--y);
     width: var(--w);
   }
 
-  .node {
-    padding: 16px;
-  }
-
-  .serviceColumn {
+  .entries {
+    position: absolute;
+    left: 0;
+    top: 54px;
+    width: 190px;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 14px;
   }
 
-  .serviceColumn .node {
-    position: static;
-    width: auto;
+  .services {
+    position: absolute;
+    left: 80px;
+    top: 330px;
+    width: 1080px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .note {
+    grid-column: 1 / -1;
+    margin-top: 6px;
+    text-align: center;
   }
 
   .sealedBox {
     display: block;
     position: absolute;
-    left: 265px;
-    top: 20px;
-    width: 560px;
-    height: 400px;
+    left: 236px;
+    top: 30px;
+    width: 708px;
+    height: 200px;
     border-radius: 20px;
     border: 2px dashed oklch(0.82 0.04 279);
     background: oklch(0.985 0.008 279 / 0.5);
@@ -101,22 +120,231 @@
   .sealedLabel {
     display: block;
     position: absolute;
-    top: -11px;
-    left: 24px;
+    top: -10px;
+    left: 22px;
     padding: 0 8px;
-    background: oklch(0.985 0.006 279);
+    background: var(--background);
     font:
-      600 11px/1 ui-monospace,
+      600 10.5px/1.6 ui-monospace,
       Menlo,
       monospace;
     letter-spacing: 0.08em;
     color: oklch(0.45 0.12 277);
     white-space: nowrap;
   }
+
+  .packet {
+    display: block;
+    position: absolute;
+    z-index: 2;
+    left: 252px;
+    top: 120px;
+    width: 20px;
+    height: 20px;
+    border-radius: 999px;
+    background: var(--accent);
+    box-shadow: 0 0 0 6px color-mix(in oklch, var(--accent) 20%, transparent);
+    animation: packet 10s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  }
+
+  .exchange {
+    display: block;
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    animation: exchange 10s linear infinite;
+  }
+
+  .dot {
+    position: absolute;
+    left: 821px;
+    top: 210px;
+    width: 9px;
+    height: 9px;
+    border-radius: 999px;
+    background: var(--accent);
+    animation-duration: 1.2s;
+    animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+    animation-iteration-count: infinite;
+  }
+
+  .dotBack {
+    background: var(--success);
+  }
+
+  .toLeftOut {
+    animation-name: toLeftOut;
+  }
+  .toLeftIn {
+    animation-name: toLeftIn;
+  }
+  .toMiddleOut {
+    animation-name: toMiddleOut;
+  }
+  .toMiddleIn {
+    animation-name: toMiddleIn;
+  }
+  .toRightOut {
+    animation-name: toRightOut;
+  }
+  .toRightIn {
+    animation-name: toRightIn;
+  }
+}
+
+.flow {
+  animation: flow 1.4s linear infinite;
+}
+
+/* The packet stops at each tool, then waits at beets while the services answer. */
+@keyframes packet {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  4% {
+    opacity: 1;
+  }
+  14%,
+  20% {
+    transform: translateX(120px);
+  }
+  30%,
+  36% {
+    transform: translateX(340px);
+  }
+  45%,
+  80% {
+    transform: translateX(560px);
+  }
+  92% {
+    transform: translateX(880px);
+    opacity: 1;
+  }
+  98%,
+  100% {
+    transform: translateX(880px);
+    opacity: 0;
+  }
+}
+
+@keyframes exchange {
+  0%,
+  46% {
+    opacity: 0;
+  }
+  49%,
+  77% {
+    opacity: 1;
+  }
+  80%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Down beets' spine, along the rail, down into the group; the answers ride back. */
+@keyframes toLeftOut {
+  0% {
+    transform: translate(0, 0);
+  }
+  30% {
+    transform: translate(0, 80px);
+  }
+  75% {
+    transform: translate(-572px, 80px);
+  }
+  100% {
+    transform: translate(-572px, 118px);
+  }
+}
+@keyframes toLeftIn {
+  0% {
+    transform: translate(-572px, 118px);
+  }
+  25% {
+    transform: translate(-572px, 80px);
+  }
+  70% {
+    transform: translate(0, 80px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+@keyframes toMiddleOut {
+  0% {
+    transform: translate(0, 0);
+  }
+  30% {
+    transform: translate(0, 80px);
+  }
+  75% {
+    transform: translate(-205px, 80px);
+  }
+  100% {
+    transform: translate(-205px, 118px);
+  }
+}
+@keyframes toMiddleIn {
+  0% {
+    transform: translate(-205px, 118px);
+  }
+  25% {
+    transform: translate(-205px, 80px);
+  }
+  70% {
+    transform: translate(0, 80px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+@keyframes toRightOut {
+  0% {
+    transform: translate(0, 0);
+  }
+  30% {
+    transform: translate(0, 80px);
+  }
+  75% {
+    transform: translate(162px, 80px);
+  }
+  100% {
+    transform: translate(162px, 118px);
+  }
+}
+@keyframes toRightIn {
+  0% {
+    transform: translate(162px, 118px);
+  }
+  25% {
+    transform: translate(162px, 80px);
+  }
+  70% {
+    transform: translate(0, 80px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes flow {
+  to {
+    stroke-dashoffset: -26;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .flow {
+  .flow,
+  .packet,
+  .exchange,
+  .dot {
     animation: none;
+  }
+
+  .packet,
+  .exchange {
+    opacity: 0;
   }
 }
