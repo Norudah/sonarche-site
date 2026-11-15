@@ -1,100 +1,43 @@
 import { Emphasis, Kicker } from "@/components/sections/SectionHeader";
 import type { Locale } from "@/lib/site";
 
-import { noExpertiseCopy, type NoExpertiseCopy } from "./copy";
-import styles from "./no-expertise.module.css";
+import { noExpertiseCopy } from "./copy";
+import { EditorCard } from "./EditorCard";
+import { HelpCard } from "./HelpCard";
+import { NoExpertiseMotion } from "./NoExpertiseMotion";
+import { RematchCard } from "./RematchCard";
+import { AlbumsCard, UncertainCard } from "./SmallCards";
+
+/* A square grid of small, working interfaces instead of paragraphs; the album editor takes a full
+   row because it is the screen Sonarche was built around. */
 
 export function NoExpertise({ locale }: { locale: Locale }) {
   const copy = noExpertiseCopy[locale];
 
   return (
     <section data-anim-gate className="relative isolate py-24 sm:py-27">
-      <div className="mx-auto flex max-w-[77.5rem] flex-col items-center gap-12 px-8 sm:px-15 lg:flex-row lg:gap-20">
-        <div className="flex flex-1 flex-col gap-4.5">
+      <div className="mx-auto flex max-w-[75rem] flex-col px-8 sm:px-15">
+        <header className="flex flex-col items-start">
           <Kicker>{copy.kicker}</Kicker>
-
-          <h2 className="text-foreground-strong font-display text-[clamp(1.75rem,3.4vw,3.125rem)] leading-[1.15] font-bold tracking-[-0.02em]">
+          <h2 className="text-foreground-strong font-display mt-4 max-w-[47.5rem] text-[clamp(1.875rem,3.6vw,3.25rem)] leading-[1.15] font-bold tracking-[-0.02em]">
             {copy.headingBefore} <Emphasis>{copy.headingEmphasis}</Emphasis>
             {copy.headingAfter}
           </h2>
+          <p className="text-foreground mt-6 max-w-[35rem] text-[clamp(1.125rem,1.7vw,1.5rem)] leading-normal">
+            {copy.lead}
+          </p>
+        </header>
 
-          {copy.bodies.map((body) => (
-            <p key={body} className="text-body max-w-[29.375rem] text-[1.0625rem] leading-[1.7]">
-              {body}
-            </p>
-          ))}
-
-          <ul className="mt-1 flex flex-col gap-2.75">
-            {copy.guides.map((guide) => (
-              <li key={guide} className="flex items-baseline gap-3">
-                <span aria-hidden className="bg-accent size-1.75 flex-none rounded-[2px]" />
-                <span className="text-[0.9375rem] leading-[1.55] text-[oklch(0.32_0.02_279)]">{guide}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="flex flex-1 justify-center">
-          <GenreWidget widget={copy.widget} />
-        </div>
+        <NoExpertiseMotion>
+          <div className="mt-12 grid gap-5 lg:grid-cols-3">
+            <AlbumsCard copy={copy.albums} className="lg:col-span-2" />
+            <UncertainCard copy={copy.uncertain} />
+            <EditorCard copy={copy.editor} />
+            <HelpCard copy={copy.help} className="lg:col-span-2" />
+            <RematchCard copy={copy.rematch} />
+          </div>
+        </NoExpertiseMotion>
       </div>
     </section>
-  );
-}
-
-function GenreWidget({ widget }: { widget: NoExpertiseCopy["widget"] }) {
-  return (
-    <div className="flex w-full max-w-[26.875rem] flex-col gap-4 rounded-[1.125rem] border border-[oklch(0.92_0.008_279)] bg-white p-6.5 shadow-[0_30px_70px_oklch(0.35_0.06_277/0.14)]">
-      <p className="text-sm font-semibold text-[oklch(0.2_0.01_279)]">{widget.title}</p>
-
-      {/* Both pills share one spot: the swap must read as a change, not two options. */}
-      <div aria-hidden className="relative h-11.5">
-        <span
-          className={`${styles.chipOut} absolute top-0 left-0 inline-flex items-center gap-2.25 rounded-xl border border-[oklch(0.9_0.01_279)] bg-[oklch(0.968_0.006_279)] px-3.5 py-2.5 text-sm`}
-        >
-          <span className="size-2 rounded-[2px] bg-[oklch(0.62_0.13_30)]" />
-          {widget.from}
-        </span>
-
-        <span
-          className={`${styles.chipIn} border-accent absolute top-0 left-0 inline-flex items-center gap-2.25 rounded-xl border-2 bg-[oklch(0.96_0.03_277)] px-3.5 py-2.5 text-sm font-medium`}
-        >
-          <span className="bg-accent size-2 rounded-[2px]" />
-          {widget.to}
-        </span>
-
-        <span className={`${styles.cursor} absolute top-5.5 left-42`}>
-          <svg width="17" height="20" viewBox="0 0 17 20" fill="none">
-            <path
-              d="M1 1 L1 16 L5 12.5 L7.5 18.5 L10 17.5 L7.5 11.5 L12.5 11.5 Z"
-              fill="white"
-              stroke="oklch(0.3 0.02 279)"
-              strokeWidth="1.4"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </span>
-      </div>
-
-      <div className="flex flex-col gap-1.75 rounded-xl border border-[oklch(0.91_0.02_279)] bg-[oklch(0.975_0.012_277)] px-4 py-3.75">
-        <p className="text-xs font-semibold text-[oklch(0.42_0.14_277)]">{widget.explainerLabel}</p>
-        <p className="text-body text-[0.8125rem] leading-[1.6]">
-          {widget.explainerBefore} <b className="font-semibold text-[oklch(0.3_0.02_279)]">{widget.explainerFamily}</b>{" "}
-          {widget.explainerAfter}
-        </p>
-      </div>
-
-      <div className="flex items-center gap-2.5">
-        <p className="text-[0.78125rem] font-medium text-[oklch(0.5_0.02_279)]">{widget.familyLabel}</p>
-        <div className="flex gap-1.5">
-          <span className="rounded-full bg-[oklch(0.965_0.006_279)] px-2.5 py-1.5 font-mono text-[0.71875rem] font-medium text-[oklch(0.4_0.03_279)]">
-            {widget.familyValue}
-          </span>
-          <span className="rounded-full bg-[oklch(0.975_0.004_279)] px-2.5 py-1.5 font-mono text-[0.71875rem] font-medium text-[oklch(0.62_0.02_279)]">
-            {widget.derived}
-          </span>
-        </div>
-      </div>
-    </div>
   );
 }
