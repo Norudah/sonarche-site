@@ -2,25 +2,27 @@ import type { Locale } from "@/lib/site";
 
 /* Verbatim from docs/copy/en.md and fr.md § True names / Les vrais noms. */
 
-type CompareRow = {
+type Field = {
   key: string;
   /** What a downloader guessed. */
   scraped: string;
   /** What the fingerprint answered. */
   identified: string;
+  /** Spans the inspector's full width. */
+  wide?: boolean;
 };
+
+type Side = { label: string; badge: string; count: string };
 
 export type TrueNamesCopy = {
   kicker: string;
   headingBefore: string;
   headingEmphasis: string;
-  body: string;
-  scrapedLabel: string;
-  scrapedBadge: string;
-  identifiedLabel: string;
-  identifiedBadge: string;
-  pipeline: string[];
-  rows: CompareRow[];
+  lead: string;
+  trackLabel: string;
+  scraped: Side;
+  identified: Side;
+  fields: Field[];
   coverLine: string;
 };
 
@@ -29,26 +31,22 @@ export const trueNamesCopy: Record<Locale, TrueNamesCopy> = {
     kicker: "TRUE NAMES",
     headingBefore: "It doesn't read the title.",
     headingEmphasis: "It listens to the song.",
-    body: "Most tools just copy whatever text happened to come with the file. That's how you end up with an artist called « Official Audio ». Sonarche never guesses: ffmpeg and Chromaprint turn the waveform itself into a fingerprint, AcoustID matches that fingerprint to one exact recording, and MusicBrainz hands back the real facts, out of twenty years of community-verified discography.",
-    scrapedLabel: "SCRAPED FROM THE PAGE",
-    scrapedBadge: "best guess",
-    identifiedLabel: "IDENTIFIED BY THE AUDIO",
-    identifiedBadge: "verified",
-    pipeline: ["FINGERPRINT", "→ ACOUSTID", "→ MUSICBRAINZ"],
-    rows: [
+    lead: "Sonarche never guesses.",
+    trackLabel: "TRACK",
+    scraped: { label: "SCRAPED FROM THE PAGE", badge: "best guess", count: "1 of 7 fields" },
+    identified: { label: "IDENTIFIED BY THE AUDIO", badge: "verified", count: "7 of 7 fields" },
+    fields: [
+      { key: "Track no.", scraped: "—", identified: "2" },
       {
         key: "Title",
         scraped: "Ghost - Mary On A Cross (Official Audio) [HQ]",
         identified: "Mary on a Cross",
+        wide: true,
       },
-      { key: "Artist", scraped: "unknown, read off the file name", identified: "Ghost" },
-      { key: "Album", scraped: "—", identified: "Seven Inches of Satanic Panic" },
+      { key: "Artist", scraped: "unknown, read off the file name", identified: "Ghost", wide: true },
+      { key: "Album", scraped: "—", identified: "Seven Inches of Satanic Panic", wide: true },
       { key: "Year", scraped: "2022 (file date)", identified: "2019" },
-      {
-        key: "Artwork",
-        scraped: "embedded thumbnail, 16:9, letterboxed",
-        identified: "official front cover, 1400×1400",
-      },
+      { key: "Genre", scraped: "—", identified: "Hard Rock" },
     ],
     coverLine: "And the cover comes with it. The real square artwork, not the fourth result on Google Images.",
   },
@@ -56,26 +54,22 @@ export const trueNamesCopy: Record<Locale, TrueNamesCopy> = {
     kicker: "LES VRAIS NOMS",
     headingBefore: "Il ne lit pas le titre.",
     headingEmphasis: "Il écoute le morceau.",
-    body: "La plupart des outils recopient le texte qui traînait avec le fichier. C'est comme ça qu'on se retrouve avec un artiste nommé « Official Audio ». Sonarche, lui, ne devine jamais : ffmpeg et Chromaprint transforment l'onde sonore elle-même en empreinte, AcoustID relie cette empreinte à un enregistrement précis, et MusicBrainz rend son verdict à partir de vingt ans de discographie vérifiée par la communauté : les faits, les vrais.",
-    scrapedLabel: "GRATTÉ SUR LA PAGE",
-    scrapedBadge: "au jugé",
-    identifiedLabel: "IDENTIFIÉ PAR L'AUDIO",
-    identifiedBadge: "vérifié",
-    pipeline: ["EMPREINTE", "→ ACOUSTID", "→ MUSICBRAINZ"],
-    rows: [
+    lead: "Sonarche, lui, ne devine jamais.",
+    trackLabel: "PISTE",
+    scraped: { label: "GRATTÉ SUR LA PAGE", badge: "au jugé", count: "1 champ sur 7" },
+    identified: { label: "IDENTIFIÉ PAR L'AUDIO", badge: "vérifié", count: "7 champs sur 7" },
+    fields: [
+      { key: "N° piste", scraped: "—", identified: "2" },
       {
         key: "Titre",
         scraped: "Ghost - Mary On A Cross (Official Audio) [HQ]",
         identified: "Mary on a Cross",
+        wide: true,
       },
-      { key: "Artiste", scraped: "inconnu, lu dans le nom du fichier", identified: "Ghost" },
-      { key: "Album", scraped: "—", identified: "Seven Inches of Satanic Panic" },
+      { key: "Artiste", scraped: "inconnu, lu dans le nom du fichier", identified: "Ghost", wide: true },
+      { key: "Album", scraped: "—", identified: "Seven Inches of Satanic Panic", wide: true },
       { key: "Année", scraped: "2022 (date du fichier)", identified: "2019" },
-      {
-        key: "Pochette",
-        scraped: "vignette intégrée, 16:9, bandes noires",
-        identified: "pochette officielle, 1400×1400",
-      },
+      { key: "Genre", scraped: "—", identified: "Hard Rock" },
     ],
     coverLine: "Et la pochette arrive avec. La vraie, carrée, pas le quatrième résultat de Google Images.",
   },
