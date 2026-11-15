@@ -288,6 +288,17 @@ tracks `01 Ashes.opus` … `10 Life Eternal.opus` and `cover.jpg`, beside
   product is the subject; the author is the signature. It stays off the share
   card.
 
+## Navigation bar
+
+Fixed at the top of the landing, it slides in once the hero has scrolled out
+of view and leaves again when the visitor scrolls back up to it.
+
+- Left: the mark and `SONARCHE`, linking to the top of the page.
+- Links: `Guide` (once a guide is published) · `Journal`
+- Download, compact, under the platform's mark: `Download ↓` (it points at
+  the same file as the main CTA).
+- Languages: `FR · EN`, the current one in the accent.
+
 ## Download
 
 One component, rendered as the primary CTA in the hero and again in the final
@@ -391,8 +402,9 @@ footer link only appears once a guide is published — see `draft` in lib/guide.
 What the journal and the guide say identically. They share one frame
 (`components/reading`): same header, same footer, same typography.
 
-- Header: `SONARCHE` · `Journal` `Guide` — both sections always visible, the
-  current one in ink. The guide only joins once it has something published.
+- Header: the landing's navigation bar (§ Navigation bar), stuck to the top
+  from the start, its language link pointing at this page in the other
+  language. The current section reads in ink.
 - Table of contents heading, in the left card and folded on small screens:
   `On this page`
 - Footer: `← Back to the site` · `From the stream into the Ark.` · `GitHub ↗`

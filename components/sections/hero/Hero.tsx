@@ -23,6 +23,7 @@ export function Hero({ locale }: { locale: Locale }) {
   return (
     <section
       data-anim-gate
+      data-hero
       className="relative isolate h-[845px] overflow-hidden sm:h-[876px]"
       style={{
         background:

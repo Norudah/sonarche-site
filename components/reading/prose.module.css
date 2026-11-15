@@ -16,7 +16,7 @@
   line-height: 1.6;
 }
 
-/* Clears the 44px sticky header when following an anchor. */
+/* Clears the 57px sticky header when following an anchor. */
 .prose h2 {
   scroll-margin-top: 5.5rem;
 }

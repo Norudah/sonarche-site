@@ -316,6 +316,17 @@ Windows 11 ou un Finder macOS en vue colonnes. Chemin
   sujet ; l'auteur est la signature. Elle n'apparaît pas sur la carte de
   partage.
 
+## Barre de navigation
+
+Fixée en haut de la landing, elle glisse en place une fois le hero sorti de
+l'écran, et repart quand on remonte jusqu'à lui.
+
+- À gauche : la marque et `SONARCHE`, qui ramènent en haut de la page.
+- Liens : `Guide` (dès qu'un guide est publié) · `Journal`
+- Téléchargement, compact, sous la marque de la plateforme : `Télécharger ↓`
+  (même fichier que le CTA principal).
+- Langues : `FR · EN`, la langue courante dans l'accent.
+
 ## Téléchargement
 
 Un seul composant, rendu comme CTA principal dans le hero puis dans le CTA
@@ -429,8 +440,9 @@ lib/guide.ts.
 Ce que le journal et le guide disent à l'identique. Leur cadre est le même
 (`components/reading`) : même en-tête, même pied, même typographie.
 
-- En-tête : `SONARCHE` · `Journal` `Guide` — les deux sections toujours
-  visibles, la courante en ink. Le guide n'y entre qu'une fois publié.
+- En-tête : la barre de navigation de la landing (§ Barre de navigation),
+  collée en haut dès le départ, son lien de langue pointant vers cette page
+  dans l'autre langue. La section courante est à l'encre.
 - Titre du sommaire, dans la carte de gauche et sur mobile plié : `Sommaire`
 - Pied : `← Retour au site` · `From the stream into the Ark.` · `GitHub ↗`
 - Durée : `{n} min de lecture` · Révision : `Mis à jour le {date}`

@@ -1,5 +1,5 @@
 import { AnimationGate } from "@/components/layout/AnimationGate";
-import { LocaleSwitch } from "@/components/layout/LocaleSwitch";
+import { SiteNav } from "@/components/layout/nav/SiteNav";
 import { StructuredData } from "@/components/layout/StructuredData";
 import { Flow } from "@/components/sections/flow/Flow";
 import { Footer } from "@/components/sections/footer/Footer";
@@ -12,6 +12,7 @@ import { ShipSound } from "@/components/sections/ship-sound/ShipSound";
 import { TrueNames } from "@/components/sections/true-names/TrueNames";
 import { UnderDeck } from "@/components/sections/under-deck/UnderDeck";
 import { BRAND_TITLE, LANDING_DESCRIPTION, LOCALE_PATH, SEARCH_TITLE, type Locale } from "@/lib/site";
+import { GUIDE_PATH, publishedGuides } from "@/lib/guide";
 import { pageMetadata } from "@/lib/metadata";
 
 export const landingMetadata = (locale: Locale) =>
@@ -27,7 +28,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
   return (
     <>
       <StructuredData locale={locale} description={LANDING_DESCRIPTION[locale]} />
-      <LocaleSwitch locale={locale} />
+      <SiteNav afterHero locale={locale} guideHref={publishedGuides().length > 0 ? GUIDE_PATH[locale] : null} />
 
       <main className="flex flex-1 flex-col">
         <Hero locale={locale} />
