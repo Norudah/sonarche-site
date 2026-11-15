@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactNode, useState } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 
 import { RELEASES_URL, type Locale } from "@/lib/site";
 
@@ -32,11 +32,30 @@ export function DownloadCta({ locale, children }: DownloadCtaProps) {
   const platform = usePlatform();
   const release = useLatestRelease();
   const [showAll, setShowAll] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!showAll) return;
+
+    const onPointerDown = (event: PointerEvent) => {
+      if (!rootRef.current?.contains(event.target as Node)) setShowAll(false);
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setShowAll(false);
+    };
+
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [showAll]);
 
   const builds = platform ? BUILDS_FOR[platform] : [];
 
   return (
-    <div className="relative flex w-full flex-col items-center">
+    <div ref={rootRef} className="relative flex w-full flex-col items-center">
       <div className="flex w-full max-w-xs flex-col items-stretch gap-3.5 sm:w-auto sm:max-w-none sm:flex-row sm:items-center sm:justify-center">
         <div className="flex items-stretch gap-3 sm:gap-3.5">
           {builds.length === 0 && (
