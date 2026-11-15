@@ -7,6 +7,31 @@ type Destination = {
   note: string;
 };
 
+/** The file manager's own labels, per OS, in the visitor's language. File names are what is on disk. */
+type SystemUi = {
+  windows: {
+    path: string[];
+    nav: string[];
+    music: string;
+    thisPc: string;
+    usb: string;
+    columns: [string, string, string, string];
+    details: string[];
+    status: [string, string];
+    toolbar: [string, string, string, string];
+    search: string;
+  };
+  macos: {
+    favourites: string;
+    places: string;
+    nav: string[];
+    music: string;
+    usb: string;
+    details: string[];
+    search: string;
+  };
+};
+
 export type HoldCopy = {
   kicker: string;
   headingBefore: string;
@@ -17,6 +42,7 @@ export type HoldCopy = {
   bodyAfter: string;
   otherApp: string;
   note: string;
+  ui: SystemUi;
   destinations: Destination[];
   closer: string;
 };
@@ -28,10 +54,32 @@ export const holdCopy: Record<Locale, HoldCopy> = {
     headingEmphasis: "It's only files.",
     bodyBefore: "Everything lands in",
     bodyPath: "Music/Sonarche/",
-    bodyAfter:
-      ", right beside the folder your current app already uses. The names live in the files themselves, in the same tag standards every player has read for twenty years. Sonarche organises your music and hands it straight back; it never holds it hostage.",
+    bodyAfter: ", next to your current app. The names live inside the files: any player can read them.",
     otherApp: "YourOtherMusicApp",
     note: "Drag the folder anywhere and it still works.",
+    ui: {
+      windows: {
+        path: ["This PC", "Music"],
+        nav: ["Home", "Desktop", "Downloads"],
+        music: "Music",
+        thisPc: "This PC",
+        usb: "USB Drive (E:)",
+        columns: ["Name", "#", "Title", "Contributing artists"],
+        details: ["Title", "Contributing artists", "Album", "Year", "Genre"],
+        status: ["11 items", "1 item selected"],
+        toolbar: ["New", "Sort", "View", "Details"],
+        search: "Search Prequelle",
+      },
+      macos: {
+        favourites: "Favourites",
+        places: "Locations",
+        nav: ["Recents", "Applications", "Desktop", "Downloads"],
+        music: "Music",
+        usb: "USB Drive",
+        details: ["Title", "Artist", "Album", "Year", "Genre"],
+        search: "Search",
+      },
+    },
     destinations: [
       { where: "A phone", note: "plug it in, drop the folder, done" },
       { where: "A hard drive", note: "your backup is a copy-paste" },
@@ -47,9 +95,32 @@ export const holdCopy: Record<Locale, HoldCopy> = {
     bodyBefore: "Tout atterrit dans",
     bodyPath: "Music/Sonarche/",
     bodyAfter:
-      ", juste à côté du dossier que ton app actuelle utilise déjà. Les noms vivent dans les fichiers eux-mêmes, dans les standards de tags que tous les lecteurs lisent depuis vingt ans. Sonarche range ta musique et te la rend aussitôt ; il ne la prend jamais en otage.",
+      ", à côté de ton app actuelle. Les noms vivent dans les fichiers eux-mêmes : n'importe quel lecteur les lit.",
     otherApp: "TonAutreAppMusique",
     note: "Déplace le dossier où tu veux : tout marche encore.",
+    ui: {
+      windows: {
+        path: ["Ce PC", "Musique"],
+        nav: ["Accueil", "Bureau", "Téléchargements"],
+        music: "Musique",
+        thisPc: "Ce PC",
+        usb: "Clé USB (E:)",
+        columns: ["Nom", "#", "Titre", "Artistes ayant participé"],
+        details: ["Titre", "Artistes ayant participé", "Album", "Année", "Genre"],
+        status: ["11 éléments", "1 élément sélectionné"],
+        toolbar: ["Nouveau", "Trier", "Afficher", "Détails"],
+        search: "Rechercher dans : Prequelle",
+      },
+      macos: {
+        favourites: "Favoris",
+        places: "Emplacements",
+        nav: ["Récents", "Applications", "Bureau", "Téléchargements"],
+        music: "Musique",
+        usb: "Clé USB",
+        details: ["Titre", "Artiste", "Album", "Année", "Genre"],
+        search: "Rechercher",
+      },
+    },
     destinations: [
       { where: "Un téléphone", note: "branche-le, dépose le dossier, terminé" },
       { where: "Un disque dur", note: "ta sauvegarde est un copier-coller" },
