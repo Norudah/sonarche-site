@@ -1,12 +1,12 @@
 import type { ReactNode } from "react";
 
 import { SiteNav } from "@/components/layout/nav/SiteNav";
+import { Colophon } from "@/components/sections/footer/Colophon";
 import { GUIDE_PATH, publishedGuides } from "@/lib/guide";
-import { GITHUB_URL, LOCALE_PATH, type Locale } from "@/lib/site";
+import { type Locale } from "@/lib/site";
 
-import { readingCopy } from "./copy";
-
-/* The frame for the journal and the guide: no storm, no sea, no GSAP. The bar is the landing's. */
+/* The frame for the journal and the guide: no storm, no sea. The bar and the colophon are the
+   landing's. */
 
 export type ReadingSection = "journal" | "guide";
 
@@ -19,8 +19,6 @@ type ReadingShellProps = {
 };
 
 export function ReadingShell({ locale, section, alternate, children }: ReadingShellProps) {
-  const copy = readingCopy[locale];
-
   return (
     <>
       <SiteNav
@@ -32,25 +30,8 @@ export function ReadingShell({ locale, section, alternate, children }: ReadingSh
 
       <main className="flex flex-1 flex-col">{children}</main>
 
-      <footer className="border-separator/70 mt-24 border-t">
-        <div className="text-muted mx-auto flex max-w-[68rem] flex-col items-center gap-2 px-6 py-6 text-[0.6875rem] sm:px-10 md:grid md:grid-cols-3 md:items-center">
-          <a href={LOCALE_PATH[locale]} className="hover:text-accent transition-colors">
-            ← {copy.backToSite}
-          </a>
-
-          <p className="font-serif text-[0.8125rem] text-[oklch(0.5_0.05_277)] italic md:justify-self-center">
-            {copy.tagline}
-          </p>
-
-          <a
-            href={GITHUB_URL}
-            className="hover:text-accent transition-colors md:justify-self-end"
-            rel="noreferrer"
-            target="_blank"
-          >
-            GitHub ↗
-          </a>
-        </div>
+      <footer className="border-separator/70 mt-24 border-t pt-4">
+        <Colophon locale={locale} alternate={alternate} />
       </footer>
     </>
   );

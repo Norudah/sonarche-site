@@ -48,7 +48,7 @@ export function Footer({ locale }: { locale: Locale }) {
       </div>
 
       <Harbour>
-        <Colophon locale={locale} />
+        <Colophon locale={locale} className="absolute inset-x-0 bottom-0 z-[4]" />
       </Harbour>
     </footer>
   );

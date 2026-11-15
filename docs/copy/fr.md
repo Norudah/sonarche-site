@@ -406,8 +406,7 @@ page écrite à la main, et son texte reste avec elle
     dans des dossiers clairs que tu peux lire sans elle, et joue l'ensemble sur
     un moteur natif. Gratuite, open source, hors ligne.
   - Lien : `Découvrir Sonarche →`
-- Pied du journal : `← Retour au site` · `From the stream into the Ark.` ·
-  `GitHub ↗`
+- Pied du journal : la ligne de colophon de la landing, seule (§ CTA final & footer).
 
 ## Guide
 
@@ -444,5 +443,7 @@ Ce que le journal et le guide disent à l'identique. Leur cadre est le même
   collée en haut dès le départ, son lien de langue pointant vers cette page
   dans l'autre langue. La section courante est à l'encre.
 - Titre du sommaire, dans la carte de gauche et sur mobile plié : `Sommaire`
-- Pied : `← Retour au site` · `From the stream into the Ark.` · `GitHub ↗`
+- Pied : la ligne de colophon de la landing, seule : `SONARCHE` · signature ·
+  _From the stream into the Ark._ · `Journal` · `Guide` · autre langue ·
+  `GitHub ↗`, son lien de langue pointant vers cette page dans l'autre langue.
 - Durée : `{n} min de lecture` · Révision : `Mis à jour le {date}`

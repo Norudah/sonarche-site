@@ -369,8 +369,7 @@ of it.
     in plain folders you can read without it, and plays the lot on a native
     engine. Free, open source, offline.
   - Link: `Discover Sonarche →`
-- Journal footer: `← Back to the site` · `From the stream into the Ark.` ·
-  `GitHub ↗`
+- Journal footer: the landing's colophon line alone (§ Final CTA & footer).
 
 ## The guide
 
@@ -407,5 +406,7 @@ What the journal and the guide say identically. They share one frame
   language. The current section reads in ink.
 - Table of contents heading, in the left card and folded on small screens:
   `On this page`
-- Footer: `← Back to the site` · `From the stream into the Ark.` · `GitHub ↗`
+- Footer: the landing's colophon line alone, `SONARCHE` · signature ·
+  _From the stream into the Ark._ · `Journal` · `Guide` · other language ·
+  `GitHub ↗`, its language link pointing at this page in the other language.
 - Length: `{n} min read` · Revision: `Updated {date}`

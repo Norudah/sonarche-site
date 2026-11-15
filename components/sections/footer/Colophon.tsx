@@ -9,13 +9,25 @@ const LINK =
   "hover:text-accent-strong text-[oklch(0.48_0.03_279)] transition-colors hover:underline hover:underline-offset-3";
 
 /* Equal thirds, not `justify-between`: the tagline must sit on the page's axis whatever the
-   width of the signature beside it. */
-export function Colophon({ locale }: { locale: Locale }) {
+   width of the signature beside it. The landing lays it over the harbour; the journal and the
+   guide close on it alone. */
+
+type ColophonProps = {
+  locale: Locale;
+  /** The other language's URL for this page; the landing's by default. */
+  alternate?: string;
+  /** Where it sits: over the harbour on the landing, in the flow elsewhere. */
+  className?: string;
+};
+
+export function Colophon({ locale, alternate, className = "" }: ColophonProps) {
   const copy = footerCopy[locale];
   const other = OTHER_LOCALE[locale];
 
   return (
-    <div className="absolute inset-x-0 bottom-0 z-[4] mx-auto flex max-w-[80rem] flex-col items-center gap-2 px-8 pb-4 text-[0.6875rem] sm:px-15 md:grid md:grid-cols-3 md:items-center">
+    <div
+      className={`${className} mx-auto flex max-w-[80rem] flex-col items-center gap-2 px-8 pb-4 text-[0.6875rem] sm:px-15 md:grid md:grid-cols-3 md:items-center`}
+    >
       <p className="flex items-baseline gap-2 text-[oklch(0.52_0.03_279)]">
         <span className="font-display font-medium tracking-[0.12em] text-[oklch(0.42_0.03_279)]">{copy.wordmark}</span>
         <span aria-hidden>·</span>
@@ -33,7 +45,7 @@ export function Colophon({ locale }: { locale: Locale }) {
         {copy.tagline}
       </p>
 
-      {/* The only way into the journal and the guide; the guide appears with its first page. */}
+      {/* The guide appears with its first page. */}
       <div className="flex items-center gap-3.5 md:justify-self-end">
         <a href={BLOG_PATH[locale]} className={LINK}>
           {copy.journal}
@@ -44,7 +56,7 @@ export function Colophon({ locale }: { locale: Locale }) {
           </a>
         )}
         <a
-          href={LOCALE_PATH[other]}
+          href={alternate ?? LOCALE_PATH[other]}
           hrefLang={other}
           className="hover:text-accent font-medium text-[oklch(0.48_0.03_279)] underline decoration-[oklch(0.48_0.03_279/0.35)] underline-offset-3 transition-colors hover:decoration-current"
         >
