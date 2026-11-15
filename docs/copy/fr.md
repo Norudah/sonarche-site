@@ -33,21 +33,17 @@ la maquette avait laissées en anglais, sont traduites ici.
 - Titre : Un lien entre, et une bibliothèque naît.
 - Sous-titre : Un processus en 4 étapes simples : tu n'as presque rien à
   faire à part regarder Sonarche travailler pour toi.
-- Le dessin de chaque étape porte quelques repères, posés sur la scène
-  (l'étape 04 n'en a pas : sa carte de tags parle pour elle).
 
 ### Étape 01 — Colle un lien
 
 Un titre, un album, une playlist entière sur internet. Colle le lien dans
 l'application et le voyage commence.
-Repères : `Un titre` · `Un album` · `Une playlist entière`
 Note : Déjà dans la cale ? Il passe son tour. Pas de duplication.
 
 ### Étape 02 — Regarde la cargaison monter à bord
 
 Les pastilles passent au vert une à une, tu sais exactement où regarder si
 un problème est détecté.
-Repères : `Source` · `Fichier` · `Identification`
 Note : Si tu fermes la fenêtre pendant l'opération, la suite sera reprise
 automatiquement au prochain lancement : tu ne perds pas ta progression.
 
@@ -55,7 +51,6 @@ automatiquement au prochain lancement : tu ne perds pas ta progression.
 
 ffmpeg et Chromaprint analysent l'audio directement, et extraient une
 empreinte acoustique.
-Repères : `ffmpeg + Chromaprint` · `empreinte acoustique`
 Note : Pas de correspondance sûre ? Sonarche t'informe et te laisse trancher
 plutôt que d'inventer.
 
@@ -208,8 +203,9 @@ Dessins (contenu de démo, non traduit sauf les libellés) : le nom de fichier
   - Panneau file : `File d'attente` · `11 titres` · `EN LECTURE` · `À SUIVRE`
   - Panneau paroles : `Paroles` · `SYNCHRONISÉES`
   - Premier morceau : `Drunken Sailor` · `Traditionnel` (domaine public, d'où
-    les paroles), puis `Oath`, `Distant Memories`, `Erebus`,
-    `Sanctus Overdrive`, `All Hope Gone` de The Algorithm.
+    les paroles), puis `Carolina`, `Far and Away`, `Crazy Life`,
+    `Apocalyptic Love`, `We Will Roam`, `Shots Fired` de Slash featuring
+    Myles Kennedy and the Conspirators (l'album de la capture).
 
 ## Ton navire, ton équipage
 

@@ -8,8 +8,6 @@ export type FlowStep = {
   title: string;
   text: string[];
   note: string;
-  /** Short labels laid over the step's diorama. */
-  marks: string[];
 };
 
 /** The six tags step 04 files into the track, in drawing order. */
@@ -43,7 +41,6 @@ export const flowCopy: Record<Locale, FlowCopy> = {
           "A track, an album, a whole playlist. Drop it in the composer and the voyage lines up: one row per track, before anything is brought in.",
         ],
         note: "Already in the hold? It's skipped, silently.",
-        marks: ["single track", "album", "playlist"],
       },
       {
         number: "02",
@@ -52,7 +49,6 @@ export const flowCopy: Record<Locale, FlowCopy> = {
           "Circles turn green one by one as the native audio is hauled in and lands in the hold, untouched, never re-encoded.",
         ],
         note: "Close the window mid-haul: the queue picks up where it stopped.",
-        marks: ["Source", "File", "Identification"],
       },
       {
         number: "03",
@@ -61,7 +57,6 @@ export const flowCopy: Record<Locale, FlowCopy> = {
           "ffmpeg and Chromaprint distill the audio itself into an acoustic fingerprint. AcoustID answers with exactly which recording this is, with no title-guessing involved.",
         ],
         note: "No confident match? It says so and asks, instead of inventing an artist.",
-        marks: ["ffmpeg + Chromaprint", "acoustic fingerprint"],
       },
       {
         number: "04",
@@ -70,7 +65,6 @@ export const flowCopy: Record<Locale, FlowCopy> = {
           "Title, artist, album, genre, track, year. And the real cover. All of it written into the file's own tags, and into the folder it now lives in.",
         ],
         note: "Into the files themselves, not into a database only Sonarche can read.",
-        marks: [],
       },
     ],
   },
@@ -90,21 +84,18 @@ export const flowCopy: Record<Locale, FlowCopy> = {
           "Un titre, un album, une playlist entière sur internet. Colle le lien dans l'application et le voyage commence.",
         ],
         note: "Déjà dans la cale ? Il passe son tour. Pas de duplication.",
-        marks: ["Un titre", "Un album", "Une playlist entière"],
       },
       {
         number: "02",
         title: "Regarde la cargaison monter à bord",
         text: ["Les pastilles passent au vert une à une, tu sais exactement où regarder si un problème est détecté."],
         note: "Si tu fermes la fenêtre pendant l'opération, la suite sera reprise automatiquement au prochain lancement : tu ne perds pas ta progression.",
-        marks: ["Source", "Fichier", "Identification"],
       },
       {
         number: "03",
         title: "Empreinte et identification",
         text: ["ffmpeg et Chromaprint analysent l'audio directement, et extraient une empreinte acoustique."],
         note: "Pas de correspondance sûre ? Sonarche t'informe et te laisse trancher plutôt que d'inventer.",
-        marks: ["ffmpeg + Chromaprint", "empreinte acoustique"],
       },
       {
         number: "04",
@@ -113,7 +104,6 @@ export const flowCopy: Record<Locale, FlowCopy> = {
           "Titre, artiste, album, genre, piste, année. Et la vraie pochette. Tout est écrit dans les tags et les métadonnées du fichier.",
         ],
         note: "Dans les fichiers eux-mêmes, pas dans une base que seul Sonarche saurait lire.",
-        marks: [],
       },
     ],
   },

@@ -4,7 +4,6 @@ import type { Locale } from "@/lib/site";
 import { flowCopy, type FlowStep, type SceneTags } from "./copy";
 import { FlowCascade } from "./FlowCascade";
 import { IsoScene } from "./IsoScene";
-import { Marks } from "./Marks";
 
 /* The growing indents pull the eye down and right, so the steps read as a descent. The top band
    starts on the hero's last colour, so the two sections dissolve rather than cut. */
@@ -67,10 +66,7 @@ function Row({ step, stepLabel, tags, index }: RowProps) {
         mirrored ? "lg:flex-row-reverse" : "lg:flex-row"
       } ${INDENT[index]}`}
     >
-      <div className="relative w-full max-w-[36rem] shrink-0 lg:w-[30rem] xl:w-[40rem]">
-        <IsoScene step={index} tags={tags} />
-        <Marks step={index} marks={step.marks} tags={tags} />
-      </div>
+      <IsoScene step={index} tags={tags} className="w-full max-w-[36rem] shrink-0 lg:w-[30rem] xl:w-[40rem]" />
 
       <div className="flex max-w-[28.75rem] flex-1 flex-col gap-4">
         <div className="flex w-full items-baseline gap-3.5">

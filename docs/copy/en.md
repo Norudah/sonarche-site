@@ -27,28 +27,23 @@ name platforms, and copy must never be read from them.
 - Heading: A link goes in. A library comes out.
 - Sub: Four moves, one uninterrupted pipeline, and nothing to click after the
   first paste.
-- Each step's drawing carries a few marks, laid over the scene (step 04 has
-  none: its tags card speaks for it).
 
 ### Step 01 — Paste a link
 
 A track, an album, a whole playlist. Drop it in the composer and the voyage
 lines up: one row per track, before anything is brought in.
-Marks: `single track` · `album` · `playlist`
 Note: Already in the hold? It's skipped, silently.
 
 ### Step 02 — Watch it come aboard
 
 Circles turn green one by one as the native audio is hauled in and lands in
 the hold, untouched, never re-encoded.
-Marks: `Source` · `File` · `Identification`
 Note: Close the window mid-haul: the queue picks up where it stopped.
 
 ### Step 03 — Fingerprint & identify
 
 ffmpeg and Chromaprint distill the audio itself into an acoustic fingerprint.
 AcoustID answers with exactly which recording this is, with no title-guessing involved.
-Marks: `ffmpeg + Chromaprint` · `acoustic fingerprint`
 Note: No confident match? It says so and asks, instead of inventing an artist.
 
 ### Step 04 — It gets its name
@@ -187,8 +182,9 @@ Drawings (demo content, not claims): the file name
   - Queue panel: `Queue` · `11 tracks` · `NOW PLAYING` · `UP NEXT`
   - Lyrics panel: `Lyrics` · `SYNCED`
   - First track: `Drunken Sailor` · `Traditional` (public domain, so its
-    lyrics can show), then `Oath`, `Distant Memories`, `Erebus`,
-    `Sanctus Overdrive`, `All Hope Gone` by The Algorithm.
+    lyrics can show), then `Carolina`, `Far and Away`, `Crazy Life`,
+    `Apocalyptic Love`, `We Will Roam`, `Shots Fired` by Slash featuring
+    Myles Kennedy and the Conspirators (the album in the capture).
 
 ## The hold is yours
 

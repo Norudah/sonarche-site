@@ -34,7 +34,7 @@ each section shows the app doing the thing). Order:
    paints first; on wide screens a three.js scene takes over from it (see
    § The live sea below).
 2. **The flow** — 4 numbered steps (paste / come aboard / fingerprint / named),
-   short texts, marks laid over each diorama.
+   short texts. The dioramas stand alone: no labels or images laid over them.
 3. **The old way** — five aligned columns (tool struck through, a drawing of
    what it leaves behind, cost), a tick under each, then a result band:
    "Sonarche does all five." beside the clean file.
