@@ -8,9 +8,12 @@ export function ShipSound({ locale }: { locale: Locale }) {
   const copy = shipSoundCopy[locale];
 
   return (
+    /* Lavender behind the player, back to the next section's own tint at the bottom edge. The
+       deep bottom padding keeps the player's glow inside the section, so the next one never
+       paints over it with a hard line. */
     <section
       data-anim-gate
-      className="from-background relative isolate bg-linear-to-b to-[oklch(0.95_0.028_279)] py-24 sm:py-27"
+      className="relative isolate bg-[linear-gradient(180deg,var(--background),oklch(0.95_0.028_279)_55%,oklch(0.976_0.008_279/0.8))] pt-24 pb-36 sm:pt-27 sm:pb-44"
     >
       <SectionHeader
         kicker={copy.kicker}

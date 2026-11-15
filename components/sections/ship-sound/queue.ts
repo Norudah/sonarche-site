@@ -1,5 +1,5 @@
 /* The demo queue. Drunken Sailor leads because it has lyrics and is in the public domain; the rest
-   is the album in the backdrop. Durations in seconds. */
+   is the album in the backdrop, in the order its own queue shows. Durations in seconds. */
 
 export type Track = {
   title: string;
@@ -9,8 +9,8 @@ export type Track = {
   lyrics?: readonly string[];
 };
 
-const ALGORITHM =
-  "radial-gradient(circle at 30% 30%, oklch(0.7 0.18 330), oklch(0.42 0.17 300) 55%, oklch(0.22 0.08 290))";
+const ALBUM_ARTIST = "Slash featuring Myles Kennedy and the Conspirators";
+const ALBUM_COVER = "center / cover url(/shots/fr/light/player-cover.webp)";
 
 /** One line every LINE_SECONDS, looping over the verse and chorus. */
 export const LINE_SECONDS = 3.2;
@@ -32,11 +32,12 @@ export const QUEUE: readonly Track[] = [
       "Early in the morning!",
     ],
   },
-  { title: "Oath", artist: "The Algorithm", seconds: 174, cover: ALGORITHM },
-  { title: "Distant Memories", artist: "The Algorithm", seconds: 268, cover: ALGORITHM },
-  { title: "Erebus", artist: "The Algorithm", seconds: 225, cover: ALGORITHM },
-  { title: "Sanctus Overdrive", artist: "The Algorithm", seconds: 216, cover: ALGORITHM },
-  { title: "All Hope Gone", artist: "The Algorithm", seconds: 147, cover: ALGORITHM },
+  { title: "Carolina", artist: ALBUM_ARTIST, seconds: 203, cover: ALBUM_COVER },
+  { title: "Far and Away", artist: ALBUM_ARTIST, seconds: 315, cover: ALBUM_COVER },
+  { title: "Crazy Life", artist: ALBUM_ARTIST, seconds: 224, cover: ALBUM_COVER },
+  { title: "Apocalyptic Love", artist: ALBUM_ARTIST, seconds: 210, cover: ALBUM_COVER },
+  { title: "We Will Roam", artist: ALBUM_ARTIST, seconds: 294, cover: ALBUM_COVER },
+  { title: "Shots Fired", artist: ALBUM_ARTIST, seconds: 231, cover: ALBUM_COVER },
 ];
 
 export function clock(seconds: number): string {
