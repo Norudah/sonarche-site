@@ -2,10 +2,10 @@ import { Emphasis, SectionHeader } from "@/components/sections/SectionHeader";
 import type { Locale } from "@/lib/site";
 
 import { oldWayCopy } from "./copy";
-import styles from "./old-way.module.css";
+import { Leftover } from "./Leftovers";
 
-/* Dashed cards and struck-through names make the argument before the copy does. No scroll reveal:
-   the five have to read as one row. */
+/* Five columns on one grid, so step, tool, drawing and cost line up across the row; a tick under
+   each, then the same track done right. No scroll reveal: the five read as one row. */
 
 export function OldWay({ locale }: { locale: Locale }) {
   const copy = oldWayCopy[locale];
@@ -25,44 +25,66 @@ export function OldWay({ locale }: { locale: Locale }) {
         bodyWidth="max-w-[40rem]"
       />
 
-      <ol className="mx-auto mt-12 grid max-w-[80rem] gap-3.5 px-8 sm:px-15 md:grid-cols-2 xl:grid-cols-5">
-        {copy.chain.map((link) => (
-          <li
-            key={link.step}
-            className="border-rust-edge bg-rust-paper flex flex-col gap-2.5 rounded-2xl border border-dashed px-4.5 pt-5 pb-5.5"
-          >
-            <p className="text-rust font-mono text-[0.625rem] font-semibold tracking-[0.1em] opacity-80">{link.step}</p>
-            {/* Struck through, not greyed: these tools work, they are being replaced. */}
-            <p className="font-display text-[0.9375rem] leading-tight font-semibold text-[oklch(0.3_0.03_279)] line-through decoration-[oklch(0.72_0.16_30/0.6)] decoration-2">
-              {link.tool}
-            </p>
-            <p className="text-[0.8125rem] leading-[1.55] text-[oklch(0.48_0.02_279)]">{link.gripe}</p>
-            <p className="text-danger mt-auto pt-3 text-[0.71875rem] leading-snug font-medium">{link.cost}</p>
-          </li>
-        ))}
-      </ol>
-
-      <div aria-hidden className="flex justify-center pt-5.5">
-        <svg width="2" height="46" viewBox="0 0 2 46" className="overflow-visible">
-          <path
-            d="M1 0 L1 46"
-            stroke="var(--accent)"
-            strokeWidth="2"
-            strokeDasharray="6 8"
-            className={styles.connector}
+      <div className="mx-auto mt-14 max-w-[80rem] px-8 sm:px-15">
+        <ol className="relative grid gap-10 sm:grid-cols-2 lg:grid-cols-5 lg:grid-rows-[auto_auto_auto_auto] lg:gap-x-5 lg:gap-y-3">
+          <span
+            aria-hidden
+            className="absolute inset-x-10 top-[10.0625rem] hidden h-0.5 bg-[repeating-linear-gradient(90deg,var(--rust-edge)_0_8px,transparent_8px_16px)] lg:block"
           />
-        </svg>
-      </div>
+          {copy.chain.map((link, i) => (
+            <li key={link.step} className="relative grid gap-3 lg:row-span-4 lg:grid-rows-subgrid">
+              <p className="text-rust font-mono text-[0.65625rem] font-semibold tracking-[0.1em]">{link.step}</p>
+              {/* Struck through, not greyed: these tools work, they are being replaced. */}
+              <p className="font-display min-h-11.5 text-[1.0625rem] leading-tight font-semibold text-[oklch(0.3_0.03_279)] line-through decoration-[oklch(0.72_0.16_30/0.6)] decoration-2">
+                {link.tool}
+              </p>
+              <Leftover index={i} leftovers={copy.leftovers} />
+              <p className="text-rust text-[0.8125rem] leading-snug font-medium">{link.cost}</p>
+            </li>
+          ))}
+        </ol>
 
-      <div className="flex justify-center px-8 sm:px-15">
-        <div className="border-accent flex max-w-[47.5rem] flex-col items-center gap-4 rounded-[1.375rem] border-2 bg-[linear-gradient(160deg,oklch(0.97_0.022_277),white)] px-6 py-8 text-center sm:px-10">
-          <h3 className="font-display text-[clamp(1.375rem,2.4vw,2rem)] leading-[1.2] font-bold tracking-[-0.01em] text-[oklch(0.24_0.06_279)]">
-            {copy.punchHeading}
-          </h3>
+        <ul aria-hidden className="mt-6 hidden grid-cols-5 gap-x-5 lg:grid">
+          {copy.chain.map((link) => (
+            <li key={link.step} className="flex justify-center">
+              <span className="bg-accent flex size-8.5 items-center justify-center rounded-full shadow-[0_0_0_6px_var(--accent-soft)]">
+                <Tick />
+              </span>
+            </li>
+          ))}
+        </ul>
 
-          <p className="max-w-[37.5rem] text-[1.03rem] leading-[1.7] text-[oklch(0.42_0.03_279)]">{copy.punchBody}</p>
+        <div className="border-accent/30 bg-accent-soft mt-6 grid items-center gap-6 rounded-[1.25rem] border-[1.5px] p-6 sm:p-7.5 lg:grid-cols-[minmax(0,1fr)_26.25rem] lg:gap-8">
+          <p className="font-display text-foreground-strong text-[clamp(1.5rem,2.6vw,2.125rem)] leading-[1.12] font-bold tracking-[-0.02em]">
+            {copy.punchBefore} <em className="text-accent font-serif font-normal">{copy.punchEmphasis}</em>
+          </p>
+          <div className="bg-surface grid grid-cols-[4.75rem_minmax(0,1fr)] items-center gap-3.5 rounded-[0.875rem] p-3 shadow-[0_20px_40px_-24px_oklch(0.505_0.185_277/0.6)]">
+            <span
+              aria-hidden
+              className="size-19 rounded-lg bg-[linear-gradient(140deg,oklch(0.62_0.17_277),oklch(0.38_0.13_290))]"
+            />
+            <span className="flex flex-col gap-0.75">
+              <span className="text-foreground-strong text-sm font-bold">{copy.result.title}</span>
+              <span className="text-body text-xs">{copy.result.artist}</span>
+              <span className="text-body text-xs">{copy.result.release}</span>
+            </span>
+          </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function Tick() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 12 12" fill="none">
+      <path
+        d="M2.5 6.2 5 8.5l4.5-5"
+        stroke="var(--snow)"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   );
 }

@@ -5,8 +5,15 @@ import type { Locale } from "@/lib/site";
 type ChainLink = {
   step: string;
   tool: string;
-  gripe: string;
   cost: string;
+};
+
+/** What each tool leaves behind, drawn inside its column. Demo content, not claims. */
+type Leftovers = {
+  fileName: string;
+  guessedTags: { label: string; value: string }[];
+  retypeCount: string;
+  duplicates: string[];
 };
 
 export type OldWayCopy = {
@@ -15,8 +22,17 @@ export type OldWayCopy = {
   headingEmphasis: string;
   sub: string;
   chain: ChainLink[];
-  punchHeading: string;
-  punchBody: string;
+  leftovers: Leftovers;
+  punchBefore: string;
+  punchEmphasis: string;
+  /** The same track once Sonarche is done with it. */
+  result: { title: string; artist: string; release: string };
+};
+
+const SHARED = {
+  fileName: "Ghost - Mary On A Cross (Official Audio) [HQ].mp3",
+  retypeCount: "× 80",
+  duplicates: ["Mary On A Cross", "Mary On A Cross (1)", "Mary On A Cross (2)", "Mary On A Cross (Official Audio)"],
 };
 
 export const oldWayCopy: Record<Locale, OldWayCopy> = {
@@ -26,43 +42,23 @@ export const oldWayCopy: Record<Locale, OldWayCopy> = {
     headingEmphasis: "the old way.",
     sub: "Five tools, four tabs, and a download folder that looks like a crime scene. Every step loses something on the way.",
     chain: [
-      {
-        step: "TAB 1",
-        tool: "A converter site",
-        gripe:
-          "One link at a time, converted on somebody else's server. You wait in a queue, then the browser drops the file wherever it feels like.",
-        cost: "Slow, one track, re-encoded.",
-      },
-      {
-        step: "APP 1",
-        tool: "A bulk downloader",
-        gripe:
-          "Handles the playlist, at least. But it fills the tags from the file name, so your artist is « Unknown » and your album is blank.",
-        cost: "Tags are a guess.",
-      },
-      {
-        step: "APP 2",
-        tool: "A tag editor",
-        gripe: "Open every file. Retype the title, the artist, the year, the track number. Multiply by 80.",
-        cost: "Hours of typing.",
-      },
-      {
-        step: "TAB 2",
-        tool: "An image search",
-        gripe:
-          "Hunt for a square cover that isn't a watermarked thumbnail, crop it, hope it matches the right pressing.",
-        cost: "Wrong artwork forever.",
-      },
-      {
-        step: "APP 3",
-        tool: "Your music player",
-        gripe: "Move the files in, re-scan the folder, then discover three duplicates and one album split in two.",
-        cost: "A messy library anyway.",
-      },
+      { step: "TAB 1", tool: "A converter site", cost: "Slow, one track, re-encoded." },
+      { step: "APP 1", tool: "A bulk downloader", cost: "Tags are a guess." },
+      { step: "APP 2", tool: "A tag editor", cost: "Hours of typing." },
+      { step: "TAB 2", tool: "An image search", cost: "Wrong artwork forever." },
+      { step: "APP 3", tool: "Your music player", cost: "A messy library anyway." },
     ],
-    punchHeading: "Sonarche does all five. In one window.",
-    punchBody:
-      "Point it at a link and walk away. The audio lands in the hold, gets listened to, identified, tagged, given its real cover, filed in the right folder. Then it plays, on a native Rust audio engine. No hand-off, no re-import, no second app.",
+    leftovers: {
+      ...SHARED,
+      guessedTags: [
+        { label: "Artist", value: "Unknown" },
+        { label: "Album", value: "" },
+        { label: "Year", value: "" },
+      ],
+    },
+    punchBefore: "Sonarche does all five.",
+    punchEmphasis: "In one window.",
+    result: { title: "Mary on a Cross", artist: "Ghost", release: "Seven Inches of Satanic Panic · 2019" },
   },
   fr: {
     kicker: "L'ANCIENNE MÉTHODE",
@@ -70,43 +66,22 @@ export const oldWayCopy: Record<Locale, OldWayCopy> = {
     headingEmphasis: "tu la connais par cœur.",
     sub: "Cinq outils, quatre onglets, et un dossier Téléchargements qui ressemble à une scène de crime. Chaque étape perd quelque chose en route.",
     chain: [
-      {
-        step: "ONGLET 1",
-        tool: "Un site de conversion",
-        gripe:
-          "Un lien à la fois, converti sur le serveur de quelqu'un d'autre. Tu attends dans une file, puis le navigateur dépose le fichier où bon lui semble.",
-        cost: "Lent et un seul morceau à la fois.",
-      },
-      {
-        step: "APP 1",
-        tool: "Un téléchargeur en masse",
-        gripe:
-          "Il gère la playlist, au moins. Mais il remplit les tags avec le nom du fichier : ton artiste s'appelle « Unknown » et ton album est vide.",
-        cost: "Des tags devinés.",
-      },
-      {
-        step: "APP 2",
-        tool: "Un éditeur de tags",
-        gripe: "Ouvrir chaque fichier. Retaper le titre, l'artiste, l'année, le numéro de piste. Multiplié par 80.",
-        cost: "Des heures de saisies et de clics manuels.",
-      },
-      {
-        step: "ONGLET 2",
-        tool: "Une recherche d'images",
-        gripe:
-          "Chercher une pochette carrée qui ne soit pas une vignette filigranée, la recadrer, espérer qu'elle corresponde au bon pressage.",
-        cost: "Des rectangles, des carrés : c'est pas carré.",
-      },
-      {
-        step: "APP 3",
-        tool: "Ton lecteur de musique",
-        gripe:
-          "Déplacer les fichiers, relancer l'analyse du dossier, puis découvrir trois doublons et un album coupé en deux.",
-        cost: "Résultat ? Une bibliothèque bancale.",
-      },
+      { step: "ONGLET 1", tool: "Un site de conversion", cost: "Lent et un seul morceau à la fois." },
+      { step: "APP 1", tool: "Un téléchargeur en masse", cost: "Des tags devinés." },
+      { step: "APP 2", tool: "Un éditeur de tags", cost: "Des heures de saisies et de clics manuels." },
+      { step: "ONGLET 2", tool: "Une recherche d'images", cost: "Des rectangles, des carrés : c'est pas carré." },
+      { step: "APP 3", tool: "Ton lecteur de musique", cost: "Résultat ? Une bibliothèque bancale." },
     ],
-    punchHeading: "Sonarche fait les cinq. Dans une seule application.",
-    punchBody:
-      "Colle un lien et fais ta vie à côté. Sonarche s'occupe du reste : il télécharge ou importe tes musiques, les identifie, remplit les tags, donne une pochette d'album. Le tout dans ton dossier, sur ta machine. Rien n'est fermé, tu peux transférer ta bibliothèque ailleurs ou lire ta musique ici, sur un vrai lecteur audio écrit en Rust.",
+    leftovers: {
+      ...SHARED,
+      guessedTags: [
+        { label: "Artiste", value: "Unknown" },
+        { label: "Album", value: "" },
+        { label: "Année", value: "" },
+      ],
+    },
+    punchBefore: "Sonarche fait les cinq.",
+    punchEmphasis: "Dans une seule application.",
+    result: { title: "Mary on a Cross", artist: "Ghost", release: "Seven Inches of Satanic Panic · 2019" },
   },
 };

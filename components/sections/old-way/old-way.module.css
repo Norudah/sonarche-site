@@ -1,15 +1,87 @@
-@keyframes dashDown {
+/* Ambient loops, transform and opacity only. AnimationGate pauses them off-screen. */
+
+@keyframes crawl {
+  from {
+    transform: scaleX(0);
+  }
   to {
-    stroke-dashoffset: -28;
+    transform: scaleX(0.35);
   }
 }
 
-.connector {
-  animation: dashDown 1.4s linear infinite;
+@keyframes glitch {
+  0%,
+  90%,
+  100% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 0.3;
+  }
+  96% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes rows {
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes wobble {
+  0%,
+  100% {
+    transform: rotate(-2deg);
+  }
+  50% {
+    transform: rotate(2deg);
+  }
+}
+
+@keyframes dup {
+  0%,
+  20% {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  30%,
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.crawl {
+  animation: crawl 9s linear infinite;
+}
+
+.glitch {
+  animation: glitch 3s steps(1) infinite;
+}
+
+.rows {
+  animation: rows 8s linear infinite;
+}
+
+.wobble {
+  animation: wobble 3s ease-in-out infinite;
+}
+
+.dup {
+  animation: dup 4s ease-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .connector {
+  .crawl,
+  .glitch,
+  .rows,
+  .wobble,
+  .dup {
     animation: none;
+  }
+
+  .crawl {
+    transform: scaleX(0.35);
   }
 }
