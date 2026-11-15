@@ -111,7 +111,7 @@ export function HoldStage({ copy }: { copy: HoldCopy }) {
             <span
               aria-hidden
               data-hold-lit
-              className="border-accent absolute -inset-[1.5px] rounded-2xl border-2 bg-[color-mix(in_oklch,var(--accent-soft)_70%,transparent)]"
+              className="border-accent bg-accent-soft absolute -inset-[1.5px] rounded-2xl border-2"
             />
             <span className="relative flex items-center justify-between">
               <svg aria-hidden width="24" height="24" viewBox="0 0 24 24" fill="none">
