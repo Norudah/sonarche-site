@@ -4,8 +4,8 @@ import type { Locale } from "@/lib/site";
 import { oldWayCopy } from "./copy";
 import { Leftover } from "./Leftovers";
 
-/* Five columns on one grid, so step, tool, drawing and cost line up across the row; a tick under
-   each, then the same track done right. No scroll reveal: the five read as one row. */
+/* Five columns on one grid, so step, tool, drawing and cost line up across the row; a brace gathers
+   them into the same track done right. No scroll reveal: the five read as one row. */
 
 export function OldWay({ locale }: { locale: Locale }) {
   const copy = oldWayCopy[locale];
@@ -44,21 +44,36 @@ export function OldWay({ locale }: { locale: Locale }) {
           ))}
         </ol>
 
-        <ul aria-hidden className="mt-6 hidden grid-cols-5 gap-x-5 lg:grid">
-          {copy.chain.map((link) => (
-            <li key={link.step} className="flex justify-center">
-              <span className="bg-accent flex size-8.5 items-center justify-center rounded-full shadow-[0_0_0_6px_var(--accent-soft)]">
-                <Tick />
-              </span>
-            </li>
-          ))}
-        </ul>
+        {/* One brace gathers the five columns into the card: the curves keep their radius at any
+            width because only the straight runs stretch. */}
+        <div aria-hidden className="relative mt-10 hidden h-17 lg:block">
+          <div className="flex h-8">
+            <span className="border-accent flex-1 rounded-bl-[2rem] border-b-[1.5px] border-l-[1.5px]" />
+            <span className="w-20 flex-none" />
+            <span className="border-accent flex-1 rounded-br-[2rem] border-r-[1.5px] border-b-[1.5px]" />
+          </div>
+          <svg
+            width="80"
+            height="38"
+            viewBox="0 0 80 38"
+            fill="none"
+            className="absolute top-[calc(2rem-0.75px)] left-1/2 -translate-x-1/2 overflow-visible"
+          >
+            <path
+              d="M0 .75C26 .75 40 4 40 37.25M80 .75C54 .75 40 4 40 37.25"
+              stroke="var(--accent)"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+          </svg>
+        </div>
 
-        <div className="border-accent/30 bg-accent-soft mt-6 grid items-center gap-6 rounded-[1.25rem] border-[1.5px] p-6 sm:p-7.5 lg:grid-cols-[minmax(0,1fr)_26.25rem] lg:gap-8">
+        <div className="border-accent bg-surface mx-auto mt-6 grid max-w-[48rem] items-center gap-6 rounded-[1.25rem] border-2 p-6 shadow-[0_40px_80px_-40px_oklch(0.505_0.185_277/0.5)] sm:p-7.5 lg:mt-1 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-10">
           <p className="font-display text-foreground-strong text-[clamp(1.5rem,2.6vw,2.125rem)] leading-[1.12] font-bold tracking-[-0.02em]">
-            {copy.punchBefore} <em className="text-accent font-serif font-normal">{copy.punchEmphasis}</em>
+            {copy.punchBefore}{" "}
+            <em className="text-accent mt-1 block font-serif text-[0.8em] font-normal">{copy.punchEmphasis}</em>
           </p>
-          <div className="bg-surface grid grid-cols-[4.75rem_minmax(0,1fr)] items-center gap-3.5 rounded-[0.875rem] p-3 shadow-[0_20px_40px_-24px_oklch(0.505_0.185_277/0.6)]">
+          <div className="grid grid-cols-[4.75rem_minmax(0,1fr)] items-center gap-4">
             <span
               aria-hidden
               className="size-19 rounded-lg bg-[linear-gradient(140deg,oklch(0.62_0.17_277),oklch(0.38_0.13_290))]"
@@ -72,19 +87,5 @@ export function OldWay({ locale }: { locale: Locale }) {
         </div>
       </div>
     </section>
-  );
-}
-
-function Tick() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 12 12" fill="none">
-      <path
-        d="M2.5 6.2 5 8.5l4.5-5"
-        stroke="var(--snow)"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
   );
 }

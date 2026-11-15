@@ -73,7 +73,7 @@ l'étape) : `Titre` · `Artiste` · `Album` · `Genre` · `Piste` · `Année`
 ### Les cinq maillons de la chaîne
 
 Cinq colonnes : libellé d'étape, outil (barré), un petit dessin de ce qu'il
-laisse derrière lui, coût. Une coche sous chacune, puis le bandeau résultat.
+laisse derrière lui, coût. Une accolade réunit les cinq dans la carte résultat.
 
 1. `ONGLET 1` · **Un site de conversion** · _Lent et un seul morceau à la fois._
 2. `APP 1` · **Un téléchargeur en masse** · _Des tags devinés._

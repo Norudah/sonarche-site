@@ -64,7 +64,7 @@ Scene tags (the labels flying into the file in the step's drawing): `Title` ·
 ### The five links of the chain
 
 Five columns: step label, tool (struck through), a small drawing of what it
-leaves behind, cost. A tick under each, then the result band.
+leaves behind, cost. A brace gathers the five into the result card.
 
 1. `TAB 1` · **A converter site** · _Slow, one track, re-encoded._
 2. `APP 1` · **A bulk downloader** · _Tags are a guess._

@@ -36,7 +36,7 @@ each section shows the app doing the thing). Order:
 2. **The flow** — 4 numbered steps (paste / come aboard / fingerprint / named),
    short texts. The dioramas stand alone: no labels or images laid over them.
 3. **The old way** — five aligned columns (tool struck through, a drawing of
-   what it leaves behind, cost), a tick under each, then a result band:
+   what it leaves behind, cost), a brace gathering them into a result card:
    "Sonarche does all five." beside the clean file.
 4. **True names** — two static inspectors, scraped (1 of 7 fields) vs
    identified (7 of 7).
