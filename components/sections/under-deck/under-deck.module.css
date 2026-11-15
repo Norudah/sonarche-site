@@ -133,62 +133,52 @@
     white-space: nowrap;
   }
 
+  /* Painted before the cards, so every node and service hides them as they pass underneath. */
   .packet {
     display: block;
     position: absolute;
-    z-index: 2;
     left: 252px;
     top: 120px;
     width: 20px;
     height: 20px;
     border-radius: 999px;
     background: var(--accent);
-    box-shadow: 0 0 0 6px color-mix(in oklch, var(--accent) 20%, transparent);
-    animation: packet 10s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+    box-shadow: 0 0 0 6px color-mix(in oklab, var(--accent) 20%, transparent);
+    animation: packet 12s cubic-bezier(0.65, 0, 0.35, 1) infinite;
   }
 
   .exchange {
     display: block;
     position: absolute;
     inset: 0;
-    opacity: 0;
-    animation: exchange 10s linear infinite;
   }
 
+  /* Same period as the packet, so each dot's trip always falls in the packet's wait at beets. */
   .dot {
     position: absolute;
     left: 821px;
     top: 210px;
-    width: 9px;
-    height: 9px;
+    width: 8px;
+    height: 8px;
     border-radius: 999px;
     background: var(--accent);
-    animation-duration: 1.2s;
-    animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+    opacity: 0;
+    animation-duration: 12s;
+    animation-timing-function: linear;
     animation-iteration-count: infinite;
   }
 
-  .dotBack {
-    background: var(--success);
+  .toLeft {
+    --dx: -572px;
+    animation-name: trip;
   }
-
-  .toLeftOut {
-    animation-name: toLeftOut;
+  .toMiddle {
+    --dx: -205px;
+    animation-name: trip;
   }
-  .toLeftIn {
-    animation-name: toLeftIn;
-  }
-  .toMiddleOut {
-    animation-name: toMiddleOut;
-  }
-  .toMiddleIn {
-    animation-name: toMiddleIn;
-  }
-  .toRightOut {
-    animation-name: toRightOut;
-  }
-  .toRightIn {
-    animation-name: toRightIn;
+  .toRight {
+    --dx: 162px;
+    animation-name: trip;
   }
 }
 
@@ -228,104 +218,47 @@
   }
 }
 
-@keyframes exchange {
+/* Down beets' spine, along the rail, down into the group, a beat under its card, then back. */
+@keyframes trip {
   0%,
-  46% {
+  45.5% {
+    transform: translate(0, 0);
     opacity: 0;
   }
-  49%,
+  46% {
+    transform: translate(0, 0);
+    opacity: 1;
+    animation-timing-function: ease-in-out;
+  }
+  49% {
+    transform: translate(0, 80px);
+    animation-timing-function: ease-in-out;
+  }
+  57% {
+    transform: translate(var(--dx), 80px);
+    animation-timing-function: ease-in-out;
+  }
+  60%,
+  63% {
+    transform: translate(var(--dx), 118px);
+    animation-timing-function: ease-in-out;
+  }
+  66% {
+    transform: translate(var(--dx), 80px);
+    animation-timing-function: ease-in-out;
+  }
+  74% {
+    transform: translate(0, 80px);
+    animation-timing-function: ease-in-out;
+  }
   77% {
+    transform: translate(0, 0);
     opacity: 1;
   }
-  80%,
+  77.5%,
   100% {
+    transform: translate(0, 0);
     opacity: 0;
-  }
-}
-
-/* Down beets' spine, along the rail, down into the group; the answers ride back. */
-@keyframes toLeftOut {
-  0% {
-    transform: translate(0, 0);
-  }
-  30% {
-    transform: translate(0, 80px);
-  }
-  75% {
-    transform: translate(-572px, 80px);
-  }
-  100% {
-    transform: translate(-572px, 118px);
-  }
-}
-@keyframes toLeftIn {
-  0% {
-    transform: translate(-572px, 118px);
-  }
-  25% {
-    transform: translate(-572px, 80px);
-  }
-  70% {
-    transform: translate(0, 80px);
-  }
-  100% {
-    transform: translate(0, 0);
-  }
-}
-@keyframes toMiddleOut {
-  0% {
-    transform: translate(0, 0);
-  }
-  30% {
-    transform: translate(0, 80px);
-  }
-  75% {
-    transform: translate(-205px, 80px);
-  }
-  100% {
-    transform: translate(-205px, 118px);
-  }
-}
-@keyframes toMiddleIn {
-  0% {
-    transform: translate(-205px, 118px);
-  }
-  25% {
-    transform: translate(-205px, 80px);
-  }
-  70% {
-    transform: translate(0, 80px);
-  }
-  100% {
-    transform: translate(0, 0);
-  }
-}
-@keyframes toRightOut {
-  0% {
-    transform: translate(0, 0);
-  }
-  30% {
-    transform: translate(0, 80px);
-  }
-  75% {
-    transform: translate(162px, 80px);
-  }
-  100% {
-    transform: translate(162px, 118px);
-  }
-}
-@keyframes toRightIn {
-  0% {
-    transform: translate(162px, 118px);
-  }
-  25% {
-    transform: translate(162px, 80px);
-  }
-  70% {
-    transform: translate(0, 80px);
-  }
-  100% {
-    transform: translate(0, 0);
   }
 }
 
@@ -344,7 +277,7 @@
   }
 
   .packet,
-  .exchange {
+  .dot {
     opacity: 0;
   }
 }

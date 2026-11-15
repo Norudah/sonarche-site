@@ -5,10 +5,11 @@ import styles from "./under-deck.module.css";
  * One line, left to right: where the audio comes from, the sealed Python tools, the folder. The
  * services hang under beets. From `lg` it is a pinned 1240×560 stage scaled down whole by a
  * container query; below, the same nodes stack. A packet walks the line and stops at beets while
- * small dots run to the services and back: what beets actually does.
+ * one dot per group runs to the services and back: what beets actually does. Both travel under the
+ * cards, which hide them on the way.
  */
 
-const STAGE = { width: 1240, height: 560 };
+const STAGE = { width: 1240, height: 476 };
 
 type Box = { x: number; y: number; w: number };
 
@@ -19,7 +20,7 @@ const PLACE: Partial<Record<DiagramNode["id"], Box>> = {
   folder: { x: 1050, y: 64, w: 190 },
 };
 
-/* Each group's horizontal offset from beets' spine, for the dots. */
+/* One dot per group, in the group's order. */
 const DOT_PATHS = ["toLeft", "toMiddle", "toRight"] as const;
 
 export function Pipeline({ nodes, sealed, note }: { nodes: DiagramNode[]; sealed: string; note: string }) {
@@ -29,7 +30,7 @@ export function Pipeline({ nodes, sealed, note }: { nodes: DiagramNode[]; sealed
 
   return (
     <div className="mx-auto mt-14 w-full max-w-[80rem] px-8 sm:px-15">
-      <div className="@container relative lg:aspect-[1240/560] lg:overflow-clip">
+      <div className="@container relative lg:aspect-[1240/476] lg:overflow-clip">
         <div
           className={styles.stage}
           style={{ "--stage-w": `${STAGE.width}px`, "--stage-h": `${STAGE.height}px` } as never}
@@ -62,13 +63,7 @@ export function Pipeline({ nodes, sealed, note }: { nodes: DiagramNode[]; sealed
 
           <div aria-hidden className={styles.exchange}>
             {DOT_PATHS.map((path, i) => (
-              <span key={path} className="contents">
-                <span className={`${styles.dot} ${styles[`${path}Out`]}`} style={{ animationDelay: `${i * 0.2}s` }} />
-                <span
-                  className={`${styles.dot} ${styles.dotBack} ${styles[`${path}In`]}`}
-                  style={{ animationDelay: `${0.6 + i * 0.2}s` }}
-                />
-              </span>
+              <span key={path} className={`${styles.dot} ${styles[path]}`} style={{ animationDelay: `${i * 0.3}s` }} />
             ))}
           </div>
           <span aria-hidden className={styles.packet} />
