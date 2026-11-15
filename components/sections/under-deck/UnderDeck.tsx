@@ -26,7 +26,7 @@ export function UnderDeck({ locale }: { locale: Locale }) {
 
       <Pipeline nodes={copy.nodes} sealed={copy.sealed} note={copy.servicesNote} />
 
-      <ul className="border-border mx-auto mt-6 grid max-w-[70rem] px-8 sm:px-15 md:grid-cols-3 md:border-t">
+      <ul className="border-border mx-auto mt-6 grid max-w-[70rem] px-8 sm:px-15 md:grid-cols-3 md:border-t lg:mt-10">
         {copy.cards.map((card) => (
           <li
             key={card.tag}
