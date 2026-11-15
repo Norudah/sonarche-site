@@ -312,13 +312,18 @@ export function createBoat({ ripples, bursts, now, patrol, laden, shoal }: BoatO
         out[out.length - 1 - i].set(p.x, p.z, p.y - 0.45, 1);
       }
     },
-    /** Out of sight until it drops. */
+    /** Out of sight until it drops. The rigging hangs in world space, so it hides with it: left
+        out, the claw and the trawl block float alone over the sea before the hull arrives. */
     hide() {
       sail.visible = false;
+      crane.rigging.visible = false;
+      trawl.rigging.visible = false;
     },
     /** Arrival: from above the frame's sea into the water, with a splash. */
     drop() {
       sail.visible = true;
+      crane.rigging.visible = true;
+      trawl.rigging.visible = true;
       Object.assign(drop, { active: true, falling: true, y: DROP_FROM, v: -4, settle: 0 });
       ctx.add(() =>
         gsap.fromTo(sail.scale, { x: 0.7, y: 0.7, z: 0.7 }, { x: 1, y: 1, z: 1, duration: 0.45, ease: "back.out(2)" }),
