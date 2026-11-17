@@ -23,7 +23,13 @@ export type Post = {
   description: Record<Locale, string>;
   /** Counted by hand at ~200 words a minute. */
   minutes: number;
+  /** Drawn on the post's card in the index. */
+  illustration: PostIllustration;
+  /** The guide that puts the post into practice, by id. */
+  guide?: string;
 };
+
+export type PostIllustration = "tags";
 
 /** Newest first. */
 export const POSTS: Post[] = [
@@ -43,6 +49,8 @@ export const POSTS: Post[] = [
       en: "An audio file doesn't know what it holds: it carries whatever was typed onto it. How tags break, why text search can't fix them, and what an audio fingerprint changes.",
     },
     minutes: 7,
+    illustration: "tags",
+    guide: "edit-track",
   },
 ];
 

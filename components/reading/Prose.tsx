@@ -7,8 +7,8 @@ import styles from "./prose.module.css";
  * Posts and guides are JSX typed as prose. Around an inline tag, write `&#32;` after it and
  * `{" "}` before it: JSX trims the other forms at line ends, and the word silently glues to the tag.
  */
-export function Prose({ children }: { children: ReactNode }) {
-  return <div className={styles.prose}>{children}</div>;
+export function Prose({ children, numbered = false }: { children: ReactNode; numbered?: boolean }) {
+  return <div className={numbered ? `${styles.prose} ${styles.numbered}` : styles.prose}>{children}</div>;
 }
 
 /* The anchor is derived from the text and rendered statically, so section links work without

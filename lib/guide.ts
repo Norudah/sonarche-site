@@ -115,6 +115,12 @@ const GUIDES: Guide[] = [
 
 export const publishedGuides = () => GUIDES.filter((guide) => !guide.draft || process.env.NODE_ENV !== "production");
 
+/** The guides on either side in reading order, null at the ends. */
+export function neighbours(guides: Guide[], id: string) {
+  const i = guides.findIndex((guide) => guide.id === id);
+  return { previous: i > 0 ? guides[i - 1] : null, next: i >= 0 && i < guides.length - 1 ? guides[i + 1] : null };
+}
+
 export const guidePath = (guide: Guide, locale: Locale) => `${GUIDE_PATH[locale]}${guide.slug[locale]}/`;
 
 export const guidePaths = (guide: Guide) => byLocale((locale) => guidePath(guide, locale));

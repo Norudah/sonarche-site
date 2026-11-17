@@ -8,7 +8,7 @@ import { type Locale } from "@/lib/site";
 /* The frame for the journal and the guide: no storm, no sea. The bar and the colophon are the
    landing's. */
 
-export type ReadingSection = "journal" | "guide";
+type ReadingSection = "journal" | "guide";
 
 type ReadingShellProps = {
   locale: Locale;

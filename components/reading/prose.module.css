@@ -133,3 +133,30 @@
   border-top: 1px solid var(--separator);
   margin-block: 2.6em;
 }
+
+/* A guide numbers its sections: each heading opens on a step badge, counted in CSS so the JSX
+   stays plain. */
+.numbered {
+  counter-reset: step;
+}
+
+.numbered h2 {
+  align-items: center;
+  counter-increment: step;
+  display: flex;
+  gap: 0.85rem;
+}
+
+.numbered h2::before {
+  background: var(--accent);
+  border-radius: 999px;
+  color: var(--accent-foreground);
+  content: counter(step);
+  flex: none;
+  font-size: 1rem;
+  height: 2.25rem;
+  letter-spacing: 0;
+  line-height: 2.25rem;
+  text-align: center;
+  width: 2.25rem;
+}

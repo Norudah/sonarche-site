@@ -5,18 +5,19 @@ import type { Locale } from "@/lib/site";
 export type ReadingCopy = {
   readingTime: (minutes: number) => string;
   updatedOn: string;
-  tableOfContents: string;
+  /** The badge on an index that is published while it grows. */
+  underConstruction: string;
 };
 
 export const readingCopy: Record<Locale, ReadingCopy> = {
   en: {
     readingTime: (minutes) => `${minutes} min read`,
     updatedOn: "Updated",
-    tableOfContents: "On this page",
+    underConstruction: "Under construction",
   },
   fr: {
     readingTime: (minutes) => `${minutes} min de lecture`,
     updatedOn: "Mis à jour le",
-    tableOfContents: "Sommaire",
+    underConstruction: "En construction",
   },
 };
