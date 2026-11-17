@@ -1,4 +1,4 @@
-import { Emphasis, Kicker } from "@/components/sections/SectionHeader";
+import { Emphasis, SectionHeading } from "@/components/sections/SectionHeader";
 import type { Locale } from "@/lib/site";
 
 import { holdCopy } from "./copy";
@@ -12,11 +12,9 @@ export function Hold({ locale }: { locale: Locale }) {
   return (
     <section className="relative isolate bg-[oklch(0.976_0.008_279/0.8)] py-24 sm:py-27">
       <header className="mx-auto flex max-w-[70rem] flex-col items-start px-8 sm:px-15">
-        <Kicker>{copy.kicker}</Kicker>
-        <h2 className="text-foreground-strong font-display mt-4 flex flex-col text-[clamp(1.875rem,3.6vw,3.25rem)] leading-[1.12] font-bold tracking-[-0.02em]">
-          <span>{copy.headingBefore}</span>
-          <Emphasis>{copy.headingEmphasis}</Emphasis>
-        </h2>
+        <SectionHeading kicker={copy.kicker} className="flex flex-col">
+          <span>{copy.headingBefore}</span> <Emphasis>{copy.headingEmphasis}</Emphasis>
+        </SectionHeading>
         <p className="text-body mt-6 max-w-[37.5rem] text-[1.09rem] leading-relaxed">
           {copy.bodyBefore}{" "}
           <code className="bg-tray text-foreground rounded-md px-1.5 py-0.5 font-mono text-[0.95em]">

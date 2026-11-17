@@ -29,7 +29,7 @@ export function Flow({ locale }: { locale: Locale }) {
         stacked
         heading={
           <>
-            <span>{copy.headingBefore}</span>
+            <span>{copy.headingBefore}</span>{" "}
             <span>
               <Emphasis>{copy.headingEmphasis}</Emphasis> {copy.headingAfter}
             </span>

@@ -1,4 +1,4 @@
-import { Emphasis, Kicker } from "@/components/sections/SectionHeader";
+import { Emphasis, SectionHeading } from "@/components/sections/SectionHeader";
 import type { Locale } from "@/lib/site";
 
 import { noExpertiseCopy } from "./copy";
@@ -18,11 +18,10 @@ export function NoExpertise({ locale }: { locale: Locale }) {
     <section data-anim-gate className="relative isolate py-24 sm:py-27">
       <div className="mx-auto flex max-w-[75rem] flex-col px-8 sm:px-15">
         <header className="flex flex-col items-start">
-          <Kicker>{copy.kicker}</Kicker>
-          <h2 className="text-foreground-strong font-display mt-4 max-w-[47.5rem] text-[clamp(1.875rem,3.6vw,3.25rem)] leading-[1.15] font-bold tracking-[-0.02em]">
+          <SectionHeading kicker={copy.kicker} className="block max-w-[47.5rem]">
             {copy.headingBefore} <Emphasis>{copy.headingEmphasis}</Emphasis>
             {copy.headingAfter}
-          </h2>
+          </SectionHeading>
           <p className="text-foreground mt-6 max-w-[35rem] text-[clamp(1.125rem,1.7vw,1.5rem)] leading-normal">
             {copy.lead}
           </p>

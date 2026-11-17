@@ -49,12 +49,13 @@ export type HoldCopy = {
 
 export const holdCopy: Record<Locale, HoldCopy> = {
   en: {
-    kicker: "THE HOLD IS YOURS",
+    kicker: "YOUR FILES",
     headingBefore: "Nothing here is locked.",
     headingEmphasis: "It's only files.",
     bodyBefore: "Everything lands in",
     bodyPath: "Music/Sonarche/",
-    bodyAfter: ", next to your current app. The names live inside the files: any player can read them.",
+    bodyAfter:
+      ", filed by artist and album, next to your current app. The tags live inside the files: any player can read them.",
     otherApp: "YourOtherMusicApp",
     note: "Drag the folder anywhere and it still works.",
     ui: {
@@ -89,13 +90,13 @@ export const holdCopy: Record<Locale, HoldCopy> = {
     closer: "If you decide you don't like Sonarche, your library leaves with you, fully tagged.",
   },
   fr: {
-    kicker: "TON NAVIRE, TON ÉQUIPAGE",
+    kicker: "TES FICHIERS",
     headingBefore: "Rien n'est verrouillé ici.",
     headingEmphasis: "Ce ne sont que des fichiers.",
     bodyBefore: "Tout atterrit dans",
     bodyPath: "Music/Sonarche/",
     bodyAfter:
-      ", à côté de ton app actuelle. Les noms vivent dans les fichiers eux-mêmes : n'importe quel lecteur les lit.",
+      ", rangé par artiste et par album, à côté de ton app actuelle. Les tags vivent dans les fichiers eux-mêmes : n'importe quel lecteur les lit.",
     otherApp: "TonAutreAppMusique",
     note: "Déplace le dossier où tu veux : tout marche encore.",
     ui: {

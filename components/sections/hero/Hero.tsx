@@ -54,17 +54,20 @@ export function Hero({ locale }: { locale: Locale }) {
           {copy.badge}
         </p>
 
-        <h1 className="mt-5 flex flex-col items-center">
+        {/* The brand is drawn here but is not the heading: the h1 is the line that says what the app is. */}
+        <p className="mt-5 flex flex-col items-center">
           <span className="text-foreground-strong font-display text-[clamp(3.25rem,9.6vw,8.625rem)] leading-none font-extrabold tracking-[0.015em]">
             {copy.wordmark}
           </span>
           <span className="text-accent-muted mt-3 font-serif text-[clamp(1.375rem,2.15vw,1.9375rem)] leading-snug italic">
             {copy.tagline}
           </span>
-        </h1>
+        </p>
 
-        {/* 38rem: the French subline wraps to a third line at the mockup's 34. */}
-        <p className="text-body mt-2.5 max-w-[38rem] text-base leading-relaxed sm:text-[1.09rem]">{copy.subline}</p>
+        {/* One line under the brand: the hook and the h1 at once. */}
+        <h1 className="text-foreground-strong font-display mt-5 max-w-[32rem] text-[1.0625rem] leading-snug font-semibold tracking-[-0.01em] text-balance sm:text-[1.3125rem]">
+          {copy.heading}
+        </h1>
 
         <div className="mt-6 w-full">
           <DownloadCta locale={locale}>

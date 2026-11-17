@@ -26,10 +26,10 @@ export type ShipSoundCopy = {
 
 export const shipSoundCopy: Record<Locale, ShipSoundCopy> = {
   en: {
-    kicker: "THE SHIP'S SOUND",
-    headingBefore: "Not just the harbor:",
-    headingEmphasis: "the ship's own sound.",
-    body: "Sonarche is the player too. A native Rust engine: tracks start on the beat, albums play without a gap, and the lyrics follow the music.",
+    kicker: "BUILT-IN MUSIC PLAYER",
+    headingBefore: "Sonarche files your music.",
+    headingEmphasis: "It plays it too.",
+    body: "No other player needed: Sonarche plays your library on a native Rust engine. Tracks start on the beat, albums play gapless, and synced lyrics follow the music.",
     backdropAlt: "The app behind the player: the Album view.",
     queue: { title: "Queue", count: "11 tracks", now: "NOW PLAYING", next: "UP NEXT" },
     lyrics: { title: "Lyrics", synced: "SYNCED" },
@@ -46,10 +46,10 @@ export const shipSoundCopy: Record<Locale, ShipSoundCopy> = {
     traditional: "Traditional",
   },
   fr: {
-    kicker: "HISSEZ LA GRANDE VOILE",
-    headingBefore: "Pas seulement le port :",
-    headingEmphasis: "le son du navire lui-même.",
-    body: "Sonarche est aussi le lecteur. Un moteur natif en Rust : ça démarre au quart de tour, un album s'enchaîne sans un blanc, et les paroles suivent la musique.",
+    kicker: "LECTEUR AUDIO INTÉGRÉ",
+    headingBefore: "Sonarche range ta musique.",
+    headingEmphasis: "Il la joue aussi.",
+    body: "Pas besoin d'un autre lecteur : Sonarche joue ta bibliothèque sur un moteur natif en Rust. Ça démarre au quart de tour, un album s'enchaîne sans un blanc, et les paroles synchronisées suivent la musique.",
     backdropAlt: "L'app derrière le lecteur : la vue Album.",
     queue: { title: "File d'attente", count: "11 titres", now: "EN LECTURE", next: "À SUIVRE" },
     lyrics: { title: "Paroles", synced: "SYNCHRONISÉES" },

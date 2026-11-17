@@ -20,7 +20,7 @@ export function Footer({ locale }: { locale: Locale }) {
     >
       <div className="relative z-10 flex flex-col items-center px-8 text-center sm:px-15">
         <h2 className="text-foreground-strong font-display flex max-w-[46rem] flex-col text-[clamp(2rem,4.1vw,3.625rem)] leading-[1.15] font-bold tracking-[-0.02em]">
-          <span>{copy.headingBefore}</span>
+          <span>{copy.headingBefore}</span>{" "}
           <em className="text-accent font-serif text-[1.08em] leading-none italic">{copy.headingEmphasis}</em>
         </h2>
 

@@ -38,11 +38,11 @@ export type UnderDeckCopy = {
 
 export const underDeckCopy: Record<Locale, UnderDeckCopy> = {
   en: {
-    kicker: "UNDER THE DECK",
-    headingBefore: "No magic.",
-    headingEmphasis: "Proven tools",
+    kicker: "UNDER THE HOOD",
+    headingBefore: "No magic:",
+    headingEmphasis: "beets, yt-dlp and MusicBrainz",
     headingAfter: ", conducted well.",
-    body: "You don't have to care about any of this, but here it is, in plain words, because you deserve to know what's running on your machine.",
+    body: "You don't have to care about any of this, but here it is, in plain words, because you deserve to know what's running on your machine. If you know beets: Sonarche ships it, configures it and gives it an interface.",
     cards: [
       {
         tag: "THE SHELL",
@@ -120,11 +120,11 @@ export const underDeckCopy: Record<Locale, UnderDeckCopy> = {
       "These services are queried on demand, never required. You have no account to create and no key to paste: the app introduces itself politely and spaces out its calls.",
   },
   fr: {
-    kicker: "SOUS LE PONT",
-    headingBefore: "Pas de magie.",
-    headingEmphasis: "Des outils éprouvés",
+    kicker: "SOUS LE CAPOT",
+    headingBefore: "Pas de magie :",
+    headingEmphasis: "beets, yt-dlp et MusicBrainz",
     headingAfter: ", bien orchestrés.",
-    body: "Rien ne t'oblige à t'y intéresser, mais tout est là si tu t'y intéresses, parce que tu mérites de savoir ce qui tourne sur ta machine.",
+    body: "Rien ne t'oblige à t'y intéresser, mais tout est là si tu t'y intéresses, parce que tu mérites de savoir ce qui tourne sur ta machine. Si tu connais beets : Sonarche l'embarque, le configure et lui donne une interface.",
     cards: [
       {
         tag: "LA COQUE",

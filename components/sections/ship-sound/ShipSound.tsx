@@ -20,8 +20,7 @@ export function ShipSound({ locale }: { locale: Locale }) {
         stacked
         heading={
           <>
-            <span>{copy.headingBefore}</span>
-            <Emphasis>{copy.headingEmphasis}</Emphasis>
+            <span>{copy.headingBefore}</span> <Emphasis>{copy.headingEmphasis}</Emphasis>
           </>
         }
         headingWidth="max-w-[48.75rem]"

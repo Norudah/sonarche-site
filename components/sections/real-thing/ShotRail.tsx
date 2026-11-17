@@ -60,7 +60,7 @@ export function ShotRail({ copy, locale, index, theme, onStep }: ShotRailProps) 
                     <img
                       key={t}
                       src={`/shots/${SHOT_DIR[locale]}/${t}/${slide.id}.webp`}
-                      alt={clone || t !== theme ? "" : slide.title}
+                      alt={clone || t !== theme ? "" : slide.alt}
                       aria-hidden={t !== theme}
                       width={SHOT_SIZE.width}
                       height={SHOT_SIZE.height}

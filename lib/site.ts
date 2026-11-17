@@ -39,20 +39,26 @@ export const OG_LOCALE: Record<Locale, string> = {
 };
 
 /** The sitemap's date for the landing. Bumped by hand when docs/copy/*.md changes, not per deploy. */
-export const CONTENT_UPDATED = "2026-08-11";
+export const CONTENT_UPDATED = "2026-11-18";
 
 /** The <title> is written to be searched for; the tagline stays on og:title. */
 export const SEARCH_TITLE: Record<Locale, string> = {
-  fr: "Sonarche | bibliothèque musicale open source et hors ligne",
-  en: "Sonarche | open-source, offline music library",
+  fr: "Sonarche | Gestionnaire de bibliothèque musicale open source",
+  en: "Sonarche | Open-source music library manager and player",
 };
 
 export const BRAND_TITLE = "Sonarche: From the stream into the Ark.";
 
-/* The hero's subline. The FR one stops at 147 characters to fit a result snippet. */
+/* The landing's share card: the tagline is already on the image, so the title says what the link is. */
+export const LANDING_SHARE_TITLE: Record<Locale, string> = {
+  fr: "Sonarche : gestionnaire de bibliothèque musicale open source",
+  en: "Sonarche: open-source music library manager and player",
+};
+
+/* Kept under ~155 characters, where a result snippet is cut. */
 export const LANDING_DESCRIPTION: Record<Locale, string> = {
-  fr: "Une bibliothèque musicale qui t'appartient vraiment : chaque morceau identifié à l'oreille, tes fichiers sur ta machine, avec les bonnes informations.",
-  en: "A music library that's truly yours: every track identified by its own audio, named in plain files, played on a native engine. Free and open source.",
+  fr: "Logiciel open source pour Mac et Windows : colle un lien, Sonarche télécharge le morceau, l'identifie à son empreinte audio, corrige ses tags et le joue.",
+  en: "Open-source music library manager for Mac and Windows. Paste a link: Sonarche downloads the track, identifies it by its audio, tags it and plays it.",
 };
 
 /**

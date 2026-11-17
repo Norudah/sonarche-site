@@ -37,7 +37,7 @@ const SHARED = {
 
 export const oldWayCopy: Record<Locale, OldWayCopy> = {
   en: {
-    kicker: "THE OLD WAY",
+    kicker: "ALL IN ONE",
     headingBefore: "You already know",
     headingEmphasis: "the old way.",
     sub: "Five tools, four tabs, and a download folder that looks like a crime scene. Every step loses something on the way.",
@@ -61,7 +61,7 @@ export const oldWayCopy: Record<Locale, OldWayCopy> = {
     result: { title: "Mary on a Cross", artist: "Ghost", release: "Seven Inches of Satanic Panic · 2019" },
   },
   fr: {
-    kicker: "L'ANCIENNE MÉTHODE",
+    kicker: "TOUT EN UN",
     headingBefore: "L'ancienne méthode,",
     headingEmphasis: "tu la connais par cœur.",
     sub: "Cinq outils, quatre onglets, et un dossier Téléchargements qui ressemble à une scène de crime. Chaque étape perd quelque chose en route.",

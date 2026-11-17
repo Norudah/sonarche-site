@@ -7,7 +7,8 @@ export type HeroCopy = {
   wordmark: string;
   /** BRAND — English in every language, never reworded. */
   tagline: string;
-  subline: string;
+  /** The page's h1 and the hero's only line: the hook, in the words people search for. */
+  heading: string;
   /** No `ctaPrimary`: the download button builds its own labels. */
   ctaSecondary: string;
   scrollHint: string;
@@ -18,8 +19,7 @@ export const heroCopy: Record<Locale, HeroCopy> = {
     badge: "FREE · OPEN SOURCE · OFFLINE",
     wordmark: "SONARCHE",
     tagline: "From the stream into the Ark.",
-    subline:
-      "A music library that's truly yours: every track identified by its own audio, named in plain files, played on a native engine.",
+    heading: "Paste a link: Sonarche downloads the track, recognizes it by ear, fixes its tags and files it away.",
     ctaSecondary: "See how it works ↓",
     scrollHint: "SCROLL ↓",
   },
@@ -27,8 +27,7 @@ export const heroCopy: Record<Locale, HeroCopy> = {
     badge: "GRATUIT · OPEN SOURCE · HORS LIGNE",
     wordmark: "SONARCHE",
     tagline: "From the stream into the Ark.",
-    subline:
-      "Une bibliothèque musicale qui t'appartient vraiment : chaque morceau identifié à l'oreille, tes fichiers sur ta machine, avec les bonnes informations.",
+    heading: "Colle un lien : Sonarche télécharge le morceau, le reconnaît à l'oreille, corrige ses tags et le range.",
     ctaSecondary: "Comment ça marche ↓",
     scrollHint: "DÉFILER ↓",
   },

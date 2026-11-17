@@ -1,4 +1,5 @@
 import { Emphasis, SectionHeader } from "@/components/sections/SectionHeader";
+import { postById, postPath } from "@/lib/blog";
 import type { Locale } from "@/lib/site";
 
 import { trueNamesCopy, type TrueNamesCopy } from "./copy";
@@ -17,14 +18,21 @@ export function TrueNames({ locale }: { locale: Locale }) {
         stacked
         heading={
           <>
-            <span>{copy.headingBefore}</span>
-            <Emphasis>{copy.headingEmphasis}</Emphasis>
+            <span>{copy.headingBefore}</span> <Emphasis>{copy.headingEmphasis}</Emphasis>
           </>
         }
         headingWidth="max-w-[52.5rem]"
         body={copy.lead}
         bodyWidth="max-w-[41.25rem]"
       />
+      <p className="mt-4 text-center">
+        <a
+          href={postPath(postById("wrong-tags"), locale)}
+          className="text-accent hover:text-accent-strong text-[0.9375rem] font-semibold"
+        >
+          {copy.postLink}
+        </a>
+      </p>
 
       <div className="mx-auto mt-12 grid max-w-[78rem] gap-7 px-8 sm:px-15 lg:grid-cols-2 lg:gap-y-0">
         <Inspector copy={copy} side="scraped" />

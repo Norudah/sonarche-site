@@ -19,6 +19,8 @@ export type TrueNamesCopy = {
   headingBefore: string;
   headingEmphasis: string;
   lead: string;
+  /** To the journal's post on tags. */
+  postLink: string;
   trackLabel: string;
   scraped: Side;
   identified: Side;
@@ -28,10 +30,11 @@ export type TrueNamesCopy = {
 
 export const trueNamesCopy: Record<Locale, TrueNamesCopy> = {
   en: {
-    kicker: "TRUE NAMES",
+    kicker: "AUTOMATIC TAGGING",
     headingBefore: "It doesn't read the title.",
     headingEmphasis: "It listens to the song.",
-    lead: "Sonarche never guesses.",
+    lead: "Sonarche identifies every track by its audio fingerprint and fills in its tags by itself. It never guesses.",
+    postLink: "Why tags are so often wrong →",
     trackLabel: "TRACK",
     scraped: { label: "SCRAPED FROM THE PAGE", badge: "best guess", count: "1 of 7 fields" },
     identified: { label: "IDENTIFIED BY THE AUDIO", badge: "verified", count: "7 of 7 fields" },
@@ -51,10 +54,11 @@ export const trueNamesCopy: Record<Locale, TrueNamesCopy> = {
     coverLine: "And the cover comes with it. The real square artwork, not the fourth result on Google Images.",
   },
   fr: {
-    kicker: "LES VRAIS NOMS",
+    kicker: "TAGS AUTOMATIQUES",
     headingBefore: "Il ne lit pas le titre.",
     headingEmphasis: "Il écoute le morceau.",
-    lead: "Sonarche, lui, ne devine jamais.",
+    lead: "Sonarche identifie chaque morceau à son empreinte audio et remplit ses tags tout seul. Il ne devine jamais.",
+    postLink: "Pourquoi les tags sont si souvent faux →",
     trackLabel: "PISTE",
     scraped: { label: "GRATTÉ SUR LA PAGE", badge: "au jugé", count: "1 champ sur 7" },
     identified: { label: "IDENTIFIÉ PAR L'AUDIO", badge: "vérifié", count: "7 champs sur 7" },

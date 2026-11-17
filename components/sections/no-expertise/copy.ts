@@ -50,7 +50,7 @@ export type NoExpertiseCopy = {
 
 export const noExpertiseCopy: Record<Locale, NoExpertiseCopy> = {
   en: {
-    kicker: "NO EXPERTISE NEEDED",
+    kicker: "BUILT-IN TAG EDITOR",
     headingBefore: "You don't need to know what",
     headingEmphasis: "a tag",
     // Carries its own leading space; French closes straight onto the emphasis.
@@ -110,7 +110,7 @@ export const noExpertiseCopy: Record<Locale, NoExpertiseCopy> = {
     },
   },
   fr: {
-    kicker: "ZÉRO EXPERTISE REQUISE",
+    kicker: "ÉDITEUR DE TAGS INTÉGRÉ",
     headingBefore: "Tu n'as pas besoin de savoir ce qu'est",
     headingEmphasis: "un tag",
     headingAfter: ".",

@@ -23,7 +23,7 @@ export const SELECTED = 5;
 export const TRACKS = TITLES.map((title, i) => ({
   number: String(i + 1),
   title,
-  file: `${String(i + 1).padStart(2, "0")} ${title}.opus`,
+  file: `${String(i + 1).padStart(2, "0")} ${title}.m4a`,
 }));
 
 export const COVER_FILE = "cover.jpg";
