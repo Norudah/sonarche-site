@@ -92,12 +92,12 @@ export function SiteNav({ locale, guideHref, afterHero = false, current, alterna
             href={build ? hrefFor(release, build, RELEASES_URL) : RELEASES_URL}
             className="bg-accent text-accent-foreground hover:bg-accent-strong focus-visible:ring-accent/40 font-display inline-flex items-center gap-2 rounded-full px-4 py-2 text-[0.8125rem] font-semibold shadow-[0_6px_16px_oklch(0.505_0.185_277/0.25)] transition-colors outline-none focus-visible:ring-2"
           >
-            {build && (
-              <PlatformMark
-                id={build}
-                className={build === "windows-x64" ? "h-[0.9em] w-[0.9em]" : "h-[1.05em] w-[1.05em] -translate-y-px"}
-              />
-            )}
+            {/* Both marks ship; data-platform on <html> shows the right one from the first paint. */}
+            <PlatformMark
+              id="macos-universal"
+              className="hidden h-[1.05em] w-[1.05em] -translate-y-px in-data-[platform=macos]:block"
+            />
+            <PlatformMark id="windows-x64" className="hidden h-[0.9em] w-[0.9em] in-data-[platform=windows]:block" />
             {copy.download}
           </a>
 

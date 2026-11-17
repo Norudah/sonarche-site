@@ -70,3 +70,10 @@ export function pickBuilds(assets: ReleaseAsset[]): Partial<Record<BuildId, Buil
 export function readVersion(tagName: string): string {
   return tagName.replace(/^sonarche-/i, "").replace(/^v/i, "");
 }
+
+/**
+ * Inlined in the document head: marks `<html data-platform>` before first paint, so the download
+ * buttons render at their final size instead of growing once React has hydrated. Built from
+ * detectPlatform itself, so the two can never disagree.
+ */
+export const PLATFORM_SCRIPT = `document.documentElement.dataset.platform=(${detectPlatform.toString()})({userAgent:navigator.userAgent,maxTouchPoints:navigator.maxTouchPoints})`;

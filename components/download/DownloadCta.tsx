@@ -7,9 +7,8 @@ import { RELEASES_URL, type Locale } from "@/lib/site";
 import { downloadCopy } from "./copy";
 import { BuildsPanel } from "./BuildsPanel";
 import { PlatformMark } from "./icons";
-import { BUILDS_FOR } from "./platform";
+import { ALL_BUILDS, type BuildId } from "./platform";
 import { hrefFor, useLatestRelease } from "./useLatestRelease";
-import { usePlatform } from "./usePlatform";
 
 /*
  * Every stage is a working link: server-rendered it points at the releases page, once the platform
@@ -21,6 +20,12 @@ const PILL =
 
 const PILL_WIDE = `${PILL} flex-1 px-7.5 py-4`;
 
+/* Literal class names, so Tailwind sees them. */
+const SHOWN_ON: Record<BuildId, string> = {
+  "macos-universal": "in-data-[platform=macos]:inline-flex",
+  "windows-x64": "in-data-[platform=windows]:inline-flex",
+};
+
 type DownloadCtaProps = {
   locale: Locale;
   /** Rendered on the button's line (the hero's "See how it works"). */
@@ -29,7 +34,6 @@ type DownloadCtaProps = {
 
 export function DownloadCta({ locale, children }: DownloadCtaProps) {
   const copy = downloadCopy[locale];
-  const platform = usePlatform();
   const release = useLatestRelease();
   const [showAll, setShowAll] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -52,23 +56,23 @@ export function DownloadCta({ locale, children }: DownloadCtaProps) {
     };
   }, [showAll]);
 
-  const builds = platform ? BUILDS_FOR[platform] : [];
-
   return (
     <div ref={rootRef} className="relative flex w-full flex-col items-center">
       <div className="flex w-full max-w-xs flex-col items-stretch gap-3.5 sm:w-auto sm:max-w-none sm:flex-row sm:items-center sm:justify-center">
         <div className="flex items-stretch gap-3 sm:gap-3.5">
-          {builds.length === 0 && (
-            <a href={RELEASES_URL} className={PILL_WIDE}>
-              {copy.neutral}
-            </a>
-          )}
+          {/* Every variant ships; data-platform on <html> picks one before the first paint. */}
+          <a
+            href={RELEASES_URL}
+            className={`${PILL_WIDE} in-data-[platform=macos]:hidden in-data-[platform=windows]:hidden`}
+          >
+            {copy.neutral}
+          </a>
 
-          {builds.map((id) => (
+          {ALL_BUILDS.map((id) => (
             <a
               key={id}
               href={hrefFor(release, id, RELEASES_URL)}
-              className={`${PILL_WIDE} inline-flex items-center justify-center gap-2.5`}
+              className={`${PILL_WIDE} hidden items-center justify-center gap-2.5 ${SHOWN_ON[id]}`}
             >
               <PlatformMark
                 id={id}

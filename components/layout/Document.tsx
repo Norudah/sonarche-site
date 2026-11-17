@@ -2,6 +2,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { ReactNode } from "react";
 
+import { PLATFORM_SCRIPT } from "@/components/download/platform";
 import type { Locale } from "@/lib/site";
 
 /* Shared by the two root layouts, which exist so each locale declares its own `lang`. */
@@ -13,7 +14,13 @@ type DocumentProps = {
 
 export function Document({ lang, children }: DocumentProps) {
   return (
-    <html lang={lang} className="h-full">
+    // The head script below sets data-platform before hydration.
+    <html lang={lang} className="h-full" suppressHydrationWarning>
+      {/* App Router root layouts own their <head>; the rule targets the Pages Router. */}
+      {/* eslint-disable-next-line @next/next/no-head-element */}
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: PLATFORM_SCRIPT }} />
+      </head>
       {/* The Metadata API cannot express a font preload; both latin subsets are the hero's LCP. */}
       <link
         rel="preload"
