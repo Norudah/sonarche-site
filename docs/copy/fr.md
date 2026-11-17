@@ -20,44 +20,47 @@ la maquette avait laissées en anglais, sont traduites ici.
 - Badge : `GRATUIT · OPEN SOURCE · HORS LIGNE`
 - Wordmark : `SONARCHE`
 - Tagline : `From the stream into the Ark.` (EN — voir règle ci-dessus)
-- Subline : Une bibliothèque musicale qui t'appartient vraiment : chaque
-  morceau identifié à l'oreille, tes fichiers sur ta machine, avec les
-  bonnes informations.
+- Titre, seule ligne sous la tagline (le `h1` de la page ; le wordmark et la
+  tagline ne sont pas des titres) : Colle un lien : Sonarche télécharge le
+  morceau, le reconnaît à l'oreille, corrige ses tags et le range. Une seule ligne, exprès : le hero accroche, le badge
+  dit open source, le `<title>` et la description disent Mac et Windows.
 - CTA principal : le bouton de téléchargement — voir § Téléchargement
 - CTA secondaire : `Comment ça marche ↓`
 - Indice de scroll : `DÉFILER ↓`
 
 ## La traversée
 
-- Kicker : `LA TRAVERSÉE`
-- Titre : Un lien entre, et une bibliothèque naît.
-- Sous-titre : Un processus en 4 étapes simples : tu n'as presque rien à
-  faire à part regarder Sonarche travailler pour toi.
+- Kicker : `COMMENT ÇA MARCHE`
+- Titre : Un lien entre. _Un morceau parfaitement tagué_ en sort.
+- Sous-titre : Sonarche télécharge, identifie, tague et range chaque morceau :
+  tu n'as presque rien à faire à part le regarder travailler.
 
 ### Étape 01 — Colle un lien
 
-Un titre, un album, une playlist entière sur internet. Colle le lien dans
-l'application et le voyage commence.
+Un titre, un album, une playlist entière. Colle le lien dans l'application :
+Sonarche télécharge tout, morceau par morceau.
 Note : Déjà dans la cale ? Il passe son tour. Pas de duplication.
 
-### Étape 02 — Regarde la cargaison monter à bord
+### Étape 02 — Regarde-le télécharger
 
-Les pastilles passent au vert une à une, tu sais exactement où regarder si
-un problème est détecté.
+Les pastilles passent au vert une à une : chaque morceau arrive dans sa
+qualité audio d'origine, sans réencodage.
 Note : Si tu fermes la fenêtre pendant l'opération, la suite sera reprise
 automatiquement au prochain lancement : tu ne perds pas ta progression.
 
 ### Étape 03 — Empreinte et identification
 
-ffmpeg et Chromaprint analysent l'audio directement, et extraient une
-empreinte acoustique.
+ffmpeg et Chromaprint analysent l'audio directement et en extraient une
+empreinte acoustique. AcoustID et MusicBrainz y reconnaissent l'enregistrement
+exact, sans jamais deviner à partir du titre.
 Note : Pas de correspondance sûre ? Sonarche t'informe et te laisse trancher
 plutôt que d'inventer.
 
-### Étape 04 — Informations et métadonnées
+### Étape 04 — Tags, pochette et dossier rangé
 
-Titre, artiste, album, genre, piste, année. Et la vraie pochette. Tout est
-écrit dans les tags et les métadonnées du fichier.
+Titre, artiste, album, genre, piste, année, et la vraie pochette : tout est
+écrit dans les tags du fichier, qui est renommé et rangé dans le dossier de
+son album.
 Note : Dans les fichiers eux-mêmes, pas dans une base que seul Sonarche
 saurait lire.
 Étiquettes de la scène (celles qui volent jusqu'au fichier dans le dessin de
@@ -65,7 +68,7 @@ l'étape) : `Titre` · `Artiste` · `Album` · `Genre` · `Piste` · `Année`
 
 ## L'ancienne méthode
 
-- Kicker : `L'ANCIENNE MÉTHODE`
+- Kicker : `TOUT EN UN`
 - Titre : L'ancienne méthode, tu la connais par cœur.
 - Sous-titre : Cinq outils, quatre onglets, et un dossier Téléchargements qui
   ressemble à une scène de crime. Chaque étape perd quelque chose en route.
@@ -98,9 +101,12 @@ Dessins (contenu de démo, non traduit sauf les libellés) : le nom de fichier
 
 ## Les vrais noms
 
-- Kicker : `LES VRAIS NOMS`
+- Kicker : `TAGS AUTOMATIQUES`
 - Titre : Il ne lit pas le titre. Il écoute le morceau.
-- Accroche : Sonarche, lui, ne devine jamais.
+- Accroche : Sonarche identifie chaque morceau à son empreinte audio et
+  remplit ses tags tout seul. Il ne devine jamais.
+- Lien sous l'accroche, vers l'article du journal sur les tags :
+  `Pourquoi les tags sont si souvent faux →`
 - Deux inspecteurs côte à côte, statiques. Libellé du panneau `PISTE`.
   - `GRATTÉ SUR LA PAGE` / _au jugé_ · `1 champ sur 7`
   - `IDENTIFIÉ PAR L'AUDIO` / _vérifié_ · `7 champs sur 7`
@@ -121,7 +127,7 @@ Dessins (contenu de démo, non traduit sauf les libellés) : le nom de fichier
 
 ## Zéro expertise requise
 
-- Kicker : `ZÉRO EXPERTISE REQUISE`
+- Kicker : `ÉDITEUR DE TAGS INTÉGRÉ`
 - Titre : Tu n'as pas besoin de savoir ce qu'est un tag.
 - Accroche : Tout ce qui peut être automatisé l'est déjà. Le reste, c'est toi
   qui décides.
@@ -165,8 +171,8 @@ Dessins (contenu de démo, non traduit sauf les libellés) : le nom de fichier
 
 ## En vrai (screenshots)
 
-- Kicker : `EN VRAI`
-- Titre : Voici à quoi ressemble le pont.
+- Kicker : `L'APPLICATION`
+- Titre : Voici Sonarche, écran par écran.
 - Compteur : `01 / 05`
 - Bascule de thème : `Clair` · `Sombre` — libellé du groupe : Thème des
   captures
@@ -187,15 +193,26 @@ Dessins (contenu de démo, non traduit sauf les libellés) : le nom de fichier
    manquantes, genres hors arbre, tracklists à trous : vingt choses à
    corriger, réunies sur un écran.
 
+Les titres sont des légendes, pas des descriptions ; l'`alt` de chaque capture
+dit ce qu'elle montre :
+
+1. Vue Album de Sonarche : la liste des morceaux, la pochette et le lecteur.
+2. Vue Genres : l'arbre des genres et sous-genres, avec la part de chacun dans
+   la bibliothèque.
+3. L'éditeur de métadonnées qui demande quels morceaux doivent suivre le
+   changement d'artiste.
+4. L'inspecteur de piste ouvert par-dessus la liste, ses sept champs de tags
+   remplis.
+5. L'écran Entretien qui liste les années manquantes, les genres hors arbre et
+   les albums incomplets.
+
 ## Hissez la grande voile
 
-- Kicker : `HISSEZ LA GRANDE VOILE` (exception volontaire au tutoiement :
-  c'est une formule de commandement marin figée, iconique du registre pirate,
-  pas une adresse au lecteur — voir CLAUDE.md § tutoiement)
-- Titre : Pas seulement le port : le son du navire lui-même.
-- Corps : Sonarche est aussi le lecteur. Un moteur natif en Rust : ça démarre
-  au quart de tour, un album s'enchaîne sans un blanc, et les paroles suivent
-  la musique.
+- Kicker : `LECTEUR AUDIO INTÉGRÉ`
+- Titre : Sonarche range ta musique. _Il la joue aussi._
+- Corps : Pas besoin d'un autre lecteur : Sonarche joue ta bibliothèque sur un
+  moteur natif en Rust. Ça démarre au quart de tour, un album s'enchaîne sans
+  un blanc, et les paroles synchronisées suivent la musique.
 - Lecteur (la barre de l'app, sur une capture de la vue Album ; alt : L'app
   derrière le lecteur : la vue Album.)
   - Commandes : `Aléatoire` · `Précédent` · `Lecture` / `Pause` · `Suivant` ·
@@ -209,18 +226,19 @@ Dessins (contenu de démo, non traduit sauf les libellés) : le nom de fichier
 
 ## Ton navire, ton équipage
 
-- Kicker : `TON NAVIRE, TON ÉQUIPAGE`
+- Kicker : `TES FICHIERS`
 - Titre : Rien n'est verrouillé ici. Ce ne sont que des fichiers.
-- Corps (sous le titre) : Tout atterrit dans `Music/Sonarche/`, à côté de ton
-  app actuelle. Les noms vivent dans les fichiers eux-mêmes : n'importe quel
-  lecteur les lit.
+- Corps (sous le titre) : Tout atterrit dans `Music/Sonarche/`, rangé par
+  artiste et par album, à côté de ton app actuelle. Les tags vivent dans les
+  fichiers eux-mêmes : n'importe quel lecteur les lit.
 
 ### Le gestionnaire de fichiers
 
 Le système du visiteur, dessiné de façon générique : un Explorateur
 Windows 11 ou un Finder macOS en vue colonnes. Chemin
-`Musique › Sonarche › Ghost › Prequelle (2018)`, morceaux `01 Ashes.opus` …
-`10 Life Eternal.opus` et `cover.jpg`, à côté de
+`Musique › Sonarche › Ghost › Prequelle (2018)`, morceaux `01 Ashes.m4a` …
+`10 Life Eternal.m4a` et `cover.jpg` (du m4a : ce que l'app écrit ; elle ne
+gère pas l'Opus), à côté de
 `Seven Inches of Satanic Panic (2019)` et `TonAutreAppMusique`.
 
 - Libellés Windows : `Ce PC` · `Musique` · `Accueil` · `Bureau` ·
@@ -246,10 +264,12 @@ Windows 11 ou un Finder macOS en vue colonnes. Chemin
 
 ## Sous le pont
 
-- Kicker : `SOUS LE PONT`
-- Titre : Pas de magie. Des outils éprouvés, bien orchestrés.
+- Kicker : `SOUS LE CAPOT`
+- Titre : Pas de magie : _beets, yt-dlp et MusicBrainz_, bien orchestrés.
 - Corps : Rien ne t'oblige à t'y intéresser, mais tout est là si tu t'y
-  intéresses, parce que tu mérites de savoir ce qui tourne sur ta machine.
+  intéresses, parce que tu mérites de savoir ce qui tourne sur ta machine. Si
+  tu connais beets : Sonarche l'embarque, le configure et lui donne une
+  interface.
 
 ### Trois cartes
 
@@ -294,6 +314,39 @@ Windows 11 ou un Finder macOS en vue colonnes. Chemin
 - Note sous la colonne : Ces services sont interrogés à la demande, jamais
   obligatoires. Tu n'as aucun compte à créer, aucune clé à coller : l'app
   s'annonce poliment et espace ses appels.
+
+## FAQ
+
+Entre Sous le capot et le CTA final. Des questions simples, dans les mots
+qu'on tape ; le seul endroit où la page se compare à d'autres outils, et elle
+reste juste.
+
+- Kicker : `QUESTIONS FRÉQUENTES`
+- Titre : Avant de _monter à bord._
+
+1. **Sonarche est vraiment gratuit ?** Oui. C'est un logiciel open source sous
+   licence MIT : pas de publicité, pas de version payante, pas d'abonnement.
+2. **Sur quels systèmes ?** macOS, avec un seul fichier pour les Mac Apple
+   Silicon et Intel, et Windows 10 ou 11 en 64 bits. Il n'y a pas de version
+   Linux pour l'instant.
+3. **Quels formats audio ?** À l'import et à la lecture : MP3, FLAC, M4A, AAC,
+   OGG, WAV et AIFF. Les morceaux ajoutés depuis un lien arrivent en M4A, ou
+   en MP3 si tu le choisis dans les réglages.
+4. **Je peux importer ma bibliothèque existante ?** Oui. Montre-lui tes
+   dossiers : Sonarche les copie, sans jamais déplacer les originaux, puis
+   identifie et tague ce qu'il trouve.
+5. **D'où vient la musique ?** De deux endroits : un lien que tu colles, dont
+   Sonarche télécharge l'audio d'origine avec yt-dlp, ou les dossiers que tu as
+   déjà sur ta machine.
+6. **Il faut créer un compte ?** Non. Aucun compte, aucun cloud. Ta
+   bibliothèque et le lecteur marchent hors ligne : internet ne sert qu'à
+   télécharger et à identifier les morceaux.
+7. **Quelle différence avec MusicBee, Picard ou beets ?** MusicBee range et
+   joue ta musique, mais seulement sous Windows. Picard est un éditeur de tags
+   très précis, qui te laisse choisir chaque édition à la main, sans
+   bibliothèque ni lecteur. beets fait le même travail en ligne de commande.
+   Sonarche embarque beets, choisit pour toi et fait toute la chaîne, du lien
+   au lecteur.
 
 ## CTA final & footer
 
@@ -360,17 +413,16 @@ d'un lien partagé. Elles ne s'affichent nulle part sur la page, mais ce sont
 elles qu'on voit avant de cliquer, donc elles font partie de la copy.
 
 - Titre de recherche (`<title>`) :
-  `Sonarche | bibliothèque musicale open source et hors ligne`
+  `Sonarche | Gestionnaire de bibliothèque musicale open source`
   — la tagline n'y est pas : personne ne la tape dans une barre de recherche.
-  Marque d'abord, puis ce que c'est, en français.
-- Titre de marque (`og:title`, carte partagée) :
-  `Sonarche: From the stream into the Ark.` (sans espace avant les deux-points,
-  ponctuation anglaise : la tagline reste en anglais et la chaîne est partagée
-  entre les deux locales) — un lien partagé est lu par quelqu'un, pas comparé
-  à une requête.
-- Description (`meta description`, `og:description`) : la subline du hero,
-  telle quelle, sans rien ajouter — 150 caractères, sous la coupure des
-  ~155 d'un extrait Google.
+  Marque d'abord, puis la catégorie, dans les mots qu'on cherche.
+- Titre de partage (`og:title`, carte partagée) :
+  `Sonarche : gestionnaire de bibliothèque musicale open source`. La tagline
+  est sur l'image de la carte ; le titre dit ce qu'est le lien.
+- Description (`meta description`, `og:description`) : Logiciel open source
+  pour Mac et Windows : colle un lien, Sonarche télécharge le morceau,
+  l'identifie à son empreinte audio, corrige ses tags et le joue.
+  (153 caractères, sous la coupure des ~155 d'un extrait Google.)
 - Description de la carte (`og:image:alt`), une seule pour tout le site
   puisqu'il n'y a qu'une carte, et elle décrit le dessin et non la page depuis
   laquelle on partage : Sonarche : l'arche flottant sur une mer dessinée en
@@ -392,14 +444,28 @@ page écrite à la main, et son texte reste avec elle
 - Lien dans le footer de la landing : `Journal`
 - Fil d'Ariane en tête du journal : `SONARCHE · Journal`
 - Titre de l'index : `Le journal de bord`
+- En construction, sous la ligne sous le titre : `EN CONSTRUCTION` ·
+  Le journal s'étoffe au fil de l'eau. On le publie déjà, tel qu'il est.
 - Ligne sous le titre : Des notes sur la musique qu'on possède : fichiers,
   métadonnées, formats, et ce qu'il faut pour qu'une bibliothèque survive aux
   applications qui la lisent.
 - Titre de recherche de l'index (`<title>`, jamais affiché) :
   `Journal Sonarche | bibliothèque musicale, tags et métadonnées`
-- Bouton d'une ligne de l'index : `Lire l'article →`
-- Ligne de date d'un article : `{date} · {n} min de lecture`, et
-  `Mis à jour le {date}` en plus quand le texte a vraiment été révisé.
+- En-tête de l'index : le libellé `Journal`, le titre et la ligne sous le
+  titre, centrés sur des lignes de cahier.
+- L'article le plus récent ouvre l'index en carte large, libellée `À la une` ;
+  les autres suivent en cartes. Chaque carte porte son illustration, la date, le
+  titre, la description et la durée de lecture.
+- Carte sous les articles, vers le guide :
+  - Libellé : `Tu cherches un mode d'emploi ?`
+  - Corps : Le journal raconte, le guide montre. Les pas-à-pas de l'app sont
+    dans le `guide →`
+- Ligne de date d'un article, centrée au-dessus du titre :
+  `Journal · {date} · {n} min de lecture`, et `Mis à jour le {date}` en plus
+  quand le texte a vraiment été révisé. Sous la description :
+  `par Romain Pierucci`.
+- Carte avant la carte de fin, quand l'article a un guide qui va avec :
+  `Le mettre en pratique · Guide`, puis le titre du guide et sa durée.
 - Carte de fin d'article :
   - Titre : `Sonarche fait tout ça pour toi`
   - Corps : Une app de bureau qui identifie chaque morceau à l'oreille, le range
@@ -410,15 +476,19 @@ page écrite à la main, et son texte reste avec elle
 
 ## Guide
 
-Les pas-à-pas, à `/guide/`. Même mise en page de lecture que le journal, index
-différent : groupé par thème et non par date. Le texte de chaque guide vit avec
+Les pas-à-pas, à `/guide/`. Mis en page comme une documentation : un menu à
+gauche liste chaque guide par thème, et le guide ouvert déplie ses sections
+sous son titre. Le texte de chaque guide vit avec
 lui (`components/guide/guides/<id>/fr.tsx`) ; ce qui suit est le cadre partagé.
 Le lien du footer n'apparaît qu'une fois un guide publié — voir `draft` dans
 lib/guide.ts.
 
 - Lien dans le footer de la landing : `Guide`
 - Fil d'Ariane en tête : `SONARCHE · Guide`
-- Titre de l'index : `Utiliser Sonarche`
+- Titre de l'index (carte de partage) : `Utiliser Sonarche`
+- Titre affiché de l'index : `Que veux-tu faire ?`
+- En construction, sous la ligne sous le titre : `EN CONSTRUCTION` ·
+  Le guide grandit au fil des versions. On le publie déjà, tel qu'il est.
 - Ligne sous le titre : Comment obtenir de chaque partie de l'app ce que tu en
   attends, un pas-à-pas à la fois. Écrit pour une version numérotée, et repris
   quand cette version bouge.
@@ -426,11 +496,19 @@ lib/guide.ts.
   `Guide Sonarche | installer, importer, taguer et écouter`
 - Les quatre thèmes, dans cet ordre : `Démarrer` · `Ta bibliothèque` ·
   `Écouter` · `Réglages et entretien`
-- Ligne au-dessus du titre d'un guide : `Vérifié sur Sonarche {version}` ·
-  `{n} min de lecture`, et la pastille `Brouillon` tant qu'il n'est pas publié.
-- Bouton d'une ligne de l'index : `Lire le guide →`
-- Carte de fin d'un guide : `Tous les guides →` — jamais un bouton de
-  téléchargement : la personne qui lit un guide a déjà l'app.
+- Menu de gauche : `Accueil du guide`, puis chaque thème et ses guides. Plié
+  sur mobile sous `Tous les guides`.
+- Carte en tête de l'index, pour le premier guide :
+  `Nouveau ici ? Commence par là`, puis le titre du guide, sa description et sa
+  durée.
+- Au-dessus des autres guides : `Tous les guides`
+- Ligne au-dessus du titre d'un guide : le thème, puis `{n} min de lecture`, et
+  la pastille `Brouillon` tant qu'il n'est pas publié.
+- Fin d'un guide : `← Tuto précédent` et `Tuto suivant →`, chacun avec le
+  titre du guide. Le dernier guide se ferme sur `Tous les guides →` à la place.
+  Jamais un bouton de téléchargement : la personne qui lit un guide a déjà l'app.
+- Ligne sous le guide et sous l'index : Un écran ne ressemble plus au guide ?
+  `Signale-le sur GitHub ↗`
 - Index vide : `Rien ici pour l'instant` / Les premiers pas-à-pas sont en cours
   d'écriture. En attendant, il y a de quoi lire dans le journal.
 
@@ -442,7 +520,6 @@ Ce que le journal et le guide disent à l'identique. Leur cadre est le même
 - En-tête : la barre de navigation de la landing (§ Barre de navigation),
   collée en haut dès le départ, son lien de langue pointant vers cette page
   dans l'autre langue. La section courante est à l'encre.
-- Titre du sommaire, dans la carte de gauche et sur mobile plié : `Sommaire`
 - Pied : la ligne de colophon de la landing, seule : `SONARCHE` · signature ·
   _From the stream into the Ark._ · `Journal` · `Guide` · autre langue ·
   `GitHub ↗`, son lien de langue pointant vers cette page dans l'autre langue.

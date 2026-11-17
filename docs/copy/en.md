@@ -15,29 +15,31 @@ name platforms, and copy must never be read from them.
 - Badge: `FREE · OPEN SOURCE · OFFLINE`
 - Wordmark: `SONARCHE`
 - Tagline (BRAND — never reworded): `From the stream into the Ark.`
-- Subline: A music library that's truly yours: every track identified by its
-  own audio, named in plain files, played on a native engine.
+- Heading, the only line under the tagline (the page's `h1`; the wordmark
+  and the tagline are not headings): Paste a link: Sonarche downloads the track,
+  recognizes it by ear, fixes its tags and files it away. One line on purpose: the hero hooks, the badge says
+  open source, the `<title>` and the description say Mac and Windows.
 - CTA primary: the download button — see § Download
 - CTA secondary: `See how it works ↓`
 - Scroll hint: `SCROLL ↓`
 
 ## The flow
 
-- Kicker: `THE FLOW`
-- Heading: A link goes in. A library comes out.
-- Sub: Four moves, one uninterrupted pipeline, and nothing to click after the
-  first paste.
+- Kicker: `HOW IT WORKS`
+- Heading: A link goes in. _A perfectly tagged track_ comes out.
+- Sub: Sonarche downloads, identifies, tags and files every track: you have
+  almost nothing to do but watch it work.
 
 ### Step 01 — Paste a link
 
-A track, an album, a whole playlist. Drop it in the composer and the voyage
-lines up: one row per track, before anything is brought in.
+A track, an album, a whole playlist. Drop the link in the composer: Sonarche
+downloads it all, one row per track.
 Note: Already in the hold? It's skipped, silently.
 
-### Step 02 — Watch it come aboard
+### Step 02 — Watch it download
 
-Circles turn green one by one as the native audio is hauled in and lands in
-the hold, untouched, never re-encoded.
+Circles turn green one by one as each track arrives in its original audio
+quality, never re-encoded.
 Note: Close the window mid-haul: the queue picks up where it stopped.
 
 ### Step 03 — Fingerprint & identify
@@ -46,17 +48,18 @@ ffmpeg and Chromaprint distill the audio itself into an acoustic fingerprint.
 AcoustID answers with exactly which recording this is, with no title-guessing involved.
 Note: No confident match? It says so and asks, instead of inventing an artist.
 
-### Step 04 — It gets its name
+### Step 04 — Tags, cover and a tidy folder
 
-Title, artist, album, genre, track, year. And the real cover. All of it
-written into the file's own tags, and into the folder it now lives in.
+Title, artist, album, genre, track, year, and the real cover: all of it is
+written into the file's own tags, and the file is renamed and filed in its
+album's folder.
 Note: Into the files themselves, not into a database only Sonarche can read.
 Scene tags (the labels flying into the file in the step's drawing): `Title` ·
 `Artist` · `Album` · `Genre` · `Track` · `Year`
 
 ## The old way
 
-- Kicker: `THE OLD WAY`
+- Kicker: `ALL IN ONE`
 - Heading: You already know the old way.
 - Sub: Five tools, four tabs, and a download folder that looks like a crime
   scene. Every step loses something on the way.
@@ -85,9 +88,12 @@ Drawings (demo content, not claims): the file name
 
 ## True names
 
-- Kicker: `TRUE NAMES`
+- Kicker: `AUTOMATIC TAGGING`
 - Heading: It doesn't read the title. It listens to the song.
-- Lead: Sonarche never guesses.
+- Lead: Sonarche identifies every track by its audio fingerprint and fills in
+  its tags by itself. It never guesses.
+- Link under the lead, to the journal's post on tags:
+  `Why tags are so often wrong →`
 - Two inspectors side by side, static. Panel label `TRACK`.
   - `SCRAPED FROM THE PAGE` / _best guess_ · `1 of 7 fields`
   - `IDENTIFIED BY THE AUDIO` / _verified_ · `7 of 7 fields`
@@ -108,7 +114,7 @@ Drawings (demo content, not claims): the file name
 
 ## No expertise needed
 
-- Kicker: `NO EXPERTISE NEEDED`
+- Kicker: `BUILT-IN TAG EDITOR`
 - Heading: You don't need to know what a tag is.
 - Lead: Everything that can be automated already is. The rest is your call.
 
@@ -149,8 +155,8 @@ Drawings (demo content, not claims): the file name
 
 ## The real thing (screenshots)
 
-- Kicker: `THE REAL THING`
-- Heading: This is what the deck looks like.
+- Kicker: `THE APP`
+- Heading: Here's Sonarche, screen by screen.
 - Counter: `01 / 05`
 - Theme toggle: `Light` · `Dark` — group label: Screenshot theme
 
@@ -169,12 +175,23 @@ Drawings (demo content, not claims): the file name
    tree, tracklists with holes: twenty things to correct, gathered in one
    screen.
 
+The titles are captions, not descriptions; each shot's `alt` says what it shows:
+
+1. Sonarche's Album view: the tracklist, the cover and the player.
+2. The Genres view: a tree of genres and subgenres, with each one's share of
+   the library.
+3. The metadata editor asking which tracks should follow an artist rename.
+4. The track inspector open over the list, all seven tag fields filled in.
+5. The Upkeep screen listing missing years, off-tree genres and incomplete
+   tracklists.
+
 ## The ship's sound
 
-- Kicker: `THE SHIP'S SOUND`
-- Heading: Not just the harbor: the ship's own sound.
-- Body: Sonarche is the player too. A native Rust engine: tracks start on the
-  beat, albums play without a gap, and the lyrics follow the music.
+- Kicker: `BUILT-IN MUSIC PLAYER`
+- Heading: Sonarche files your music. _It plays it too._
+- Body: No other player needed: Sonarche plays your library on a native Rust
+  engine. Tracks start on the beat, albums play gapless, and synced lyrics
+  follow the music.
 - Player (the app's own bar, over a capture of the Album view; alt: The app
   behind the player: the Album view.)
   - Controls: `Shuffle` · `Previous` · `Play` / `Pause` · `Next` · `Repeat` ·
@@ -188,16 +205,18 @@ Drawings (demo content, not claims): the file name
 
 ## The hold is yours
 
-- Kicker: `THE HOLD IS YOURS`
+- Kicker: `YOUR FILES`
 - Heading: Nothing here is locked. It's only files.
-- Body (under the heading): Everything lands in `Music/Sonarche/`, next to
-  your current app. The names live inside the files: any player can read them.
+- Body (under the heading): Everything lands in `Music/Sonarche/`, filed by
+  artist and album, next to your current app. The tags live inside the files:
+  any player can read them.
 
 ### The file manager
 
 The visitor's own system, drawn generically: a Windows 11 Explorer or a macOS
 Finder in column view. Path `Music › Sonarche › Ghost › Prequelle (2018)`,
-tracks `01 Ashes.opus` … `10 Life Eternal.opus` and `cover.jpg`, beside
+tracks `01 Ashes.m4a` … `10 Life Eternal.m4a` and `cover.jpg` (m4a: what the
+app writes; it does not handle Opus), beside
 `Seven Inches of Satanic Panic (2019)` and `YourOtherMusicApp`.
 
 - Windows labels: `This PC` · `Music` · `Home` · `Desktop` · `Downloads` ·
@@ -222,10 +241,11 @@ tracks `01 Ashes.opus` … `10 Life Eternal.opus` and `cover.jpg`, beside
 
 ## Under the deck
 
-- Kicker: `UNDER THE DECK`
-- Heading: No magic. Proven tools, conducted well.
+- Kicker: `UNDER THE HOOD`
+- Heading: No magic: _beets, yt-dlp and MusicBrainz_, conducted well.
 - Body: You don't have to care about any of this, but here it is, in plain
-  words, because you deserve to know what's running on your machine.
+  words, because you deserve to know what's running on your machine. If you
+  know beets: Sonarche ships it, configures it and gives it an interface.
 
 ### Three cards
 
@@ -267,6 +287,36 @@ tracks `01 Ashes.opus` … `10 Life Eternal.opus` and `cover.jpg`, beside
 - Note under the column: These services are queried on demand, never required.
   You have no account to create and no key to paste: the app introduces itself
   politely and spaces out its calls.
+
+## FAQ
+
+Between Under the hood and the final CTA. Plain questions, the words people
+type; the one place the page compares itself to other tools, and it stays fair.
+
+- Kicker: `FREQUENTLY ASKED`
+- Heading: Before you _come aboard._
+
+1. **Is Sonarche really free?** Yes. It's open-source software under the MIT
+   license: no ads, no paid tier, no subscription.
+2. **Which systems does it run on?** macOS, with one file for Apple Silicon and
+   Intel Macs, and 64-bit Windows 10 or 11. There is no Linux build for now.
+3. **Which audio formats does it handle?** For import and playback: MP3, FLAC,
+   M4A, AAC, OGG, WAV and AIFF. Tracks added from a link arrive as M4A, or as
+   MP3 if you pick it in the settings.
+4. **Can I import the library I already have?** Yes. Point it at your folders:
+   Sonarche copies them, never moving the originals, then identifies and tags
+   what it finds.
+5. **Where does the music come from?** From two places: a link you paste, whose
+   original audio Sonarche downloads with yt-dlp, or the folders already on
+   your machine.
+6. **Do I need an account?** No. No account, no cloud. Your library and the
+   player work offline: the internet is only used to download and identify
+   tracks.
+7. **How is it different from MusicBee, Picard or beets?** MusicBee files and
+   plays your music, but only on Windows. Picard is a precise tag editor that
+   lets you pick every release by hand, with no library or player. beets does
+   the same work from the command line. Sonarche ships beets, makes the
+   choices for you, and covers the whole chain, from the link to the player.
 
 ## Final CTA & footer
 
@@ -330,12 +380,15 @@ Read only by a search engine or by the preview card of a shared link. It shows
 up nowhere on the page, but it is what people see before they click, so it is
 copy.
 
-- Search title (`<title>`): `Sonarche | open-source, offline music library`
-  — no tagline: nobody types it into a search box. Brand first, then what the
-  thing is.
-- Brand title (`og:title`, share card): `Sonarche: From the stream into the Ark.`
-- Description (`meta description`, `og:description`): the hero subline plus
-  "Free and open source." — 147 characters, inside the ~155 a snippet shows.
+- Search title (`<title>`): `Sonarche | Open-source music library manager and player`
+  — no tagline: nobody types it into a search box. Brand first, then the
+  category in the words people search for.
+- Share title (`og:title`, share card): `Sonarche: open-source music library manager and player`.
+  The tagline is on the card's image; the title says what the link is.
+- Description (`meta description`, `og:description`): Open-source music
+  library manager for Mac and Windows. Paste a link: Sonarche downloads the
+  track, identifies it by its audio, tags it and plays it. (147 characters,
+  inside the ~155 a snippet shows.)
 - Card description (`og:image:alt`), one for the whole site because there is
   one card, and it describes the drawing rather than the page it was shared
   from: Sonarche: the ark afloat on a sea drawn as equalizer bars, under the
@@ -356,13 +409,26 @@ of it.
 - Link in the landing's footer: `Journal`
 - Breadcrumb at the head of the journal: `SONARCHE · Journal`
 - Index title: `The ship's log`
+- Under construction, under the line below the title: `UNDER CONSTRUCTION` ·
+  The journal fills up as it goes. It's out already, as it stands.
 - Line under the title: Notes on music you own: files, metadata, formats, and
   what it takes for a library to outlive the apps that read it.
 - Index search title (`<title>`, never displayed):
   `Sonarche journal | music libraries, tags and metadata`
-- Button on a row of the index: `Read the post →`
-- A post's dateline: `{date} · {n} min read`, plus `Updated {date}` when the
-  text has genuinely been revised.
+- Index header: the `Journal` label, the title and the line under it, centred over
+  ruled lines.
+- The newest post opens the index as a wide card, labelled `Featured`; the
+  others follow as cards. Each card carries its illustration, the date, the
+  title, the description and the reading time.
+- Card under the posts, pointing to the guide:
+  - Label: `Looking for a how-to?`
+  - Body: The journal tells, the guide shows. The app's walkthroughs are in the
+    `guide →`
+- A post's dateline, centred over the title: `Journal · {date} · {n} min read`,
+  plus `Updated {date}` when the text has genuinely been revised. Under the
+  description: `by Romain Pierucci`.
+- Card before the closing card, when the post has a matching guide:
+  `Put it into practice · Guide`, then the guide's title and its reading time.
 - Closing card of a post:
   - Title: `Sonarche does all of this for you`
   - Body: A desktop app that identifies every track by its own audio, files it
@@ -373,14 +439,17 @@ of it.
 
 ## The guide
 
-The walkthroughs, at `/en/guide/`. Same reading layout as the journal, different
-index: grouped by topic rather than by date. Each guide's text lives with it
+The walkthroughs, at `/en/guide/`. Laid out as documentation: a side menu lists
+every guide by topic, and the open guide unfolds its sections under its title. Each guide's text lives with it
 (`components/guide/guides/<id>/en.tsx`); what follows is the shared frame. The
 footer link only appears once a guide is published — see `draft` in lib/guide.ts.
 
 - Link in the landing's footer: `Guide`
 - Breadcrumb at the head: `SONARCHE · Guide`
-- Index title: `Using Sonarche`
+- Index title (share card): `Using Sonarche`
+- Index heading: `What do you want to do?`
+- Under construction, under the line below the heading: `UNDER CONSTRUCTION` ·
+  The guide grows with each release. It's out already, as it stands.
 - Line under the title: How to get each part of the app to do what you want, one
   walkthrough at a time. Written against a numbered version, and revised when
   that version moves.
@@ -388,11 +457,18 @@ footer link only appears once a guide is published — see `draft` in lib/guide.
   `Sonarche guide | install, import, tag and play`
 - The four topics, in this order: `Getting started` · `Your library` ·
   `Listening` · `Settings and upkeep`
-- Line above a guide's title: `Checked against Sonarche {version}` ·
-  `{n} min read`, plus the `Draft` badge until it ships.
-- Button on a row of the index: `Read the guide →`
-- Closing card of a guide: `All guides →` — never a download button: whoever is
-  reading a guide already has the app.
+- Side menu: `Guide home`, then each topic and its guides. Folded on small
+  screens under `All guides`.
+- Card at the head of the index, for the first guide: `New here? Start here`,
+  then the guide's title, description and reading time.
+- Over the other guides: `All guides`
+- Line above a guide's title: the topic, then `{n} min read`, plus the
+  `Draft` badge until it ships.
+- End of a guide: `← Previous guide` and `Next guide →`, each with the
+  guide's title. The last guide closes on `All guides →` instead. Never a
+  download button: whoever is reading a guide already has the app.
+- Line under the guide and the index: A screen no longer matches the guide?
+  `Report it on GitHub ↗`
 - Empty index: `Nothing here yet` / The first walkthroughs are being written.
   The journal has something to read in the meantime.
 
@@ -404,8 +480,6 @@ What the journal and the guide say identically. They share one frame
 - Header: the landing's navigation bar (§ Navigation bar), stuck to the top
   from the start, its language link pointing at this page in the other
   language. The current section reads in ink.
-- Table of contents heading, in the left card and folded on small screens:
-  `On this page`
 - Footer: the landing's colophon line alone, `SONARCHE` · signature ·
   _From the stream into the Ark._ · `Journal` · `Guide` · other language ·
   `GitHub ↗`, its language link pointing at this page in the other language.

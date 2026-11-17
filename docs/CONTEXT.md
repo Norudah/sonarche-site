@@ -54,7 +54,10 @@ each section shows the app doing the thing). Order:
    ffmpeg+Chromaprint / beets, service groups, /sonarche). A packet walks it;
    at beets small dots go back and forth with the services before it lands in
    /sonarche. Then the three tech cards.
-10. **Final CTA + footer** — "Free. Open source. Yours.", a help line to the
+10. **FAQ** (added 2026-11-17) — seven plain questions in a native
+    `<details>` list: free, systems, formats, import, where the music comes
+    from, accounts, and MusicBee / Picard / beets, answered fairly.
+11. **Final CTA + footer** — "Free. Open source. Yours.", a help line to the
     getting-started guide, MIT, personal-use line. The harbour's calm sea goes
     live too, on the same terms as the hero's. A redesign of the CTA band is
     paused.
@@ -101,8 +104,12 @@ Backed by the precedent research of 2026-07-30 (see the app project's memory:
 every stream-ripping lawsuit targeted monetized web converters marketed as
 "free music"; free client-side OSS tools have never been touched).
 
-- The page sells a **music library manager**; downloading is one feature among
-  others, never the headline.
+- The page sells a **music library manager and player**. Downloading is
+  described plainly, as a verb in a sentence ("Sonarche downloads the track"),
+  never as the product's category: no "music downloader" in a title, the `h1`
+  or `og:title`. "Free" never shares a sentence with "download", and the
+  source is always "a link" or "the web". (Relaxed on 2026-11-17 after the SEO
+  audit: a page that never said what the app does ranked for nothing.)
 - **No streaming-platform names, logos, or brand colors anywhere** in copy or
   visuals ("the open web", "a link"). Naming yt-dlp/ffmpeg/beets in the
   technical "Under the deck" section is fine and deliberate.
@@ -120,6 +127,11 @@ every stream-ripping lawsuit targeted monetized web converters marketed as
 
 ## SEO checklist (per language)
 
+- The words that weigh (title, `h1`, `h2`s with their kicker inside, meta
+  description, `og:title`, alt text) say what the app is in the words people
+  search for; the marine voice keeps the tagline, the drawings, the notes and
+  the small lines. Since 2026-11-17 the hero's `h1` is the descriptive line
+  under the tagline, not the wordmark.
 - One `h1` (the hero), semantic sections with `h2`s, real text in the DOM
   (GSAP reveals must animate real nodes, not inject text at runtime).
 - `<title>` + meta description, canonical, `hreflang` alternates, OG + Twitter
@@ -418,14 +430,19 @@ someone who already uses Sonarche belongs in the repo's README, not here.
 
 ## The guide (added 2026-08-11)
 
-Walkthroughs at `/guide/` (FR) and `/en/guide/` (EN). Same reading layout as the
-journal — they share `components/reading` — and a different index: grouped by
-topic, not reverse-chronological. A post is dated, read once, and written for
+Walkthroughs at `/guide/` (FR) and `/en/guide/` (EN). Same shell and typography
+as the journal (`components/reading`), but laid out as documentation since
+2026-11-17: a side menu lists every guide by topic, the open guide unfolds its
+sections under its title, and each guide numbers its sections and ends on the
+next one. The journal reads as a blog: illustrated cards, the newest one wide,
+and a centred post with no table of contents. A post is dated, read once, and written for
 someone who has never heard of Sonarche; a guide is undated, consulted, and
 written for someone who has the app open on the other screen.
 
 - **What replaces the date is the app version.** Every guide carries the version
-  it was checked against, on the page. A guide describing a screen that has
+  it was checked against, in lib/guide.ts and the page schema. It left the page
+  on 2026-11-17 (it read as noise while every guide shares one version); bring
+  it back the day guides diverge. A guide describing a screen that has
   since moved is worse than no guide: it makes the reader doubt what they are
   looking at. When the app ships a release that changes a screen, the guides
   that describe it are part of that release's work.
